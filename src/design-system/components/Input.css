@@ -1,0 +1,98 @@
+.fr-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fr-space-2);
+  min-width: 0;
+}
+
+.fr-field__label {
+  font-family: var(--fr-font-sans);
+  font-size: var(--fr-text-sm);
+  font-weight: var(--fr-weight-medium);
+  color: var(--fr-text-primary);
+  line-height: var(--fr-leading-snug);
+}
+
+.fr-field__required {
+  color: var(--fr-destructive);
+  margin-left: var(--fr-space-1);
+}
+
+.fr-field__helper {
+  font-family: var(--fr-font-sans);
+  font-size: var(--fr-text-xs);
+  color: var(--fr-text-secondary);
+  line-height: var(--fr-leading-snug);
+}
+
+.fr-field__error {
+  font-family: var(--fr-font-sans);
+  font-size: var(--fr-text-xs);
+  color: var(--fr-destructive);
+  line-height: var(--fr-leading-snug);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--fr-space-1);
+}
+
+/* The control itself */
+.fr-input {
+  width: 100%;
+  font-family: var(--fr-font-sans);
+  font-size: var(--fr-text-base);
+  line-height: var(--fr-leading-normal);
+  color: var(--fr-text-primary);
+  background: var(--fr-surface);
+  border: 1px solid var(--fr-border-strong);
+  border-radius: var(--fr-radius-md);
+  padding: 0 var(--fr-space-3);
+  height: var(--fr-control-height-md);
+  transition: var(--fr-transition-fast);
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  margin: 0;
+}
+
+.fr-input::placeholder {
+  color: var(--fr-text-tertiary);
+}
+
+.fr-input:hover:not(:disabled):not([aria-invalid="true"]) {
+  border-color: var(--fr-color-neutral-400);
+}
+
+.fr-input:focus-visible,
+.fr-input:focus {
+  border-color: var(--fr-border-focus);
+  box-shadow: var(--fr-shadow-focus);
+}
+
+.fr-input:disabled {
+  background: var(--fr-surface-sunken);
+  color: var(--fr-text-disabled);
+  cursor: not-allowed;
+}
+
+.fr-input[aria-invalid="true"] {
+  border-color: var(--fr-destructive);
+}
+
+.fr-input[aria-invalid="true"]:focus-visible,
+.fr-input[aria-invalid="true"]:focus {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--fr-destructive) 25%, transparent);
+}
+
+/* Sizes (optional — match Button) */
+.fr-input--sm { height: var(--fr-control-height-sm); font-size: var(--fr-text-sm); padding: 0 var(--fr-space-2); }
+.fr-input--lg { height: var(--fr-control-height-lg); font-size: var(--fr-text-md);  padding: 0 var(--fr-space-4); }
+
+/* Textarea variant */
+.fr-textarea {
+  height: auto;
+  min-height: calc(var(--fr-control-height-md) * 2.5);
+  padding: var(--fr-space-2) var(--fr-space-3);
+  resize: vertical;
+  line-height: var(--fr-leading-relaxed);
+  font-family: var(--fr-font-sans);
+}

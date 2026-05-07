@@ -1,0 +1,16 @@
+.fr-dashboard-placeholder {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fr-space-4);
+  min-height: 100dvh;
+  box-sizing: border-box;
+  padding: var(--fr-space-8);
+  background: var(--fr-background);
+}
+
+.fr-dashboard-placeholder h1 {
+  margin: var(--fr-space-0);
+  font-size: var(--fr-text-xl);
+  font-weight: var(--fr-weight-semibold);
+  line-height: var(--fr-leading-snug);
+}

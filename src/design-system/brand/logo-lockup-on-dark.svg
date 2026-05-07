@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 48" role="img" aria-label="FieldReport">
+  <rect x="0" y="2" width="44" height="44" rx="2" fill="#ffffff"></rect>
+  <rect x="28.6" y="30.6" width="15.4" height="15.4" fill="#0a0a0a"></rect>
+  <text x="58" y="34" font-family="-apple-system, BlinkMacSystemFont, &#39;Segoe UI&#39;, Helvetica, Arial, sans-serif" font-weight="600" font-size="32" letter-spacing="-0.02em" fill="#ffffff">Field<tspan fill="#9ca0a8" font-weight="500">Report</tspan></text>
+</svg>
