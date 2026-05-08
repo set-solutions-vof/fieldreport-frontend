@@ -6,6 +6,10 @@ export function storeAuthTokens(tokens: LoginResponse): void {
   authTokens = tokens
 }
 
-export function getAuthTokens(): LoginResponse | null {
+export function getAuthTokens(): LoginResponse {
+  if (authTokens === null) {
+    throw new Error('Auth tokens missing')
+  }
+
   return authTokens
 }

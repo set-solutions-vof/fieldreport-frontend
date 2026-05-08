@@ -1,0 +1,32 @@
+.fr-dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(var(--fr-space-0), 1fr));
+  overflow: hidden;
+}
+
+.fr-dashboard-stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fr-space-3);
+  padding: var(--fr-space-5);
+  border-left: 1px solid var(--fr-border);
+}
+
+.fr-dashboard-stat:first-child {
+  border-left: 0;
+}
+
+.fr-dashboard-stat h2 {
+  margin: var(--fr-space-0);
+  font-size: var(--fr-text-base);
+  font-weight: var(--fr-weight-medium);
+  line-height: var(--fr-leading-snug);
+  color: var(--fr-text-secondary);
+}
+
+.fr-dashboard-stat strong {
+  font-size: var(--fr-text-xl);
+  font-weight: var(--fr-weight-bold);
+  line-height: var(--fr-leading-tight);
+  color: var(--fr-text-primary);
+}

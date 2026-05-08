@@ -1,18 +1,16 @@
 import { useEffect, useState } from 'react'
-import { Logo } from '@/design-system'
 import { LoginPage } from '@/features/auth/LoginPage'
-import './AppRouter.css'
-
-function getCurrentPath(): string {
-  return window.location.pathname
-}
+import { DashboardPage } from '@/features/reports/pages/DashboardPage'
+import { ReportDetailPage } from '@/features/reports/pages/ReportDetailPage'
+import { dashboardRoute, reportRoute, reportRouteId } from './routes'
 
 export function AppRouter() {
-  const [currentPath, setCurrentPath] = useState(getCurrentPath)
+  const [currentPath, setCurrentPath] = useState(window.location.pathname)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
 
   useEffect(() => {
     function handlePopState(): void {
-      setCurrentPath(getCurrentPath())
+      setCurrentPath(window.location.pathname)
     }
 
     window.addEventListener('popstate', handlePopState)
@@ -25,14 +23,24 @@ export function AppRouter() {
     setCurrentPath(path)
   }
 
-  if (currentPath === '/dashboard') {
-    return (
-      <main className="fr-dashboard-placeholder">
-        <Logo variant="accent" />
-        <h1>Dashboard</h1>
-      </main>
-    )
+  function handleLoginSuccess(): void {
+    setIsAuthenticated(true)
+    navigate(dashboardRoute)
   }
 
-  return <LoginPage onLoginSuccess={() => navigate('/dashboard')} />
+  if (!isAuthenticated) {
+    return <LoginPage onLoginSuccess={handleLoginSuccess} />
+  }
+
+  if (currentPath === dashboardRoute) {
+    return <DashboardPage onOpenReport={(reportId) => navigate(reportRoute(reportId))} />
+  }
+
+  const currentReportId = reportRouteId(currentPath)
+
+  if (currentReportId !== null) {
+    return <ReportDetailPage reportId={currentReportId} />
+  }
+
+  return <LoginPage onLoginSuccess={handleLoginSuccess} />
 }

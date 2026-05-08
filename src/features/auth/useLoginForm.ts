@@ -1,11 +1,8 @@
 import type { ChangeEvent, FormEvent } from 'react'
 import { useState } from 'react'
 import { login } from '@/lib/api/auth'
+import type { UseLoginFormParameters } from '@/types/authView'
 import { storeAuthTokens } from './tokenStore'
-
-type UseLoginFormParameters = {
-  onLoginSuccess: () => void
-}
 
 export function useLoginForm({ onLoginSuccess }: UseLoginFormParameters) {
   const [email, setEmail] = useState('')
