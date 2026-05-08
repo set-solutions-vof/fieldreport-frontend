@@ -4,6 +4,14 @@
   gap: var(--fr-space-2);
 }
 
+.fr-dashboard-loading-page {
+  display: flex;
+  min-height: 100dvh;
+  box-sizing: border-box;
+  padding: var(--fr-space-7);
+  background: var(--fr-background);
+}
+
 .fr-dashboard-intro h1,
 .fr-dashboard-state h1 {
   margin: var(--fr-space-0);

@@ -1,18 +1,23 @@
-import { getAuthTokens } from '@/features/auth/tokenStore'
+import { authenticatedFetch } from '@/lib/api/authenticatedFetch'
 import { apiBaseUrl } from '@/lib/config'
-import type { Report } from '@/types/report'
+import type { ReportDetail, ReportSummary } from '@/types/report'
 
-export async function getReports(): Promise<Report[]> {
-  const authTokens = getAuthTokens()
-  const response = await fetch(`${apiBaseUrl}/api/v1/reports`, {
-    headers: {
-      Authorization: `Bearer ${authTokens.access_token}`,
-    },
-  })
+export async function getReports(): Promise<ReportSummary[]> {
+  const response = await authenticatedFetch(`${apiBaseUrl}/api/v1/reports`)
 
   if (!response.ok) {
     throw new Error('Reports request failed')
   }
 
-  return (await response.json()) as Report[]
+  return (await response.json()) as ReportSummary[]
+}
+
+export async function getReport(reportId: string): Promise<ReportDetail> {
+  const response = await authenticatedFetch(`${apiBaseUrl}/api/v1/reports/${reportId}`)
+
+  if (!response.ok) {
+    throw new Error('Report request failed')
+  }
+
+  return (await response.json()) as ReportDetail
 }

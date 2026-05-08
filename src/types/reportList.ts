@@ -1,8 +1,11 @@
-import type { Report } from './report'
+import type { ReportSummary } from './report'
 
-export type ReportsStatus = 'loading' | 'success'
+export type ReportsStatus = 'loading' | 'success' | 'error'
 
 export type UseReportsResult = {
-  reports: Report[]
+  reports: ReportSummary[]
   isLoading: boolean
+  isError: boolean
+  errorMessage: string | null
+  retry: () => void
 }

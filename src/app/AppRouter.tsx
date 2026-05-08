@@ -28,18 +28,32 @@ export function AppRouter() {
     navigate(dashboardRoute)
   }
 
+  function handleAuthenticationExpired(): void {
+    setIsAuthenticated(false)
+  }
+
   if (!isAuthenticated) {
     return <LoginPage onLoginSuccess={handleLoginSuccess} />
   }
 
   if (currentPath === dashboardRoute) {
-    return <DashboardPage onOpenReport={(reportId) => navigate(reportRoute(reportId))} />
+    return (
+      <DashboardPage
+        onOpenReport={(reportId) => navigate(reportRoute(reportId))}
+        onAuthenticationExpired={handleAuthenticationExpired}
+      />
+    )
   }
 
   const currentReportId = reportRouteId(currentPath)
 
   if (currentReportId !== null) {
-    return <ReportDetailPage reportId={currentReportId} />
+    return (
+      <ReportDetailPage
+        reportId={currentReportId}
+        onAuthenticationExpired={handleAuthenticationExpired}
+      />
+    )
   }
 
   return <LoginPage onLoginSuccess={handleLoginSuccess} />

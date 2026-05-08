@@ -1,10 +1,20 @@
 export type ReportStatus = 'generating' | 'draft' | 'approved' | 'failed'
 
+export type ReportSummary = {
+  id: string
+  company_id: string
+  status: ReportStatus
+  client_name: string
+  address: string
+  inspection_date: string
+  inspector_name: string
+}
+
 export type SectionSource = {
   type: 'audio' | 'image'
-  timestamp_start?: number
-  timestamp_end?: number
-  capture_time?: string
+  timestamp_start: number | null
+  timestamp_end: number | null
+  capture_time: string | null
   content_summary: string
 }
 
@@ -13,16 +23,16 @@ export type ReportSection = {
   section_key: string
   label: string
   ai_draft: string
-  field_expert_content: string
+  field_expert_content: string | null
   is_approved: boolean
   sources: SectionSource[]
 }
 
-export type Report = {
+export type ReportDetail = {
   id: string
   status: ReportStatus
-  client_name: string | null
-  address: string | null
+  client_name: string
+  address: string
   inspection_date: string
   inspector_name: string
   sections: ReportSection[]
