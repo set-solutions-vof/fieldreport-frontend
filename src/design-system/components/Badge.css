@@ -1,0 +1,55 @@
+.fr-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--fr-space-1);
+  height: 20px;
+  padding: 0 var(--fr-space-2);
+  font-family: var(--fr-font-sans);
+  font-size: var(--fr-text-xs);
+  font-weight: var(--fr-weight-medium);
+  line-height: 1;
+  border: 1px solid transparent;
+  border-radius: var(--fr-radius-sm);
+  white-space: nowrap;
+  vertical-align: baseline;
+}
+
+.fr-badge__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--fr-radius-full);
+  background: currentColor;
+  flex-shrink: 0;
+  /* Optical alignment to text baseline */
+  transform: translateY(-0.5px);
+}
+
+/* Status variants */
+.fr-badge--draft {
+  color: var(--fr-status-draft-fg);
+  background: var(--fr-status-draft-bg);
+  border-color: var(--fr-status-draft-border);
+}
+
+.fr-badge--approved {
+  color: var(--fr-status-approved-fg);
+  background: var(--fr-status-approved-bg);
+  border-color: var(--fr-status-approved-border);
+}
+
+.fr-badge--generating {
+  color: var(--fr-status-generating-fg);
+  background: var(--fr-status-generating-bg);
+  border-color: var(--fr-status-generating-border);
+}
+
+.fr-badge--failed {
+  color: var(--fr-status-failed-fg);
+  background: var(--fr-status-failed-bg);
+  border-color: var(--fr-status-failed-border);
+}
+
+/* Spinner inside generating badge inherits color */
+.fr-badge .fr-spinner {
+  margin-right: 0;
+}

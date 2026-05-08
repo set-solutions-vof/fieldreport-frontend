@@ -1,3 +1,9 @@
+import { AppRouter } from '@/app/AppRouter'
+
 export default function App() {
-  return <main>FieldReport</main>
+  return (
+    <div className="fr-app">
+      <AppRouter />
+    </div>
+  )
 }
