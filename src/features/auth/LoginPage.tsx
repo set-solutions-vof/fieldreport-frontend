@@ -1,10 +1,7 @@
 import { Button, Input, Logo } from '@/design-system'
+import type { LoginPageProps } from '@/types/authView'
 import { useLoginForm } from './useLoginForm'
 import './LoginPage.css'
-
-type LoginPageProps = {
-  onLoginSuccess: () => void
-}
 
 export function LoginPage({ onLoginSuccess }: LoginPageProps) {
   const {
