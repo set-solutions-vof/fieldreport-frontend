@@ -24,6 +24,8 @@ export type ReportSection = {
   label: string
   ai_draft: string
   field_expert_content: string | null
+  confidence_level: 'high' | 'medium' | 'low'
+  confidence_score: number
   is_approved: boolean
   sources: SectionSource[]
 }
@@ -36,4 +38,9 @@ export type ReportDetail = {
   inspection_date: string
   inspector_name: string
   sections: ReportSection[]
+}
+
+export type UpdateReportSectionPayload = {
+  field_expert_content?: string
+  is_approved?: boolean
 }

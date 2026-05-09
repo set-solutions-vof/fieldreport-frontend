@@ -1,24 +1,26 @@
-import * as React from "react";
-import { Spinner } from "./Spinner";
-import "./Button.css";
+import * as React from 'react'
+import { Spinner } from './Spinner'
+import './Button.css'
 
-export type ButtonVariant = "primary" | "secondary" | "ghost" | "destructive";
-export type ButtonSize = "sm" | "md" | "lg";
+export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'destructive'
+export type ButtonSize = 'sm' | 'md' | 'lg'
 
-export interface ButtonProps
-  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "disabled"> {
+export interface ButtonProps extends Omit<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  'disabled'
+> {
   /** Visual treatment. Default `secondary`. */
-  variant?: ButtonVariant;
+  variant?: ButtonVariant
   /** Control height. Default `md`. */
-  size?: ButtonSize;
+  size?: ButtonSize
   /** Disable interaction. */
-  disabled?: boolean;
+  disabled?: boolean
   /** Show inline spinner; button stays focusable but blocks click. */
-  loading?: boolean;
+  loading?: boolean
   /** Optional leading icon (size yourself with width/height — colors inherit). */
-  leadingIcon?: React.ReactNode;
+  leadingIcon?: React.ReactNode
   /** Optional trailing icon. */
-  trailingIcon?: React.ReactNode;
+  trailingIcon?: React.ReactNode
 }
 
 /**
@@ -29,31 +31,31 @@ export interface ButtonProps
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   function Button(
     {
-      variant = "secondary",
-      size = "md",
+      variant = 'secondary',
+      size = 'md',
       disabled = false,
       loading = false,
       leadingIcon,
       trailingIcon,
-      type = "button",
+      type = 'button',
       className,
       children,
       onClick,
       ...rest
     },
-    ref
+    ref,
   ) {
-    const isInert = disabled || loading;
+    const isInert = disabled || loading
     const cls = [
-      "fr-button",
+      'fr-button',
       `fr-button--${variant}`,
       `fr-button--${size}`,
       className,
     ]
       .filter(Boolean)
-      .join(" ");
+      .join(' ')
 
-    const spinnerSize = size === "lg" ? "md" : "sm";
+    const spinnerSize = size === 'lg' ? 'md' : 'sm'
 
     return (
       <button
@@ -66,10 +68,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         data-loading={loading || undefined}
         onClick={(e) => {
           if (isInert) {
-            e.preventDefault();
-            return;
+            e.preventDefault()
+            return
           }
-          onClick?.(e);
+          onClick?.(e)
         }}
         {...rest}
       >
@@ -79,10 +81,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           leadingIcon && <span aria-hidden="true">{leadingIcon}</span>
         )}
         <span className="fr-button__label">{children}</span>
-        {!loading && trailingIcon && <span aria-hidden="true">{trailingIcon}</span>}
+        {!loading && trailingIcon && (
+          <span aria-hidden="true">{trailingIcon}</span>
+        )}
       </button>
-    );
-  }
-);
+    )
+  },
+)
 
-Button.displayName = "Button";
+Button.displayName = 'Button'

@@ -24,10 +24,13 @@ export function useCurrentUser({
   const [status, setStatus] = useState<CurrentUserStatus>('loading')
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
-  const showCurrentUser = useCallback((fetchedCurrentUser: CurrentUser): void => {
-    setCurrentUser(fetchedCurrentUser)
-    setStatus('success')
-  }, [])
+  const showCurrentUser = useCallback(
+    (fetchedCurrentUser: CurrentUser): void => {
+      setCurrentUser(fetchedCurrentUser)
+      setStatus('success')
+    },
+    [],
+  )
 
   const showCurrentUserError = useCallback(
     (error: unknown): void => {

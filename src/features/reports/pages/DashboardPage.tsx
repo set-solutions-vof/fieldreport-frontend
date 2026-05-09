@@ -5,10 +5,14 @@ import { DashboardStats } from '../components/DashboardStats'
 import { RecentReportsTable } from '../components/RecentReportsTable'
 import { ValidationReportsSection } from '../components/ValidationReportsSection'
 import { useReports } from '../hooks/useReports'
+import { formatReportCount } from '../lib/formatReportCount'
 import type { DashboardPageProps } from '@/types/reportView'
 import './DashboardPage.css'
 
-export function DashboardPage({ onOpenReport, onAuthenticationExpired }: DashboardPageProps) {
+export function DashboardPage({
+  onOpenReport,
+  onAuthenticationExpired,
+}: DashboardPageProps) {
   const { reports, isLoading, isError, errorMessage, retry } = useReports({
     onAuthenticationExpired,
   })
@@ -19,8 +23,11 @@ export function DashboardPage({ onOpenReport, onAuthenticationExpired }: Dashboa
     errorMessage: currentUserErrorMessage,
     retry: retryCurrentUser,
   } = useCurrentUser({ onAuthenticationExpired })
-  const reportsToValidate = reports.filter((report) => report.status === 'draft')
+  const reportsToValidate = reports.filter(
+    (report) => report.status === 'draft',
+  )
   const recentReports = reports.slice(0, 5)
+  const reportsToValidateCount = reportsToValidate.length
 
   if (isLoading || isCurrentUserLoading) {
     return (
@@ -56,18 +63,31 @@ export function DashboardPage({ onOpenReport, onAuthenticationExpired }: Dashboa
   return (
     <DashboardShell
       currentUser={currentUser}
-      reportsToValidateCount={reportsToValidate.length}
+      activeNavigationItem="dashboard"
+      breadcrumbItems={['Dashboard']}
+      reportsToValidateCount={reportsToValidateCount}
       totalReportsCount={reports.length}
     >
       <section className="fr-dashboard-intro">
         <h1>Te valideren</h1>
-        <p>
-          {reportsToValidate.length} concepten wachten op je controle. Gemiddelde nog niet beschikbaar.
-        </p>
+        <p>{dashboardIntroText(reportsToValidateCount)}</p>
       </section>
-      <ValidationReportsSection reports={reportsToValidate} onOpenReport={onOpenReport} />
+      <ValidationReportsSection
+        reports={reportsToValidate}
+        onOpenReport={onOpenReport}
+      />
       <DashboardStats reports={reports} />
       <RecentReportsTable reports={recentReports} />
     </DashboardShell>
   )
+}
+
+function dashboardIntroText(reportsToValidateCount: number): string {
+  if (reportsToValidateCount === 0) {
+    return 'Er wacht geen rapport op je controle.'
+  }
+
+  return `${formatReportCount(
+    reportsToValidateCount,
+  )} wacht${reportsToValidateCount === 1 ? '' : 'en'} op je controle. Gemiddelde nog niet beschikbaar.`
 }

@@ -32,7 +32,9 @@ export function RecentReportsTable({ reports }: RecentReportsTableProps) {
                 <td>{formatDutchShortDate(report.inspection_date)}</td>
                 <td>-</td>
                 <td>
-                  <Badge variant={report.status}>{reportStatusLabel(report.status)}</Badge>
+                  <Badge variant={report.status}>
+                    {reportStatusLabel(report.status)}
+                  </Badge>
                 </td>
               </tr>
             ))}

@@ -138,12 +138,19 @@
 
 .fr-dashboard-breadcrumb {
   display: flex;
+  align-items: center;
   gap: var(--fr-space-2);
   margin: var(--fr-space-0);
   font-size: var(--fr-text-base);
   font-weight: var(--fr-weight-medium);
   line-height: var(--fr-leading-snug);
   color: var(--fr-text-tertiary);
+}
+
+.fr-dashboard-breadcrumb-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--fr-space-2);
 }
 
 .fr-dashboard-breadcrumb strong {

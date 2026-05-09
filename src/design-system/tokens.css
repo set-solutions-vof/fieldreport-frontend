@@ -14,146 +14,146 @@
      Cool-warm balanced gray defined in OKLCH for visually-even steps.
      Used for surfaces, borders, and text.
      ----------------------------------------------------------------------- */
-  --fr-color-neutral-50:  oklch(98.4% 0.002 264);
+  --fr-color-neutral-50: oklch(98.4% 0.002 264);
   --fr-color-neutral-100: oklch(96.6% 0.003 264);
   --fr-color-neutral-200: oklch(92.8% 0.004 264);
   --fr-color-neutral-300: oklch(86.5% 0.005 264);
   --fr-color-neutral-400: oklch(70.8% 0.008 264);
-  --fr-color-neutral-500: oklch(56.0% 0.010 264);
-  --fr-color-neutral-600: oklch(45.6% 0.010 264);
-  --fr-color-neutral-700: oklch(36.0% 0.010 264);
+  --fr-color-neutral-500: oklch(56% 0.01 264);
+  --fr-color-neutral-600: oklch(45.6% 0.01 264);
+  --fr-color-neutral-700: oklch(36% 0.01 264);
   --fr-color-neutral-800: oklch(26.5% 0.008 264);
-  --fr-color-neutral-900: oklch(18.0% 0.006 264);
+  --fr-color-neutral-900: oklch(18% 0.006 264);
   --fr-color-neutral-950: oklch(11.5% 0.004 264);
 
   /* -----------------------------------------------------------------------
      COLOR — Accent scale (restrained indigo, single hue)
      ----------------------------------------------------------------------- */
-  --fr-color-accent-50:  oklch(97.5% 0.012 264);
-  --fr-color-accent-100: oklch(94.0% 0.030 264);
-  --fr-color-accent-200: oklch(88.0% 0.060 264);
-  --fr-color-accent-300: oklch(80.0% 0.100 264);
-  --fr-color-accent-400: oklch(68.0% 0.140 264);
-  --fr-color-accent-500: oklch(55.0% 0.160 264);
-  --fr-color-accent-600: oklch(48.0% 0.155 264);
-  --fr-color-accent-700: oklch(40.0% 0.140 264);
-  --fr-color-accent-800: oklch(32.0% 0.110 264);
-  --fr-color-accent-900: oklch(24.0% 0.080 264);
-  --fr-color-accent-950: oklch(16.0% 0.050 264);
+  --fr-color-accent-50: oklch(97.5% 0.012 264);
+  --fr-color-accent-100: oklch(94% 0.03 264);
+  --fr-color-accent-200: oklch(88% 0.06 264);
+  --fr-color-accent-300: oklch(80% 0.1 264);
+  --fr-color-accent-400: oklch(68% 0.14 264);
+  --fr-color-accent-500: oklch(55% 0.16 264);
+  --fr-color-accent-600: oklch(48% 0.155 264);
+  --fr-color-accent-700: oklch(40% 0.14 264);
+  --fr-color-accent-800: oklch(32% 0.11 264);
+  --fr-color-accent-900: oklch(24% 0.08 264);
+  --fr-color-accent-950: oklch(16% 0.05 264);
 
   /* -----------------------------------------------------------------------
      COLOR — Status scale stems (used by semantic tokens below)
      ----------------------------------------------------------------------- */
-  --fr-color-green-50:  oklch(96.5% 0.025 150);
-  --fr-color-green-100: oklch(92.0% 0.055 150);
-  --fr-color-green-500: oklch(56.0% 0.130 150);
-  --fr-color-green-700: oklch(40.0% 0.110 150);
+  --fr-color-green-50: oklch(96.5% 0.025 150);
+  --fr-color-green-100: oklch(92% 0.055 150);
+  --fr-color-green-500: oklch(56% 0.13 150);
+  --fr-color-green-700: oklch(40% 0.11 150);
 
-  --fr-color-amber-50:  oklch(97.0% 0.030 75);
-  --fr-color-amber-100: oklch(93.0% 0.070 75);
-  --fr-color-amber-500: oklch(70.0% 0.150 75);
-  --fr-color-amber-700: oklch(50.0% 0.130 75);
+  --fr-color-amber-50: oklch(97% 0.03 75);
+  --fr-color-amber-100: oklch(93% 0.07 75);
+  --fr-color-amber-500: oklch(70% 0.15 75);
+  --fr-color-amber-700: oklch(50% 0.13 75);
 
-  --fr-color-red-50:  oklch(96.5% 0.025 25);
+  --fr-color-red-50: oklch(96.5% 0.025 25);
   --fr-color-red-100: oklch(92.5% 0.055 25);
-  --fr-color-red-500: oklch(58.0% 0.180 25);
-  --fr-color-red-600: oklch(50.0% 0.180 25);
-  --fr-color-red-700: oklch(42.0% 0.160 25);
+  --fr-color-red-500: oklch(58% 0.18 25);
+  --fr-color-red-600: oklch(50% 0.18 25);
+  --fr-color-red-700: oklch(42% 0.16 25);
 
   /* -----------------------------------------------------------------------
      COLOR — Semantic (the only color tokens components should reference)
      ----------------------------------------------------------------------- */
-  --fr-background:        var(--fr-color-neutral-50);
-  --fr-surface:           #ffffff;
-  --fr-surface-raised:    #ffffff;
-  --fr-surface-sunken:    var(--fr-color-neutral-100);
-  --fr-surface-hover:     var(--fr-color-neutral-100);
-  --fr-surface-active:    var(--fr-color-neutral-200);
+  --fr-background: var(--fr-color-neutral-50);
+  --fr-surface: #ffffff;
+  --fr-surface-raised: #ffffff;
+  --fr-surface-sunken: var(--fr-color-neutral-100);
+  --fr-surface-hover: var(--fr-color-neutral-100);
+  --fr-surface-active: var(--fr-color-neutral-200);
 
-  --fr-border:            var(--fr-color-neutral-200);
-  --fr-border-strong:     var(--fr-color-neutral-300);
-  --fr-border-focus:      var(--fr-color-accent-500);
+  --fr-border: var(--fr-color-neutral-200);
+  --fr-border-strong: var(--fr-color-neutral-300);
+  --fr-border-focus: var(--fr-color-accent-500);
 
-  --fr-text-primary:      var(--fr-color-neutral-950);
-  --fr-text-secondary:    var(--fr-color-neutral-600);
-  --fr-text-tertiary:     var(--fr-color-neutral-500);
-  --fr-text-disabled:     var(--fr-color-neutral-400);
-  --fr-text-on-accent:    #ffffff;
-  --fr-text-on-destructive:#ffffff;
+  --fr-text-primary: var(--fr-color-neutral-950);
+  --fr-text-secondary: var(--fr-color-neutral-600);
+  --fr-text-tertiary: var(--fr-color-neutral-500);
+  --fr-text-disabled: var(--fr-color-neutral-400);
+  --fr-text-on-accent: #ffffff;
+  --fr-text-on-destructive: #ffffff;
 
-  --fr-accent:            var(--fr-color-accent-500);
-  --fr-accent-hover:      var(--fr-color-accent-600);
-  --fr-accent-active:     var(--fr-color-accent-700);
-  --fr-accent-subtle:     var(--fr-color-accent-50);
-  --fr-focus-ring:        var(--fr-color-accent-500);
+  --fr-accent: var(--fr-color-accent-500);
+  --fr-accent-hover: var(--fr-color-accent-600);
+  --fr-accent-active: var(--fr-color-accent-700);
+  --fr-accent-subtle: var(--fr-color-accent-50);
+  --fr-focus-ring: var(--fr-color-accent-500);
 
-  --fr-destructive:       var(--fr-color-red-600);
+  --fr-destructive: var(--fr-color-red-600);
   --fr-destructive-hover: var(--fr-color-red-700);
-  --fr-destructive-subtle:var(--fr-color-red-50);
+  --fr-destructive-subtle: var(--fr-color-red-50);
 
   /* Status (report lifecycle) */
-  --fr-status-draft-fg:        var(--fr-color-neutral-700);
-  --fr-status-draft-bg:        var(--fr-color-neutral-100);
-  --fr-status-draft-border:    var(--fr-color-neutral-300);
+  --fr-status-draft-fg: var(--fr-color-neutral-700);
+  --fr-status-draft-bg: var(--fr-color-neutral-100);
+  --fr-status-draft-border: var(--fr-color-neutral-300);
 
-  --fr-status-approved-fg:     var(--fr-color-green-700);
-  --fr-status-approved-bg:     var(--fr-color-green-50);
+  --fr-status-approved-fg: var(--fr-color-green-700);
+  --fr-status-approved-bg: var(--fr-color-green-50);
   --fr-status-approved-border: var(--fr-color-green-100);
 
-  --fr-status-generating-fg:    var(--fr-color-amber-700);
-  --fr-status-generating-bg:    var(--fr-color-amber-50);
-  --fr-status-generating-border:var(--fr-color-amber-100);
+  --fr-status-generating-fg: var(--fr-color-amber-700);
+  --fr-status-generating-bg: var(--fr-color-amber-50);
+  --fr-status-generating-border: var(--fr-color-amber-100);
 
-  --fr-status-failed-fg:       var(--fr-color-red-700);
-  --fr-status-failed-bg:       var(--fr-color-red-50);
-  --fr-status-failed-border:   var(--fr-color-red-100);
+  --fr-status-failed-fg: var(--fr-color-red-700);
+  --fr-status-failed-bg: var(--fr-color-red-50);
+  --fr-status-failed-border: var(--fr-color-red-100);
 
   /* -----------------------------------------------------------------------
      TYPOGRAPHY
      System stack only — ships nothing, looks native on every OS.
      ----------------------------------------------------------------------- */
   --fr-font-sans:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
-    Helvetica, Arial, "Liberation Sans", sans-serif;
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica,
+    Arial, 'Liberation Sans', sans-serif;
   --fr-font-mono:
-    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
-    "Liberation Mono", monospace;
+    ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono',
+    monospace;
 
   /* Size scale (rem). Base = 14px for desktop data density. */
-  --fr-text-xs:   0.75rem;   /* 12 / labels, badges */
-  --fr-text-sm:   0.8125rem; /* 13 / secondary, helper */
-  --fr-text-base: 0.875rem;  /* 14 / body */
-  --fr-text-md:   1rem;      /* 16 / emphasis body */
-  --fr-text-lg:   1.125rem;  /* 18 / section title */
-  --fr-text-xl:   1.375rem;  /* 22 / page title */
-  --fr-text-2xl:  1.75rem;   /* 28 / hero numbers */
-  --fr-text-3xl:  2.25rem;   /* 36 / display */
+  --fr-text-xs: 0.75rem; /* 12 / labels, badges */
+  --fr-text-sm: 0.8125rem; /* 13 / secondary, helper */
+  --fr-text-base: 0.875rem; /* 14 / body */
+  --fr-text-md: 1rem; /* 16 / emphasis body */
+  --fr-text-lg: 1.125rem; /* 18 / section title */
+  --fr-text-xl: 1.375rem; /* 22 / page title */
+  --fr-text-2xl: 1.75rem; /* 28 / hero numbers */
+  --fr-text-3xl: 2.25rem; /* 36 / display */
 
   /* Weight scale */
-  --fr-weight-regular:  400;
-  --fr-weight-medium:   500;
+  --fr-weight-regular: 400;
+  --fr-weight-medium: 500;
   --fr-weight-semibold: 600;
-  --fr-weight-bold:     700;
+  --fr-weight-bold: 700;
 
   /* Line height scale */
-  --fr-leading-tight:   1.2;
-  --fr-leading-snug:    1.35;
-  --fr-leading-normal:  1.5;
+  --fr-leading-tight: 1.2;
+  --fr-leading-snug: 1.35;
+  --fr-leading-normal: 1.5;
   --fr-leading-relaxed: 1.65;
 
   /* -----------------------------------------------------------------------
      SPACING — 4px base unit
      ----------------------------------------------------------------------- */
-  --fr-space-0:  0;
-  --fr-space-1:  4px;
-  --fr-space-2:  8px;
-  --fr-space-3:  12px;
-  --fr-space-4:  16px;
-  --fr-space-5:  24px;
-  --fr-space-6:  32px;
-  --fr-space-7:  40px;
-  --fr-space-8:  48px;
-  --fr-space-9:  64px;
+  --fr-space-0: 0;
+  --fr-space-1: 4px;
+  --fr-space-2: 8px;
+  --fr-space-3: 12px;
+  --fr-space-4: 16px;
+  --fr-space-5: 24px;
+  --fr-space-6: 32px;
+  --fr-space-7: 40px;
+  --fr-space-8: 48px;
+  --fr-space-9: 64px;
   --fr-space-10: 80px;
   --fr-space-11: 96px;
   --fr-space-12: 128px;
@@ -166,9 +166,9 @@
      RADIUS
      ----------------------------------------------------------------------- */
   --fr-radius-none: 0;
-  --fr-radius-sm:   2px;
-  --fr-radius-md:   4px;
-  --fr-radius-lg:   6px;
+  --fr-radius-sm: 2px;
+  --fr-radius-md: 4px;
+  --fr-radius-lg: 6px;
   --fr-radius-full: 9999px;
 
   /* -----------------------------------------------------------------------
@@ -176,14 +176,13 @@
      ----------------------------------------------------------------------- */
   --fr-shadow-sm: 0 1px 2px 0 rgba(15, 17, 21, 0.04);
   --fr-shadow-md:
-    0 1px 2px 0 rgba(15, 17, 21, 0.04),
-    0 2px 6px -1px rgba(15, 17, 21, 0.06);
+    0 1px 2px 0 rgba(15, 17, 21, 0.04), 0 2px 6px -1px rgba(15, 17, 21, 0.06);
   --fr-shadow-lg:
-    0 1px 2px 0 rgba(15, 17, 21, 0.04),
-    0 8px 24px -6px rgba(15, 17, 21, 0.10);
+    0 1px 2px 0 rgba(15, 17, 21, 0.04), 0 8px 24px -6px rgba(15, 17, 21, 0.1);
 
   /* Focus ring (used everywhere interactive) */
-  --fr-shadow-focus: 0 0 0 3px color-mix(in oklch, var(--fr-focus-ring) 30%, transparent);
+  --fr-shadow-focus: 0 0 0 3px
+    color-mix(in oklch, var(--fr-focus-ring) 30%, transparent);
 
   /* -----------------------------------------------------------------------
      MOTION
@@ -208,19 +207,19 @@
 /* Optional: dark mode scaffold (light is primary for MVP).
    Components do not depend on this; left for future. */
 @media (prefers-color-scheme: dark) {
-  :root[data-fr-theme="auto"] {
-    --fr-background:     var(--fr-color-neutral-950);
-    --fr-surface:        var(--fr-color-neutral-900);
+  :root[data-fr-theme='auto'] {
+    --fr-background: var(--fr-color-neutral-950);
+    --fr-surface: var(--fr-color-neutral-900);
     --fr-surface-raised: var(--fr-color-neutral-800);
     --fr-surface-sunken: var(--fr-color-neutral-950);
-    --fr-surface-hover:  var(--fr-color-neutral-800);
+    --fr-surface-hover: var(--fr-color-neutral-800);
     --fr-surface-active: var(--fr-color-neutral-700);
-    --fr-border:         var(--fr-color-neutral-800);
-    --fr-border-strong:  var(--fr-color-neutral-700);
-    --fr-text-primary:   var(--fr-color-neutral-50);
+    --fr-border: var(--fr-color-neutral-800);
+    --fr-border-strong: var(--fr-color-neutral-700);
+    --fr-text-primary: var(--fr-color-neutral-50);
     --fr-text-secondary: var(--fr-color-neutral-300);
-    --fr-text-tertiary:  var(--fr-color-neutral-400);
-    --fr-text-disabled:  var(--fr-color-neutral-600);
+    --fr-text-tertiary: var(--fr-color-neutral-400);
+    --fr-text-disabled: var(--fr-color-neutral-600);
   }
 }
 

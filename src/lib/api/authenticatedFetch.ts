@@ -12,11 +12,16 @@ export class AuthenticationExpiredError extends Error {
   }
 }
 
-export function isAuthenticationExpiredError(error: unknown): error is AuthenticationExpiredError {
+export function isAuthenticationExpiredError(
+  error: unknown,
+): error is AuthenticationExpiredError {
   return error instanceof AuthenticationExpiredError
 }
 
-export async function authenticatedFetch(url: string, init: RequestInit = {}): Promise<Response> {
+export async function authenticatedFetch(
+  url: string,
+  init: RequestInit = {},
+): Promise<Response> {
   const response = await fetchWithAccessToken(url, init)
 
   if (response.status !== 401) {
@@ -44,7 +49,10 @@ export async function authenticatedFetch(url: string, init: RequestInit = {}): P
   return retryResponse
 }
 
-async function fetchWithAccessToken(url: string, init: RequestInit): Promise<Response> {
+async function fetchWithAccessToken(
+  url: string,
+  init: RequestInit,
+): Promise<Response> {
   const authTokens = getAuthTokens()
   const headers = new Headers(init.headers)
   headers.set('Authorization', `Bearer ${authTokens.access_token}`)

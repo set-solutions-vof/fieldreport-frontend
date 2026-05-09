@@ -51,6 +51,7 @@ export function AppRouter() {
     return (
       <ReportDetailPage
         reportId={currentReportId}
+        onBackToDashboard={() => navigate(dashboardRoute)}
         onAuthenticationExpired={handleAuthenticationExpired}
       />
     )

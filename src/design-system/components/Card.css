@@ -8,10 +8,18 @@
   text-align: left;
 }
 
-.fr-card--padding-none { padding: 0; }
-.fr-card--padding-sm   { padding: var(--fr-space-3); }
-.fr-card--padding-md   { padding: var(--fr-space-4); }
-.fr-card--padding-lg   { padding: var(--fr-space-5); }
+.fr-card--padding-none {
+  padding: 0;
+}
+.fr-card--padding-sm {
+  padding: var(--fr-space-3);
+}
+.fr-card--padding-md {
+  padding: var(--fr-space-4);
+}
+.fr-card--padding-lg {
+  padding: var(--fr-space-5);
+}
 
 .fr-card--interactive {
   cursor: pointer;

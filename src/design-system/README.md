@@ -29,8 +29,8 @@ in CSS or via `var(--fr-*)` in inline styles when you must.
 
 ```tsx
 // app/main.tsx
-import "@/design-system/tokens.css";
-import { Button } from "@/design-system";
+import '@/design-system/tokens.css'
+import { Button } from '@/design-system'
 ```
 
 Add `class="fr-app"` (or `<body class="fr-app">`) to opt the app shell into
@@ -38,19 +38,19 @@ the system's font, color, and antialiasing defaults.
 
 ### Token namespaces
 
-| Prefix              | Purpose                                            |
-| ------------------- | -------------------------------------------------- |
-| `--fr-color-*`      | Raw color ramps (neutral, accent, status stems)    |
-| `--fr-background`, `--fr-surface`, `--fr-border-*`, `--fr-text-*`, `--fr-accent*`, `--fr-destructive*`, `--fr-status-*-*` | Semantic colors — **prefer these in components** |
-| `--fr-font-*`       | Font stacks (sans, mono)                           |
-| `--fr-text-*`       | Type size scale (xs → 3xl)                         |
-| `--fr-weight-*`     | Font weight scale                                  |
-| `--fr-leading-*`    | Line height scale                                  |
-| `--fr-space-*`      | Spacing scale 0–16 on a 4px base                   |
-| `--fr-radius-*`     | Border radius (none, sm 2px, md 4px, lg 6px, full) |
-| `--fr-shadow-*`     | Elevation (sm, md, lg) + `--fr-shadow-focus`       |
-| `--fr-duration-*`, `--fr-ease-*`, `--fr-transition-*` | Motion                          |
-| `--fr-control-*`    | Shared Button/Input control geometry               |
+| Prefix                                                                                                                    | Purpose                                            |
+| ------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
+| `--fr-color-*`                                                                                                            | Raw color ramps (neutral, accent, status stems)    |
+| `--fr-background`, `--fr-surface`, `--fr-border-*`, `--fr-text-*`, `--fr-accent*`, `--fr-destructive*`, `--fr-status-*-*` | Semantic colors — **prefer these in components**   |
+| `--fr-font-*`                                                                                                             | Font stacks (sans, mono)                           |
+| `--fr-text-*`                                                                                                             | Type size scale (xs → 3xl)                         |
+| `--fr-weight-*`                                                                                                           | Font weight scale                                  |
+| `--fr-leading-*`                                                                                                          | Line height scale                                  |
+| `--fr-space-*`                                                                                                            | Spacing scale 0–16 on a 4px base                   |
+| `--fr-radius-*`                                                                                                           | Border radius (none, sm 2px, md 4px, lg 6px, full) |
+| `--fr-shadow-*`                                                                                                           | Elevation (sm, md, lg) + `--fr-shadow-focus`       |
+| `--fr-duration-*`, `--fr-ease-*`, `--fr-transition-*`                                                                     | Motion                                             |
+| `--fr-control-*`                                                                                                          | Shared Button/Input control geometry               |
 
 ## Components
 
@@ -200,8 +200,17 @@ Direction 03 — the FR monogram tile in the brand accent. Files live in `design
 
 ```html
 <link rel="icon" type="image/svg+xml" href="/design-system/brand/favicon.svg" />
-<link rel="icon" type="image/png" sizes="32x32" href="/design-system/brand/favicon-32.png" />
-<link rel="apple-touch-icon" sizes="180x180" href="/design-system/brand/favicon-180.png" />
+<link
+  rel="icon"
+  type="image/png"
+  sizes="32x32"
+  href="/design-system/brand/favicon-32.png"
+/>
+<link
+  rel="apple-touch-icon"
+  sizes="180x180"
+  href="/design-system/brand/favicon-180.png"
+/>
 ```
 
 ### Divider

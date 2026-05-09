@@ -17,6 +17,12 @@
   min-height: 1em;
 }
 
-.fr-divider--spacing-sm { margin-block: var(--fr-space-2); }
-.fr-divider--spacing-md { margin-block: var(--fr-space-4); }
-.fr-divider--spacing-lg { margin-block: var(--fr-space-6); }
+.fr-divider--spacing-sm {
+  margin-block: var(--fr-space-2);
+}
+.fr-divider--spacing-md {
+  margin-block: var(--fr-space-4);
+}
+.fr-divider--spacing-lg {
+  margin-block: var(--fr-space-6);
+}

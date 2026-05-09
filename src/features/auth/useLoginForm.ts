@@ -18,7 +18,9 @@ export function useLoginForm({ onLoginSuccess }: UseLoginFormParameters) {
     setPassword(event.currentTarget.value)
   }
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
+  async function handleSubmit(
+    event: FormEvent<HTMLFormElement>,
+  ): Promise<void> {
     event.preventDefault()
     setIsSubmitting(true)
     setLoginError(null)

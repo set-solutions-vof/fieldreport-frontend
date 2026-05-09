@@ -24,7 +24,9 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
           <h1 className="fr-login-title" id="login-title">
             Inspector access
           </h1>
-          <p className="fr-login-subtitle">Sign in to review assigned field reports.</p>
+          <p className="fr-login-subtitle">
+            Sign in to review assigned field reports.
+          </p>
         </div>
         <form className="fr-login-form" onSubmit={handleSubmit}>
           <Input

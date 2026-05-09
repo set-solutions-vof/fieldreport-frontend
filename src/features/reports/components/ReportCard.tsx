@@ -16,7 +16,9 @@ export function ReportCard({ report, onOpenReport }: ReportCardProps) {
       <span>{report.client_name ?? 'Onbekende klant'}</span>
       <span>{formatDutchShortDate(report.inspection_date)}</span>
       <div className="fr-dashboard-report-actions">
-        <Badge variant={report.status}>{reportStatusLabel(report.status)}</Badge>
+        <Badge variant={report.status}>
+          {reportStatusLabel(report.status)}
+        </Badge>
         <span className="fr-dashboard-open-indicator">Openen</span>
       </div>
     </Card>

@@ -1,6 +1,8 @@
 .fr-dashboard-report-card {
   display: grid;
-  grid-template-columns: minmax(var(--fr-space-0), 2fr) minmax(var(--fr-space-0), 1fr) minmax(var(--fr-space-0), 1fr) max-content;
+  grid-template-columns:
+    minmax(var(--fr-space-0), 2fr) minmax(var(--fr-space-0), 1fr)
+    minmax(var(--fr-space-0), 1fr) max-content;
   align-items: center;
   gap: var(--fr-space-5);
   padding: var(--fr-space-4) var(--fr-space-5);

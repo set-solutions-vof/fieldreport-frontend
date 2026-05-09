@@ -1,18 +1,17 @@
-import * as React from "react";
-import "./Input.css";
+import * as React from 'react'
+import './Input.css'
 
-export interface TextareaProps
-  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   /** Visible label rendered above the textarea. */
-  label?: React.ReactNode;
+  label?: React.ReactNode
   /** Helper copy under the textarea. Hidden when an error is shown. */
-  helperText?: React.ReactNode;
+  helperText?: React.ReactNode
   /** Error copy under the textarea. Toggles error styling and aria-invalid. */
-  error?: React.ReactNode;
+  error?: React.ReactNode
   /** Show a `*` after the label and set required on the control. */
-  required?: boolean;
+  required?: boolean
   /** Class on the outer field wrapper. `className` falls through to the textarea. */
-  fieldClassName?: string;
+  fieldClassName?: string
 }
 
 /**
@@ -31,29 +30,33 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       fieldClassName,
       disabled,
       rows = 4,
-      "aria-describedby": ariaDescribedByProp,
+      'aria-describedby': ariaDescribedByProp,
       ...rest
     },
-    ref
+    ref,
   ) {
-    const reactId = React.useId();
-    const id = idProp ?? reactId;
-    const helperId = helperText ? `${id}-helper` : undefined;
-    const errorId = error ? `${id}-error` : undefined;
+    const reactId = React.useId()
+    const id = idProp ?? reactId
+    const helperId = helperText ? `${id}-helper` : undefined
+    const errorId = error ? `${id}-error` : undefined
 
     const describedBy =
       [ariaDescribedByProp, errorId, !error ? helperId : undefined]
         .filter(Boolean)
-        .join(" ") || undefined;
+        .join(' ') || undefined
 
-    const cls = ["fr-input", "fr-textarea", className].filter(Boolean).join(" ");
+    const cls = ['fr-input', 'fr-textarea', className].filter(Boolean).join(' ')
 
     return (
-      <div className={["fr-field", fieldClassName].filter(Boolean).join(" ")}>
+      <div className={['fr-field', fieldClassName].filter(Boolean).join(' ')}>
         {label && (
           <label htmlFor={id} className="fr-field__label">
             {label}
-            {required && <span className="fr-field__required" aria-hidden="true">*</span>}
+            {required && (
+              <span className="fr-field__required" aria-hidden="true">
+                *
+              </span>
+            )}
           </label>
         )}
         <textarea
@@ -77,8 +80,8 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           </div>
         ) : null}
       </div>
-    );
-  }
-);
+    )
+  },
+)
 
-Textarea.displayName = "Textarea";
+Textarea.displayName = 'Textarea'

@@ -10,7 +10,10 @@ export function DashboardStats({ reports }: DashboardStatsProps) {
   const reportsThisMonth = reports.filter((report) => {
     const inspectionDate = new Date(report.inspection_date)
 
-    return inspectionDate.getMonth() === today.getMonth() && inspectionDate.getFullYear() === today.getFullYear()
+    return (
+      inspectionDate.getMonth() === today.getMonth() &&
+      inspectionDate.getFullYear() === today.getFullYear()
+    )
   })
 
   const approvedLastSevenDays = reports.filter((report) => {
@@ -20,11 +23,21 @@ export function DashboardStats({ reports }: DashboardStatsProps) {
   })
 
   return (
-    <Card className="fr-dashboard-stats" padding="none" aria-label="Dashboard statistieken">
-      <StatCard title="Rapporten deze maand" value={String(reportsThisMonth.length)} />
+    <Card
+      className="fr-dashboard-stats"
+      padding="none"
+      aria-label="Dashboard statistieken"
+    >
+      <StatCard
+        title="Rapporten deze maand"
+        value={String(reportsThisMonth.length)}
+      />
       <StatCard title="Schrijftijd bespaard" value="-" />
       <StatCard title="AI-nauwkeurigheid" value="-" />
-      <StatCard title="Goedgekeurd · 7d" value={String(approvedLastSevenDays.length)} />
+      <StatCard
+        title="Goedgekeurd · 7d"
+        value={String(approvedLastSevenDays.length)}
+      />
     </Card>
   )
 }
