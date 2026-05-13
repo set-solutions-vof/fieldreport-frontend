@@ -40,25 +40,25 @@
   --fr-color-accent-800: oklch(32% 0.11 264);
   --fr-color-accent-900: oklch(24% 0.08 264);
   --fr-color-accent-950: oklch(16% 0.05 264);
+  --fr-color-accent-soft: #eff4ff;
 
   /* -----------------------------------------------------------------------
      COLOR — Status scale stems (used by semantic tokens below)
      ----------------------------------------------------------------------- */
-  --fr-color-green-50: oklch(96.5% 0.025 150);
-  --fr-color-green-100: oklch(92% 0.055 150);
-  --fr-color-green-500: oklch(56% 0.13 150);
-  --fr-color-green-700: oklch(40% 0.11 150);
-
   --fr-color-amber-50: oklch(97% 0.03 75);
   --fr-color-amber-100: oklch(93% 0.07 75);
   --fr-color-amber-500: oklch(70% 0.15 75);
   --fr-color-amber-700: oklch(50% 0.13 75);
+  --fr-color-amber: #b45309;
+  --fr-color-amber-soft: #fbf1de;
 
   --fr-color-red-50: oklch(96.5% 0.025 25);
   --fr-color-red-100: oklch(92.5% 0.055 25);
   --fr-color-red-500: oklch(58% 0.18 25);
   --fr-color-red-600: oklch(50% 0.18 25);
   --fr-color-red-700: oklch(42% 0.16 25);
+  --fr-color-red: #b91c1c;
+  --fr-color-red-soft: #fbeaeb;
 
   /* -----------------------------------------------------------------------
      COLOR — Semantic (the only color tokens components should reference)
@@ -85,6 +85,7 @@
   --fr-accent-hover: var(--fr-color-accent-600);
   --fr-accent-active: var(--fr-color-accent-700);
   --fr-accent-subtle: var(--fr-color-accent-50);
+  --fr-accent-soft: var(--fr-color-accent-soft);
   --fr-focus-ring: var(--fr-color-accent-500);
 
   --fr-destructive: var(--fr-color-red-600);
@@ -96,9 +97,9 @@
   --fr-status-draft-bg: var(--fr-color-neutral-100);
   --fr-status-draft-border: var(--fr-color-neutral-300);
 
-  --fr-status-approved-fg: var(--fr-color-green-700);
-  --fr-status-approved-bg: var(--fr-color-green-50);
-  --fr-status-approved-border: var(--fr-color-green-100);
+  --fr-status-approved-fg: var(--fr-color-neutral-800);
+  --fr-status-approved-bg: var(--fr-color-neutral-100);
+  --fr-status-approved-border: var(--fr-color-neutral-300);
 
   --fr-status-generating-fg: var(--fr-color-amber-700);
   --fr-status-generating-bg: var(--fr-color-amber-50);
@@ -108,6 +109,37 @@
   --fr-status-failed-bg: var(--fr-color-red-50);
   --fr-status-failed-border: var(--fr-color-red-100);
 
+  --fr-approval-fg: var(--fr-color-neutral-800);
+  --fr-approval-bg: var(--fr-surface);
+  --fr-approval-border: var(--fr-color-neutral-300);
+  --fr-approval-hover-bg: var(--fr-color-neutral-100);
+
+  --fr-signal-neutral-fg: var(--fr-text-secondary);
+  --fr-signal-neutral-bg: var(--fr-color-neutral-100);
+  --fr-signal-neutral-border: var(--fr-color-neutral-300);
+  --fr-signal-warn-fg: var(--fr-color-amber);
+  --fr-signal-warn-bg: var(--fr-color-amber-soft);
+  --fr-signal-warn-border: color-mix(
+    in oklch,
+    var(--fr-color-amber) 24%,
+    var(--fr-color-amber-soft)
+  );
+  --fr-signal-alert-fg: var(--fr-color-red);
+  --fr-signal-alert-bg: var(--fr-color-red-soft);
+  --fr-signal-alert-border: color-mix(
+    in oklch,
+    var(--fr-color-red) 24%,
+    var(--fr-color-red-soft)
+  );
+
+  --fr-citation-bg: var(--fr-accent-soft);
+  --fr-citation-fg: var(--fr-color-accent-800);
+  --fr-citation-border: color-mix(
+    in oklch,
+    var(--fr-color-accent-500) 18%,
+    var(--fr-accent-soft)
+  );
+
   /* -----------------------------------------------------------------------
      TYPOGRAPHY
      System stack only — ships nothing, looks native on every OS.
@@ -116,8 +148,8 @@
     -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica,
     Arial, 'Liberation Sans', sans-serif;
   --fr-font-mono:
-    ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono',
-    monospace;
+    'Geist Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas,
+    'Liberation Mono', monospace;
 
   /* Size scale (rem). Base = 14px for desktop data density. */
   --fr-text-xs: 0.75rem; /* 12 / labels, badges */
@@ -169,6 +201,7 @@
   --fr-radius-sm: 2px;
   --fr-radius-md: 4px;
   --fr-radius-lg: 6px;
+  --fr-radius-paper: 14px;
   --fr-radius-full: 9999px;
 
   /* -----------------------------------------------------------------------
@@ -179,6 +212,8 @@
     0 1px 2px 0 rgba(15, 17, 21, 0.04), 0 2px 6px -1px rgba(15, 17, 21, 0.06);
   --fr-shadow-lg:
     0 1px 2px 0 rgba(15, 17, 21, 0.04), 0 8px 24px -6px rgba(15, 17, 21, 0.1);
+  --fr-shadow-paper:
+    0 1px 0 rgba(15, 23, 42, 0.03), 0 10px 30px rgba(15, 23, 42, 0.05);
 
   /* Focus ring (used everywhere interactive) */
   --fr-shadow-focus: 0 0 0 3px
@@ -202,6 +237,9 @@
   --fr-control-height-sm: 28px;
   --fr-control-height-md: 32px;
   --fr-control-height-lg: 40px;
+  --fr-border-width-sm: 1px;
+  --fr-meter-width-sm: 32px;
+  --fr-document-paper-max-width: 1040px;
 }
 
 /* Optional: dark mode scaffold (light is primary for MVP).

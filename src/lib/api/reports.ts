@@ -2,8 +2,8 @@ import { authenticatedFetch } from '@/lib/api/authenticatedFetch'
 import { apiBaseUrl } from '@/lib/config'
 import type {
   ReportDetail,
-  ReportSection,
   ReportSummary,
+  UpdateReportSectionResponse,
   UpdateReportSectionPayload,
 } from '@/types/report'
 
@@ -33,7 +33,7 @@ export async function updateSection(
   reportId: string,
   sectionId: string,
   payload: UpdateReportSectionPayload,
-): Promise<ReportSection> {
+): Promise<UpdateReportSectionResponse> {
   const response = await authenticatedFetch(
     `${apiBaseUrl}/api/v1/reports/${reportId}/sections/${sectionId}`,
     {
@@ -49,5 +49,5 @@ export async function updateSection(
     throw new Error('Report section update failed')
   }
 
-  return (await response.json()) as ReportSection
+  return (await response.json()) as UpdateReportSectionResponse
 }

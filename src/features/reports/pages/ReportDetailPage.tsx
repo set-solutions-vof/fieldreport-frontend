@@ -1,14 +1,13 @@
 import { Button, Spinner } from '@/design-system'
 import { useCurrentUser } from '@/features/auth/useCurrentUser'
-import type { ReportDetailPageProps } from '@/types/reportView'
-import { ReportDetailContent } from '../components/ReportDetailContent'
+import { ReportDetailWorkspace } from '../components/ReportDetailWorkspace'
 import { useReport } from '../hooks/useReport'
 import { useReports } from '../hooks/useReports'
+import type { ReportDetailPageProps } from '../types/reportView'
 import './ReportDetailPage.css'
 
 export function ReportDetailPage({
   reportId,
-  onBackToDashboard,
   onAuthenticationExpired,
 }: ReportDetailPageProps) {
   const { report, isLoading, isError, errorMessage, retry } = useReport({
@@ -71,7 +70,7 @@ export function ReportDetailPage({
   }
 
   return (
-    <ReportDetailContent
+    <ReportDetailWorkspace
       key={report.id}
       report={report}
       currentUser={currentUser}
@@ -80,7 +79,6 @@ export function ReportDetailPage({
           .length
       }
       totalReportsCount={reports.length}
-      onBackToDashboard={onBackToDashboard}
     />
   )
 }

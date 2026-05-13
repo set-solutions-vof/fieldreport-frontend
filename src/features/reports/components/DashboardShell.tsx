@@ -2,7 +2,7 @@ import { Logo } from '@/design-system'
 import type {
   DashboardNavigationItem,
   DashboardShellProps,
-} from '@/types/reportView'
+} from '../types/reportView'
 import { formatUserRole } from '../lib/formatUserRole'
 import { getUserInitials } from '../lib/getUserInitials'
 import './DashboardShell.css'

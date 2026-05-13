@@ -6,7 +6,7 @@ import { RecentReportsTable } from '../components/RecentReportsTable'
 import { ValidationReportsSection } from '../components/ValidationReportsSection'
 import { useReports } from '../hooks/useReports'
 import { formatReportCount } from '../lib/formatReportCount'
-import type { DashboardPageProps } from '@/types/reportView'
+import type { DashboardPageProps } from '../types/reportView'
 import './DashboardPage.css'
 
 export function DashboardPage({

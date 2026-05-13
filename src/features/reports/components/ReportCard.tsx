@@ -1,5 +1,5 @@
 import { Badge, Card } from '@/design-system'
-import type { ReportCardProps } from '@/types/reportView'
+import type { ReportCardProps } from '../types/reportView'
 import { formatDutchShortDate } from '../lib/formatReportDate'
 import { reportStatusLabel } from '../lib/reportLabels'
 import './ReportCard.css'

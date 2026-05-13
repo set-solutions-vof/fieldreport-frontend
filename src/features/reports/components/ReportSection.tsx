@@ -1,135 +1,140 @@
-import { useState, type ChangeEvent } from 'react'
-import { Button, Card, Textarea } from '@/design-system'
-import type { SectionSource } from '@/types/report'
-import type { SaveStatus } from '@/types/reportDetail'
-import type { ReportSectionProps } from '@/types/reportView'
+import type { ChangeEvent } from 'react'
+import { Textarea } from '@/design-system'
 import { useReportSection } from '../hooks/useReportSection'
-import { formatConfidenceScore } from '../lib/formatConfidenceScore'
-import { formatSeconds } from '../lib/formatSeconds'
-import { confidenceLevelConfig } from '../lib/reportLabels'
+import { sectionSourceChipLabels } from '../lib/reportDetailView'
+import type { ReportSectionProps } from '../types/reportDetailView'
 import './ReportSection.css'
 
 export function ReportSection({
   section,
   reportId,
+  index,
+  content,
+  active,
+  timelineItemsById,
   onSectionUpdated,
+  onContentChange,
+  onActivate,
 }: ReportSectionProps) {
-  const [content, setContent] = useState(
-    section.field_expert_content ?? section.ai_draft,
-  )
-  const { saveStatus, approve, saveContent } = useReportSection({
+  const { approve } = useReportSection({
     reportId,
     sectionId: section.id,
     onSuccess: onSectionUpdated,
   })
-  const confidenceConfig = confidenceLevelConfig[section.confidence_level]
+  const confidencePercentage = confidenceScorePercentage(
+    section.confidence_score,
+  )
+  const sourceChipLabels = sectionSourceChipLabels(section, timelineItemsById)
 
   function handleContentChange(event: ChangeEvent<HTMLTextAreaElement>): void {
-    const nextContent = event.currentTarget.value
-    setContent(nextContent)
-    saveContent(nextContent)
+    onContentChange(section.id, event.currentTarget.value)
+  }
+
+  function handleApprove(): void {
+    if (section.is_approved || content.trim() === '') {
+      return
+    }
+
+    void approve()
   }
 
   return (
-    <Card
-      className={`fr-report-section-card ${confidenceConfig.className}`}
-      padding="md"
+    <section
+      id={`sec-${section.id}`}
+      className={['fr-report-section', active && 'fr-report-section--active']
+        .filter(Boolean)
+        .join(' ')}
+      onClick={() => onActivate(section.id)}
+      onFocus={() => onActivate(section.id)}
     >
       <div className="fr-report-section-header">
-        <div className="fr-report-section-title-group">
-          <div className="fr-report-section-title-row">
-            <h2>{section.label}</h2>
-            <span className="fr-report-section-confidence">
-              {confidenceConfig.label}
-            </span>
-            <span className="fr-report-section-confidence-score">
-              {formatConfidenceScore(section.confidence_score)}
-            </span>
-          </div>
-        </div>
-        {section.is_approved && (
-          <span className="fr-report-section-approved-label">
-            Goedgekeurd
+        <div className="fr-report-section-heading">
+          <span className="fr-report-section-number">
+            {String(index + 1).padStart(2, '0')}
           </span>
-        )}
+          <h2>{section.label}</h2>
+        </div>
+        <div className="fr-report-section-meta">
+          <span
+            className={[
+              'fr-report-section-accuracy',
+              accuracyClassName(confidencePercentage),
+            ]
+              .filter(Boolean)
+              .join(' ')}
+          >
+            AI {confidencePercentage}%
+            <span className="fr-report-section-accuracy-bar">
+              <i style={{ width: `${confidencePercentage}%` }} />
+            </span>
+          </span>
+          <button
+            type="button"
+            className={[
+              'fr-report-section-approval',
+              section.is_approved && 'fr-report-section-approval--done',
+            ]
+              .filter(Boolean)
+              .join(' ')}
+            aria-pressed={section.is_approved}
+            disabled={!section.is_approved && content.trim() === ''}
+            onClick={handleApprove}
+          >
+            <span
+              className="fr-report-section-approval-icon"
+              aria-hidden="true"
+            >
+              {section.is_approved ? '✓' : '○'}
+            </span>
+            {section.is_approved ? 'Goedgekeurd' : 'Goedkeuren'}
+          </button>
+        </div>
       </div>
 
       <Textarea
-        label="Inspecteurstekst"
+        aria-label={`${section.label} inspecteurstekst`}
+        className="fr-report-section-textarea"
+        fieldClassName="fr-report-section-field"
         value={content}
-        rows={8}
+        rows={textareaRows(content)}
         onChange={handleContentChange}
       />
 
-      <div className="fr-report-section-actions">
-        <span
-          className={`fr-report-section-save-status fr-report-section-save-status--${saveStatus}`}
-          role={saveStatus === 'error' ? 'alert' : undefined}
-        >
-          {saveStatusText(saveStatus)}
-        </span>
-        {!section.is_approved && (
-          <Button
-            type="button"
-            variant="primary"
-            loading={saveStatus === 'saving'}
-            disabled={content.trim() === ''}
-            onClick={() => {
-              void approve()
-            }}
-          >
-            Goedkeuren
-          </Button>
-        )}
-      </div>
-
-      {section.sources.length > 0 && (
+      {sourceChipLabels.length > 0 && (
         <div
           className="fr-report-section-source-chips"
           aria-label={`Bronnen voor ${section.label}`}
         >
-          {section.sources.map((source, sourceIndex) => (
+          {sourceChipLabels.map((sourceChipLabel) => (
             <span
               className="fr-report-section-source-chip"
-              key={`${section.id}-${sourceIndex}`}
+              key={`${section.id}-${sourceChipLabel}`}
             >
-              {sourceChipLabel(source, sourceIndex, section.sources)}
+              {sourceChipLabel}
             </span>
           ))}
         </div>
       )}
-    </Card>
+    </section>
   )
 }
 
-function sourceChipLabel(
-  source: SectionSource,
-  sourceIndex: number,
-  sources: SectionSource[],
-): string {
-  if (source.type === 'audio') {
-    return `⏱ ${formatSeconds(source.timestamp_start!)}`
-  }
-
-  const imageNumber = sources
-    .slice(0, sourceIndex + 1)
-    .filter((sectionSource) => sectionSource.type === 'image').length
-
-  return `Foto ${imageNumber}`
+function confidenceScorePercentage(confidenceScore: number): number {
+  return Math.round(confidenceScore * 100)
 }
 
-function saveStatusText(saveStatus: SaveStatus): string {
-  if (saveStatus === 'saving') {
-    return 'Opslaan...'
+function accuracyClassName(confidencePercentage: number): string | null {
+  if (confidencePercentage < 60) {
+    return 'fr-report-section-accuracy--alert'
   }
 
-  if (saveStatus === 'saved') {
-    return 'Opgeslagen'
+  if (confidencePercentage < 75) {
+    return 'fr-report-section-accuracy--warn'
   }
 
-  if (saveStatus === 'error') {
-    return 'Fout bij opslaan'
-  }
+  return null
+}
 
-  return ''
+function textareaRows(content: string): number {
+  return Math.max(5, Math.min(12, content.split('\n').length + 3))
 }

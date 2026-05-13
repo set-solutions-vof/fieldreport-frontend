@@ -1,0 +1,46 @@
+.fr-citation-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--fr-control-height-sm);
+  padding: 0 var(--fr-space-2);
+  font-family: var(--fr-font-mono);
+  font-size: var(--fr-text-xs);
+  font-weight: var(--fr-weight-medium);
+  line-height: 1;
+  color: var(--fr-citation-fg);
+  background: var(--fr-citation-bg);
+  border: var(--fr-border-width-sm) solid var(--fr-citation-border);
+  border-radius: var(--fr-radius-sm);
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: var(--fr-transition-fast);
+  white-space: nowrap;
+}
+
+.fr-citation-chip:hover:not(:disabled) {
+  border-color: currentColor;
+}
+
+.fr-citation-chip:focus-visible {
+  outline: none;
+  box-shadow: var(--fr-shadow-focus);
+}
+
+.fr-citation-chip:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.fr-citation-chip--warn {
+  color: var(--fr-signal-warn-fg);
+  background: var(--fr-signal-warn-bg);
+  border-color: var(--fr-signal-warn-border);
+}
+
+.fr-citation-chip--alert {
+  color: var(--fr-signal-alert-fg);
+  background: var(--fr-signal-alert-bg);
+  border-color: var(--fr-signal-alert-border);
+}

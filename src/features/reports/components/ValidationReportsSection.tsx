@@ -1,5 +1,5 @@
 import { Card } from '@/design-system'
-import type { ValidationReportsSectionProps } from '@/types/reportView'
+import type { ValidationReportsSectionProps } from '../types/reportView'
 import { formatReportCount } from '../lib/formatReportCount'
 import { ReportCard } from './ReportCard'
 import './ValidationReportsSection.css'

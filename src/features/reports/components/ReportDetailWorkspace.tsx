@@ -1,0 +1,176 @@
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { Card } from '@/design-system'
+import type { UpdateReportSectionResponse } from '@/types/report'
+import { DashboardShell } from './DashboardShell'
+import { ReportActionBar } from './ReportActionBar'
+import { ReportDetailHeaderBlock } from './ReportDetailHeaderBlock'
+import { ReportDetailTabs } from './ReportDetailTabs'
+import { ReportDocument } from './ReportDocument'
+import { ReportSourceRail } from './ReportSourceRail'
+import { TimelineStrip } from './TimelinePanel'
+import { useReportDraftAutosave } from '../hooks/useReportDraftAutosave'
+import { buildSourceRailItems } from '../lib/reportDetailView'
+import type {
+  ReportDetailTab,
+  ReportDetailWorkspaceProps,
+  ReportStubViewProps,
+  SourceRailFilter,
+} from '../types/reportDetailView'
+
+export function ReportDetailWorkspace({
+  report,
+  currentUser,
+  reportsToValidateCount,
+  totalReportsCount,
+}: ReportDetailWorkspaceProps) {
+  const [activeTab, setActiveTab] = useState<ReportDetailTab>('report')
+  const [activeSectionId, setActiveSectionId] = useState<string | null>(null)
+  const [activeSourceItemId, setActiveSourceItemId] = useState<string | null>(
+    null,
+  )
+  const [reportUpdatedAt, setReportUpdatedAt] = useState<string | null>(
+    report.updated_at,
+  )
+  const [sourceFilter, setSourceFilter] = useState<SourceRailFilter>('all')
+  const {
+    dirtyCount,
+    draftContent,
+    saveStatus,
+    sections,
+    handleContentChange,
+    handleSectionUpdated: applySectionUpdated,
+  } = useReportDraftAutosave({
+    reportId: report.id,
+    initialSections: report.sections,
+    onSaveSuccess: () => {
+      setReportUpdatedAt(new Date().toISOString())
+    },
+  })
+  const sourceRailItems = useMemo(
+    () => buildSourceRailItems(sections, report.timeline_items),
+    [report.timeline_items, sections],
+  )
+
+  useEffect(() => {
+    if (activeSectionId === null) {
+      return
+    }
+
+    document.getElementById(`sec-${activeSectionId}`)?.scrollIntoView({
+      block: 'center',
+      behavior: 'smooth',
+    })
+  }, [activeSectionId])
+
+  const handleSectionUpdated = useCallback(
+    (updatedSection: UpdateReportSectionResponse): void => {
+      setReportUpdatedAt(new Date().toISOString())
+      applySectionUpdated(updatedSection)
+    },
+    [applySectionUpdated],
+  )
+
+  const handleSectionActivation = useCallback((sectionId: string): void => {
+    setActiveSectionId(sectionId)
+    setActiveSourceItemId(null)
+  }, [])
+
+  const handleSourceActivation = useCallback((sourceItemId: string): void => {
+    setActiveSourceItemId(sourceItemId)
+    setActiveSectionId(null)
+  }, [])
+
+  return (
+    <DashboardShell
+      currentUser={currentUser}
+      activeNavigationItem="validation"
+      breadcrumbItems={['Rapport', report.address]}
+      reportsToValidateCount={reportsToValidateCount}
+      totalReportsCount={totalReportsCount}
+    >
+      <div className="fr-report-detail-page">
+        <ReportDetailHeaderBlock report={report} />
+
+        <div className="fr-report-detail-timeline-wrap">
+          <TimelineStrip
+            items={sourceRailItems}
+            sections={sections}
+            activeSourceItemId={activeSourceItemId}
+            onActiveSourceItemChange={handleSourceActivation}
+          />
+        </div>
+
+        <ReportDetailTabs
+          activeTab={activeTab}
+          reportCount={sections.length}
+          evidenceCount={sourceRailItems.length}
+          onActiveTabChange={setActiveTab}
+        />
+
+        <div
+          className={viewClassName(activeTab, 'report')}
+          id="view-report"
+          role="tabpanel"
+        >
+          <div className="fr-report-detail-report-body">
+            <ReportSourceRail
+              activeSourceItemId={activeSourceItemId}
+              filter={sourceFilter}
+              items={sourceRailItems}
+              onActiveSourceItemChange={handleSourceActivation}
+              onFilterChange={setSourceFilter}
+            />
+            <ReportDocument
+              activeSectionId={activeSectionId}
+              draftContent={draftContent}
+              reportId={report.id}
+              reportUpdatedAt={reportUpdatedAt}
+              sections={sections}
+              timelineItems={report.timeline_items}
+              onActiveSectionChange={handleSectionActivation}
+              onContentChange={handleContentChange}
+              onSectionUpdated={handleSectionUpdated}
+            />
+          </div>
+        </div>
+
+        <ReportStubView activeTab={activeTab} tab="transcript">
+          Transcript komt binnenkort.
+        </ReportStubView>
+        <ReportStubView activeTab={activeTab} tab="evidence">
+          Bewijsmateriaal komt binnenkort.
+        </ReportStubView>
+
+        <ReportActionBar dirtyCount={dirtyCount} saveStatus={saveStatus} />
+      </div>
+    </DashboardShell>
+  )
+}
+
+function ReportStubView({ activeTab, children, tab }: ReportStubViewProps) {
+  return (
+    <div
+      className={viewClassName(activeTab, tab)}
+      id={`view-${tab}`}
+      role="tabpanel"
+    >
+      <div className="fr-report-detail-stub">
+        <Card padding="md">
+          <p>{children}</p>
+        </Card>
+      </div>
+    </div>
+  )
+}
+
+function viewClassName(
+  activeTab: ReportDetailTab,
+  tab: ReportDetailTab,
+): string {
+  return [
+    'fr-report-detail-view',
+    activeTab === tab && 'fr-report-detail-view--active',
+  ]
+    .filter(Boolean)
+    .join(' ')
+}

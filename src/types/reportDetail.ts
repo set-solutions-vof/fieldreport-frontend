@@ -1,4 +1,7 @@
-import type { ReportDetail, ReportSection } from './report'
+import type {
+  ReportDetail,
+  UpdateReportSectionResponse,
+} from './report'
 
 export type ReportDetailStatus = 'loading' | 'success' | 'error'
 
@@ -15,16 +18,12 @@ export type UseReportResult = {
   retry: () => void
 }
 
-export type SaveStatus = 'idle' | 'saving' | 'saved' | 'error'
-
 export type UseReportSectionParameters = {
   reportId: string
   sectionId: string
-  onSuccess: (updatedSection: ReportSection) => void
+  onSuccess: (updatedSection: UpdateReportSectionResponse) => void
 }
 
 export type UseReportSectionResult = {
-  saveStatus: SaveStatus
   approve: () => Promise<void>
-  saveContent: (content: string) => void
 }

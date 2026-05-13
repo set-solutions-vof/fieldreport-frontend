@@ -1,62 +1,195 @@
-import { Card } from '@/design-system'
-import type { SectionSource } from '@/types/report'
-import type { TimelineItem, TimelinePanelProps } from '@/types/reportView'
-import { formatTimelineTime } from '../lib/formatTimelineTime'
+import { formatSeconds } from '../lib/formatSeconds'
+import { sourceTypeLabel } from '../lib/reportDetailView'
+import type {
+  TimelineStripEvent,
+  TimelineStripProps,
+  TimelineTick,
+} from '../types/reportDetailView'
 import './TimelinePanel.css'
 
-export function TimelinePanel({ sections }: TimelinePanelProps) {
-  const timelineItems: TimelineItem[] = sections
-    .flatMap((section) =>
-      section.sources.map((source, sourceIndex) => ({
-        id: `${section.id}-${sourceIndex}`,
-        sectionLabel: section.label,
-        source,
-      })),
-    )
-    .sort(
-      (firstItem, secondItem) =>
-        sourceSortValue(firstItem.source) - sourceSortValue(secondItem.source),
-    )
+const minuteMs = 60 * 1000
+export function TimelineStrip({
+  items,
+  sections,
+  activeSourceItemId,
+  onActiveSourceItemChange,
+}: TimelineStripProps) {
+  const events = timelineEvents(items)
+  const approvedCount = sections.filter((section) => section.is_approved).length
+  const openCount = sections.length - approvedCount
 
-  if (timelineItems.length === 0) {
+  if (events.length === 0) {
     return (
-      <Card padding="md">
-        <p className="fr-timeline-empty">
-          Geen bronnen gekoppeld aan dit rapport.
-        </p>
-      </Card>
+      <div className="fr-timeline-strip-card">
+        <div className="fr-timeline-strip-meta">
+          <span className="fr-timeline-strip-label">Tijdlijn</span>
+          <span className="fr-timeline-strip-range">–</span>
+          <span className="fr-timeline-strip-sub">
+            Geen bronmomenten gekoppeld
+          </span>
+        </div>
+        <div className="fr-timeline-strip-track" />
+        <div className="fr-timeline-strip-stats">
+          <div className="fr-timeline-strip-stat">
+            <span>Goedgekeurd</span>
+            <strong>
+              {approvedCount}
+              <small>/ {sections.length} secties</small>
+            </strong>
+          </div>
+          <div className="fr-timeline-strip-stat">
+            <span>Controleren</span>
+            <strong>
+              {openCount}
+              <small>openstaand</small>
+            </strong>
+          </div>
+        </div>
+      </div>
     )
   }
 
+  const startTimestampMs = Math.min(0)
+  const endTimestampMs = Math.max(
+    ...events.map(
+      (timelineEvent) => timelineEvent.timelineOffsetSeconds * 1000,
+    ),
+  )
+  const durationMs = Math.max(endTimestampMs - startTimestampMs, minuteMs)
+  const ticks = timelineTicks(startTimestampMs, endTimestampMs)
+
   return (
-    <ol className="fr-timeline-list" aria-label="Tijdlijn bronnen">
-      {timelineItems.map((timelineItem) => (
-        <li className="fr-timeline-item" key={timelineItem.id}>
-          <span className="fr-timeline-time">
-            {formatTimelineTime(timelineItem.source)}
+    <div className="fr-timeline-strip-card">
+      <div className="fr-timeline-strip-meta">
+        <span className="fr-timeline-strip-label">Tijdlijn</span>
+        <span className="fr-timeline-strip-range">
+          {formatSeconds(0)} →{' '}
+          {formatSeconds((endTimestampMs - startTimestampMs) / 1000)}
+        </span>
+        <span className="fr-timeline-strip-sub">
+          {events.length} momenten · {sections.length} secties
+        </span>
+      </div>
+
+      <div className="fr-timeline-strip-track" aria-label="Bronmomenten">
+        <div className="fr-timeline-strip-axis" />
+        <div className="fr-timeline-strip-processed" />
+        {ticks.map((tick) => (
+          <span
+            className={[
+              'fr-timeline-strip-tick',
+              tick.major && 'fr-timeline-strip-tick--major',
+            ]
+              .filter(Boolean)
+              .join(' ')}
+            key={tick.id}
+            style={{ left: `${tick.position}%` }}
+          >
+            {tick.major && (
+              <span className="fr-timeline-strip-tick-label">{tick.label}</span>
+            )}
           </span>
-          <div>
-            <strong>{timelineItem.sectionLabel}</strong>
-            <p>{truncateSummary(timelineItem.source.content_summary)}</p>
-          </div>
-        </li>
-      ))}
-    </ol>
+        ))}
+        {events.map((timelineEvent) => {
+          const position =
+            ((timelineEvent.timelineOffsetSeconds * 1000 - startTimestampMs) /
+              durationMs) *
+            100
+
+          return (
+            <button
+              type="button"
+              className={[
+                'fr-timeline-strip-event',
+                timelineEvent.allSectionsApproved &&
+                  'fr-timeline-strip-event--approved',
+                activeSourceItemId === timelineEvent.id &&
+                  'fr-timeline-strip-event--active',
+              ]
+                .filter(Boolean)
+                .join(' ')}
+              key={timelineEvent.id}
+              style={{ left: `${position}%` }}
+              title={`${formatSeconds(
+                timelineEvent.timelineOffsetSeconds,
+              )} · ${sourceTypeLabel(timelineEvent.sourceType)} · ${timelineEvent.sectionLabels.join(', ')}`}
+              aria-label={`${formatSeconds(
+                timelineEvent.timelineOffsetSeconds,
+              )} ${sourceTypeLabel(timelineEvent.sourceType)} ${timelineEvent.sectionLabels.join(', ')}`}
+              aria-pressed={activeSourceItemId === timelineEvent.id}
+              onClick={() => onActiveSourceItemChange(timelineEvent.id)}
+            />
+          )
+        })}
+      </div>
+
+      <div className="fr-timeline-strip-stats">
+        <div className="fr-timeline-strip-stat">
+          <span>Goedgekeurd</span>
+          <strong>
+            {approvedCount}
+            <small>/ {sections.length} secties</small>
+          </strong>
+        </div>
+        <div className="fr-timeline-strip-stat">
+          <span>Controleren</span>
+          <strong>
+            {openCount}
+            <small>openstaand</small>
+          </strong>
+        </div>
+      </div>
+    </div>
   )
 }
 
-function sourceSortValue(source: SectionSource): number {
-  if (source.type === 'audio') {
-    return source.timestamp_start!
-  }
-
-  return new Date(source.capture_time!).getTime()
+function timelineEvents(
+  items: TimelineStripProps['items'],
+): TimelineStripEvent[] {
+  return items
+    .map((item) => ({
+      id: item.id,
+      primarySectionId: item.primarySectionId,
+      sectionIds: item.sectionIds,
+      sectionLabels: item.sectionLabels,
+      allSectionsApproved: item.allSectionsApproved,
+      timelineOffsetSeconds: item.timelineItem.timeline_offset_seconds,
+      sourceType: item.timelineItem.source_type,
+    }))
+    .sort(
+      (firstEvent, secondEvent) =>
+        firstEvent.timelineOffsetSeconds - secondEvent.timelineOffsetSeconds,
+    )
 }
 
-function truncateSummary(contentSummary: string): string {
-  if (contentSummary.length <= 60) {
-    return contentSummary
+function timelineTicks(
+  startTimestampMs: number,
+  endTimestampMs: number,
+): TimelineTick[] {
+  const durationMs = Math.max(endTimestampMs - startTimestampMs, minuteMs)
+  const lastOffset = Math.floor(durationMs / minuteMs)
+  const ticks: TimelineTick[] = []
+
+  for (let minuteOffset = 0; minuteOffset <= lastOffset; minuteOffset += 1) {
+    const timestampMs = startTimestampMs + minuteOffset * minuteMs
+    const major = minuteOffset % 5 === 0
+
+    ticks.push({
+      id: String(timestampMs),
+      label: formatSeconds((timestampMs - startTimestampMs) / 1000),
+      position: ((minuteOffset * minuteMs) / durationMs) * 100,
+      major,
+    })
   }
 
-  return `${contentSummary.slice(0, 60)}...`
+  if (!ticks.some((tick) => tick.major)) {
+    ticks.push({
+      id: String(startTimestampMs),
+      label: formatSeconds(0),
+      position: 0,
+      major: true,
+    })
+  }
+
+  return ticks.filter((tick) => tick.position >= 0 && tick.position <= 100)
 }
