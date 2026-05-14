@@ -13,9 +13,11 @@ export function DashboardShell({
   currentUser,
   activeNavigationItem = 'dashboard',
   breadcrumbItems = [{ label: translations.dashboard.navigation.dashboard }],
+  contentClassName,
   totalReportsCount = 0,
   onOpenDashboard,
   onOpenReports,
+  onOpenTemplate,
 }: DashboardShellProps) {
   const userInitials = getUserInitials(currentUser.name)
   const userRoleLabel = formatUserRole(currentUser.role)
@@ -65,6 +67,19 @@ export function DashboardShell({
             {translations.dashboard.navigation.settings_label}
           </span>
           <button
+            className={navigationItemClassName(
+              activeNavigationItem,
+              'template',
+            )}
+            type="button"
+            onClick={onOpenTemplate}
+            aria-current={
+              activeNavigationItem === 'template' ? 'page' : undefined
+            }
+          >
+            {translations.dashboard.navigation.template}
+          </button>
+          <button
             className={navigationItemClassName(activeNavigationItem, 'profile')}
             type="button"
             aria-current={
@@ -111,7 +126,13 @@ export function DashboardShell({
             ))}
           </p>
         </header>
-        <div className="fr-dashboard-content">{children}</div>
+        <div
+          className={['fr-dashboard-content', contentClassName]
+            .filter(Boolean)
+            .join(' ')}
+        >
+          {children}
+        </div>
       </main>
     </div>
   )

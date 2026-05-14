@@ -7,6 +7,7 @@ export type DashboardPageProps = {
   onOpenReport: (reportId: string) => void
   onOpenDashboard: () => void
   onOpenReports: () => void
+  onOpenTemplate: () => void
   onAuthenticationExpired: () => void
 }
 
@@ -14,6 +15,7 @@ export type AllReportsPageProps = {
   onOpenReport: (reportId: string) => void
   onOpenDashboard: () => void
   onOpenReports: () => void
+  onOpenTemplate: () => void
   onAuthenticationExpired: () => void
 }
 
@@ -22,10 +24,15 @@ export type ReportDetailPageProps = {
   source: ReportRouteSource
   onOpenDashboard: () => void
   onOpenReports: () => void
+  onOpenTemplate: () => void
   onAuthenticationExpired: () => void
 }
 
-export type DashboardNavigationItem = 'dashboard' | 'reports' | 'profile'
+export type DashboardNavigationItem =
+  | 'dashboard'
+  | 'reports'
+  | 'template'
+  | 'profile'
 
 export type DashboardBreadcrumbItem = {
   label: string
@@ -37,9 +44,11 @@ export type DashboardShellProps = {
   currentUser: CurrentUser
   activeNavigationItem?: DashboardNavigationItem
   breadcrumbItems?: DashboardBreadcrumbItem[]
+  contentClassName?: string
   totalReportsCount?: number
   onOpenDashboard?: () => void
   onOpenReports?: () => void
+  onOpenTemplate?: () => void
 }
 
 export type DashboardStatsProps = {

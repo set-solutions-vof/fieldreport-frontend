@@ -26,6 +26,7 @@ export function ReportDetailWorkspace({
   source,
   onOpenDashboard,
   onOpenReports,
+  onOpenTemplate,
 }: ReportDetailWorkspaceProps) {
   const [activeTab, setActiveTab] = useState<ReportDetailTab>('report')
   const [activeSectionId, setActiveSectionId] = useState<string | null>(null)
@@ -145,6 +146,7 @@ export function ReportDetailWorkspace({
       totalReportsCount={totalReportsCount}
       onOpenDashboard={onOpenDashboard}
       onOpenReports={onOpenReports}
+      onOpenTemplate={onOpenTemplate}
     >
       <div className="fr-report-detail-page">
         <ReportDetailHeaderBlock report={report} />

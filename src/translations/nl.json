@@ -18,6 +18,7 @@
       "dashboard": "Overzicht",
       "all_reports": "Alle rapporten",
       "settings_label": "Instellingen",
+      "template": "Sjabloon",
       "profile": "Profiel"
     },
     "states": {
@@ -52,6 +53,41 @@
     "all_reports": {
       "title": "Alle rapporten",
       "empty": "Er zijn geen rapporten."
+    }
+  },
+  "template": {
+    "navigation_label": "Sjabloon",
+    "empty": {
+      "title": "Set up your report template",
+      "description": "Upload a few of your existing reports and the FieldReport engine will extract your template structure automatically.",
+      "upload_button": "Upload reports",
+      "extract_label": "What we extract"
+    },
+    "uploading": {
+      "dropzone_label": "Drop more files or click to add",
+      "remove_file_label": "Remove",
+      "cancel_button": "Cancel",
+      "start_button": "Start analysis"
+    },
+    "review": {
+      "title": "Review the structure below",
+      "hint": "Edit section labels if needed, then confirm.",
+      "sections_stat": "Sections",
+      "fields_stat": "Fields",
+      "reports_stat": "Reports",
+      "confirm_button": "Confirm template"
+    },
+    "approved": {
+      "title": "Your template is active",
+      "hint": "All new inspections will follow this structure.",
+      "edit_button": "Edit template",
+      "edit_tooltip": "Editing coming soon"
+    },
+    "errors": {
+      "load_failed_title": "Sjabloon laden is mislukt",
+      "load_failed": "Sjabloon kon niet worden geladen.",
+      "analysis_failed": "Analyse kon niet worden gestart.",
+      "confirm_failed": "Sjabloon bevestigen is mislukt."
     }
   },
   "reports": {

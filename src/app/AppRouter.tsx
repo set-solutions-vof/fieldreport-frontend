@@ -3,12 +3,14 @@ import { LoginPage } from '@/features/auth/LoginPage'
 import { AllReportsPage } from '@/features/reports/pages/AllReportsPage'
 import { DashboardPage } from '@/features/reports/pages/DashboardPage'
 import { ReportDetailPage } from '@/features/reports/pages/ReportDetailPage'
+import { TemplateConfigurationPage } from '@/features/templates/pages/TemplateConfigurationPage'
 import {
   allReportsReportRoute,
   allReportsRoute,
   dashboardReportRoute,
   dashboardRoute,
   reportRouteMatch,
+  templateRoute,
 } from './routes'
 
 export function AppRouter() {
@@ -49,6 +51,7 @@ export function AppRouter() {
         onOpenReport={(reportId) => navigate(dashboardReportRoute(reportId))}
         onOpenDashboard={() => navigate(dashboardRoute)}
         onOpenReports={() => navigate(allReportsRoute)}
+        onOpenTemplate={() => navigate(templateRoute)}
         onAuthenticationExpired={handleAuthenticationExpired}
       />
     )
@@ -60,6 +63,18 @@ export function AppRouter() {
         onOpenReport={(reportId) => navigate(allReportsReportRoute(reportId))}
         onOpenDashboard={() => navigate(dashboardRoute)}
         onOpenReports={() => navigate(allReportsRoute)}
+        onOpenTemplate={() => navigate(templateRoute)}
+        onAuthenticationExpired={handleAuthenticationExpired}
+      />
+    )
+  }
+
+  if (currentPath === templateRoute) {
+    return (
+      <TemplateConfigurationPage
+        onOpenDashboard={() => navigate(dashboardRoute)}
+        onOpenReports={() => navigate(allReportsRoute)}
+        onOpenTemplate={() => navigate(templateRoute)}
         onAuthenticationExpired={handleAuthenticationExpired}
       />
     )
@@ -74,6 +89,7 @@ export function AppRouter() {
         source={currentReportRoute.source}
         onOpenDashboard={() => navigate(dashboardRoute)}
         onOpenReports={() => navigate(allReportsRoute)}
+        onOpenTemplate={() => navigate(templateRoute)}
         onAuthenticationExpired={handleAuthenticationExpired}
       />
     )

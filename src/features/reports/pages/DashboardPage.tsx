@@ -13,6 +13,7 @@ export function DashboardPage({
   onOpenReport,
   onOpenDashboard,
   onOpenReports,
+  onOpenTemplate,
   onAuthenticationExpired,
 }: DashboardPageProps) {
   const { reports, isLoading, isError, errorMessage, retry } = useReportList({
@@ -69,6 +70,7 @@ export function DashboardPage({
       totalReportsCount={reports.length}
       onOpenDashboard={onOpenDashboard}
       onOpenReports={onOpenReports}
+      onOpenTemplate={onOpenTemplate}
     >
       <ValidationReportsSection
         reports={reportsToValidate}

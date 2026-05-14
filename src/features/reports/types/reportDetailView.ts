@@ -30,6 +30,7 @@ export type ReportDetailWorkspaceProps = {
   source: ReportRouteSource
   onOpenDashboard: () => void
   onOpenReports: () => void
+  onOpenTemplate: () => void
 }
 
 export type UseReportDraftAutosaveParameters = {

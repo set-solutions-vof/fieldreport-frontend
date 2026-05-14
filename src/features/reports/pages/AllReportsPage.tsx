@@ -11,6 +11,7 @@ export function AllReportsPage({
   onOpenReport,
   onOpenDashboard,
   onOpenReports,
+  onOpenTemplate,
   onAuthenticationExpired,
 }: AllReportsPageProps) {
   const { reports, isLoading, isError, errorMessage, retry } = useReportList({
@@ -65,6 +66,7 @@ export function AllReportsPage({
       totalReportsCount={reports.length}
       onOpenDashboard={onOpenDashboard}
       onOpenReports={onOpenReports}
+      onOpenTemplate={onOpenTemplate}
     >
       <section className="fr-dashboard-section">
         <div className="fr-dashboard-section-header">
