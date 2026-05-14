@@ -1,10 +1,6 @@
-import type { TemplateSectionType } from '@/types/template'
 import { templateTypeMeta } from '../lib/templateMeta'
+import type { TemplateTypePillProps } from '../types/templateView'
 import { TemplateIcon } from './TemplateIcon'
-
-type TemplateTypePillProps = {
-  type: TemplateSectionType
-}
 
 export function TemplateTypePill({ type }: TemplateTypePillProps) {
   const meta = templateTypeMeta[type]

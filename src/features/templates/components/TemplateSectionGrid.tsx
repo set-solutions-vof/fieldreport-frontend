@@ -1,11 +1,5 @@
-import type { TemplateSection } from '@/types/template'
+import type { TemplateSectionGridProps } from '../types/templateView'
 import { TemplateSectionCard } from './TemplateSectionCard'
-
-type TemplateSectionGridProps = {
-  sections: TemplateSection[]
-  readonly?: boolean
-  onLabelChange?: (sectionId: string, label: string) => void
-}
 
 export function TemplateSectionGrid({
   sections,

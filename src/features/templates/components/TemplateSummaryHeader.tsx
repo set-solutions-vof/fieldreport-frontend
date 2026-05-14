@@ -1,16 +1,4 @@
-import type { ReactNode } from 'react'
-
-export type TemplateSummaryStat = {
-  label: string
-  value: string
-}
-
-type TemplateSummaryHeaderProps = {
-  title: ReactNode
-  hint: string
-  stats: TemplateSummaryStat[]
-  action: ReactNode
-}
+import type { TemplateSummaryHeaderProps } from '../types/templateView'
 
 export function TemplateSummaryHeader({
   title,

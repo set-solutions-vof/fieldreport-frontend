@@ -9,14 +9,8 @@ import { TemplateReviewState } from '../components/TemplateReviewState'
 import { TemplateSkeletonGrid } from '../components/TemplateSkeletonGrid'
 import { TemplateUploadingState } from '../components/TemplateUploadingState'
 import { useTemplateConfiguration } from '../hooks/useTemplateConfiguration'
+import type { TemplateConfigurationPageProps } from '../types/templateView'
 import './TemplateConfigurationPage.css'
-
-type TemplateConfigurationPageProps = {
-  onOpenDashboard: () => void
-  onOpenReports: () => void
-  onOpenTemplate: () => void
-  onAuthenticationExpired: () => void
-}
 
 export function TemplateConfigurationPage({
   onOpenDashboard,
@@ -137,7 +131,6 @@ export function TemplateConfigurationPage({
         {pageState.kind === 'preview' && (
           <TemplateReviewState
             sections={pageState.sections}
-            reportsCount={pageState.reportsCount}
             actionErrorMessage={actionErrorMessage}
             isConfirming={isConfirming}
             onLabelChange={updateSectionLabel}
@@ -148,7 +141,6 @@ export function TemplateConfigurationPage({
           <TemplateReviewState
             approved
             sections={pageState.sections}
-            reportsCount={pageState.reportsCount}
             actionErrorMessage={actionErrorMessage}
             isConfirming={isConfirming}
             onLabelChange={updateSectionLabel}

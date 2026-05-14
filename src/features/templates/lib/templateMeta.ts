@@ -1,9 +1,5 @@
 import type { TemplateSectionType } from '@/types/template'
-
-export type TemplateTypeMeta = {
-  icon: 'paragraph' | 'gridKV' | 'list' | 'photo'
-  label: string
-}
+import type { TemplateTypeMeta } from '../types/templateView'
 
 export const templateTypeMeta: Record<TemplateSectionType, TemplateTypeMeta> = {
   text: {

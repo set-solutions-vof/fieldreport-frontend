@@ -1,18 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { Card, Input } from '@/design-system'
-import type { TemplateSection } from '@/types/template'
 import { formatTemplateOrder } from '../lib/templateFormatters'
+import type { TemplateSectionCardProps } from '../types/templateView'
 import { TemplateFieldChip } from './TemplateFieldChip'
 import { TemplateIcon } from './TemplateIcon'
 import { TemplateTypePill } from './TemplateTypePill'
-
-type TemplateSectionCardProps = {
-  section: TemplateSection
-  index: number
-  readonly?: boolean
-  feature?: boolean
-  onLabelChange?: (sectionId: string, label: string) => void
-}
 
 export function TemplateSectionCard({
   section,

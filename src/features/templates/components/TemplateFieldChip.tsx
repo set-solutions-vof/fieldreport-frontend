@@ -1,7 +1,4 @@
-type TemplateFieldChipProps = {
-  children: string
-  neutral?: boolean
-}
+import type { TemplateFieldChipProps } from '../types/templateView'
 
 export function TemplateFieldChip({
   children,

@@ -1,20 +1,4 @@
-export type TemplateIconName =
-  | 'upload'
-  | 'document'
-  | 'documentDashed'
-  | 'x'
-  | 'grip'
-  | 'paragraph'
-  | 'gridKV'
-  | 'list'
-  | 'photo'
-  | 'checkCircle'
-  | 'edit'
-
-type TemplateIconProps = {
-  name: TemplateIconName
-  className?: string
-}
+import type { TemplateIconProps } from '../types/templateView'
 
 const strokeProps = {
   fill: 'none',

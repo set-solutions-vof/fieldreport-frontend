@@ -1,16 +1,8 @@
 import { Button } from '@/design-system'
 import { translations } from '@/lib/translations'
 import { formatFileSize, formatFilesMeta } from '../lib/templateFormatters'
+import type { TemplateUploadingStateProps } from '../types/templateView'
 import { TemplateIcon } from './TemplateIcon'
-
-type TemplateUploadingStateProps = {
-  files: File[]
-  actionErrorMessage: string | null
-  onAddFiles: () => void
-  onRemoveFile: (fileName: string) => void
-  onCancel: () => void
-  onStartAnalysis: () => void
-}
 
 export function TemplateUploadingState({
   files,

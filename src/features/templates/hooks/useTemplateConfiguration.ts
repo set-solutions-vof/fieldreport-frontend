@@ -7,36 +7,13 @@ import {
 } from '@/lib/api/templates'
 import { isAuthenticationExpiredError } from '@/lib/api/authenticatedFetch'
 import { translations } from '@/lib/translations'
-import type { TemplateSection, TemplateStatusResponse } from '@/types/template'
-
-export type TemplatePageState =
-  | { kind: 'empty' }
-  | { kind: 'uploading'; files: File[] }
-  | { kind: 'processing'; files: File[]; jobId: string; reportsCount: number }
-  | { kind: 'preview'; sections: TemplateSection[]; reportsCount: number }
-  | { kind: 'approved'; sections: TemplateSection[]; reportsCount: number }
-
-type TemplateLoadStatus = 'loading' | 'success' | 'error'
-
-type UseTemplateConfigurationParameters = {
-  onAuthenticationExpired: () => void
-}
-
-type UseTemplateConfigurationResult = {
-  pageState: TemplatePageState
-  isLoading: boolean
-  isError: boolean
-  errorMessage: string | null
-  actionErrorMessage: string | null
-  isConfirming: boolean
-  retry: () => void
-  addFiles: (files: File[]) => void
-  removeFile: (fileName: string) => void
-  cancelUpload: () => void
-  startAnalysis: () => Promise<void>
-  updateSectionLabel: (sectionId: string, label: string) => void
-  confirmCurrentTemplate: () => Promise<void>
-}
+import type { TemplateStatusResponse } from '@/types/template'
+import type {
+  TemplateLoadStatus,
+  TemplatePageState,
+  UseTemplateConfigurationParameters,
+  UseTemplateConfigurationResult,
+} from '../types/templateConfiguration'
 
 export function useTemplateConfiguration({
   onAuthenticationExpired,
