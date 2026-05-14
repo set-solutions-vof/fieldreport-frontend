@@ -40,6 +40,7 @@ export function AppRouter() {
     return (
       <DashboardPage
         onOpenReport={(reportId) => navigate(reportRoute(reportId))}
+        onOpenDashboard={() => navigate(dashboardRoute)}
         onAuthenticationExpired={handleAuthenticationExpired}
       />
     )
@@ -51,6 +52,7 @@ export function AppRouter() {
     return (
       <ReportDetailPage
         reportId={currentReportId}
+        onOpenDashboard={() => navigate(dashboardRoute)}
         onAuthenticationExpired={handleAuthenticationExpired}
       />
     )

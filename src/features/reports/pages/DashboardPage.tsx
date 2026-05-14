@@ -12,6 +12,7 @@ import './DashboardPage.css'
 
 export function DashboardPage({
   onOpenReport,
+  onOpenDashboard,
   onAuthenticationExpired,
 }: DashboardPageProps) {
   const { reports, isLoading, isError, errorMessage, retry } = useReports({
@@ -66,8 +67,8 @@ export function DashboardPage({
       currentUser={currentUser}
       activeNavigationItem="dashboard"
       breadcrumbItems={[translations.dashboard.navigation.dashboard]}
-      reportsToValidateCount={reportsToValidateCount}
       totalReportsCount={reports.length}
+      onOpenDashboard={onOpenDashboard}
     >
       <section className="fr-dashboard-intro">
         <h1>{translations.dashboard.intro.title}</h1>

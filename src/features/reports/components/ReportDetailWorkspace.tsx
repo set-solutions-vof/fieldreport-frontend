@@ -22,8 +22,8 @@ import type {
 export function ReportDetailWorkspace({
   report,
   currentUser,
-  reportsToValidateCount,
   totalReportsCount,
+  onOpenDashboard,
 }: ReportDetailWorkspaceProps) {
   const [activeTab, setActiveTab] = useState<ReportDetailTab>('report')
   const [activeSectionId, setActiveSectionId] = useState<string | null>(null)
@@ -128,10 +128,14 @@ export function ReportDetailWorkspace({
   return (
     <DashboardShell
       currentUser={currentUser}
-      activeNavigationItem="validation"
-      breadcrumbItems={[translations.report_detail.tabs.report, report.address]}
-      reportsToValidateCount={reportsToValidateCount}
+      activeNavigationItem="dashboard"
+      breadcrumbItems={[
+        translations.dashboard.navigation.dashboard,
+        translations.report_detail.tabs.report,
+        report.address,
+      ]}
       totalReportsCount={totalReportsCount}
+      onOpenDashboard={onOpenDashboard}
     >
       <div className="fr-report-detail-page">
         <ReportDetailHeaderBlock report={report} />

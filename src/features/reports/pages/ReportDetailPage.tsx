@@ -9,6 +9,7 @@ import './ReportDetailPage.css'
 
 export function ReportDetailPage({
   reportId,
+  onOpenDashboard,
   onAuthenticationExpired,
 }: ReportDetailPageProps) {
   const { report, isLoading, isError, errorMessage, retry } = useReport({
@@ -75,11 +76,8 @@ export function ReportDetailPage({
       key={report.id}
       report={report}
       currentUser={currentUser}
-      reportsToValidateCount={
-        reports.filter((reportSummary) => reportSummary.status === 'draft')
-          .length
-      }
       totalReportsCount={reports.length}
+      onOpenDashboard={onOpenDashboard}
     />
   )
 }

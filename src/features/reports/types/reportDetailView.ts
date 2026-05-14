@@ -24,8 +24,8 @@ export type SourceRailItem = {
 export type ReportDetailWorkspaceProps = {
   report: ReportDetail
   currentUser: CurrentUser
-  reportsToValidateCount: number
   totalReportsCount: number
+  onOpenDashboard: () => void
 }
 
 export type UseReportDraftAutosaveParameters = {

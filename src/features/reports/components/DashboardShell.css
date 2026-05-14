@@ -157,6 +157,19 @@
   color: var(--fr-text-primary);
 }
 
+.fr-dashboard-breadcrumb-button {
+  padding: var(--fr-space-0);
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+}
+
+.fr-dashboard-breadcrumb-button:hover {
+  color: var(--fr-text-primary);
+}
+
 .fr-dashboard-content {
   display: flex;
   flex-direction: column;

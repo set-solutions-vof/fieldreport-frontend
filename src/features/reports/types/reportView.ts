@@ -4,28 +4,25 @@ import type { ReportSummary } from '@/types/report'
 
 export type DashboardPageProps = {
   onOpenReport: (reportId: string) => void
+  onOpenDashboard: () => void
   onAuthenticationExpired: () => void
 }
 
 export type ReportDetailPageProps = {
   reportId: string
+  onOpenDashboard: () => void
   onAuthenticationExpired: () => void
 }
 
-export type DashboardNavigationItem =
-  | 'dashboard'
-  | 'validation'
-  | 'reports'
-  | 'locations'
-  | 'profile'
+export type DashboardNavigationItem = 'dashboard' | 'reports' | 'profile'
 
 export type DashboardShellProps = {
   children?: ReactNode
   currentUser: CurrentUser
   activeNavigationItem?: DashboardNavigationItem
   breadcrumbItems?: string[]
-  reportsToValidateCount?: number
   totalReportsCount?: number
+  onOpenDashboard?: () => void
 }
 
 export type DashboardStatsProps = {

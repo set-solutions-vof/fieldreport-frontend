@@ -1,12 +1,12 @@
 {
   "auth": {
     "login": {
-      "title": "Inspector access",
-      "subtitle": "Sign in to review assigned field reports.",
-      "email_label": "Email",
-      "password_label": "Password",
-      "submit_button": "Sign in",
-      "invalid_credentials_error": "Email or password is invalid."
+      "title": "Inloggen",
+      "subtitle": "Meld je aan om verder te gaan.",
+      "email_label": "E-mailadres",
+      "password_label": "Wachtwoord",
+      "submit_button": "Inloggen",
+      "invalid_credentials_error": "E-mailadres of wachtwoord is ongeldig."
     },
     "errors": {
       "current_user_load_failed": "Gebruiker kon niet worden geladen."
@@ -15,10 +15,8 @@
   "dashboard": {
     "navigation": {
       "workspace_label": "Werkruimte",
-      "dashboard": "Dashboard",
-      "validation": "Te valideren",
+      "dashboard": "Overzicht",
       "all_reports": "Alle rapporten",
-      "locations": "Locaties",
       "settings_label": "Instellingen",
       "profile": "Profiel"
     },
@@ -27,14 +25,14 @@
       "retry_button": "Opnieuw proberen"
     },
     "intro": {
-      "title": "Te valideren",
-      "none_waiting": "Er wacht geen rapport op je controle.",
-      "one_waiting": "1 rapport wacht op je controle. Gemiddelde nog niet beschikbaar.",
-      "many_waiting_suffix": "wachten op je controle. Gemiddelde nog niet beschikbaar."
+      "title": "Open rapporten",
+      "none_waiting": "Er zijn geen open rapporten.",
+      "one_waiting": "1 rapport staat open. Gemiddelde nog niet beschikbaar.",
+      "many_waiting_suffix": "staan open. Gemiddelde nog niet beschikbaar."
     },
     "queue": {
-      "title": "Wachtrij",
-      "empty": "Er staan geen rapporten in de wachtrij."
+      "title": "Open rapporten",
+      "empty": "Er zijn geen open rapporten."
     },
     "stats": {
       "aria_label": "Dashboard statistieken",
