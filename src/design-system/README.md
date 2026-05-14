@@ -3,8 +3,9 @@
 The foundation layer for FieldReport — a focused, data-dense desktop tool for
 field inspectors reviewing AI-generated reports. Aesthetic peers: Linear,
 Vercel, Braze. No decorative gradients, no playful illustrations, no rounded
-bubbles. Typography-led hierarchy, restrained accent, status communicated
-through both color and shape.
+bubbles. Typography-led hierarchy, restrained accent, and status communicated
+through shape, text, and restrained signal color. Approval is a human review
+state and stays monochrome. AI confidence owns amber and red accuracy signals.
 
 ```
 design-system/
@@ -15,6 +16,16 @@ design-system/
     ├── Input.tsx + .css       # (Input.css is shared with Textarea)
     ├── Textarea.tsx
     ├── Badge.tsx + .css
+    ├── ApprovalPill.tsx + .css
+    ├── AccuracyChip.tsx + .css
+    ├── CitationChip.tsx + .css
+    ├── FilterChip.tsx + .css
+    ├── IssueCallout.tsx + .css
+    ├── SourceRailItem.tsx + .css
+    ├── CalmTimeline.tsx + .css
+    ├── DocumentPaper.tsx + .css
+    ├── TranscriptBlock.tsx + .css
+    ├── EvidenceCard.tsx + .css
     ├── Card.tsx + .css
     ├── Spinner.tsx + .css
     └── Divider.tsx + .css
@@ -29,8 +40,8 @@ in CSS or via `var(--fr-*)` in inline styles when you must.
 
 ```tsx
 // app/main.tsx
-import "@/design-system/tokens.css";
-import { Button } from "@/design-system";
+import '@/design-system/tokens.css'
+import { Button } from '@/design-system'
 ```
 
 Add `class="fr-app"` (or `<body class="fr-app">`) to opt the app shell into
@@ -38,19 +49,19 @@ the system's font, color, and antialiasing defaults.
 
 ### Token namespaces
 
-| Prefix              | Purpose                                            |
-| ------------------- | -------------------------------------------------- |
-| `--fr-color-*`      | Raw color ramps (neutral, accent, status stems)    |
-| `--fr-background`, `--fr-surface`, `--fr-border-*`, `--fr-text-*`, `--fr-accent*`, `--fr-destructive*`, `--fr-status-*-*` | Semantic colors — **prefer these in components** |
-| `--fr-font-*`       | Font stacks (sans, mono)                           |
-| `--fr-text-*`       | Type size scale (xs → 3xl)                         |
-| `--fr-weight-*`     | Font weight scale                                  |
-| `--fr-leading-*`    | Line height scale                                  |
-| `--fr-space-*`      | Spacing scale 0–16 on a 4px base                   |
-| `--fr-radius-*`     | Border radius (none, sm 2px, md 4px, lg 6px, full) |
-| `--fr-shadow-*`     | Elevation (sm, md, lg) + `--fr-shadow-focus`       |
-| `--fr-duration-*`, `--fr-ease-*`, `--fr-transition-*` | Motion                          |
-| `--fr-control-*`    | Shared Button/Input control geometry               |
+| Prefix                                                                                                                                                                           | Purpose                                          |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| `--fr-color-*`                                                                                                                                                                   | Raw color ramps (neutral, accent, status stems)  |
+| `--fr-background`, `--fr-surface`, `--fr-border-*`, `--fr-text-*`, `--fr-accent*`, `--fr-destructive*`, `--fr-status-*-*`, `--fr-signal-*`, `--fr-approval-*`, `--fr-citation-*` | Semantic colors — **prefer these in components** |
+| `--fr-font-*`                                                                                                                                                                    | Font stacks (sans, mono)                         |
+| `--fr-text-*`                                                                                                                                                                    | Type size scale (xs → 3xl)                       |
+| `--fr-weight-*`                                                                                                                                                                  | Font weight scale                                |
+| `--fr-leading-*`                                                                                                                                                                 | Line height scale                                |
+| `--fr-space-*`                                                                                                                                                                   | Spacing scale 0–16 on a 4px base                 |
+| `--fr-radius-*`                                                                                                                                                                  | Border radius including `--fr-radius-paper`      |
+| `--fr-shadow-*`                                                                                                                                                                  | Elevation + `--fr-shadow-focus` and paper shadow |
+| `--fr-duration-*`, `--fr-ease-*`, `--fr-transition-*`                                                                                                                            | Motion                                           |
+| `--fr-control-*`                                                                                                                                                                 | Shared Button/Input control geometry             |
 
 ## Components
 
@@ -116,6 +127,7 @@ sections.
 ### Badge
 
 Maps to report lifecycle: `draft`, `approved`, `generating`, `failed`.
+`approved` is neutral, not green; approval color never carries AI confidence.
 Always pairs a leading dot (or spinner for `generating`) with the color so
 the variant is also identifiable by shape.
 
@@ -125,6 +137,120 @@ the variant is also identifiable by shape.
 <Badge variant="generating" />   {/* spinner + amber */}
 <Badge variant="failed" />
 <Badge variant="approved">Approved · 2:14pm</Badge>
+```
+
+### ApprovalPill
+
+Monochrome human-review toggle. Use this for section approval instead of a
+green status badge.
+
+```tsx
+<ApprovalPill approved={section.is_approved} onToggle={approveSection} />
+```
+
+### AccuracyChip
+
+AI confidence chip with a mono percentage and inline meter. Values under 75
+render amber; values under 60 render red; high confidence stays neutral ink.
+
+```tsx
+<AccuracyChip value={92} />
+<AccuracyChip value={71} />
+<AccuracyChip value={54} />
+```
+
+### CitationChip
+
+Inline clickable source timestamp. Neutral citations use accent-soft; warn and
+alert variants inherit the accuracy signal colors.
+
+```tsx
+<CitationChip timestamp="10:20" onClick={jumpToSource} />
+<CitationChip timestamp="12:08" variant="warn" />
+```
+
+### FilterChip
+
+Small toggle pill for tab filters.
+
+```tsx
+<FilterChip selected={view === 'timeline'} onToggle={() => setView('timeline')}>
+  Tijdlijn
+</FilterChip>
+```
+
+### IssueCallout
+
+Inset warning or alert banner with an optional action slot.
+
+```tsx
+<IssueCallout
+  variant="warn"
+  title="Open hiaat"
+  action={<Button size="sm">Bekijk</Button>}
+>
+  Controleer de bron voordat je deze sectie goedkeurt.
+</IssueCallout>
+```
+
+### SourceRailItem
+
+Vertical source rail row with connector, node, mono timestamp, icon, title, and
+section reference.
+
+```tsx
+<SourceRailItem
+  timestamp="10:20"
+  title="Foto kruipruimte"
+  sectionRef="Sectie 3"
+/>
+```
+
+### CalmTimeline
+
+Horizontal evidence axis with mono labels and neutral, warn, alert, or active
+event dots.
+
+```tsx
+<CalmTimeline labels={labels} events={events} activeEventId={activeSourceId} />
+```
+
+### DocumentPaper
+
+Document-width report container with dedicated header, body, and footer slots.
+
+```tsx
+<DocumentPaper>
+  <DocumentPaperHeader>Rapport</DocumentPaperHeader>
+  <DocumentPaperBody>{sections}</DocumentPaperBody>
+  <DocumentPaperFooter>{actions}</DocumentPaperFooter>
+</DocumentPaper>
+```
+
+### TranscriptBlock
+
+Transcript row with a mono time gutter, speaker row, body, and optional tags.
+
+```tsx
+<TranscriptBlock timestamp="10:20" speaker="Inspecteur" tags={['keuken']}>
+  Vocht zichtbaar onder het spoelblok.
+</TranscriptBlock>
+```
+
+### EvidenceCard
+
+Media evidence card with type, timestamp, caption, section reference, and
+accuracy chip.
+
+```tsx
+<EvidenceCard
+  media={<img src={photoUrl} alt="" />}
+  evidenceType="image"
+  timestamp="10:20"
+  caption="Vochtspoor bij leidingdoorvoer"
+  sectionLabel="Sectie 3"
+  accuracy={88}
+/>
 ```
 
 ### Card
@@ -200,8 +326,17 @@ Direction 03 — the FR monogram tile in the brand accent. Files live in `design
 
 ```html
 <link rel="icon" type="image/svg+xml" href="/design-system/brand/favicon.svg" />
-<link rel="icon" type="image/png" sizes="32x32" href="/design-system/brand/favicon-32.png" />
-<link rel="apple-touch-icon" sizes="180x180" href="/design-system/brand/favicon-180.png" />
+<link
+  rel="icon"
+  type="image/png"
+  sizes="32x32"
+  href="/design-system/brand/favicon-32.png"
+/>
+<link
+  rel="apple-touch-icon"
+  sizes="180x180"
+  href="/design-system/brand/favicon-180.png"
+/>
 ```
 
 ### Divider
@@ -243,9 +378,12 @@ legible.
 
 Built and verified against the brief:
 
-- ✅ All listed components implemented; nothing extra.
-- ✅ Component CSS references only `--fr-*` tokens — no hex, px, or font names.
-- ✅ TypeScript: every component fully typed with forwarded refs and exported prop types.
-- ✅ Keyboard: Button (`Enter`/`Space`, focus ring), Input/Textarea (label association, `aria-describedby`, `aria-invalid`), interactive Card (rendered as `<button>`), Divider semantic option (`role="separator"`).
-- ✅ Color is never the only signal: Button loading uses a spinner, Badge pairs each variant with a dot or spinner, Input/Textarea errors are announced via `role="alert"`.
-- ⚠️ Not validated in this scaffold: a real TypeScript compile (no `tsconfig.json` is shipped here — the system is consumed inside the host app's TS pipeline) and automated visual regression. The component preview at `preview.html` exercises every variant by eye.
+- ✅ Approval is monochrome: `Badge variant="approved"` and `ApprovalPill`
+  resolve to neutral ink.
+- ✅ Confidence owns warning colors: `AccuracyChip`, `CitationChip`,
+  `CalmTimeline`, `SourceRailItem`, and `IssueCallout` use neutral, amber, and
+  red signal variants.
+- ✅ New tokens added for mono type, accent-soft, amber/red signal colors, paper
+  radius, and paper shadow.
+- ✅ New components are exported from `src/design-system/index.ts`.
+- ✅ TypeScript, lint, tests, and production build pass in the host app.

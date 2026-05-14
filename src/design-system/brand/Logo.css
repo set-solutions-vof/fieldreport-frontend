@@ -22,7 +22,7 @@
 
 /* Notched corner — survey-marker shape, no illustration */
 .fr-logo__glyph::after {
-  content: "";
+  content: '';
   position: absolute;
   right: 0;
   bottom: 0;
@@ -35,28 +35,50 @@
   display: inline-flex;
 }
 
-.fr-logo__field { color: var(--fr-text-primary); }
+.fr-logo__field {
+  color: var(--fr-text-primary);
+}
 .fr-logo__report {
   color: var(--fr-text-secondary);
   font-weight: var(--fr-weight-medium);
 }
 
 /* Variants */
-.fr-logo--accent .fr-logo__glyph { background: var(--fr-accent); }
+.fr-logo--accent .fr-logo__glyph {
+  background: var(--fr-accent);
+}
 
-.fr-logo--mono .fr-logo__glyph { background: currentColor; }
+.fr-logo--mono .fr-logo__glyph {
+  background: currentColor;
+}
 .fr-logo--mono .fr-logo__field,
-.fr-logo--mono .fr-logo__report { color: currentColor; }
-.fr-logo--mono .fr-logo__report { opacity: 0.6; }
+.fr-logo--mono .fr-logo__report {
+  color: currentColor;
+}
+.fr-logo--mono .fr-logo__report {
+  opacity: 0.6;
+}
 
 /* On-dark: when used inside a dark container, set color: white via inline style
    or wrap with .fr-logo--on-dark to flip the wordmark and keep notch readable */
-.fr-logo--on-dark .fr-logo__field { color: #fff; }
-.fr-logo--on-dark .fr-logo__report { color: var(--fr-color-neutral-400); }
-.fr-logo--on-dark .fr-logo__glyph { background: #fff; }
-.fr-logo--on-dark .fr-logo__glyph::after { background: var(--fr-color-neutral-950); }
-.fr-logo--on-dark.fr-logo--accent .fr-logo__glyph { background: var(--fr-color-accent-400); }
-.fr-logo--on-dark.fr-logo--accent .fr-logo__glyph::after { background: var(--fr-color-neutral-950); }
+.fr-logo--on-dark .fr-logo__field {
+  color: #fff;
+}
+.fr-logo--on-dark .fr-logo__report {
+  color: var(--fr-color-neutral-400);
+}
+.fr-logo--on-dark .fr-logo__glyph {
+  background: #fff;
+}
+.fr-logo--on-dark .fr-logo__glyph::after {
+  background: var(--fr-color-neutral-950);
+}
+.fr-logo--on-dark.fr-logo--accent .fr-logo__glyph {
+  background: var(--fr-color-accent-400);
+}
+.fr-logo--on-dark.fr-logo--accent .fr-logo__glyph::after {
+  background: var(--fr-color-neutral-950);
+}
 
 /* Mark-only (no wordmark) */
 .fr-logo-mark {
@@ -70,10 +92,14 @@
   font-size: 24px; /* default size */
 }
 .fr-logo-mark::after {
-  content: "";
+  content: '';
   position: absolute;
-  right: 0; bottom: 0;
-  width: 35%; height: 35%;
+  right: 0;
+  bottom: 0;
+  width: 35%;
+  height: 35%;
   background: var(--fr-background);
 }
-.fr-logo-mark--accent { background: var(--fr-accent); }
+.fr-logo-mark--accent {
+  background: var(--fr-accent);
+}

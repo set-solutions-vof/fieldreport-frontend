@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { isAuthenticationExpiredError } from '@/lib/api/authenticatedFetch'
 import { getCurrentUser } from '@/lib/api/currentUser'
+import { translations } from '@/lib/translations'
 import type { CurrentUser } from '@/types/auth'
 
 type CurrentUserStatus = 'loading' | 'success' | 'error'
@@ -24,10 +25,13 @@ export function useCurrentUser({
   const [status, setStatus] = useState<CurrentUserStatus>('loading')
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
-  const showCurrentUser = useCallback((fetchedCurrentUser: CurrentUser): void => {
-    setCurrentUser(fetchedCurrentUser)
-    setStatus('success')
-  }, [])
+  const showCurrentUser = useCallback(
+    (fetchedCurrentUser: CurrentUser): void => {
+      setCurrentUser(fetchedCurrentUser)
+      setStatus('success')
+    },
+    [],
+  )
 
   const showCurrentUserError = useCallback(
     (error: unknown): void => {
@@ -37,7 +41,7 @@ export function useCurrentUser({
       }
 
       setStatus('error')
-      setErrorMessage('Gebruiker kon niet worden geladen.')
+      setErrorMessage(translations.auth.errors.current_user_load_failed)
     },
     [onAuthenticationExpired],
   )

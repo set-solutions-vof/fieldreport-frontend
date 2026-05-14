@@ -1,5 +1,10 @@
 import { apiBaseUrl } from '@/lib/config'
-import type { LoginRequest, LoginResponse, RefreshTokenRequest, RefreshTokenResponse } from '@/types/auth'
+import type {
+  LoginRequest,
+  LoginResponse,
+  RefreshTokenRequest,
+  RefreshTokenResponse,
+} from '@/types/auth'
 
 export async function login(credentials: LoginRequest): Promise<LoginResponse> {
   const response = await fetch(`${apiBaseUrl}/api/v1/auth/login/json`, {
@@ -17,7 +22,9 @@ export async function login(credentials: LoginRequest): Promise<LoginResponse> {
   return (await response.json()) as LoginResponse
 }
 
-export async function refreshAccessToken(refreshTokenRequest: RefreshTokenRequest): Promise<RefreshTokenResponse> {
+export async function refreshAccessToken(
+  refreshTokenRequest: RefreshTokenRequest,
+): Promise<RefreshTokenResponse> {
   const response = await fetch(`${apiBaseUrl}/api/v1/auth/refresh`, {
     method: 'POST',
     headers: {

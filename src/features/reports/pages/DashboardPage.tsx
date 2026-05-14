@@ -1,15 +1,21 @@
 import { Button, Spinner } from '@/design-system'
 import { useCurrentUser } from '@/features/auth/useCurrentUser'
+import { translations } from '@/lib/translations'
 import { DashboardShell } from '../components/DashboardShell'
 import { DashboardStats } from '../components/DashboardStats'
 import { RecentReportsTable } from '../components/RecentReportsTable'
 import { ValidationReportsSection } from '../components/ValidationReportsSection'
-import { useReports } from '../hooks/useReports'
-import type { DashboardPageProps } from '@/types/reportView'
+import { useReportList } from '../hooks/useReportList'
+import type { DashboardPageProps } from '../types/reportView'
 import './DashboardPage.css'
 
-export function DashboardPage({ onOpenReport, onAuthenticationExpired }: DashboardPageProps) {
-  const { reports, isLoading, isError, errorMessage, retry } = useReports({
+export function DashboardPage({
+  onOpenReport,
+  onOpenDashboard,
+  onOpenReports,
+  onAuthenticationExpired,
+}: DashboardPageProps) {
+  const { reports, isLoading, isError, errorMessage, retry } = useReportList({
     onAuthenticationExpired,
   })
   const {
@@ -19,7 +25,9 @@ export function DashboardPage({ onOpenReport, onAuthenticationExpired }: Dashboa
     errorMessage: currentUserErrorMessage,
     retry: retryCurrentUser,
   } = useCurrentUser({ onAuthenticationExpired })
-  const reportsToValidate = reports.filter((report) => report.status === 'draft')
+  const reportsToValidate = reports.filter(
+    (report) => report.status === 'draft',
+  )
   const recentReports = reports.slice(0, 5)
 
   if (isLoading || isCurrentUserLoading) {
@@ -36,7 +44,7 @@ export function DashboardPage({ onOpenReport, onAuthenticationExpired }: Dashboa
     return (
       <main className="fr-dashboard-loading-page">
         <div className="fr-dashboard-state">
-          <h1>Rapporten laden is mislukt</h1>
+          <h1>{translations.dashboard.states.reports_load_failed_title}</h1>
           <p>{errorMessage ?? currentUserErrorMessage}</p>
           <Button
             type="button"
@@ -46,7 +54,7 @@ export function DashboardPage({ onOpenReport, onAuthenticationExpired }: Dashboa
               retryCurrentUser()
             }}
           >
-            Opnieuw proberen
+            {translations.dashboard.states.retry_button}
           </Button>
         </div>
       </main>
@@ -56,18 +64,21 @@ export function DashboardPage({ onOpenReport, onAuthenticationExpired }: Dashboa
   return (
     <DashboardShell
       currentUser={currentUser}
-      reportsToValidateCount={reportsToValidate.length}
+      activeNavigationItem="dashboard"
+      breadcrumbItems={[{ label: translations.dashboard.navigation.dashboard }]}
       totalReportsCount={reports.length}
+      onOpenDashboard={onOpenDashboard}
+      onOpenReports={onOpenReports}
     >
-      <section className="fr-dashboard-intro">
-        <h1>Te valideren</h1>
-        <p>
-          {reportsToValidate.length} concepten wachten op je controle. Gemiddelde nog niet beschikbaar.
-        </p>
-      </section>
-      <ValidationReportsSection reports={reportsToValidate} onOpenReport={onOpenReport} />
+      <ValidationReportsSection
+        reports={reportsToValidate}
+        onOpenReport={onOpenReport}
+      />
       <DashboardStats reports={reports} />
-      <RecentReportsTable reports={recentReports} />
+      <RecentReportsTable
+        reports={recentReports}
+        onOpenReports={onOpenReports}
+      />
     </DashboardShell>
   )
 }

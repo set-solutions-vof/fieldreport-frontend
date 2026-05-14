@@ -1,5 +1,9 @@
 import { Logo } from '@/design-system'
-import type { DashboardShellProps } from '@/types/reportView'
+import { translations } from '@/lib/translations'
+import type {
+  DashboardNavigationItem,
+  DashboardShellProps,
+} from '../types/reportView'
 import { formatUserRole } from '../lib/formatUserRole'
 import { getUserInitials } from '../lib/getUserInitials'
 import './DashboardShell.css'
@@ -7,8 +11,11 @@ import './DashboardShell.css'
 export function DashboardShell({
   children,
   currentUser,
-  reportsToValidateCount = 0,
+  activeNavigationItem = 'dashboard',
+  breadcrumbItems = [{ label: translations.dashboard.navigation.dashboard }],
   totalReportsCount = 0,
+  onOpenDashboard,
+  onOpenReports,
 }: DashboardShellProps) {
   const userInitials = getUserInitials(currentUser.name)
   const userRoleLabel = formatUserRole(currentUser.role)
@@ -19,27 +26,52 @@ export function DashboardShell({
         <div className="fr-dashboard-brand">
           <Logo variant="accent" />
         </div>
-        <nav className="fr-dashboard-nav" aria-label="Werkruimte">
-          <span className="fr-dashboard-nav-label">Werkruimte</span>
-          <button className="fr-dashboard-nav-item fr-dashboard-nav-item--active" type="button">
-            Dashboard
+        <nav
+          className="fr-dashboard-nav"
+          aria-label={translations.dashboard.navigation.workspace_label}
+        >
+          <span className="fr-dashboard-nav-label">
+            {translations.dashboard.navigation.workspace_label}
+          </span>
+          <button
+            className={navigationItemClassName(
+              activeNavigationItem,
+              'dashboard',
+            )}
+            type="button"
+            onClick={onOpenDashboard}
+            aria-current={
+              activeNavigationItem === 'dashboard' ? 'page' : undefined
+            }
+          >
+            {translations.dashboard.navigation.dashboard}
           </button>
-          <button className="fr-dashboard-nav-item" type="button">
-            <span>Te valideren</span>
-            {reportsToValidateCount > 0 && (
-              <span className="fr-dashboard-nav-count">{reportsToValidateCount}</span>
+          <button
+            className={navigationItemClassName(activeNavigationItem, 'reports')}
+            type="button"
+            onClick={onOpenReports}
+            aria-current={
+              activeNavigationItem === 'reports' ? 'page' : undefined
+            }
+          >
+            <span>{translations.dashboard.navigation.all_reports}</span>
+            {totalReportsCount > 0 && (
+              <span className="fr-dashboard-nav-count">
+                {totalReportsCount}
+              </span>
             )}
           </button>
-          <button className="fr-dashboard-nav-item" type="button">
-            <span>Alle rapporten</span>
-            {totalReportsCount > 0 && <span className="fr-dashboard-nav-count">{totalReportsCount}</span>}
-          </button>
-          <button className="fr-dashboard-nav-item" type="button">
-            Locaties
-          </button>
-          <span className="fr-dashboard-nav-label">Instellingen</span>
-          <button className="fr-dashboard-nav-item" type="button">
-            Profiel
+          <span className="fr-dashboard-nav-label">
+            {translations.dashboard.navigation.settings_label}
+          </span>
+          <button
+            className={navigationItemClassName(activeNavigationItem, 'profile')}
+            type="button"
+            aria-current={
+              activeNavigationItem === 'profile' ? 'page' : undefined
+            }
+          >
+            {translations.dashboard.navigation.profile}
           </button>
         </nav>
         <div className="fr-dashboard-user">
@@ -56,12 +88,43 @@ export function DashboardShell({
         <header className="fr-dashboard-topbar">
           <p className="fr-dashboard-breadcrumb">
             <span>{currentUser.company_name}</span>
-            <span>/</span>
-            <strong>Dashboard</strong>
+            {breadcrumbItems.map((breadcrumbItem, breadcrumbItemIndex) => (
+              <span
+                className="fr-dashboard-breadcrumb-item"
+                key={`${breadcrumbItem.label}-${breadcrumbItemIndex}`}
+              >
+                <span>/</span>
+                {breadcrumbItemIndex === breadcrumbItems.length - 1 ? (
+                  <strong>{breadcrumbItem.label}</strong>
+                ) : breadcrumbItem.onClick !== undefined ? (
+                  <button
+                    className="fr-dashboard-breadcrumb-button"
+                    type="button"
+                    onClick={breadcrumbItem.onClick}
+                  >
+                    {breadcrumbItem.label}
+                  </button>
+                ) : (
+                  <span>{breadcrumbItem.label}</span>
+                )}
+              </span>
+            ))}
           </p>
         </header>
         <div className="fr-dashboard-content">{children}</div>
       </main>
     </div>
   )
+}
+
+function navigationItemClassName(
+  activeNavigationItem: DashboardNavigationItem,
+  navigationItem: DashboardNavigationItem,
+): string {
+  return [
+    'fr-dashboard-nav-item',
+    activeNavigationItem === navigationItem && 'fr-dashboard-nav-item--active',
+  ]
+    .filter(Boolean)
+    .join(' ')
 }

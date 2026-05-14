@@ -1,44 +1,29 @@
-import { Badge, Card } from '@/design-system'
-import type { RecentReportsTableProps } from '@/types/reportView'
-import { formatDutchShortDate } from '../lib/formatReportDate'
-import { reportStatusLabel } from '../lib/reportLabels'
+import { translations } from '@/lib/translations'
+import type { RecentReportsTableProps } from '../types/reportView'
+import { ReportsTable } from './ReportsTable'
 import './RecentReportsTable.css'
 
-export function RecentReportsTable({ reports }: RecentReportsTableProps) {
+export function RecentReportsTable({
+  reports,
+  onOpenReports,
+}: RecentReportsTableProps) {
   return (
     <section className="fr-dashboard-section">
       <div className="fr-dashboard-section-header">
-        <h2>Recente rapporten</h2>
-        <button className="fr-dashboard-link" type="button">
-          Alle rapporten
+        <h2>{translations.dashboard.recent_reports.title}</h2>
+        <button
+          className="fr-dashboard-link"
+          type="button"
+          onClick={onOpenReports}
+        >
+          {translations.dashboard.recent_reports.all_reports_button}
         </button>
       </div>
-      <Card padding="none">
-        <table className="fr-dashboard-table">
-          <thead>
-            <tr>
-              <th>Adres</th>
-              <th>Type</th>
-              <th>Datum</th>
-              <th>Bewerkt</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {reports.map((report) => (
-              <tr key={report.id}>
-                <td>{report.address ?? 'Adres onbekend'}</td>
-                <td>-</td>
-                <td>{formatDutchShortDate(report.inspection_date)}</td>
-                <td>-</td>
-                <td>
-                  <Badge variant={report.status}>{reportStatusLabel(report.status)}</Badge>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </Card>
+      <ReportsTable
+        reports={reports}
+        emptyMessage={translations.dashboard.recent_reports.empty}
+        unknownAddress={translations.dashboard.reports_table.unknown_address}
+      />
     </section>
   )
 }

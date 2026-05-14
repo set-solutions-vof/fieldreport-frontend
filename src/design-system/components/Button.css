@@ -32,7 +32,7 @@
 }
 
 .fr-button:disabled,
-.fr-button[aria-disabled="true"] {
+.fr-button[aria-disabled='true'] {
   cursor: not-allowed;
   opacity: 0.55;
 }
@@ -61,11 +61,11 @@
   color: var(--fr-text-on-accent);
   border-color: var(--fr-accent);
 }
-.fr-button--primary:hover:not(:disabled):not([aria-disabled="true"]) {
+.fr-button--primary:hover:not(:disabled):not([aria-disabled='true']) {
   background: var(--fr-accent-hover);
   border-color: var(--fr-accent-hover);
 }
-.fr-button--primary:active:not(:disabled):not([aria-disabled="true"]) {
+.fr-button--primary:active:not(:disabled):not([aria-disabled='true']) {
   background: var(--fr-accent-active);
   border-color: var(--fr-accent-active);
 }
@@ -76,10 +76,10 @@
   color: var(--fr-text-primary);
   border-color: var(--fr-border-strong);
 }
-.fr-button--secondary:hover:not(:disabled):not([aria-disabled="true"]) {
+.fr-button--secondary:hover:not(:disabled):not([aria-disabled='true']) {
   background: var(--fr-surface-hover);
 }
-.fr-button--secondary:active:not(:disabled):not([aria-disabled="true"]) {
+.fr-button--secondary:active:not(:disabled):not([aria-disabled='true']) {
   background: var(--fr-surface-active);
 }
 
@@ -89,10 +89,10 @@
   color: var(--fr-text-primary);
   border-color: transparent;
 }
-.fr-button--ghost:hover:not(:disabled):not([aria-disabled="true"]) {
+.fr-button--ghost:hover:not(:disabled):not([aria-disabled='true']) {
   background: var(--fr-surface-hover);
 }
-.fr-button--ghost:active:not(:disabled):not([aria-disabled="true"]) {
+.fr-button--ghost:active:not(:disabled):not([aria-disabled='true']) {
   background: var(--fr-surface-active);
 }
 
@@ -102,15 +102,15 @@
   color: var(--fr-text-on-destructive);
   border-color: var(--fr-destructive);
 }
-.fr-button--destructive:hover:not(:disabled):not([aria-disabled="true"]) {
+.fr-button--destructive:hover:not(:disabled):not([aria-disabled='true']) {
   background: var(--fr-destructive-hover);
   border-color: var(--fr-destructive-hover);
 }
 
 /* -------- Loading -------- */
-.fr-button[data-loading="true"] {
+.fr-button[data-loading='true'] {
   cursor: progress;
 }
-.fr-button[data-loading="true"] .fr-button__label {
+.fr-button[data-loading='true'] .fr-button__label {
   opacity: 0.7;
 }

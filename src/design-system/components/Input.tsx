@@ -1,28 +1,20 @@
-import * as React from "react";
-import "./Input.css";
+import * as React from 'react'
+import './Input.css'
 
-export type InputSize = "sm" | "md" | "lg";
+export type InputSize = 'sm' | 'md' | 'lg'
 
-export interface InputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> {
-  /** Visible label rendered above the input. Required for accessibility unless `aria-label` is provided. */
-  label?: React.ReactNode;
-  /** Helper copy under the input. Hidden when an error is shown. */
-  helperText?: React.ReactNode;
-  /** Error copy under the input. Toggles error styling and aria-invalid. */
-  error?: React.ReactNode;
-  /** Show a `*` after the label and set required on the input. */
-  required?: boolean;
-  /** Control height. Default `md`. */
-  inputSize?: InputSize;
-  /** Class on the outer field wrapper. `className` falls through to the input element. */
-  fieldClassName?: string;
+export interface InputProps extends Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  'size'
+> {
+  label?: React.ReactNode
+  helperText?: React.ReactNode
+  error?: React.ReactNode
+  required?: boolean
+  inputSize?: InputSize
+  fieldClassName?: string
 }
 
-/**
- * Input — text field with label, helper text, and error state.
- * Always provide a `label` (visible) or `aria-label` (off-screen).
- */
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   function Input(
     {
@@ -30,40 +22,44 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       helperText,
       error,
       required,
-      inputSize = "md",
+      inputSize = 'md',
       id: idProp,
       className,
       fieldClassName,
       disabled,
-      "aria-describedby": ariaDescribedByProp,
+      'aria-describedby': ariaDescribedByProp,
       ...rest
     },
-    ref
+    ref,
   ) {
-    const reactId = React.useId();
-    const id = idProp ?? reactId;
-    const helperId = helperText ? `${id}-helper` : undefined;
-    const errorId = error ? `${id}-error` : undefined;
+    const reactId = React.useId()
+    const id = idProp ?? reactId
+    const helperId = helperText ? `${id}-helper` : undefined
+    const errorId = error ? `${id}-error` : undefined
 
     const describedBy =
       [ariaDescribedByProp, errorId, !error ? helperId : undefined]
         .filter(Boolean)
-        .join(" ") || undefined;
+        .join(' ') || undefined
 
     const inputCls = [
-      "fr-input",
-      inputSize !== "md" && `fr-input--${inputSize}`,
+      'fr-input',
+      inputSize !== 'md' && `fr-input--${inputSize}`,
       className,
     ]
       .filter(Boolean)
-      .join(" ");
+      .join(' ')
 
     return (
-      <div className={["fr-field", fieldClassName].filter(Boolean).join(" ")}>
+      <div className={['fr-field', fieldClassName].filter(Boolean).join(' ')}>
         {label && (
           <label htmlFor={id} className="fr-field__label">
             {label}
-            {required && <span className="fr-field__required" aria-hidden="true">*</span>}
+            {required && (
+              <span className="fr-field__required" aria-hidden="true">
+                *
+              </span>
+            )}
           </label>
         )}
         <input
@@ -86,8 +82,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           </div>
         ) : null}
       </div>
-    );
-  }
-);
+    )
+  },
+)
 
-Input.displayName = "Input";
+Input.displayName = 'Input'

@@ -1,5 +1,6 @@
 import { Card } from '@/design-system'
-import type { DashboardStatsProps, StatCardProps } from '@/types/reportView'
+import { translations } from '@/lib/translations'
+import type { DashboardStatsProps, StatCardProps } from '../types/reportView'
 import './DashboardStats.css'
 
 export function DashboardStats({ reports }: DashboardStatsProps) {
@@ -10,7 +11,10 @@ export function DashboardStats({ reports }: DashboardStatsProps) {
   const reportsThisMonth = reports.filter((report) => {
     const inspectionDate = new Date(report.inspection_date)
 
-    return inspectionDate.getMonth() === today.getMonth() && inspectionDate.getFullYear() === today.getFullYear()
+    return (
+      inspectionDate.getMonth() === today.getMonth() &&
+      inspectionDate.getFullYear() === today.getFullYear()
+    )
   })
 
   const approvedLastSevenDays = reports.filter((report) => {
@@ -20,11 +24,24 @@ export function DashboardStats({ reports }: DashboardStatsProps) {
   })
 
   return (
-    <Card className="fr-dashboard-stats" padding="none" aria-label="Dashboard statistieken">
-      <StatCard title="Rapporten deze maand" value={String(reportsThisMonth.length)} />
-      <StatCard title="Schrijftijd bespaard" value="-" />
-      <StatCard title="AI-nauwkeurigheid" value="-" />
-      <StatCard title="Goedgekeurd · 7d" value={String(approvedLastSevenDays.length)} />
+    <Card
+      className="fr-dashboard-stats"
+      padding="none"
+      aria-label={translations.dashboard.stats.aria_label}
+    >
+      <StatCard
+        title={translations.dashboard.stats.reports_this_month}
+        value={String(reportsThisMonth.length)}
+      />
+      <StatCard
+        title={translations.dashboard.stats.writing_time_saved}
+        value="-"
+      />
+      <StatCard title={translations.dashboard.stats.ai_accuracy} value="-" />
+      <StatCard
+        title={translations.dashboard.stats.approved_last_seven_days}
+        value={String(approvedLastSevenDays.length)}
+      />
     </Card>
   )
 }

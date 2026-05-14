@@ -138,6 +138,7 @@
 
 .fr-dashboard-breadcrumb {
   display: flex;
+  align-items: center;
   gap: var(--fr-space-2);
   margin: var(--fr-space-0);
   font-size: var(--fr-text-base);
@@ -146,7 +147,26 @@
   color: var(--fr-text-tertiary);
 }
 
+.fr-dashboard-breadcrumb-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--fr-space-2);
+}
+
 .fr-dashboard-breadcrumb strong {
+  color: var(--fr-text-primary);
+}
+
+.fr-dashboard-breadcrumb-button {
+  padding: var(--fr-space-0);
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+}
+
+.fr-dashboard-breadcrumb-button:hover {
   color: var(--fr-text-primary);
 }
 

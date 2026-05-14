@@ -1,0 +1,41 @@
+.fr-fchip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--fr-control-height-sm);
+  padding: 0 var(--fr-space-3);
+  font-family: var(--fr-font-sans);
+  font-size: var(--fr-text-xs);
+  font-weight: var(--fr-weight-medium);
+  line-height: 1;
+  color: var(--fr-text-secondary);
+  background: var(--fr-surface);
+  border: var(--fr-border-width-sm) solid var(--fr-border);
+  border-radius: var(--fr-radius-full);
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: var(--fr-transition-fast);
+  white-space: nowrap;
+}
+
+.fr-fchip:hover:not(:disabled) {
+  background: var(--fr-surface-hover);
+  color: var(--fr-text-primary);
+}
+
+.fr-fchip:focus-visible {
+  outline: none;
+  box-shadow: var(--fr-shadow-focus);
+}
+
+.fr-fchip:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.fr-fchip--selected {
+  color: var(--fr-text-primary);
+  background: var(--fr-surface-active);
+  border-color: var(--fr-border-strong);
+}

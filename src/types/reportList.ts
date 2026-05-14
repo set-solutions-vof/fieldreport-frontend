@@ -1,8 +1,12 @@
 import type { ReportSummary } from './report'
 
-export type ReportsStatus = 'loading' | 'success' | 'error'
+export type ReportListStatus = 'loading' | 'success' | 'error'
 
-export type UseReportsResult = {
+export type UseReportListParameters = {
+  onAuthenticationExpired: () => void
+}
+
+export type UseReportListResult = {
   reports: ReportSummary[]
   isLoading: boolean
   isError: boolean

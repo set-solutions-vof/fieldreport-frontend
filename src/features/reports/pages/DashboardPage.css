@@ -34,6 +34,21 @@
   gap: var(--fr-space-4);
 }
 
+.fr-dashboard-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--fr-space-4);
+}
+
+.fr-dashboard-section-header h2 {
+  margin: var(--fr-space-0);
+  font-size: var(--fr-text-xl);
+  font-weight: var(--fr-weight-semibold);
+  line-height: var(--fr-leading-snug);
+  color: var(--fr-text-primary);
+}
+
 .fr-dashboard-state {
   display: flex;
   max-width: calc(var(--fr-space-16) + var(--fr-space-15));

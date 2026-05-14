@@ -1,0 +1,41 @@
+.fr-approval-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--fr-space-2);
+  min-height: var(--fr-control-height-md);
+  padding: 0 var(--fr-space-3);
+  font-family: var(--fr-font-sans);
+  font-size: var(--fr-text-sm);
+  font-weight: var(--fr-weight-medium);
+  line-height: 1;
+  color: var(--fr-approval-fg);
+  background: var(--fr-approval-bg);
+  border: var(--fr-border-width-sm) solid var(--fr-approval-border);
+  border-radius: var(--fr-radius-full);
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: var(--fr-transition-fast);
+  white-space: nowrap;
+}
+
+.fr-approval-pill:hover:not(:disabled) {
+  background: var(--fr-approval-hover-bg);
+}
+
+.fr-approval-pill:focus-visible {
+  outline: none;
+  box-shadow: var(--fr-shadow-focus);
+}
+
+.fr-approval-pill:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.fr-approval-pill__symbol {
+  width: var(--fr-space-4);
+  font-weight: var(--fr-weight-semibold);
+  text-align: center;
+}
