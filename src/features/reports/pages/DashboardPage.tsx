@@ -5,7 +5,7 @@ import { DashboardShell } from '../components/DashboardShell'
 import { DashboardStats } from '../components/DashboardStats'
 import { RecentReportsTable } from '../components/RecentReportsTable'
 import { ValidationReportsSection } from '../components/ValidationReportsSection'
-import { useReports } from '../hooks/useReports'
+import { useReportList } from '../hooks/useReportList'
 import type { DashboardPageProps } from '../types/reportView'
 import './DashboardPage.css'
 
@@ -15,7 +15,7 @@ export function DashboardPage({
   onOpenReports,
   onAuthenticationExpired,
 }: DashboardPageProps) {
-  const { reports, isLoading, isError, errorMessage, retry } = useReports({
+  const { reports, isLoading, isError, errorMessage, retry } = useReportList({
     onAuthenticationExpired,
   })
   const {

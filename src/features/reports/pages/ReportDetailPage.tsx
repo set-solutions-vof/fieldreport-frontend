@@ -2,8 +2,8 @@ import { Button, Spinner } from '@/design-system'
 import { useCurrentUser } from '@/features/auth/useCurrentUser'
 import { translations } from '@/lib/translations'
 import { ReportDetailWorkspace } from '../components/ReportDetailWorkspace'
-import { useReport } from '../hooks/useReport'
-import { useReports } from '../hooks/useReports'
+import { useReportDetail } from '../hooks/useReportDetail'
+import { useReportList } from '../hooks/useReportList'
 import type { ReportDetailPageProps } from '../types/reportView'
 import './ReportDetailPage.css'
 
@@ -14,7 +14,7 @@ export function ReportDetailPage({
   onOpenReports,
   onAuthenticationExpired,
 }: ReportDetailPageProps) {
-  const { report, isLoading, isError, errorMessage, retry } = useReport({
+  const { report, isLoading, isError, errorMessage, retry } = useReportDetail({
     reportId,
     onAuthenticationExpired,
   })
@@ -31,7 +31,7 @@ export function ReportDetailPage({
     isError: isReportsError,
     errorMessage: reportsErrorMessage,
     retry: retryReports,
-  } = useReports({ onAuthenticationExpired })
+  } = useReportList({ onAuthenticationExpired })
 
   if (isLoading || isCurrentUserLoading || isReportsLoading) {
     return (

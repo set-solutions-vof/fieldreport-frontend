@@ -3,15 +3,17 @@ import { isAuthenticationExpiredError } from '@/lib/api/authenticatedFetch'
 import { getReports } from '@/lib/api/reports'
 import { translations } from '@/lib/translations'
 import type { ReportSummary } from '@/types/report'
-import type { ReportsStatus, UseReportsResult } from '@/types/reportList'
+import type {
+  ReportListStatus,
+  UseReportListParameters,
+  UseReportListResult,
+} from '@/types/reportList'
 
-export function useReports({
+export function useReportList({
   onAuthenticationExpired,
-}: {
-  onAuthenticationExpired: () => void
-}): UseReportsResult {
+}: UseReportListParameters): UseReportListResult {
   const [reports, setReports] = useState<ReportSummary[]>([])
-  const [status, setStatus] = useState<ReportsStatus>('loading')
+  const [status, setStatus] = useState<ReportListStatus>('loading')
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   const showReports = useCallback((fetchedReports: ReportSummary[]): void => {

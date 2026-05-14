@@ -4,17 +4,17 @@ import { getReport } from '@/lib/api/reports'
 import { translations } from '@/lib/translations'
 import type { ReportDetail } from '@/types/report'
 import type {
-  ReportDetailStatus,
-  UseReportParameters,
-  UseReportResult,
+  ReportDetailLoadStatus,
+  UseReportDetailParameters,
+  UseReportDetailResult,
 } from '@/types/reportDetail'
 
-export function useReport({
+export function useReportDetail({
   reportId,
   onAuthenticationExpired,
-}: UseReportParameters): UseReportResult {
+}: UseReportDetailParameters): UseReportDetailResult {
   const [report, setReport] = useState<ReportDetail | null>(null)
-  const [status, setStatus] = useState<ReportDetailStatus>('loading')
+  const [status, setStatus] = useState<ReportDetailLoadStatus>('loading')
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   const showReport = useCallback((fetchedReport: ReportDetail): void => {

@@ -1,13 +1,13 @@
 import type { ReportDetail, UpdateReportSectionResponse } from './report'
 
-export type ReportDetailStatus = 'loading' | 'success' | 'error'
+export type ReportDetailLoadStatus = 'loading' | 'success' | 'error'
 
-export type UseReportParameters = {
+export type UseReportDetailParameters = {
   reportId: string
   onAuthenticationExpired: () => void
 }
 
-export type UseReportResult = {
+export type UseReportDetailResult = {
   report: ReportDetail | null
   isLoading: boolean
   isError: boolean

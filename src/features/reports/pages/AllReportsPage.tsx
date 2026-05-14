@@ -3,7 +3,7 @@ import { useCurrentUser } from '@/features/auth/useCurrentUser'
 import { translations } from '@/lib/translations'
 import { DashboardShell } from '../components/DashboardShell'
 import { ReportsTable } from '../components/ReportsTable'
-import { useReports } from '../hooks/useReports'
+import { useReportList } from '../hooks/useReportList'
 import type { AllReportsPageProps } from '../types/reportView'
 import './DashboardPage.css'
 
@@ -13,7 +13,7 @@ export function AllReportsPage({
   onOpenReports,
   onAuthenticationExpired,
 }: AllReportsPageProps) {
-  const { reports, isLoading, isError, errorMessage, retry } = useReports({
+  const { reports, isLoading, isError, errorMessage, retry } = useReportList({
     onAuthenticationExpired,
   })
   const {
