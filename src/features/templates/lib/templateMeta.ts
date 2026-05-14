@@ -1,5 +1,10 @@
 import type { TemplateSectionType } from '@/types/template'
-import type { TemplateTypeMeta } from '../types/templateView'
+import type { TemplateIconName } from '../components/TemplateIcon'
+
+type TemplateTypeMeta = {
+  icon: TemplateIconName
+  label: string
+}
 
 export const templateTypeMeta: Record<TemplateSectionType, TemplateTypeMeta> = {
   text: {

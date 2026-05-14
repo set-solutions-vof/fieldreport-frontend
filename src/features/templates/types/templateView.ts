@@ -1,24 +1,6 @@
 import type { ReactNode } from 'react'
 import type { TemplateSection, TemplateSectionType } from '@/types/template'
 
-export type TemplateIconName =
-  | 'upload'
-  | 'document'
-  | 'documentDashed'
-  | 'x'
-  | 'grip'
-  | 'paragraph'
-  | 'gridKV'
-  | 'list'
-  | 'photo'
-  | 'checkCircle'
-  | 'edit'
-
-export type TemplateTypeMeta = {
-  icon: TemplateIconName
-  label: string
-}
-
 export type TemplateEmptyStateProps = {
   onUploadReports: () => void
 }
@@ -26,11 +8,6 @@ export type TemplateEmptyStateProps = {
 export type TemplateFieldChipProps = {
   children: string
   neutral?: boolean
-}
-
-export type TemplateIconProps = {
-  name: TemplateIconName
-  className?: string
 }
 
 export type TemplateReviewStateProps = {

@@ -1,13 +1,10 @@
-import type { TemplateIconProps } from '../types/templateView'
-
-const strokeProps = {
-  fill: 'none',
-  stroke: 'currentColor',
-  strokeLinecap: 'round' as const,
-  strokeLinejoin: 'round' as const,
-}
-
-export function TemplateIcon({ name, className }: TemplateIconProps) {
+export function TemplateIcon({
+  name,
+  className,
+}: {
+  name: TemplateIconName
+  className?: string
+}) {
   if (name === 'upload') {
     return (
       <svg className={className} viewBox="0 0 24 24" aria-hidden="true">
@@ -110,4 +107,24 @@ export function TemplateIcon({ name, className }: TemplateIconProps) {
       <path {...strokeProps} d="M4 20h4l11-11-4-4L4 16zM14 6l4 4" />
     </svg>
   )
+}
+
+export type TemplateIconName =
+  | 'upload'
+  | 'document'
+  | 'documentDashed'
+  | 'x'
+  | 'grip'
+  | 'paragraph'
+  | 'gridKV'
+  | 'list'
+  | 'photo'
+  | 'checkCircle'
+  | 'edit'
+
+const strokeProps = {
+  fill: 'none',
+  stroke: 'currentColor',
+  strokeLinecap: 'round' as const,
+  strokeLinejoin: 'round' as const,
 }
