@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Card } from '@/design-system'
 import type { UpdateReportSectionResponse } from '@/types/report'
 import { DashboardShell } from './DashboardShell'
@@ -13,6 +13,7 @@ import { buildSourceRailItems } from '../lib/reportDetailView'
 import type {
   ReportDetailTab,
   ReportDetailWorkspaceProps,
+  SourceActivationOrigin,
   ReportStubViewProps,
   SourceRailFilter,
 } from '../types/reportDetailView'
@@ -28,6 +29,7 @@ export function ReportDetailWorkspace({
   const [activeSourceItemId, setActiveSourceItemId] = useState<string | null>(
     null,
   )
+  const sourceActivationOrigin = useRef<SourceActivationOrigin | null>(null)
   const [reportUpdatedAt, setReportUpdatedAt] = useState<string | null>(
     report.updated_at,
   )
@@ -62,6 +64,33 @@ export function ReportDetailWorkspace({
     })
   }, [activeSectionId])
 
+  useEffect(() => {
+    if (
+      activeSourceItemId === null ||
+      sourceActivationOrigin.current === null
+    ) {
+      return
+    }
+
+    if (sourceActivationOrigin.current === 'timeline') {
+      document
+        .getElementById(`source-item-${activeSourceItemId}`)
+        ?.scrollIntoView({
+          block: 'center',
+          behavior: 'smooth',
+        })
+    }
+
+    if (sourceActivationOrigin.current === 'source-rail') {
+      document.getElementById('report-timeline-strip')?.scrollIntoView({
+        block: 'center',
+        behavior: 'smooth',
+      })
+    }
+
+    sourceActivationOrigin.current = null
+  }, [activeSourceItemId])
+
   const handleSectionUpdated = useCallback(
     (updatedSection: UpdateReportSectionResponse): void => {
       setReportUpdatedAt(new Date().toISOString())
@@ -73,9 +102,18 @@ export function ReportDetailWorkspace({
   const handleSectionActivation = useCallback((sectionId: string): void => {
     setActiveSectionId(sectionId)
     setActiveSourceItemId(null)
+    sourceActivationOrigin.current = null
   }, [])
 
-  const handleSourceActivation = useCallback((sourceItemId: string): void => {
+  const handleTimelineSourceActivation = useCallback((sourceItemId: string): void => {
+    setSourceFilter('all')
+    sourceActivationOrigin.current = 'timeline'
+    setActiveSourceItemId(sourceItemId)
+    setActiveSectionId(null)
+  }, [])
+
+  const handleSourceRailActivation = useCallback((sourceItemId: string): void => {
+    sourceActivationOrigin.current = 'source-rail'
     setActiveSourceItemId(sourceItemId)
     setActiveSectionId(null)
   }, [])
@@ -92,12 +130,14 @@ export function ReportDetailWorkspace({
         <ReportDetailHeaderBlock report={report} />
 
         <div className="fr-report-detail-timeline-wrap">
-          <TimelineStrip
-            items={sourceRailItems}
-            sections={sections}
-            activeSourceItemId={activeSourceItemId}
-            onActiveSourceItemChange={handleSourceActivation}
-          />
+          <div id="report-timeline-strip">
+            <TimelineStrip
+              items={sourceRailItems}
+              sections={sections}
+              activeSourceItemId={activeSourceItemId}
+              onActiveSourceItemChange={handleTimelineSourceActivation}
+            />
+          </div>
         </div>
 
         <ReportDetailTabs
@@ -117,7 +157,7 @@ export function ReportDetailWorkspace({
               activeSourceItemId={activeSourceItemId}
               filter={sourceFilter}
               items={sourceRailItems}
-              onActiveSourceItemChange={handleSourceActivation}
+              onActiveSourceItemChange={handleSourceRailActivation}
               onFilterChange={setSourceFilter}
             />
             <ReportDocument

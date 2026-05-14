@@ -8,6 +8,7 @@ import type {
 
 export type ReportDetailTab = 'report' | 'transcript' | 'evidence'
 export type SourceRailFilter = 'all' | 'open' | 'approved'
+export type SourceActivationOrigin = 'timeline' | 'source-rail'
 export type SaveAllStatus = 'idle' | 'saving' | 'saved' | 'error'
 
 export type SourceRailItem = {
@@ -57,6 +58,7 @@ export type ReportDetailTabButtonProps = {
   active: boolean
   count: string
   label: string
+  tab: ReportDetailTab
   onClick: () => void
 }
 

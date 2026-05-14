@@ -53,6 +53,7 @@ export function ReportSourceRail({
       <div className="fr-report-source-rail-list">
         {filteredItems.map((sourceRailItem) => (
           <button
+            id={`source-item-${sourceRailItem.id}`}
             type="button"
             className={[
               'fr-report-source-rail-item',

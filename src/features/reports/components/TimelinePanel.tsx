@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react'
 import { formatSeconds } from '../lib/formatSeconds'
 import { sourceTypeLabel } from '../lib/reportDetailView'
 import type {
@@ -8,15 +9,39 @@ import type {
 import './TimelinePanel.css'
 
 const minuteMs = 60 * 1000
+const majorTickMinuteSteps = [1, 2, 5, 10, 15, 30, 60]
+const tickLabelMinWidthPx = 72
 export function TimelineStrip({
   items,
   sections,
   activeSourceItemId,
   onActiveSourceItemChange,
 }: TimelineStripProps) {
+  const trackRef = useRef<HTMLDivElement | null>(null)
+  const [trackWidth, setTrackWidth] = useState(0)
   const events = timelineEvents(items)
   const approvedCount = sections.filter((section) => section.is_approved).length
   const openCount = sections.length - approvedCount
+
+  useEffect(() => {
+    const trackElement = trackRef.current
+
+    if (trackElement === null) {
+      return
+    }
+
+    setTrackWidth(trackElement.clientWidth)
+
+    const resizeObserver = new ResizeObserver(([entry]) => {
+      setTrackWidth(entry.contentRect.width)
+    })
+
+    resizeObserver.observe(trackElement)
+
+    return () => {
+      resizeObserver.disconnect()
+    }
+  }, [])
 
   if (events.length === 0) {
     return (
@@ -56,7 +81,7 @@ export function TimelineStrip({
     ),
   )
   const durationMs = Math.max(endTimestampMs - startTimestampMs, minuteMs)
-  const ticks = timelineTicks(startTimestampMs, endTimestampMs)
+  const ticks = timelineTicks(startTimestampMs, endTimestampMs, trackWidth)
 
   return (
     <div className="fr-timeline-strip-card">
@@ -71,7 +96,11 @@ export function TimelineStrip({
         </span>
       </div>
 
-      <div className="fr-timeline-strip-track" aria-label="Bronmomenten">
+      <div
+        ref={trackRef}
+        className="fr-timeline-strip-track"
+        aria-label="Bronmomenten"
+      >
         <div className="fr-timeline-strip-axis" />
         <div className="fr-timeline-strip-processed" />
         {ticks.map((tick) => (
@@ -165,14 +194,16 @@ function timelineEvents(
 function timelineTicks(
   startTimestampMs: number,
   endTimestampMs: number,
+  trackWidth: number,
 ): TimelineTick[] {
   const durationMs = Math.max(endTimestampMs - startTimestampMs, minuteMs)
   const lastOffset = Math.floor(durationMs / minuteMs)
+  const majorStepMinutes = majorTickStepMinutes(durationMs, trackWidth)
   const ticks: TimelineTick[] = []
 
   for (let minuteOffset = 0; minuteOffset <= lastOffset; minuteOffset += 1) {
     const timestampMs = startTimestampMs + minuteOffset * minuteMs
-    const major = minuteOffset % 5 === 0
+    const major = minuteOffset % majorStepMinutes === 0
 
     ticks.push({
       id: String(timestampMs),
@@ -192,4 +223,18 @@ function timelineTicks(
   }
 
   return ticks.filter((tick) => tick.position >= 0 && tick.position <= 100)
+}
+
+function majorTickStepMinutes(durationMs: number, trackWidth: number): number {
+  const durationMinutes = Math.max(durationMs / minuteMs, 1)
+  const maxLabelCount = Math.max(
+    Math.floor(trackWidth / tickLabelMinWidthPx),
+    1,
+  )
+  const minimumStepMinutes = durationMinutes / maxLabelCount
+
+  return (
+    majorTickMinuteSteps.find((step) => step >= minimumStepMinutes) ??
+    majorTickMinuteSteps[majorTickMinuteSteps.length - 1]
+  )
 }
