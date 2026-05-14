@@ -24,15 +24,16 @@
       "reports_load_failed_title": "Rapporten laden is mislukt",
       "retry_button": "Opnieuw proberen"
     },
-    "intro": {
-      "title": "Open rapporten",
-      "none_waiting": "Er zijn geen open rapporten.",
-      "one_waiting": "1 rapport staat open. Gemiddelde nog niet beschikbaar.",
-      "many_waiting_suffix": "staan open. Gemiddelde nog niet beschikbaar."
-    },
     "queue": {
       "title": "Open rapporten",
-      "empty": "Er zijn geen open rapporten."
+      "address_header": "Adres",
+      "date_header": "Datum",
+      "edited_header": "Bewerkt",
+      "status_header": "Status",
+      "action_header": "Actie",
+      "empty": "Er zijn geen open rapporten.",
+      "unknown_address": "Adres onbekend",
+      "open_button": "Openen"
     },
     "stats": {
       "aria_label": "Dashboard statistieken",
@@ -45,21 +46,10 @@
       "title": "Recente rapporten",
       "all_reports_button": "Alle rapporten",
       "address_header": "Adres",
-      "type_header": "Type",
       "date_header": "Datum",
       "edited_header": "Bewerkt",
       "status_header": "Status",
       "unknown_address": "Adres onbekend"
-    },
-    "report_card": {
-      "unknown_address": "Adres onbekend",
-      "unknown_client": "Onbekende klant",
-      "open_button": "Openen"
-    },
-    "report_count": {
-      "none": "Geen rapporten",
-      "one": "1 rapport",
-      "many_suffix": "rapporten"
     }
   },
   "reports": {

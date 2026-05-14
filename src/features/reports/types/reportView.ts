@@ -38,11 +38,6 @@ export type RecentReportsTableProps = {
   reports: ReportSummary[]
 }
 
-export type ReportCardProps = {
-  report: ReportSummary
-  onOpenReport: (reportId: string) => void
-}
-
 export type ValidationReportsSectionProps = {
   reports: ReportSummary[]
   onOpenReport: (reportId: string) => void

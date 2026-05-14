@@ -19,7 +19,6 @@ export function RecentReportsTable({ reports }: RecentReportsTableProps) {
           <thead>
             <tr>
               <th>{translations.dashboard.recent_reports.address_header}</th>
-              <th>{translations.dashboard.recent_reports.type_header}</th>
               <th>{translations.dashboard.recent_reports.date_header}</th>
               <th>{translations.dashboard.recent_reports.edited_header}</th>
               <th>{translations.dashboard.recent_reports.status_header}</th>
@@ -32,7 +31,6 @@ export function RecentReportsTable({ reports }: RecentReportsTableProps) {
                   {report.address ??
                     translations.dashboard.recent_reports.unknown_address}
                 </td>
-                <td>-</td>
                 <td>{formatDutchShortDate(report.inspection_date)}</td>
                 <td>-</td>
                 <td>

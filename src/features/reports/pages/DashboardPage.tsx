@@ -6,7 +6,6 @@ import { DashboardStats } from '../components/DashboardStats'
 import { RecentReportsTable } from '../components/RecentReportsTable'
 import { ValidationReportsSection } from '../components/ValidationReportsSection'
 import { useReports } from '../hooks/useReports'
-import { formatReportCount } from '../lib/formatReportCount'
 import type { DashboardPageProps } from '../types/reportView'
 import './DashboardPage.css'
 
@@ -29,7 +28,6 @@ export function DashboardPage({
     (report) => report.status === 'draft',
   )
   const recentReports = reports.slice(0, 5)
-  const reportsToValidateCount = reportsToValidate.length
 
   if (isLoading || isCurrentUserLoading) {
     return (
@@ -70,10 +68,6 @@ export function DashboardPage({
       totalReportsCount={reports.length}
       onOpenDashboard={onOpenDashboard}
     >
-      <section className="fr-dashboard-intro">
-        <h1>{translations.dashboard.intro.title}</h1>
-        <p>{dashboardIntroText(reportsToValidateCount)}</p>
-      </section>
       <ValidationReportsSection
         reports={reportsToValidate}
         onOpenReport={onOpenReport}
@@ -82,16 +76,4 @@ export function DashboardPage({
       <RecentReportsTable reports={recentReports} />
     </DashboardShell>
   )
-}
-
-function dashboardIntroText(reportsToValidateCount: number): string {
-  if (reportsToValidateCount === 0) {
-    return translations.dashboard.intro.none_waiting
-  }
-
-  if (reportsToValidateCount === 1) {
-    return translations.dashboard.intro.one_waiting
-  }
-
-  return `${formatReportCount(reportsToValidateCount)} ${translations.dashboard.intro.many_waiting_suffix}`
 }
