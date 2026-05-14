@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Card } from '@/design-system'
+import { translations } from '@/lib/translations'
 import type { UpdateReportSectionResponse } from '@/types/report'
 import { DashboardShell } from './DashboardShell'
 import { ReportActionBar } from './ReportActionBar'
@@ -105,24 +106,30 @@ export function ReportDetailWorkspace({
     sourceActivationOrigin.current = null
   }, [])
 
-  const handleTimelineSourceActivation = useCallback((sourceItemId: string): void => {
-    setSourceFilter('all')
-    sourceActivationOrigin.current = 'timeline'
-    setActiveSourceItemId(sourceItemId)
-    setActiveSectionId(null)
-  }, [])
+  const handleTimelineSourceActivation = useCallback(
+    (sourceItemId: string): void => {
+      setSourceFilter('all')
+      sourceActivationOrigin.current = 'timeline'
+      setActiveSourceItemId(sourceItemId)
+      setActiveSectionId(null)
+    },
+    [],
+  )
 
-  const handleSourceRailActivation = useCallback((sourceItemId: string): void => {
-    sourceActivationOrigin.current = 'source-rail'
-    setActiveSourceItemId(sourceItemId)
-    setActiveSectionId(null)
-  }, [])
+  const handleSourceRailActivation = useCallback(
+    (sourceItemId: string): void => {
+      sourceActivationOrigin.current = 'source-rail'
+      setActiveSourceItemId(sourceItemId)
+      setActiveSectionId(null)
+    },
+    [],
+  )
 
   return (
     <DashboardShell
       currentUser={currentUser}
       activeNavigationItem="validation"
-      breadcrumbItems={['Rapport', report.address]}
+      breadcrumbItems={[translations.report_detail.tabs.report, report.address]}
       reportsToValidateCount={reportsToValidateCount}
       totalReportsCount={totalReportsCount}
     >
@@ -175,10 +182,10 @@ export function ReportDetailWorkspace({
         </div>
 
         <ReportStubView activeTab={activeTab} tab="transcript">
-          Transcript komt binnenkort.
+          {translations.report_detail.stubs.transcript}
         </ReportStubView>
         <ReportStubView activeTab={activeTab} tab="evidence">
-          Bewijsmateriaal komt binnenkort.
+          {translations.report_detail.stubs.evidence}
         </ReportStubView>
 
         <ReportActionBar dirtyCount={dirtyCount} saveStatus={saveStatus} />

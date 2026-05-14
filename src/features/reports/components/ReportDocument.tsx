@@ -1,3 +1,4 @@
+import { translations } from '@/lib/translations'
 import { ReportSection } from './ReportSection'
 import {
   averageConfidenceLabel,
@@ -31,8 +32,8 @@ export function ReportDocument({
       <header className="fr-report-document-header">
         <div className="fr-report-document-status">
           <DocumentStatusCell
-            label="Voortgang goedkeuring"
-            value={`${approvedCount} van ${sections.length} secties`}
+            label={translations.report_detail.document.approval_progress}
+            value={`${approvedCount} ${translations.report_detail.document.approval_progress_separator} ${sections.length} ${translations.report_detail.document.sections_suffix}`}
             progress={
               sections.length === 0
                 ? 0
@@ -40,12 +41,12 @@ export function ReportDocument({
             }
           />
           <DocumentStatusCell
-            label="Gemiddelde AI-zekerheid"
+            label={translations.report_detail.document.average_confidence}
             value={averageConfidenceLabel(sections)}
             progress={averageConfidenceProgress(sections)}
           />
           <DocumentStatusCell
-            label="Open aandachtspunten"
+            label={translations.report_detail.document.open_issues}
             value={String(sections.length - approvedCount)}
             progress={
               sections.length === 0
@@ -54,7 +55,7 @@ export function ReportDocument({
             }
           />
           <DocumentStatusCell
-            label="Laatste bijgewerkt"
+            label={translations.report_detail.document.last_updated}
             value={formatUpdatedAt(reportUpdatedAt)}
             progress={null}
           />
@@ -64,7 +65,7 @@ export function ReportDocument({
       <div className="fr-report-document-body">
         {sections.length === 0 ? (
           <p className="fr-report-detail-empty">
-            Dit rapport bevat nog geen secties.
+            {translations.report_detail.document.empty}
           </p>
         ) : (
           sections.map((section, sectionIndex) => (

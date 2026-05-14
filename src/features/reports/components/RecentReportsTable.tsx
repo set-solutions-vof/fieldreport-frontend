@@ -1,4 +1,5 @@
 import { Badge, Card } from '@/design-system'
+import { translations } from '@/lib/translations'
 import type { RecentReportsTableProps } from '../types/reportView'
 import { formatDutchShortDate } from '../lib/formatReportDate'
 import { reportStatusLabel } from '../lib/reportLabels'
@@ -8,26 +9,29 @@ export function RecentReportsTable({ reports }: RecentReportsTableProps) {
   return (
     <section className="fr-dashboard-section">
       <div className="fr-dashboard-section-header">
-        <h2>Recente rapporten</h2>
+        <h2>{translations.dashboard.recent_reports.title}</h2>
         <button className="fr-dashboard-link" type="button">
-          Alle rapporten
+          {translations.dashboard.recent_reports.all_reports_button}
         </button>
       </div>
       <Card padding="none">
         <table className="fr-dashboard-table">
           <thead>
             <tr>
-              <th>Adres</th>
-              <th>Type</th>
-              <th>Datum</th>
-              <th>Bewerkt</th>
-              <th>Status</th>
+              <th>{translations.dashboard.recent_reports.address_header}</th>
+              <th>{translations.dashboard.recent_reports.type_header}</th>
+              <th>{translations.dashboard.recent_reports.date_header}</th>
+              <th>{translations.dashboard.recent_reports.edited_header}</th>
+              <th>{translations.dashboard.recent_reports.status_header}</th>
             </tr>
           </thead>
           <tbody>
             {reports.map((report) => (
               <tr key={report.id}>
-                <td>{report.address ?? 'Adres onbekend'}</td>
+                <td>
+                  {report.address ??
+                    translations.dashboard.recent_reports.unknown_address}
+                </td>
                 <td>-</td>
                 <td>{formatDutchShortDate(report.inspection_date)}</td>
                 <td>-</td>

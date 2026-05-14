@@ -1,5 +1,6 @@
 import { Button, Spinner } from '@/design-system'
 import { useCurrentUser } from '@/features/auth/useCurrentUser'
+import { translations } from '@/lib/translations'
 import { DashboardShell } from '../components/DashboardShell'
 import { DashboardStats } from '../components/DashboardStats'
 import { RecentReportsTable } from '../components/RecentReportsTable'
@@ -43,7 +44,7 @@ export function DashboardPage({
     return (
       <main className="fr-dashboard-loading-page">
         <div className="fr-dashboard-state">
-          <h1>Rapporten laden is mislukt</h1>
+          <h1>{translations.dashboard.states.reports_load_failed_title}</h1>
           <p>{errorMessage ?? currentUserErrorMessage}</p>
           <Button
             type="button"
@@ -53,7 +54,7 @@ export function DashboardPage({
               retryCurrentUser()
             }}
           >
-            Opnieuw proberen
+            {translations.dashboard.states.retry_button}
           </Button>
         </div>
       </main>
@@ -64,12 +65,12 @@ export function DashboardPage({
     <DashboardShell
       currentUser={currentUser}
       activeNavigationItem="dashboard"
-      breadcrumbItems={['Dashboard']}
+      breadcrumbItems={[translations.dashboard.navigation.dashboard]}
       reportsToValidateCount={reportsToValidateCount}
       totalReportsCount={reports.length}
     >
       <section className="fr-dashboard-intro">
-        <h1>Te valideren</h1>
+        <h1>{translations.dashboard.intro.title}</h1>
         <p>{dashboardIntroText(reportsToValidateCount)}</p>
       </section>
       <ValidationReportsSection
@@ -84,10 +85,12 @@ export function DashboardPage({
 
 function dashboardIntroText(reportsToValidateCount: number): string {
   if (reportsToValidateCount === 0) {
-    return 'Er wacht geen rapport op je controle.'
+    return translations.dashboard.intro.none_waiting
   }
 
-  return `${formatReportCount(
-    reportsToValidateCount,
-  )} wacht${reportsToValidateCount === 1 ? '' : 'en'} op je controle. Gemiddelde nog niet beschikbaar.`
+  if (reportsToValidateCount === 1) {
+    return translations.dashboard.intro.one_waiting
+  }
+
+  return `${formatReportCount(reportsToValidateCount)} ${translations.dashboard.intro.many_waiting_suffix}`
 }

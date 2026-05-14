@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { translations } from '@/lib/translations'
 import { formatSeconds } from '../lib/formatSeconds'
 import { sourceTypeLabel } from '../lib/reportDetailView'
 import type {
@@ -47,26 +48,31 @@ export function TimelineStrip({
     return (
       <div className="fr-timeline-strip-card">
         <div className="fr-timeline-strip-meta">
-          <span className="fr-timeline-strip-label">Tijdlijn</span>
+          <span className="fr-timeline-strip-label">
+            {translations.report_detail.timeline.label}
+          </span>
           <span className="fr-timeline-strip-range">–</span>
           <span className="fr-timeline-strip-sub">
-            Geen bronmomenten gekoppeld
+            {translations.report_detail.timeline.empty}
           </span>
         </div>
         <div className="fr-timeline-strip-track" />
         <div className="fr-timeline-strip-stats">
           <div className="fr-timeline-strip-stat">
-            <span>Goedgekeurd</span>
+            <span>{translations.report_detail.timeline.approved}</span>
             <strong>
               {approvedCount}
-              <small>/ {sections.length} secties</small>
+              <small>
+                / {sections.length}{' '}
+                {translations.report_detail.timeline.sections_suffix}
+              </small>
             </strong>
           </div>
           <div className="fr-timeline-strip-stat">
-            <span>Controleren</span>
+            <span>{translations.report_detail.timeline.review}</span>
             <strong>
               {openCount}
-              <small>openstaand</small>
+              <small>{translations.report_detail.timeline.open}</small>
             </strong>
           </div>
         </div>
@@ -86,20 +92,24 @@ export function TimelineStrip({
   return (
     <div className="fr-timeline-strip-card">
       <div className="fr-timeline-strip-meta">
-        <span className="fr-timeline-strip-label">Tijdlijn</span>
+        <span className="fr-timeline-strip-label">
+          {translations.report_detail.timeline.label}
+        </span>
         <span className="fr-timeline-strip-range">
           {formatSeconds(0)} →{' '}
           {formatSeconds((endTimestampMs - startTimestampMs) / 1000)}
         </span>
         <span className="fr-timeline-strip-sub">
-          {events.length} momenten · {sections.length} secties
+          {events.length} {translations.report_detail.timeline.moments_suffix} ·{' '}
+          {sections.length}{' '}
+          {translations.report_detail.timeline.sections_suffix}
         </span>
       </div>
 
       <div
         ref={trackRef}
         className="fr-timeline-strip-track"
-        aria-label="Bronmomenten"
+        aria-label={translations.report_detail.timeline.track_aria_label}
       >
         <div className="fr-timeline-strip-axis" />
         <div className="fr-timeline-strip-processed" />
@@ -154,17 +164,20 @@ export function TimelineStrip({
 
       <div className="fr-timeline-strip-stats">
         <div className="fr-timeline-strip-stat">
-          <span>Goedgekeurd</span>
+          <span>{translations.report_detail.timeline.approved}</span>
           <strong>
             {approvedCount}
-            <small>/ {sections.length} secties</small>
+            <small>
+              / {sections.length}{' '}
+              {translations.report_detail.timeline.sections_suffix}
+            </small>
           </strong>
         </div>
         <div className="fr-timeline-strip-stat">
-          <span>Controleren</span>
+          <span>{translations.report_detail.timeline.review}</span>
           <strong>
             {openCount}
-            <small>openstaand</small>
+            <small>{translations.report_detail.timeline.open}</small>
           </strong>
         </div>
       </div>

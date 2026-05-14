@@ -1,3 +1,5 @@
+import { translations } from '@/lib/translations'
+
 const dutchShortDateFormatter = new Intl.DateTimeFormat('nl-NL', {
   day: 'numeric',
   month: 'short',
@@ -21,7 +23,7 @@ export function formatUpdatedAt(isoDateTime: string | null): string {
   const time = dutchShortTimeFormatter.format(updatedAt)
 
   if (isToday(updatedAt)) {
-    return `vandaag · ${time}`
+    return `${translations.report_detail.document.today} · ${time}`
   }
 
   return `${dutchShortDateFormatter.format(updatedAt)} · ${time}`

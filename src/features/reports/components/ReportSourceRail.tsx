@@ -1,3 +1,4 @@
+import { translations } from '@/lib/translations'
 import {
   sourceTimeLabel,
   sourceTypeIconType,
@@ -29,24 +30,30 @@ export function ReportSourceRail({
   })
 
   return (
-    <aside className="fr-report-source-rail" aria-label="Bron-momenten">
+    <aside
+      className="fr-report-source-rail"
+      aria-label={translations.report_detail.source_rail.aria_label}
+    >
       <div className="fr-report-source-rail-head">
-        <span>Bron-momenten</span>
+        <span>{translations.report_detail.source_rail.title}</span>
       </div>
-      <div className="fr-report-source-filter" aria-label="Bronnen filteren">
+      <div
+        className="fr-report-source-filter"
+        aria-label={translations.report_detail.source_rail.filter_aria_label}
+      >
         <SourceFilterChip
           active={filter === 'all'}
-          label="Alles"
+          label={translations.report_detail.source_rail.all_filter}
           onClick={() => onFilterChange('all')}
         />
         <SourceFilterChip
           active={filter === 'open'}
-          label="Open"
+          label={translations.report_detail.source_rail.open_filter}
           onClick={() => onFilterChange('open')}
         />
         <SourceFilterChip
           active={filter === 'approved'}
-          label="Goedgekeurd"
+          label={translations.report_detail.source_rail.approved_filter}
           onClick={() => onFilterChange('approved')}
         />
       </div>
@@ -81,11 +88,12 @@ export function ReportSourceRail({
             </span>
             <span className="fr-report-source-rail-title">
               {truncateSummary(
-                sourceRailItem.timelineItem.content_summary || 'Bron',
+                sourceRailItem.timelineItem.content_summary ||
+                  translations.report_detail.source_rail.fallback_source_title,
               )}
             </span>
             <span className="fr-report-source-rail-section">
-              Secties ·{' '}
+              {translations.report_detail.source_rail.sections_label} ·{' '}
               <strong>{sourceRailItem.sectionLabels.join(', ')}</strong>
             </span>
           </button>

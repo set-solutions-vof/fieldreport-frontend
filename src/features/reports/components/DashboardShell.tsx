@@ -1,4 +1,5 @@
 import { Logo } from '@/design-system'
+import { translations } from '@/lib/translations'
 import type {
   DashboardNavigationItem,
   DashboardShellProps,
@@ -24,8 +25,13 @@ export function DashboardShell({
         <div className="fr-dashboard-brand">
           <Logo variant="accent" />
         </div>
-        <nav className="fr-dashboard-nav" aria-label="Werkruimte">
-          <span className="fr-dashboard-nav-label">Werkruimte</span>
+        <nav
+          className="fr-dashboard-nav"
+          aria-label={translations.dashboard.navigation.workspace_label}
+        >
+          <span className="fr-dashboard-nav-label">
+            {translations.dashboard.navigation.workspace_label}
+          </span>
           <button
             className={navigationItemClassName(
               activeNavigationItem,
@@ -36,7 +42,7 @@ export function DashboardShell({
               activeNavigationItem === 'dashboard' ? 'page' : undefined
             }
           >
-            Dashboard
+            {translations.dashboard.navigation.dashboard}
           </button>
           <button
             className={navigationItemClassName(
@@ -48,7 +54,7 @@ export function DashboardShell({
               activeNavigationItem === 'validation' ? 'page' : undefined
             }
           >
-            <span>Te valideren</span>
+            <span>{translations.dashboard.navigation.validation}</span>
             {reportsToValidateCount > 0 && (
               <span className="fr-dashboard-nav-count">
                 {reportsToValidateCount}
@@ -62,7 +68,7 @@ export function DashboardShell({
               activeNavigationItem === 'reports' ? 'page' : undefined
             }
           >
-            <span>Alle rapporten</span>
+            <span>{translations.dashboard.navigation.all_reports}</span>
             {totalReportsCount > 0 && (
               <span className="fr-dashboard-nav-count">
                 {totalReportsCount}
@@ -79,9 +85,11 @@ export function DashboardShell({
               activeNavigationItem === 'locations' ? 'page' : undefined
             }
           >
-            Locaties
+            {translations.dashboard.navigation.locations}
           </button>
-          <span className="fr-dashboard-nav-label">Instellingen</span>
+          <span className="fr-dashboard-nav-label">
+            {translations.dashboard.navigation.settings_label}
+          </span>
           <button
             className={navigationItemClassName(activeNavigationItem, 'profile')}
             type="button"
@@ -89,7 +97,7 @@ export function DashboardShell({
               activeNavigationItem === 'profile' ? 'page' : undefined
             }
           >
-            Profiel
+            {translations.dashboard.navigation.profile}
           </button>
         </nav>
         <div className="fr-dashboard-user">

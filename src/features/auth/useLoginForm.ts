@@ -1,6 +1,7 @@
 import type { ChangeEvent, FormEvent } from 'react'
 import { useState } from 'react'
 import { login } from '@/lib/api/auth'
+import { translations } from '@/lib/translations'
 import type { UseLoginFormParameters } from '@/types/authView'
 import { storeAuthTokens } from './tokenStore'
 
@@ -30,7 +31,7 @@ export function useLoginForm({ onLoginSuccess }: UseLoginFormParameters) {
       storeAuthTokens(tokens)
       onLoginSuccess()
     } catch {
-      setLoginError('Email or password is invalid.')
+      setLoginError(translations.auth.login.invalid_credentials_error)
       setIsSubmitting(false)
     }
   }

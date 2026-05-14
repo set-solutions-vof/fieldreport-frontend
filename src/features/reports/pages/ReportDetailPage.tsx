@@ -1,5 +1,6 @@
 import { Button, Spinner } from '@/design-system'
 import { useCurrentUser } from '@/features/auth/useCurrentUser'
+import { translations } from '@/lib/translations'
 import { ReportDetailWorkspace } from '../components/ReportDetailWorkspace'
 import { useReport } from '../hooks/useReport'
 import { useReports } from '../hooks/useReports'
@@ -49,7 +50,7 @@ export function ReportDetailPage({
     return (
       <main className="fr-report-detail-loading-page">
         <div className="fr-report-detail-state">
-          <h1>Rapport laden is mislukt</h1>
+          <h1>{translations.report_detail.states.load_failed_title}</h1>
           <p>
             {errorMessage ?? currentUserErrorMessage ?? reportsErrorMessage}
           </p>
@@ -62,7 +63,7 @@ export function ReportDetailPage({
               retryReports()
             }}
           >
-            Opnieuw proberen
+            {translations.report_detail.states.retry_button}
           </Button>
         </div>
       </main>

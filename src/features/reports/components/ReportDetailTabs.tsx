@@ -1,3 +1,4 @@
+import { translations } from '@/lib/translations'
 import type {
   ReportDetailTabButtonProps,
   ReportDetailTabsProps,
@@ -16,21 +17,21 @@ export function ReportDetailTabs({
         <TabButton
           active={activeTab === 'report'}
           count={String(reportCount)}
-          label="Rapport"
+          label={translations.report_detail.tabs.report}
           tab="report"
           onClick={() => onActiveTabChange('report')}
         />
         <TabButton
           active={activeTab === 'transcript'}
           count="–"
-          label="Transcript"
+          label={translations.report_detail.tabs.transcript}
           tab="transcript"
           onClick={() => onActiveTabChange('transcript')}
         />
         <TabButton
           active={activeTab === 'evidence'}
           count={String(evidenceCount)}
-          label="Bewijsmateriaal"
+          label={translations.report_detail.tabs.evidence}
           tab="evidence"
           onClick={() => onActiveTabChange('evidence')}
         />

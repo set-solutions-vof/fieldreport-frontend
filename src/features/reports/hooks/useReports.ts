@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { isAuthenticationExpiredError } from '@/lib/api/authenticatedFetch'
 import { getReports } from '@/lib/api/reports'
+import { translations } from '@/lib/translations'
 import type { ReportSummary } from '@/types/report'
 import type { ReportsStatus, UseReportsResult } from '@/types/reportList'
 
@@ -26,7 +27,7 @@ export function useReports({
       }
 
       setStatus('error')
-      setErrorMessage('Rapporten konden niet worden geladen.')
+      setErrorMessage(translations.reports.errors.reports_load_failed)
     },
     [onAuthenticationExpired],
   )

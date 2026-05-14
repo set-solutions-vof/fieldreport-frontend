@@ -1,5 +1,6 @@
 import type { ChangeEvent } from 'react'
 import { Textarea } from '@/design-system'
+import { translations } from '@/lib/translations'
 import { useReportSection } from '../hooks/useReportSection'
 import { sectionSourceChipLabels } from '../lib/reportDetailView'
 import type { ReportSectionProps } from '../types/reportDetailView'
@@ -86,13 +87,15 @@ export function ReportSection({
             >
               {section.is_approved ? '✓' : '○'}
             </span>
-            {section.is_approved ? 'Goedgekeurd' : 'Goedkeuren'}
+            {section.is_approved
+              ? translations.report_detail.section.approved_button
+              : translations.report_detail.section.approve_button}
           </button>
         </div>
       </div>
 
       <Textarea
-        aria-label={`${section.label} inspecteurstekst`}
+        aria-label={`${section.label} ${translations.report_detail.section.inspector_text_suffix}`}
         className="fr-report-section-textarea"
         fieldClassName="fr-report-section-field"
         value={content}
@@ -103,7 +106,7 @@ export function ReportSection({
       {sourceChipLabels.length > 0 && (
         <div
           className="fr-report-section-source-chips"
-          aria-label={`Bronnen voor ${section.label}`}
+          aria-label={`${translations.report_detail.section.sources_for_prefix} ${section.label}`}
         >
           {sourceChipLabels.map((sourceChipLabel) => (
             <span

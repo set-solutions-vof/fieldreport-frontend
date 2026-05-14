@@ -1,7 +1,4 @@
-import type {
-  ReportDetail,
-  UpdateReportSectionResponse,
-} from './report'
+import type { ReportDetail, UpdateReportSectionResponse } from './report'
 
 export type ReportDetailStatus = 'loading' | 'success' | 'error'
 

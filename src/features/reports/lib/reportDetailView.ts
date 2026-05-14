@@ -1,3 +1,4 @@
+import { translations } from '@/lib/translations'
 import type {
   ReportSectionBase,
   ReportSection as ReportSectionModel,
@@ -103,22 +104,22 @@ export function saveStatusLabel(
   dirtyCount: number,
 ): string {
   if (saveStatus === 'saving') {
-    return 'Opslaan...'
+    return translations.report_detail.action_bar.saving
   }
 
   if (saveStatus === 'error') {
-    return 'Opslaan is mislukt'
+    return translations.report_detail.action_bar.save_failed
   }
 
   if (dirtyCount === 0) {
-    return 'Opgeslagen'
+    return translations.report_detail.action_bar.saved
   }
 
   if (dirtyCount === 1) {
-    return '1 wijziging niet opgeslagen'
+    return translations.report_detail.action_bar.one_unsaved_change
   }
 
-  return `${dirtyCount} wijzigingen niet opgeslagen`
+  return `${dirtyCount} ${translations.report_detail.action_bar.many_unsaved_changes_suffix}`
 }
 
 export function mergeUpdatedSection(
@@ -157,14 +158,16 @@ export function sectionSourceChipLabels(
     }
 
     imageCount += 1
-    return `Foto ${imageCount}`
+    return `${translations.report_detail.section.image_label} ${imageCount}`
   })
 }
 
 export function sourceTypeLabel(
   sourceType: ReportTimelineItem['source_type'],
 ): string {
-  return sourceType === 'transcription_segment' ? 'Audio' : 'Foto'
+  return sourceType === 'transcription_segment'
+    ? translations.report_detail.section.audio_label
+    : translations.report_detail.section.image_label
 }
 
 export function sourceTypeIconType(

@@ -1,4 +1,5 @@
 import { Button, Input, Logo } from '@/design-system'
+import { translations } from '@/lib/translations'
 import type { LoginPageProps } from '@/types/authView'
 import { useLoginForm } from './useLoginForm'
 import './LoginPage.css'
@@ -22,15 +23,15 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
         </div>
         <div className="fr-login-copy">
           <h1 className="fr-login-title" id="login-title">
-            Inspector access
+            {translations.auth.login.title}
           </h1>
           <p className="fr-login-subtitle">
-            Sign in to review assigned field reports.
+            {translations.auth.login.subtitle}
           </p>
         </div>
         <form className="fr-login-form" onSubmit={handleSubmit}>
           <Input
-            label="Email"
+            label={translations.auth.login.email_label}
             type="email"
             autoComplete="email"
             value={email}
@@ -39,7 +40,7 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
             required
           />
           <Input
-            label="Password"
+            label={translations.auth.login.password_label}
             type="password"
             autoComplete="current-password"
             value={password}
@@ -49,7 +50,7 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
             required
           />
           <Button type="submit" variant="primary" loading={isSubmitting}>
-            Sign in
+            {translations.auth.login.submit_button}
           </Button>
         </form>
       </section>

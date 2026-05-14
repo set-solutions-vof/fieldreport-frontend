@@ -1,3 +1,4 @@
+import { translations } from '@/lib/translations'
 import type { ReportDetailHeaderBlockProps } from '../types/reportDetailView'
 import { formatDutchShortDate } from '../lib/formatReportDate'
 import { reportReference } from '../lib/reportDetailView'
@@ -8,8 +9,13 @@ export function ReportDetailHeaderBlock({
   return (
     <header className="fr-report-detail-page-header">
       <div className="fr-report-detail-title-group">
-        <span className="fr-report-detail-status-pill">Concept</span>
-        <h1>{report.address} — concept-rapport</h1>
+        <span className="fr-report-detail-status-pill">
+          {translations.report_detail.header.draft_pill}
+        </span>
+        <h1>
+          {report.address} —{' '}
+          {translations.report_detail.header.draft_title_suffix}
+        </h1>
         <p className="fr-report-detail-meta-line">
           <strong>{report.client_name}</strong> · {reportReference(report.id)} ·{' '}
           {formatDutchShortDate(report.inspection_date)} ·{' '}
@@ -23,26 +29,29 @@ export function ReportDetailHeaderBlock({
 
 function HeaderLegend() {
   return (
-    <div className="fr-report-detail-legend" aria-label="Legenda">
+    <div
+      className="fr-report-detail-legend"
+      aria-label={translations.report_detail.header.legend_aria_label}
+    >
       <span>
         <i className="fr-report-detail-legend-swatch" />
-        Gebeurtenis
+        {translations.report_detail.header.legend_event}
       </span>
       <span>
         <i className="fr-report-detail-legend-swatch fr-report-detail-legend-swatch--warn" />
-        Controleren
+        {translations.report_detail.header.legend_review}
       </span>
       <span>
         <i className="fr-report-detail-legend-swatch fr-report-detail-legend-swatch--alert" />
-        Lage zekerheid
+        {translations.report_detail.header.legend_low_confidence}
       </span>
       <span className="fr-report-detail-legend-review">
         <i className="fr-report-detail-legend-swatch fr-report-detail-legend-swatch--open" />
-        Open
+        {translations.report_detail.header.legend_open}
       </span>
       <span>
         <i className="fr-report-detail-legend-swatch fr-report-detail-legend-swatch--approved" />
-        Goedgekeurd
+        {translations.report_detail.header.legend_approved}
       </span>
     </div>
   )

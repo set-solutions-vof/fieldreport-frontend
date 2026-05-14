@@ -1,4 +1,5 @@
 import { Card } from '@/design-system'
+import { translations } from '@/lib/translations'
 import type { DashboardStatsProps, StatCardProps } from '../types/reportView'
 import './DashboardStats.css'
 
@@ -26,16 +27,19 @@ export function DashboardStats({ reports }: DashboardStatsProps) {
     <Card
       className="fr-dashboard-stats"
       padding="none"
-      aria-label="Dashboard statistieken"
+      aria-label={translations.dashboard.stats.aria_label}
     >
       <StatCard
-        title="Rapporten deze maand"
+        title={translations.dashboard.stats.reports_this_month}
         value={String(reportsThisMonth.length)}
       />
-      <StatCard title="Schrijftijd bespaard" value="-" />
-      <StatCard title="AI-nauwkeurigheid" value="-" />
       <StatCard
-        title="Goedgekeurd · 7d"
+        title={translations.dashboard.stats.writing_time_saved}
+        value="-"
+      />
+      <StatCard title={translations.dashboard.stats.ai_accuracy} value="-" />
+      <StatCard
+        title={translations.dashboard.stats.approved_last_seven_days}
         value={String(approvedLastSevenDays.length)}
       />
     </Card>

@@ -1,4 +1,5 @@
 import { Card } from '@/design-system'
+import { translations } from '@/lib/translations'
 import type { ValidationReportsSectionProps } from '../types/reportView'
 import { formatReportCount } from '../lib/formatReportCount'
 import { ReportCard } from './ReportCard'
@@ -13,13 +14,13 @@ export function ValidationReportsSection({
       <Card className="fr-dashboard-queue" padding="none">
         <div className="fr-dashboard-queue-header">
           <div className="fr-dashboard-queue-title">
-            <h2>Wachtrij</h2>
+            <h2>{translations.dashboard.queue.title}</h2>
             <span>{formatReportCount(reports.length)}</span>
           </div>
         </div>
         {reports.length === 0 ? (
           <p className="fr-dashboard-queue-empty">
-            Er staan geen rapporten in de wachtrij.
+            {translations.dashboard.queue.empty}
           </p>
         ) : (
           reports.map((report) => (

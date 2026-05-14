@@ -1,4 +1,5 @@
 import { Badge, Card } from '@/design-system'
+import { translations } from '@/lib/translations'
 import type { ReportCardProps } from '../types/reportView'
 import { formatDutchShortDate } from '../lib/formatReportDate'
 import { reportStatusLabel } from '../lib/reportLabels'
@@ -12,14 +13,21 @@ export function ReportCard({ report, onOpenReport }: ReportCardProps) {
       padding="none"
       onClick={() => onOpenReport(report.id)}
     >
-      <strong>{report.address ?? 'Adres onbekend'}</strong>
-      <span>{report.client_name ?? 'Onbekende klant'}</span>
+      <strong>
+        {report.address ?? translations.dashboard.report_card.unknown_address}
+      </strong>
+      <span>
+        {report.client_name ??
+          translations.dashboard.report_card.unknown_client}
+      </span>
       <span>{formatDutchShortDate(report.inspection_date)}</span>
       <div className="fr-dashboard-report-actions">
         <Badge variant={report.status}>
           {reportStatusLabel(report.status)}
         </Badge>
-        <span className="fr-dashboard-open-indicator">Openen</span>
+        <span className="fr-dashboard-open-indicator">
+          {translations.dashboard.report_card.open_button}
+        </span>
       </div>
     </Card>
   )

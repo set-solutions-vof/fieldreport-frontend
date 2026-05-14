@@ -1,4 +1,5 @@
 import { Button } from '@/design-system'
+import { translations } from '@/lib/translations'
 import { saveStatusLabel } from '../lib/reportDetailView'
 import type { ReportActionBarProps } from '../types/reportDetailView'
 
@@ -16,9 +17,9 @@ export function ReportActionBar({
           type="button"
           variant="primary"
           disabled
-          title="Komt binnenkort"
+          title={translations.report_detail.action_bar.coming_soon}
         >
-          Voorbeeld PDF
+          {translations.report_detail.action_bar.pdf_button}
         </Button>
       </div>
     </div>
