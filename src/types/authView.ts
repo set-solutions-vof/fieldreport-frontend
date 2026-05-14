@@ -1,7 +1,9 @@
+import type { CurrentUser } from './auth'
+
 export type LoginPageProps = {
-  onLoginSuccess: () => void
+  onLoginSuccess: (user: CurrentUser) => void
 }
 
 export type UseLoginFormParameters = {
-  onLoginSuccess: () => void
+  onLoginSuccess: (user: CurrentUser) => void
 }

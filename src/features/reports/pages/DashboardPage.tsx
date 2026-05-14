@@ -1,7 +1,7 @@
 import { Button, Spinner } from '@/design-system'
 import { useCurrentUser } from '@/features/auth/useCurrentUser'
 import { translations } from '@/lib/translations'
-import { DashboardShell } from '../components/DashboardShell'
+import { AppShell } from '@/app/AppShell'
 import { DashboardStats } from '../components/DashboardStats'
 import { RecentReportsTable } from '../components/RecentReportsTable'
 import { ValidationReportsSection } from '../components/ValidationReportsSection'
@@ -13,7 +13,6 @@ export function DashboardPage({
   onOpenReport,
   onOpenDashboard,
   onOpenReports,
-  onOpenTemplate,
   onAuthenticationExpired,
 }: DashboardPageProps) {
   const { reports, isLoading, isError, errorMessage, retry } = useReportList({
@@ -63,14 +62,13 @@ export function DashboardPage({
   }
 
   return (
-    <DashboardShell
+    <AppShell
       currentUser={currentUser}
       activeNavigationItem="dashboard"
       breadcrumbItems={[{ label: translations.dashboard.navigation.dashboard }]}
       totalReportsCount={reports.length}
       onOpenDashboard={onOpenDashboard}
       onOpenReports={onOpenReports}
-      onOpenTemplate={onOpenTemplate}
     >
       <ValidationReportsSection
         reports={reportsToValidate}
@@ -81,6 +79,6 @@ export function DashboardPage({
         reports={recentReports}
         onOpenReports={onOpenReports}
       />
-    </DashboardShell>
+    </AppShell>
   )
 }

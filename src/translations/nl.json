@@ -18,7 +18,7 @@
       "dashboard": "Overzicht",
       "all_reports": "Alle rapporten",
       "settings_label": "Instellingen",
-      "template": "Sjabloon",
+      "template": "Template",
       "profile": "Profiel"
     },
     "states": {
@@ -56,7 +56,7 @@
     }
   },
   "template": {
-    "navigation_label": "Sjabloon",
+    "navigation_label": "Template",
     "empty": {
       "title": "Set up your report template",
       "description": "Upload a few of your existing reports and the FieldReport engine will extract your template structure automatically.",

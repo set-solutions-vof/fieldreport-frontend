@@ -12,7 +12,6 @@ export function ReportDetailPage({
   source,
   onOpenDashboard,
   onOpenReports,
-  onOpenTemplate,
   onAuthenticationExpired,
 }: ReportDetailPageProps) {
   const { report, isLoading, isError, errorMessage, retry } = useReportDetail({
@@ -83,7 +82,6 @@ export function ReportDetailPage({
       source={source}
       onOpenDashboard={onOpenDashboard}
       onOpenReports={onOpenReports}
-      onOpenTemplate={onOpenTemplate}
     />
   )
 }

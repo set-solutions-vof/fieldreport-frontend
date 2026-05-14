@@ -1,6 +1,7 @@
 import type { ChangeEvent, FormEvent } from 'react'
 import { useState } from 'react'
 import { login } from '@/lib/api/auth'
+import { getCurrentUser } from '@/lib/api/currentUser'
 import { translations } from '@/lib/translations'
 import type { UseLoginFormParameters } from '@/types/authView'
 import { storeAuthTokens } from './tokenStore'
@@ -29,7 +30,8 @@ export function useLoginForm({ onLoginSuccess }: UseLoginFormParameters) {
     try {
       const tokens = await login({ email, password })
       storeAuthTokens(tokens)
-      onLoginSuccess()
+      const user = await getCurrentUser()
+      onLoginSuccess(user)
     } catch {
       setLoginError(translations.auth.login.invalid_credentials_error)
       setIsSubmitting(false)

@@ -82,8 +82,6 @@ export type TemplateUploadingStateProps = {
 }
 
 export type TemplateConfigurationPageProps = {
-  onOpenDashboard: () => void
-  onOpenReports: () => void
   onOpenTemplate: () => void
   onAuthenticationExpired: () => void
 }

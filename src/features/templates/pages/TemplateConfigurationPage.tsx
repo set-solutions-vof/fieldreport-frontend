@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import type { ChangeEvent, DragEvent } from 'react'
 import { Button, Spinner } from '@/design-system'
 import { useCurrentUser } from '@/features/auth/useCurrentUser'
-import { DashboardShell } from '@/features/reports/components/DashboardShell'
+import { AppShell } from '@/app/AppShell'
 import { translations } from '@/lib/translations'
 import { TemplateEmptyState } from '../components/TemplateEmptyState'
 import { TemplateReviewState } from '../components/TemplateReviewState'
@@ -13,8 +13,6 @@ import type { TemplateConfigurationPageProps } from '../types/templateView'
 import './TemplateConfigurationPage.css'
 
 export function TemplateConfigurationPage({
-  onOpenDashboard,
-  onOpenReports,
   onOpenTemplate,
   onAuthenticationExpired,
 }: TemplateConfigurationPageProps) {
@@ -92,13 +90,11 @@ export function TemplateConfigurationPage({
   }
 
   return (
-    <DashboardShell
+    <AppShell
       currentUser={currentUser}
       activeNavigationItem="template"
       breadcrumbItems={[{ label: translations.template.navigation_label }]}
       contentClassName="fr-dashboard-content--template"
-      onOpenDashboard={onOpenDashboard}
-      onOpenReports={onOpenReports}
       onOpenTemplate={onOpenTemplate}
     >
       <main
@@ -148,6 +144,6 @@ export function TemplateConfigurationPage({
           />
         )}
       </main>
-    </DashboardShell>
+    </AppShell>
   )
 }

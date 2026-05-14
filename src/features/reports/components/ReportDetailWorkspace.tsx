@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Card } from '@/design-system'
 import { translations } from '@/lib/translations'
 import type { UpdateReportSectionResponse } from '@/types/report'
-import { DashboardShell } from './DashboardShell'
+import { AppShell } from '@/app/AppShell'
 import { ReportActionBar } from './ReportActionBar'
 import { ReportDetailHeaderBlock } from './ReportDetailHeaderBlock'
 import { ReportDetailTabs } from './ReportDetailTabs'
@@ -26,7 +26,6 @@ export function ReportDetailWorkspace({
   source,
   onOpenDashboard,
   onOpenReports,
-  onOpenTemplate,
 }: ReportDetailWorkspaceProps) {
   const [activeTab, setActiveTab] = useState<ReportDetailTab>('report')
   const [activeSectionId, setActiveSectionId] = useState<string | null>(null)
@@ -129,7 +128,7 @@ export function ReportDetailWorkspace({
   )
 
   return (
-    <DashboardShell
+    <AppShell
       currentUser={currentUser}
       activeNavigationItem={source === 'dashboard' ? 'dashboard' : 'reports'}
       breadcrumbItems={[
@@ -146,7 +145,6 @@ export function ReportDetailWorkspace({
       totalReportsCount={totalReportsCount}
       onOpenDashboard={onOpenDashboard}
       onOpenReports={onOpenReports}
-      onOpenTemplate={onOpenTemplate}
     >
       <div className="fr-report-detail-page">
         <ReportDetailHeaderBlock report={report} />
@@ -205,7 +203,7 @@ export function ReportDetailWorkspace({
 
         <ReportActionBar dirtyCount={dirtyCount} saveStatus={saveStatus} />
       </div>
-    </DashboardShell>
+    </AppShell>
   )
 }
 

@@ -1,7 +1,7 @@
 import { Button, Spinner } from '@/design-system'
 import { useCurrentUser } from '@/features/auth/useCurrentUser'
 import { translations } from '@/lib/translations'
-import { DashboardShell } from '../components/DashboardShell'
+import { AppShell } from '@/app/AppShell'
 import { ReportsTable } from '../components/ReportsTable'
 import { useReportList } from '../hooks/useReportList'
 import type { AllReportsPageProps } from '../types/reportView'
@@ -11,7 +11,6 @@ export function AllReportsPage({
   onOpenReport,
   onOpenDashboard,
   onOpenReports,
-  onOpenTemplate,
   onAuthenticationExpired,
 }: AllReportsPageProps) {
   const { reports, isLoading, isError, errorMessage, retry } = useReportList({
@@ -57,7 +56,7 @@ export function AllReportsPage({
   }
 
   return (
-    <DashboardShell
+    <AppShell
       currentUser={currentUser}
       activeNavigationItem="reports"
       breadcrumbItems={[
@@ -66,7 +65,6 @@ export function AllReportsPage({
       totalReportsCount={reports.length}
       onOpenDashboard={onOpenDashboard}
       onOpenReports={onOpenReports}
-      onOpenTemplate={onOpenTemplate}
     >
       <section className="fr-dashboard-section">
         <div className="fr-dashboard-section-header">
@@ -79,6 +77,6 @@ export function AllReportsPage({
           onOpenReport={onOpenReport}
         />
       </section>
-    </DashboardShell>
+    </AppShell>
   )
 }
