@@ -4,17 +4,10 @@ import './Spinner.css'
 export type SpinnerSize = 'sm' | 'md' | 'lg'
 
 export interface SpinnerProps extends React.HTMLAttributes<HTMLSpanElement> {
-  /** Visual size. Default `md`. */
   size?: SpinnerSize
-  /** Accessible label. Defaults to "Loading". Pass `""` to hide from AT (e.g. when adjacent text is already announced). */
   label?: string
 }
 
-/**
- * Spinner — single animated loading indicator.
- * Inherits `currentColor` so it adapts to its surrounding text color
- * (e.g. white inside a primary Button, accent on a light surface).
- */
 export const Spinner = React.forwardRef<HTMLSpanElement, SpinnerProps>(
   function Spinner(
     { size = 'md', label = 'Loading', className, ...rest },

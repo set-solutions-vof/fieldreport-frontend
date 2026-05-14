@@ -9,25 +9,14 @@ export interface ButtonProps extends Omit<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
   'disabled'
 > {
-  /** Visual treatment. Default `secondary`. */
   variant?: ButtonVariant
-  /** Control height. Default `md`. */
   size?: ButtonSize
-  /** Disable interaction. */
   disabled?: boolean
-  /** Show inline spinner; button stays focusable but blocks click. */
   loading?: boolean
-  /** Optional leading icon (size yourself with width/height — colors inherit). */
   leadingIcon?: React.ReactNode
-  /** Optional trailing icon. */
   trailingIcon?: React.ReactNode
 }
 
-/**
- * Button — primary / secondary / ghost / destructive variants.
- * Communicates state through layout (spinner placement, opacity) and
- * border/background change — never color alone.
- */
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   function Button(
     {

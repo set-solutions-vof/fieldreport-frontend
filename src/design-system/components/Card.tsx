@@ -4,9 +4,7 @@ import './Card.css'
 export type CardPadding = 'none' | 'sm' | 'md' | 'lg'
 
 type CardCommon = {
-  /** Internal padding. Default `md`. */
   padding?: CardPadding
-  /** Render as an interactive button (adds hover, focus ring, click handler). */
   interactive?: boolean
 }
 
@@ -16,11 +14,6 @@ export type CardProps =
   | (CardCommon &
       React.ButtonHTMLAttributes<HTMLButtonElement> & { interactive: true })
 
-/**
- * Card — surface container with border and subtle shadow.
- * Pass `interactive` to render as a focusable button (used for clickable
- * inspection cards on the dashboard).
- */
 export const Card = React.forwardRef<HTMLElement, CardProps>(
   function Card(props, ref) {
     const {
@@ -69,7 +62,6 @@ export const Card = React.forwardRef<HTMLElement, CardProps>(
 
 Card.displayName = 'Card'
 
-/* Convenience subcomponents — optional helpers for layout inside a Card. */
 export const CardHeader: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
   className,
   ...rest

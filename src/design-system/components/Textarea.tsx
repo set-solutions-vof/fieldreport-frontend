@@ -2,22 +2,13 @@ import * as React from 'react'
 import './Input.css'
 
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
-  /** Visible label rendered above the textarea. */
   label?: React.ReactNode
-  /** Helper copy under the textarea. Hidden when an error is shown. */
   helperText?: React.ReactNode
-  /** Error copy under the textarea. Toggles error styling and aria-invalid. */
   error?: React.ReactNode
-  /** Show a `*` after the label and set required on the control. */
   required?: boolean
-  /** Class on the outer field wrapper. `className` falls through to the textarea. */
   fieldClassName?: string
 }
 
-/**
- * Textarea — multi-line text editor.
- * Vertical resize only; used for editing report sections.
- */
 export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   function Textarea(
     {

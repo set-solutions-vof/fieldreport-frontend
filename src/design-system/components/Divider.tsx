@@ -2,19 +2,11 @@ import * as React from 'react'
 import './Divider.css'
 
 export interface DividerProps extends React.HTMLAttributes<HTMLElement> {
-  /** Direction. Default `horizontal`. */
   orientation?: 'horizontal' | 'vertical'
-  /** Vertical block-margin spacing. Default `none`. */
   spacing?: 'none' | 'sm' | 'md' | 'lg'
-  /** Whether the divider is purely decorative (default) or marks a section break. */
   decorative?: boolean
 }
 
-/**
- * Divider — horizontal or vertical rule using the border token.
- * Defaults to decorative; pass `decorative={false}` to expose as a
- * semantic separator to assistive tech.
- */
 export const Divider = React.forwardRef<HTMLElement, DividerProps>(
   function Divider(
     {
