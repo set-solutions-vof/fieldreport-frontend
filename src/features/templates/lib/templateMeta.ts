@@ -7,19 +7,19 @@ type TemplateTypeMeta = {
 }
 
 export const templateTypeMeta: Record<TemplateSectionType, TemplateTypeMeta> = {
-  text: {
+  text_block: {
     icon: 'paragraph',
     label: 'Tekstblok',
   },
-  kv: {
+  key_value_table: {
     icon: 'gridKV',
     label: 'Sleutel-waarde tabel',
   },
-  measure: {
+  measurement_table: {
     icon: 'list',
     label: 'Meettabel',
   },
-  photo: {
+  photo_grid: {
     icon: 'photo',
     label: 'Fotoraster',
   },

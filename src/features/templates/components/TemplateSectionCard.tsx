@@ -91,7 +91,7 @@ export function TemplateSectionCard({
           </button>
         )}
         <TemplateTypePill type={section.type} />
-        {section.type === 'kv' && (
+        {section.type === 'key_value_table' && (
           <div className="fr-template-section-card__fields">
             {visibleFields.map((field) => (
               <TemplateFieldChip key={field}>{field}</TemplateFieldChip>

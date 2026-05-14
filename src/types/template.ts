@@ -1,4 +1,8 @@
-export type TemplateSectionType = 'text' | 'kv' | 'measure' | 'photo'
+export type TemplateSectionType =
+  | 'text_block'
+  | 'key_value_table'
+  | 'measurement_table'
+  | 'photo_grid'
 
 export type TemplateSection = {
   id: string

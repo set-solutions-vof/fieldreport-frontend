@@ -14,7 +14,7 @@ export function TemplateSectionGrid({
           section={section}
           index={index}
           readonly={readonly}
-          feature={section.type === 'kv'}
+          feature={section.type === 'key_value_table'}
           onLabelChange={onLabelChange}
         />
       ))}
