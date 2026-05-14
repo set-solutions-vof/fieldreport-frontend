@@ -1,8 +1,15 @@
 import { useEffect, useState } from 'react'
 import { LoginPage } from '@/features/auth/LoginPage'
+import { AllReportsPage } from '@/features/reports/pages/AllReportsPage'
 import { DashboardPage } from '@/features/reports/pages/DashboardPage'
 import { ReportDetailPage } from '@/features/reports/pages/ReportDetailPage'
-import { dashboardRoute, reportRoute, reportRouteId } from './routes'
+import {
+  allReportsReportRoute,
+  allReportsRoute,
+  dashboardReportRoute,
+  dashboardRoute,
+  reportRouteMatch,
+} from './routes'
 
 export function AppRouter() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname)
@@ -39,20 +46,34 @@ export function AppRouter() {
   if (currentPath === dashboardRoute) {
     return (
       <DashboardPage
-        onOpenReport={(reportId) => navigate(reportRoute(reportId))}
+        onOpenReport={(reportId) => navigate(dashboardReportRoute(reportId))}
         onOpenDashboard={() => navigate(dashboardRoute)}
+        onOpenReports={() => navigate(allReportsRoute)}
         onAuthenticationExpired={handleAuthenticationExpired}
       />
     )
   }
 
-  const currentReportId = reportRouteId(currentPath)
+  if (currentPath === allReportsRoute) {
+    return (
+      <AllReportsPage
+        onOpenReport={(reportId) => navigate(allReportsReportRoute(reportId))}
+        onOpenDashboard={() => navigate(dashboardRoute)}
+        onOpenReports={() => navigate(allReportsRoute)}
+        onAuthenticationExpired={handleAuthenticationExpired}
+      />
+    )
+  }
 
-  if (currentReportId !== null) {
+  const currentReportRoute = reportRouteMatch(currentPath)
+
+  if (currentReportRoute !== null) {
     return (
       <ReportDetailPage
-        reportId={currentReportId}
+        reportId={currentReportRoute.reportId}
+        source={currentReportRoute.source}
         onOpenDashboard={() => navigate(dashboardRoute)}
+        onOpenReports={() => navigate(allReportsRoute)}
         onAuthenticationExpired={handleAuthenticationExpired}
       />
     )

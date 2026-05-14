@@ -2,19 +2,17 @@ import { Button, Spinner } from '@/design-system'
 import { useCurrentUser } from '@/features/auth/useCurrentUser'
 import { translations } from '@/lib/translations'
 import { DashboardShell } from '../components/DashboardShell'
-import { DashboardStats } from '../components/DashboardStats'
-import { RecentReportsTable } from '../components/RecentReportsTable'
-import { ValidationReportsSection } from '../components/ValidationReportsSection'
+import { ReportsTable } from '../components/ReportsTable'
 import { useReports } from '../hooks/useReports'
-import type { DashboardPageProps } from '../types/reportView'
+import type { AllReportsPageProps } from '../types/reportView'
 import './DashboardPage.css'
 
-export function DashboardPage({
+export function AllReportsPage({
   onOpenReport,
   onOpenDashboard,
   onOpenReports,
   onAuthenticationExpired,
-}: DashboardPageProps) {
+}: AllReportsPageProps) {
   const { reports, isLoading, isError, errorMessage, retry } = useReports({
     onAuthenticationExpired,
   })
@@ -25,10 +23,6 @@ export function DashboardPage({
     errorMessage: currentUserErrorMessage,
     retry: retryCurrentUser,
   } = useCurrentUser({ onAuthenticationExpired })
-  const reportsToValidate = reports.filter(
-    (report) => report.status === 'draft',
-  )
-  const recentReports = reports.slice(0, 5)
 
   if (isLoading || isCurrentUserLoading) {
     return (
@@ -64,21 +58,25 @@ export function DashboardPage({
   return (
     <DashboardShell
       currentUser={currentUser}
-      activeNavigationItem="dashboard"
-      breadcrumbItems={[{ label: translations.dashboard.navigation.dashboard }]}
+      activeNavigationItem="reports"
+      breadcrumbItems={[
+        { label: translations.dashboard.navigation.all_reports },
+      ]}
       totalReportsCount={reports.length}
       onOpenDashboard={onOpenDashboard}
       onOpenReports={onOpenReports}
     >
-      <ValidationReportsSection
-        reports={reportsToValidate}
-        onOpenReport={onOpenReport}
-      />
-      <DashboardStats reports={reports} />
-      <RecentReportsTable
-        reports={recentReports}
-        onOpenReports={onOpenReports}
-      />
+      <section className="fr-dashboard-section">
+        <div className="fr-dashboard-section-header">
+          <h2>{translations.dashboard.all_reports.title}</h2>
+        </div>
+        <ReportsTable
+          reports={reports}
+          emptyMessage={translations.dashboard.all_reports.empty}
+          unknownAddress={translations.dashboard.reports_table.unknown_address}
+          onOpenReport={onOpenReport}
+        />
+      </section>
     </DashboardShell>
   )
 }

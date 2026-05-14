@@ -1,0 +1,33 @@
+.fr-dashboard-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.fr-dashboard-table th,
+.fr-dashboard-table td {
+  padding: var(--fr-space-4);
+  border-bottom: 1px solid var(--fr-border);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.fr-dashboard-table th {
+  font-size: var(--fr-text-sm);
+  font-weight: var(--fr-weight-semibold);
+  color: var(--fr-text-secondary);
+  text-transform: uppercase;
+}
+
+.fr-dashboard-table td {
+  font-size: var(--fr-text-base);
+  font-weight: var(--fr-weight-medium);
+  color: var(--fr-text-primary);
+}
+
+.fr-dashboard-reports-empty {
+  margin: var(--fr-space-0);
+  padding: var(--fr-space-5);
+  font-size: var(--fr-text-base);
+  line-height: var(--fr-leading-normal);
+  color: var(--fr-text-secondary);
+}

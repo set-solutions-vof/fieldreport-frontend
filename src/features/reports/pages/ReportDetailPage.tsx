@@ -9,7 +9,9 @@ import './ReportDetailPage.css'
 
 export function ReportDetailPage({
   reportId,
+  source,
   onOpenDashboard,
+  onOpenReports,
   onAuthenticationExpired,
 }: ReportDetailPageProps) {
   const { report, isLoading, isError, errorMessage, retry } = useReport({
@@ -77,7 +79,9 @@ export function ReportDetailPage({
       report={report}
       currentUser={currentUser}
       totalReportsCount={reports.length}
+      source={source}
       onOpenDashboard={onOpenDashboard}
+      onOpenReports={onOpenReports}
     />
   )
 }

@@ -3,7 +3,7 @@ import type {
   ReportDetailTabButtonProps,
   ReportDetailTabsProps,
 } from '../types/reportDetailView'
-import { ReportDetailTabIcon } from './ReportDetailTabIcon'
+import { ReportDetailTabIcon } from './icons/ReportDetailTabIcon'
 
 export function ReportDetailTabs({
   activeTab,

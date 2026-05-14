@@ -26,12 +26,14 @@
     },
     "queue": {
       "title": "Open rapporten",
+      "empty": "Er zijn geen open rapporten."
+    },
+    "reports_table": {
       "address_header": "Adres",
       "date_header": "Datum",
       "edited_header": "Bewerkt",
       "status_header": "Status",
       "action_header": "Actie",
-      "empty": "Er zijn geen open rapporten.",
       "unknown_address": "Adres onbekend",
       "open_button": "Openen"
     },
@@ -45,11 +47,11 @@
     "recent_reports": {
       "title": "Recente rapporten",
       "all_reports_button": "Alle rapporten",
-      "address_header": "Adres",
-      "date_header": "Datum",
-      "edited_header": "Bewerkt",
-      "status_header": "Status",
-      "unknown_address": "Adres onbekend"
+      "empty": "Er zijn geen recente rapporten."
+    },
+    "all_reports": {
+      "title": "Alle rapporten",
+      "empty": "Er zijn geen rapporten."
     }
   },
   "reports": {

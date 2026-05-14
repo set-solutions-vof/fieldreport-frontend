@@ -12,9 +12,10 @@ export function DashboardShell({
   children,
   currentUser,
   activeNavigationItem = 'dashboard',
-  breadcrumbItems = [translations.dashboard.navigation.dashboard],
+  breadcrumbItems = [{ label: translations.dashboard.navigation.dashboard }],
   totalReportsCount = 0,
   onOpenDashboard,
+  onOpenReports,
 }: DashboardShellProps) {
   const userInitials = getUserInitials(currentUser.name)
   const userRoleLabel = formatUserRole(currentUser.role)
@@ -48,6 +49,7 @@ export function DashboardShell({
           <button
             className={navigationItemClassName(activeNavigationItem, 'reports')}
             type="button"
+            onClick={onOpenReports}
             aria-current={
               activeNavigationItem === 'reports' ? 'page' : undefined
             }
@@ -89,23 +91,21 @@ export function DashboardShell({
             {breadcrumbItems.map((breadcrumbItem, breadcrumbItemIndex) => (
               <span
                 className="fr-dashboard-breadcrumb-item"
-                key={`${breadcrumbItem}-${breadcrumbItemIndex}`}
+                key={`${breadcrumbItem.label}-${breadcrumbItemIndex}`}
               >
                 <span>/</span>
                 {breadcrumbItemIndex === breadcrumbItems.length - 1 ? (
-                  <strong>{breadcrumbItem}</strong>
-                ) : breadcrumbItem ===
-                    translations.dashboard.navigation.dashboard &&
-                  onOpenDashboard !== undefined ? (
+                  <strong>{breadcrumbItem.label}</strong>
+                ) : breadcrumbItem.onClick !== undefined ? (
                   <button
                     className="fr-dashboard-breadcrumb-button"
                     type="button"
-                    onClick={onOpenDashboard}
+                    onClick={breadcrumbItem.onClick}
                   >
-                    {breadcrumbItem}
+                    {breadcrumbItem.label}
                   </button>
                 ) : (
-                  <span>{breadcrumbItem}</span>
+                  <span>{breadcrumbItem.label}</span>
                 )}
               </span>
             ))}

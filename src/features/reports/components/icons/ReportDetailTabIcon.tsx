@@ -1,8 +1,4 @@
-import type { ReportDetailTab } from '../types/reportDetailView'
-
-type ReportDetailTabIconProps = {
-  tab: ReportDetailTab
-}
+import type { ReportDetailTab } from '../../types/reportDetailView'
 
 export function ReportDetailTabIcon({ tab }: ReportDetailTabIconProps) {
   if (tab === 'report') {
@@ -53,4 +49,8 @@ export function ReportDetailTabIcon({ tab }: ReportDetailTabIconProps) {
       <path d="M3 11l3-3 3 3 2-2 2 2" />
     </svg>
   )
+}
+
+type ReportDetailTabIconProps = {
+  tab: ReportDetailTab
 }

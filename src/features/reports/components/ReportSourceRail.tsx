@@ -4,7 +4,7 @@ import {
   sourceTypeIconType,
   truncateSummary,
 } from '../lib/reportDetailView'
-import { SourceTypeIcon } from './SourceTypeIcon'
+import { SourceTypeIcon } from './icons/SourceTypeIcon'
 import type {
   ReportSourceRailProps,
   SourceFilterChipProps,

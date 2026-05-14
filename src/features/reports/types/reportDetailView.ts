@@ -1,10 +1,12 @@
 import type { CurrentUser } from '@/types/auth'
+import type { RefObject } from 'react'
 import type {
   ReportDetail,
   ReportSection as ReportSectionModel,
   ReportTimelineItem,
   UpdateReportSectionResponse,
 } from '@/types/report'
+import type { ReportRouteSource } from '@/types/routes'
 
 export type ReportDetailTab = 'report' | 'transcript' | 'evidence'
 export type SourceRailFilter = 'all' | 'open' | 'approved'
@@ -25,7 +27,9 @@ export type ReportDetailWorkspaceProps = {
   report: ReportDetail
   currentUser: CurrentUser
   totalReportsCount: number
+  source: ReportRouteSource
   onOpenDashboard: () => void
+  onOpenReports: () => void
 }
 
 export type UseReportDraftAutosaveParameters = {
@@ -139,4 +143,25 @@ export type TimelineTick = {
   label: string
   position: number
   major: boolean
+}
+
+export type TimelineStripMetaProps = {
+  range: string
+  summary: string
+}
+
+export type TimelineStripStatsProps = {
+  approvedCount: number
+  openCount: number
+  sectionCount: number
+}
+
+export type TimelineStripTrackProps = {
+  activeSourceItemId: string | null
+  durationMs: number
+  events: TimelineStripEvent[]
+  startTimestampMs: number
+  ticks: TimelineTick[]
+  trackRef: RefObject<HTMLDivElement | null>
+  onActiveSourceItemChange: (sourceItemId: string) => void
 }

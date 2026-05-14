@@ -23,7 +23,9 @@ export function ReportDetailWorkspace({
   report,
   currentUser,
   totalReportsCount,
+  source,
   onOpenDashboard,
+  onOpenReports,
 }: ReportDetailWorkspaceProps) {
   const [activeTab, setActiveTab] = useState<ReportDetailTab>('report')
   const [activeSectionId, setActiveSectionId] = useState<string | null>(null)
@@ -128,14 +130,21 @@ export function ReportDetailWorkspace({
   return (
     <DashboardShell
       currentUser={currentUser}
-      activeNavigationItem="dashboard"
+      activeNavigationItem={source === 'dashboard' ? 'dashboard' : 'reports'}
       breadcrumbItems={[
-        translations.dashboard.navigation.dashboard,
-        translations.report_detail.tabs.report,
-        report.address,
+        {
+          label:
+            source === 'dashboard'
+              ? translations.dashboard.navigation.dashboard
+              : translations.dashboard.navigation.all_reports,
+          onClick: source === 'dashboard' ? onOpenDashboard : onOpenReports,
+        },
+        { label: translations.report_detail.tabs.report },
+        { label: report.address },
       ]}
       totalReportsCount={totalReportsCount}
       onOpenDashboard={onOpenDashboard}
+      onOpenReports={onOpenReports}
     >
       <div className="fr-report-detail-page">
         <ReportDetailHeaderBlock report={report} />
