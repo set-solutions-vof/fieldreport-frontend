@@ -5,6 +5,7 @@ import { useCurrentUser } from '@/features/auth/useCurrentUser'
 import { AppShell } from '@/app/AppShell'
 import { translations } from '@/lib/translations'
 import { TemplateEmptyState } from '../components/TemplateEmptyState'
+import { TemplateFailedState } from '../components/TemplateFailedState'
 import { TemplateReviewState } from '../components/TemplateReviewState'
 import { TemplateSkeletonGrid } from '../components/TemplateSkeletonGrid'
 import { TemplateUploadingState } from '../components/TemplateUploadingState'
@@ -31,6 +32,7 @@ export function TemplateConfigurationPage({
     startAnalysis,
     updateSectionLabel,
     confirmCurrentTemplate,
+    resetAfterFailure,
   } = useTemplateConfiguration({ onAuthenticationExpired })
   const {
     currentUser,
@@ -124,6 +126,12 @@ export function TemplateConfigurationPage({
           />
         )}
         {pageState.kind === 'processing' && <TemplateSkeletonGrid />}
+        {pageState.kind === 'failed' && (
+          <TemplateFailedState
+            errorMessage={pageState.errorMessage}
+            onTryAgain={resetAfterFailure}
+          />
+        )}
         {pageState.kind === 'preview' && (
           <TemplateReviewState
             sections={pageState.sections}

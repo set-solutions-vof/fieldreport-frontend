@@ -164,6 +164,11 @@ export function useTemplateConfiguration({
     })
   }
 
+  function resetAfterFailure(): void {
+    setActionErrorMessage(null)
+    setPageState({ kind: 'empty' })
+  }
+
   async function confirmCurrentTemplate(): Promise<void> {
     if (pageState.kind !== 'preview') {
       return
@@ -201,6 +206,7 @@ export function useTemplateConfiguration({
     startAnalysis,
     updateSectionLabel,
     confirmCurrentTemplate,
+    resetAfterFailure,
   }
 }
 
@@ -225,6 +231,14 @@ function pageStateFromTemplateStatus(
     return {
       kind: 'preview',
       sections: templateStatus.sections,
+      reportsCount: templateStatus.reports_count,
+    }
+  }
+
+  if (templateStatus.status === 'failed') {
+    return {
+      kind: 'failed',
+      errorMessage: templateStatus.error_message,
       reportsCount: templateStatus.reports_count,
     }
   }

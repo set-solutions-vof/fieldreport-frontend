@@ -5,6 +5,11 @@ export type TemplateEmptyStateProps = {
   onUploadReports: () => void
 }
 
+export type TemplateFailedStateProps = {
+  errorMessage: string
+  onTryAgain: () => void
+}
+
 export type TemplateFieldChipProps = {
   children: string
   neutral?: boolean

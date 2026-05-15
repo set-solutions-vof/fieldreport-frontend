@@ -49,6 +49,7 @@ export type UseReportDraftAutosaveResult = {
 
 export type ReportDetailHeaderBlockProps = {
   report: ReportDetail
+  reportStatus: ReportDetail['status']
 }
 
 export type ReportDetailTabsProps = {

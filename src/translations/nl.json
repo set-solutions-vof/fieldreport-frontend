@@ -83,6 +83,10 @@
       "edit_button": "Edit template",
       "edit_tooltip": "Editing coming soon"
     },
+    "failed": {
+      "title": "Analyse mislukt",
+      "try_again_button": "Opnieuw uploaden"
+    },
     "errors": {
       "load_failed_title": "Sjabloon laden is mislukt",
       "load_failed": "Sjabloon kon niet worden geladen.",
@@ -110,6 +114,8 @@
     "header": {
       "draft_pill": "Concept",
       "draft_title_suffix": "concept-rapport",
+      "approved_pill": "Goedgekeurd",
+      "approved_title_suffix": "goedgekeurd rapport",
       "legend_aria_label": "Legenda",
       "legend_event": "Gebeurtenis",
       "legend_review": "Controleren",

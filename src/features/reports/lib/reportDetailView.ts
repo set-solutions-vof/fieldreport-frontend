@@ -5,6 +5,10 @@ import type {
   ReportTimelineItem,
   UpdateReportSectionResponse,
 } from '@/types/report'
+
+export function allSectionsApproved(sections: ReportSectionModel[]): boolean {
+  return sections.length > 0 && sections.every((section) => section.is_approved)
+}
 import type { SaveAllStatus, SourceRailItem } from '../types/reportDetailView'
 import { formatSeconds } from './formatSeconds'
 

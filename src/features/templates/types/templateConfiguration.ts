@@ -6,6 +6,7 @@ export type TemplatePageState =
   | { kind: 'processing'; files: File[]; jobId: string; reportsCount: number }
   | { kind: 'preview'; sections: TemplateSection[]; reportsCount: number }
   | { kind: 'approved'; sections: TemplateSection[]; reportsCount: number }
+  | { kind: 'failed'; errorMessage: string; reportsCount: number }
 
 export type TemplateLoadStatus = 'loading' | 'success' | 'error'
 
@@ -27,4 +28,5 @@ export type UseTemplateConfigurationResult = {
   startAnalysis: () => Promise<void>
   updateSectionLabel: (sectionId: string, label: string) => void
   confirmCurrentTemplate: () => Promise<void>
+  resetAfterFailure: () => void
 }

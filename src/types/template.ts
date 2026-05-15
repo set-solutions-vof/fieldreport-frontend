@@ -30,6 +30,11 @@ export type TemplateStatusResponse =
       sections: TemplateSection[]
       reports_count: number
     }
+  | {
+      status: 'failed'
+      reports_count: number
+      error_message: string
+    }
 
 export type ConfirmTemplatePayload = {
   sections: TemplateSection[]
