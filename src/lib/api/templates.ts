@@ -1,3 +1,4 @@
+import { normalizeTemplateStatus } from '@/features/templates/lib/templateSection'
 import { authenticatedFetch } from '@/lib/api/authenticatedFetch'
 import { apiBaseUrl } from '@/lib/config'
 import type {
@@ -14,7 +15,9 @@ export async function getTemplateStatus(): Promise<TemplateStatusResponse> {
     throw new Error('Template request failed')
   }
 
-  return (await response.json()) as TemplateStatusResponse
+  return normalizeTemplateStatus(
+    (await response.json()) as TemplateStatusResponse,
+  )
 }
 
 export async function startTemplateAnalysis(
@@ -35,7 +38,9 @@ export async function startTemplateAnalysis(
     throw new Error('Template analysis request failed')
   }
 
-  return (await response.json()) as TemplateStatusResponse
+  return normalizeTemplateStatus(
+    (await response.json()) as TemplateStatusResponse,
+  )
 }
 
 export async function getTemplateAnalysis(
@@ -49,7 +54,9 @@ export async function getTemplateAnalysis(
     throw new Error('Template analysis status request failed')
   }
 
-  return (await response.json()) as TemplateStatusResponse
+  return normalizeTemplateStatus(
+    (await response.json()) as TemplateStatusResponse,
+  )
 }
 
 export async function confirmTemplate(
@@ -67,5 +74,7 @@ export async function confirmTemplate(
     throw new Error('Template confirmation request failed')
   }
 
-  return (await response.json()) as TemplateStatusResponse
+  return normalizeTemplateStatus(
+    (await response.json()) as TemplateStatusResponse,
+  )
 }

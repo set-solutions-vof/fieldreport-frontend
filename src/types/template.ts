@@ -6,9 +6,11 @@ export type TemplateSectionType =
 
 export type TemplateSection = {
   id: string
+  key: string
   label: string
-  type: TemplateSectionType
-  fields?: string[]
+  order: number
+  render_type: TemplateSectionType
+  fields: string[] | null
 }
 
 export type TemplateStatusResponse =

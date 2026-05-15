@@ -6,6 +6,12 @@ type TemplateTypeMeta = {
   label: string
 }
 
+export function getTemplateTypeMeta(
+  renderType: TemplateSectionType,
+): TemplateTypeMeta {
+  return templateTypeMeta[renderType]
+}
+
 export const templateTypeMeta: Record<TemplateSectionType, TemplateTypeMeta> = {
   text_block: {
     icon: 'paragraph',

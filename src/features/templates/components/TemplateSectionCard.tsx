@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Card, Input } from '@/design-system'
 import { formatTemplateOrder } from '../lib/templateFormatters'
+import { templateSectionRenderType } from '../lib/templateSection'
 import type { TemplateSectionCardProps } from '../types/templateView'
 import { TemplateFieldChip } from './TemplateFieldChip'
 import { TemplateIcon } from './TemplateIcon'
@@ -17,6 +18,7 @@ export function TemplateSectionCard({
   const [draftLabel, setDraftLabel] = useState(section.label)
   const inputRef = useRef<HTMLInputElement>(null)
   const visibleFieldsCount = feature ? 8 : 6
+  const renderType = templateSectionRenderType(section)
   const visibleFields = section.fields?.slice(0, visibleFieldsCount) ?? []
   const hiddenFieldsCount = (section.fields?.length ?? 0) - visibleFields.length
 
@@ -90,8 +92,8 @@ export function TemplateSectionCard({
             )}
           </button>
         )}
-        <TemplateTypePill type={section.type} />
-        {section.type === 'key_value_table' && (
+        <TemplateTypePill type={renderType} />
+        {renderType === 'key_value_table' && (
           <div className="fr-template-section-card__fields">
             {visibleFields.map((field) => (
               <TemplateFieldChip key={field}>{field}</TemplateFieldChip>

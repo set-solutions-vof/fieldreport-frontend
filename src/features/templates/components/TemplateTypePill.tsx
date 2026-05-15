@@ -1,9 +1,9 @@
-import { templateTypeMeta } from '../lib/templateMeta'
+import { getTemplateTypeMeta } from '../lib/templateMeta'
 import type { TemplateTypePillProps } from '../types/templateView'
 import { TemplateIcon } from './TemplateIcon'
 
 export function TemplateTypePill({ type }: TemplateTypePillProps) {
-  const meta = templateTypeMeta[type]
+  const meta = getTemplateTypeMeta(type)
 
   return (
     <span className="fr-template-type-pill">
