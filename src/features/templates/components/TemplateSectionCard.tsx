@@ -4,7 +4,7 @@ import { formatTemplateOrder } from '../lib/templateFormatters'
 import { templateSectionRenderType } from '../lib/templateSection'
 import type { TemplateSectionCardProps } from '../types/templateView'
 import { TemplateFieldChip } from './TemplateFieldChip'
-import { TemplateIcon } from './TemplateIcon'
+import { TemplateIcon } from './icons/TemplateIcon'
 import { TemplateTypePill } from './TemplateTypePill'
 
 export function TemplateSectionCard({

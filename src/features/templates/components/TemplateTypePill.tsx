@@ -1,6 +1,6 @@
 import { getTemplateTypeMeta } from '../lib/templateMeta'
 import type { TemplateTypePillProps } from '../types/templateView'
-import { TemplateIcon } from './TemplateIcon'
+import { TemplateIcon } from './icons/TemplateIcon'
 
 export function TemplateTypePill({ type }: TemplateTypePillProps) {
   const meta = getTemplateTypeMeta(type)

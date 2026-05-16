@@ -1,7 +1,7 @@
 import { Button } from '@/design-system'
 import { translations } from '@/lib/translations'
 import type { TemplateFailedStateProps } from '../types/templateView'
-import { TemplateIcon } from './TemplateIcon'
+import { TemplateIcon } from './icons/TemplateIcon'
 
 export function TemplateFailedState({
   errorMessage,

@@ -2,7 +2,7 @@ import { Button } from '@/design-system'
 import { translations } from '@/lib/translations'
 import { formatFileSize, formatFilesMeta } from '../lib/templateFormatters'
 import type { TemplateUploadingStateProps } from '../types/templateView'
-import { TemplateIcon } from './TemplateIcon'
+import { TemplateIcon } from './icons/TemplateIcon'
 
 export function TemplateUploadingState({
   files,

@@ -1,10 +1,5 @@
 import type { TemplateSectionType } from '@/types/template'
-import type { TemplateIconName } from '../components/TemplateIcon'
-
-type TemplateTypeMeta = {
-  icon: TemplateIconName
-  label: string
-}
+import type { TemplateIconName } from '../components/icons/TemplateIcon'
 
 export function getTemplateTypeMeta(
   renderType: TemplateSectionType,
@@ -29,4 +24,9 @@ export const templateTypeMeta: Record<TemplateSectionType, TemplateTypeMeta> = {
     icon: 'photo',
     label: 'Fotoraster',
   },
+}
+
+type TemplateTypeMeta = {
+  icon: TemplateIconName
+  label: string
 }

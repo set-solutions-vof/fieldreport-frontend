@@ -1,7 +1,7 @@
 import { Button } from '@/design-system'
 import { translations } from '@/lib/translations'
 import type { TemplateReviewStateProps } from '../types/templateView'
-import { TemplateIcon } from './TemplateIcon'
+import { TemplateIcon } from './icons/TemplateIcon'
 import { TemplateSectionGrid } from './TemplateSectionGrid'
 import { TemplateSummaryHeader } from './TemplateSummaryHeader'
 
