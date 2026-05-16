@@ -7,14 +7,25 @@ import {
 } from '@/lib/api/templates'
 import { isAuthenticationExpiredError } from '@/lib/api/authenticatedFetch'
 import { translations } from '@/lib/translations'
-import type { TemplateStatusResponse } from '@/types/template'
+import type {
+  TemplateSectionType,
+  TemplateStatusResponse,
+} from '@/types/template'
 import { pageStateFromTemplateStatus } from '../lib/pageStateFromTemplateStatus'
+import {
+  deletePreviewSection,
+  reorderPreviewSections,
+  updatePreviewSectionFields,
+  updatePreviewSectionLabel,
+  updatePreviewSectionRenderType,
+} from '../lib/templatePreviewState'
 import type {
   TemplateLoadStatus,
   TemplatePageState,
   UseTemplateConfigurationParameters,
   UseTemplateConfigurationResult,
 } from '../types/templateConfiguration'
+import { useTemplateAutoSave } from './useTemplateAutoSave'
 
 export function useTemplateConfiguration({
   onAuthenticationExpired,
@@ -28,6 +39,7 @@ export function useTemplateConfiguration({
     null,
   )
   const [isConfirming, setIsConfirming] = useState(false)
+  const saveStatus = useTemplateAutoSave(pageState)
 
   const showAuthenticationOrError = useCallback(
     (error: unknown, message: string): void => {
@@ -151,18 +163,36 @@ export function useTemplateConfiguration({
   }
 
   function updateSectionLabel(sectionId: string, label: string): void {
-    setPageState((currentState) => {
-      if (currentState.kind !== 'preview') {
-        return currentState
-      }
+    setPageState((currentState) =>
+      updatePreviewSectionLabel(currentState, sectionId, label),
+    )
+  }
 
-      return {
-        ...currentState,
-        sections: currentState.sections.map((section) =>
-          section.id === sectionId ? { ...section, label } : section,
-        ),
-      }
-    })
+  function updateSectionRenderType(
+    sectionId: string,
+    renderType: TemplateSectionType,
+  ): void {
+    setPageState((currentState) =>
+      updatePreviewSectionRenderType(currentState, sectionId, renderType),
+    )
+  }
+
+  function updateSectionFields(sectionId: string, fields: string[]): void {
+    setPageState((currentState) =>
+      updatePreviewSectionFields(currentState, sectionId, fields),
+    )
+  }
+
+  function deleteSection(sectionId: string): void {
+    setPageState((currentState) =>
+      deletePreviewSection(currentState, sectionId),
+    )
+  }
+
+  function reorderSections(fromIndex: number, toIndex: number): void {
+    setPageState((currentState) =>
+      reorderPreviewSections(currentState, fromIndex, toIndex),
+    )
   }
 
   function resetAfterFailure(): void {
@@ -200,12 +230,17 @@ export function useTemplateConfiguration({
     errorMessage,
     actionErrorMessage,
     isConfirming,
+    saveStatus,
     retry: loadTemplateStatus,
     addFiles,
     removeFile,
     cancelUpload,
     startAnalysis,
     updateSectionLabel,
+    updateSectionRenderType,
+    updateSectionFields,
+    deleteSection,
+    reorderSections,
     confirmCurrentTemplate,
     resetAfterFailure,
   }

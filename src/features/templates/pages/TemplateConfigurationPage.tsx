@@ -25,12 +25,17 @@ export function TemplateConfigurationPage({
     errorMessage,
     actionErrorMessage,
     isConfirming,
+    saveStatus,
     retry,
     addFiles,
     removeFile,
     cancelUpload,
     startAnalysis,
     updateSectionLabel,
+    updateSectionRenderType,
+    updateSectionFields,
+    deleteSection,
+    reorderSections,
     confirmCurrentTemplate,
     resetAfterFailure,
   } = useTemplateConfiguration({ onAuthenticationExpired })
@@ -137,7 +142,12 @@ export function TemplateConfigurationPage({
             sections={pageState.sections}
             actionErrorMessage={actionErrorMessage}
             isConfirming={isConfirming}
+            saveStatus={saveStatus}
             onLabelChange={updateSectionLabel}
+            onDelete={deleteSection}
+            onRenderTypeChange={updateSectionRenderType}
+            onFieldsChange={updateSectionFields}
+            onReorder={reorderSections}
             onConfirm={() => void confirmCurrentTemplate()}
           />
         )}
@@ -148,6 +158,10 @@ export function TemplateConfigurationPage({
             actionErrorMessage={actionErrorMessage}
             isConfirming={isConfirming}
             onLabelChange={updateSectionLabel}
+            onDelete={deleteSection}
+            onRenderTypeChange={updateSectionRenderType}
+            onFieldsChange={updateSectionFields}
+            onReorder={reorderSections}
             onConfirm={() => void confirmCurrentTemplate()}
           />
         )}

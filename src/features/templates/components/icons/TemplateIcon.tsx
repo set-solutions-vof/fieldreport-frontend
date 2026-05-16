@@ -42,6 +42,31 @@ export function TemplateIcon({
     )
   }
 
+  if (name === 'plus') {
+    return (
+      <svg className={className} viewBox="0 0 24 24" aria-hidden="true">
+        <path {...strokeProps} d="M12 5v14M5 12h14" />
+      </svg>
+    )
+  }
+
+  if (name === 'trash') {
+    return (
+      <svg className={className} viewBox="0 0 24 24" aria-hidden="true">
+        <path {...strokeProps} d="M5 7h14M10 11v6M14 11v6" />
+        <path {...strokeProps} d="M8 7l1-3h6l1 3M7 7l1 13h8l1-13" />
+      </svg>
+    )
+  }
+
+  if (name === 'chevronDown') {
+    return (
+      <svg className={className} viewBox="0 0 24 24" aria-hidden="true">
+        <path {...strokeProps} d="M6 9l6 6 6-6" />
+      </svg>
+    )
+  }
+
   if (name === 'grip') {
     return (
       <svg className={className} viewBox="0 0 24 24" aria-hidden="true">
@@ -114,6 +139,9 @@ export type TemplateIconName =
   | 'document'
   | 'documentDashed'
   | 'x'
+  | 'plus'
+  | 'trash'
+  | 'chevronDown'
   | 'grip'
   | 'paragraph'
   | 'gridKV'

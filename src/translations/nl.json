@@ -75,6 +75,15 @@
       "sections_stat": "Sections",
       "fields_stat": "Fields",
       "reports_stat": "Reports",
+      "delete_section_label": "Delete section",
+      "change_render_type_label": "Change render type",
+      "field_input_label": "Field name",
+      "field_input_placeholder": "New field",
+      "add_field_label": "Add field",
+      "remove_field_label": "Remove field",
+      "collapse_fields": "Inklappen ↑",
+      "expand_fields": "Uitklappen ↓",
+      "saved_label": "Opgeslagen",
       "confirm_button": "Confirm template"
     },
     "approved": {

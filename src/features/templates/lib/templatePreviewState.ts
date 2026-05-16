@@ -1,0 +1,95 @@
+import type { TemplateSectionType } from '@/types/template'
+import type { TemplatePageState } from '../types/templateConfiguration'
+
+export function updatePreviewSectionLabel(
+  currentState: TemplatePageState,
+  sectionId: string,
+  label: string,
+): TemplatePageState {
+  return updatePreviewSections(currentState, (sections) =>
+    sections.map((section) =>
+      section.id === sectionId ? { ...section, label } : section,
+    ),
+  )
+}
+
+export function updatePreviewSectionRenderType(
+  currentState: TemplatePageState,
+  sectionId: string,
+  renderType: TemplateSectionType,
+): TemplatePageState {
+  return updatePreviewSections(currentState, (sections) =>
+    sections.map((section) =>
+      section.id === sectionId
+        ? {
+            ...section,
+            render_type: renderType,
+            fields:
+              renderType === 'key_value_table' ||
+              renderType === 'measurement_table'
+                ? (section.fields ?? [])
+                : null,
+          }
+        : section,
+    ),
+  )
+}
+
+export function updatePreviewSectionFields(
+  currentState: TemplatePageState,
+  sectionId: string,
+  fields: string[],
+): TemplatePageState {
+  return updatePreviewSections(currentState, (sections) =>
+    sections.map((section) =>
+      section.id === sectionId ? { ...section, fields } : section,
+    ),
+  )
+}
+
+export function deletePreviewSection(
+  currentState: TemplatePageState,
+  sectionId: string,
+): TemplatePageState {
+  return updatePreviewSections(currentState, (sections) =>
+    sections.filter((section) => section.id !== sectionId),
+  )
+}
+
+export function reorderPreviewSections(
+  currentState: TemplatePageState,
+  fromIndex: number,
+  toIndex: number,
+): TemplatePageState {
+  if (fromIndex === toIndex || currentState.kind !== 'preview') {
+    return currentState
+  }
+
+  const sections = [...currentState.sections]
+  const [movedSection] = sections.splice(fromIndex, 1)
+  sections.splice(toIndex, 0, movedSection)
+
+  return {
+    ...currentState,
+    sections: sections.map((section, index) => ({
+      ...section,
+      order: index,
+    })),
+  }
+}
+
+function updatePreviewSections(
+  currentState: TemplatePageState,
+  updateSections: (
+    sections: Extract<TemplatePageState, { kind: 'preview' }>['sections'],
+  ) => Extract<TemplatePageState, { kind: 'preview' }>['sections'],
+): TemplatePageState {
+  if (currentState.kind !== 'preview') {
+    return currentState
+  }
+
+  return {
+    ...currentState,
+    sections: updateSections(currentState.sections),
+  }
+}

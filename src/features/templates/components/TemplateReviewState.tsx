@@ -10,7 +10,12 @@ export function TemplateReviewState({
   approved = false,
   actionErrorMessage,
   isConfirming,
+  saveStatus,
   onLabelChange,
+  onDelete,
+  onRenderTypeChange,
+  onFieldsChange,
+  onReorder,
   onConfirm,
 }: TemplateReviewStateProps) {
   const fieldsCount = sections.reduce(
@@ -50,6 +55,7 @@ export function TemplateReviewState({
             : translations.template.review.hint
         }
         stats={stats}
+        saveStatus={approved ? 'idle' : saveStatus}
         action={
           approved ? (
             <Button
@@ -78,6 +84,10 @@ export function TemplateReviewState({
           sections={sections}
           readonly={approved}
           onLabelChange={onLabelChange}
+          onDelete={onDelete}
+          onRenderTypeChange={onRenderTypeChange}
+          onFieldsChange={onFieldsChange}
+          onReorder={onReorder}
         />
       </section>
     </>

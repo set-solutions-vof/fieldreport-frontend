@@ -21,6 +21,7 @@ export function pageStateFromTemplateStatus(
   if (templateStatus.status === 'pending_review') {
     return {
       kind: 'preview',
+      jobId: templateStatus.job_id,
       sections: templateStatus.sections,
       reportsCount: templateStatus.reports_count,
     }

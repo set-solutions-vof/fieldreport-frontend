@@ -24,6 +24,7 @@ export type TemplateStatusResponse =
     }
   | {
       status: 'pending_review'
+      job_id: string
       sections: TemplateSection[]
       reports_count: number
     }
