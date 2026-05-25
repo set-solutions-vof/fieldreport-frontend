@@ -30,6 +30,12 @@
   color: var(--fr-text-secondary);
 }
 
+.fr-report-generating-page {
+  display: flex;
+  min-height: calc(100dvh - var(--fr-space-14));
+  flex-direction: column;
+}
+
 .fr-report-detail-page {
   display: flex;
   flex-direction: column;

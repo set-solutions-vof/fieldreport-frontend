@@ -1,6 +1,8 @@
 {
   "states": {
     "load_failed_title": "Rapport laden is mislukt",
+    "generating_breadcrumb": "Rapport genereren",
+    "generating_title": "Rapport genereren",
     "retry_button": "Opnieuw proberen"
   },
   "header": {

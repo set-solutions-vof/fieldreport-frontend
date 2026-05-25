@@ -13,11 +13,8 @@ import { useTemplateConfiguration } from '../hooks/useTemplateConfiguration'
 import type { TemplateConfigurationPageProps } from '@/types/templateView'
 import './TemplateConfigurationPage.css'
 import './TemplateTypeSelector.css'
-import './TemplateUploadState.css'
-import './TemplateSummaryState.css'
 import './TemplateSectionCard.css'
 import './TemplateFieldControls.css'
-import './TemplateSectionGroupsState.css'
 
 export function TemplateConfigurationPage({
   onOpenTemplate,

@@ -72,7 +72,7 @@ export function InspectorRouter({
   if (currentPath === newReportRoute) {
     return (
       <NewReportPage
-        onReportCreated={() => navigate(dashboardRoute)}
+        onReportCreated={(reportId) => navigate(allReportsReportRoute(reportId))}
         onCancel={() => navigate(dashboardRoute)}
         onOpenDashboard={() => navigate(dashboardRoute)}
         onOpenReports={() => navigate(allReportsRoute)}

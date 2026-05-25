@@ -1,14 +1,23 @@
 import { LogoMark } from '@/design-system'
+import '../pages/TemplateSectionGroupsState.css'
+import '../pages/TemplateSummaryState.css'
+import '../pages/TemplateUploadState.css'
 
 const skeletonCards = Array.from({ length: 7 }, (_, index) => index)
 
-export function TemplateSkeletonGrid() {
+type TemplateSkeletonGridProps = {
+  label?: string
+}
+
+export function TemplateSkeletonGrid({
+  label = 'Analysing your reports',
+}: TemplateSkeletonGridProps) {
   return (
     <div className="fr-template-processing">
       <div className="fr-template-processing__label">
         <LogoMark variant="accent" size={28} />
         <span>
-          Analysing your reports
+          {label}
           <span className="fr-template-ellipsis">...</span>
         </span>
       </div>
