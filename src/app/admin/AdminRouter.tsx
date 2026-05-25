@@ -1,10 +1,7 @@
 import { useCallback, useEffect } from 'react'
 import { TemplateConfigurationPage } from '@/features/templates/pages/TemplateConfigurationPage'
+import type { AdminRouterProps } from '@/types/routes'
 import { templateRoute } from '../routes'
-
-type AdminRouterProps = {
-  onAuthenticationExpired: () => void
-}
 
 export function AdminRouter({ onAuthenticationExpired }: AdminRouterProps) {
   const openTemplate = useCallback((): void => {

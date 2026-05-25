@@ -1,13 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Input } from '@/design-system'
+import type { TemplateSectionLabelEditorProps } from '@/types/templateView'
 import { TemplateIcon } from './icons/TemplateIcon'
-
-type TemplateSectionLabelEditorProps = {
-  sectionId: string
-  label: string
-  readonly: boolean
-  onLabelChange?: (sectionId: string, label: string) => void
-}
 
 export function TemplateSectionLabelEditor({
   sectionId,

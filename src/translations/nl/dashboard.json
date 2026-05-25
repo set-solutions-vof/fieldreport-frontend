@@ -1,0 +1,46 @@
+{
+  "navigation": {
+    "workspace_label": "Werkruimte",
+    "dashboard": "Overzicht",
+    "all_reports": "Alle rapporten",
+    "settings_label": "Instellingen",
+    "template": "Template",
+    "profile": "Profiel"
+  },
+  "states": {
+    "reports_load_failed_title": "Rapporten laden is mislukt",
+    "retry_button": "Opnieuw proberen"
+  },
+  "actions": {
+    "new_report": "+ Nieuw rapport"
+  },
+  "queue": {
+    "title": "Open rapporten",
+    "empty": "Er zijn geen open rapporten."
+  },
+  "reports_table": {
+    "address_header": "Adres",
+    "date_header": "Datum",
+    "edited_header": "Bewerkt",
+    "status_header": "Status",
+    "action_header": "Actie",
+    "unknown_address": "Adres onbekend",
+    "open_button": "Openen"
+  },
+  "stats": {
+    "aria_label": "Dashboard statistieken",
+    "reports_this_month": "Rapporten deze maand",
+    "writing_time_saved": "Schrijftijd bespaard",
+    "ai_accuracy": "AI-nauwkeurigheid",
+    "approved_last_seven_days": "Goedgekeurd · 7d"
+  },
+  "recent_reports": {
+    "title": "Recente rapporten",
+    "all_reports_button": "Alle rapporten",
+    "empty": "Er zijn geen recente rapporten."
+  },
+  "all_reports": {
+    "title": "Alle rapporten",
+    "empty": "Er zijn geen rapporten."
+  }
+}

@@ -1,4 +1,4 @@
-import type { TemplateFieldChipProps } from '../types/templateView'
+import type { TemplateFieldChipProps } from '@/types/templateView'
 import { TemplateIcon } from './icons/TemplateIcon'
 
 export function TemplateFieldChip({

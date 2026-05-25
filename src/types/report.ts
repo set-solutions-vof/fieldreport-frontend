@@ -1,3 +1,5 @@
+import type { TemplateSectionGroup, TemplateSectionType } from './template'
+
 export type ReportStatus = 'generating' | 'draft' | 'approved' | 'failed'
 export type TimelineItemSourceType = 'transcription_segment' | 'image_analysis'
 export type ReportConfidenceLevel = 'high' | 'medium' | 'low'
@@ -20,6 +22,8 @@ export type ReportTimelineItem = {
   end_seconds: number | null
   captured_at: string | null
   content_summary: string
+  image_url?: string | null
+  thumbnail_url?: string | null
 }
 
 export type ReportSectionSource = {
@@ -32,13 +36,16 @@ export type ReportSectionSource = {
 
 export type ReportSectionBase = {
   id: string
-  section_key: string
+  section_id: string
   label: string
   ai_draft: string
   field_expert_content: string | null
   confidence_level: ReportConfidenceLevel
   confidence_score: number
   is_approved: boolean
+  render_type?: TemplateSectionType
+  fields?: string[] | null
+  groups?: TemplateSectionGroup[] | null
 }
 
 export type ReportSection = ReportSectionBase & {

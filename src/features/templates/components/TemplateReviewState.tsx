@@ -1,13 +1,16 @@
 import { Button } from '@/design-system'
 import { translations } from '@/lib/translations'
-import type { TemplateReviewStateProps } from '../types/templateView'
+import type { TemplateReviewStateProps } from '@/types/templateView'
 import { TemplateIcon } from './icons/TemplateIcon'
+import { TemplatePreviewPanel } from './TemplatePreviewPanel'
 import { TemplateSectionGrid } from './TemplateSectionGrid'
 import { TemplateSummaryHeader } from './TemplateSummaryHeader'
+import './TemplateReviewState.css'
 
 export function TemplateReviewState({
   sections,
   approved = false,
+  showPreview = false,
   actionErrorMessage,
   isConfirming,
   saveStatus,
@@ -15,6 +18,7 @@ export function TemplateReviewState({
   onDelete,
   onRenderTypeChange,
   onFieldsChange,
+  onGroupsChange,
   onReorder,
   onConfirm,
 }: TemplateReviewStateProps) {
@@ -33,7 +37,7 @@ export function TemplateReviewState({
     },
   ]
 
-  return (
+  const content = (
     <>
       <TemplateSummaryHeader
         title={
@@ -87,9 +91,23 @@ export function TemplateReviewState({
           onDelete={onDelete}
           onRenderTypeChange={onRenderTypeChange}
           onFieldsChange={onFieldsChange}
+          onGroupsChange={onGroupsChange}
           onReorder={onReorder}
         />
       </section>
     </>
+  )
+
+  if (!showPreview) {
+    return content
+  }
+
+  return (
+    <div className="fr-template-review-layout">
+      <div className="fr-template-review-layout__config">{content}</div>
+      <div className="fr-template-review-layout__preview">
+        <TemplatePreviewPanel sections={sections} />
+      </div>
+    </div>
   )
 }

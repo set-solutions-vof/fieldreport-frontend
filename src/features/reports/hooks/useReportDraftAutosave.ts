@@ -13,7 +13,7 @@ import type {
   SaveAllStatus,
   UseReportDraftAutosaveParameters,
   UseReportDraftAutosaveResult,
-} from '../types/reportDetailView'
+} from '@/types/reportDetailView'
 
 export function useReportDraftAutosave({
   reportId,

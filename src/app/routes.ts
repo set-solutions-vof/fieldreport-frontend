@@ -2,6 +2,7 @@ import type { ReportRouteMatch } from '@/types/routes'
 
 export const dashboardRoute = '/dashboard'
 export const allReportsRoute = '/reports'
+export const newReportRoute = '/reports/new'
 export const templateRoute = '/admin/template'
 export const dashboardReportRoutePrefix = '/dashboard/reports/'
 export const allReportsReportRoutePrefix = '/reports/'

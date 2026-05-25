@@ -1,5 +1,8 @@
-import type { TemplateSectionType } from '@/types/template'
-import type { TemplatePageState } from '../types/templateConfiguration'
+import type {
+  TemplateSectionGroup,
+  TemplateSectionType,
+} from '@/types/template'
+import type { TemplatePageState } from '@/types/templateConfiguration'
 
 export function updatePreviewSectionLabel(
   currentState: TemplatePageState,
@@ -43,6 +46,24 @@ export function updatePreviewSectionFields(
   return updatePreviewSections(currentState, (sections) =>
     sections.map((section) =>
       section.id === sectionId ? { ...section, fields } : section,
+    ),
+  )
+}
+
+export function updatePreviewSectionGroups(
+  currentState: TemplatePageState,
+  sectionId: string,
+  groups: TemplateSectionGroup[],
+): TemplatePageState {
+  return updatePreviewSections(currentState, (sections) =>
+    sections.map((section) =>
+      section.id === sectionId
+        ? {
+            ...section,
+            fields: groups.flatMap((group) => group.fields),
+            groups,
+          }
+        : section,
     ),
   )
 }

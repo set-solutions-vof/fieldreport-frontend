@@ -10,8 +10,14 @@ import { TemplateReviewState } from '../components/TemplateReviewState'
 import { TemplateSkeletonGrid } from '../components/TemplateSkeletonGrid'
 import { TemplateUploadingState } from '../components/TemplateUploadingState'
 import { useTemplateConfiguration } from '../hooks/useTemplateConfiguration'
-import type { TemplateConfigurationPageProps } from '../types/templateView'
+import type { TemplateConfigurationPageProps } from '@/types/templateView'
 import './TemplateConfigurationPage.css'
+import './TemplateTypeSelector.css'
+import './TemplateUploadState.css'
+import './TemplateSummaryState.css'
+import './TemplateSectionCard.css'
+import './TemplateFieldControls.css'
+import './TemplateSectionGroupsState.css'
 
 export function TemplateConfigurationPage({
   onOpenTemplate,
@@ -34,6 +40,7 @@ export function TemplateConfigurationPage({
     updateSectionLabel,
     updateSectionRenderType,
     updateSectionFields,
+    updateSectionGroups,
     deleteSection,
     reorderSections,
     confirmCurrentTemplate,
@@ -139,6 +146,7 @@ export function TemplateConfigurationPage({
         )}
         {pageState.kind === 'preview' && (
           <TemplateReviewState
+            showPreview
             sections={pageState.sections}
             actionErrorMessage={actionErrorMessage}
             isConfirming={isConfirming}
@@ -147,6 +155,7 @@ export function TemplateConfigurationPage({
             onDelete={deleteSection}
             onRenderTypeChange={updateSectionRenderType}
             onFieldsChange={updateSectionFields}
+            onGroupsChange={updateSectionGroups}
             onReorder={reorderSections}
             onConfirm={() => void confirmCurrentTemplate()}
           />
@@ -161,6 +170,7 @@ export function TemplateConfigurationPage({
             onDelete={deleteSection}
             onRenderTypeChange={updateSectionRenderType}
             onFieldsChange={updateSectionFields}
+            onGroupsChange={updateSectionGroups}
             onReorder={reorderSections}
             onConfirm={() => void confirmCurrentTemplate()}
           />

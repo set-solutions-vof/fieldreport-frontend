@@ -1,6 +1,6 @@
 import { Button } from '@/design-system'
 import { translations } from '@/lib/translations'
-import type { TemplateEmptyStateProps } from '../types/templateView'
+import type { TemplateEmptyStateProps } from '@/types/templateView'
 import { templateTypeMeta } from '../lib/templateMeta'
 import { TemplateIcon } from './icons/TemplateIcon'
 import { TemplateTypePill } from './TemplateTypePill'

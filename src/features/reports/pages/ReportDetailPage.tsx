@@ -4,7 +4,7 @@ import { translations } from '@/lib/translations'
 import { ReportDetailWorkspace } from '../components/ReportDetailWorkspace'
 import { useReportDetail } from '../hooks/useReportDetail'
 import { useReportList } from '../hooks/useReportList'
-import type { ReportDetailPageProps } from '../types/reportView'
+import type { ReportDetailPageProps } from '@/types/reportView'
 import './ReportDetailPage.css'
 
 export function ReportDetailPage({

@@ -1,5 +1,9 @@
-import type { ReactNode } from 'react'
-import type { TemplateSection, TemplateSectionType } from '@/types/template'
+import type { DragEvent, ReactNode } from 'react'
+import type {
+  TemplateSectionGroup,
+  TemplateSection,
+  TemplateSectionType,
+} from '@/types/template'
 import type { TemplateSaveStatus } from './templateConfiguration'
 
 export type TemplateEmptyStateProps = {
@@ -21,6 +25,7 @@ export type TemplateFieldChipProps = {
 export type TemplateReviewStateProps = {
   sections: TemplateSection[]
   approved?: boolean
+  showPreview?: boolean
   actionErrorMessage: string | null
   isConfirming: boolean
   saveStatus?: TemplateSaveStatus
@@ -31,6 +36,7 @@ export type TemplateReviewStateProps = {
     renderType: TemplateSectionType,
   ) => void
   onFieldsChange: (sectionId: string, fields: string[]) => void
+  onGroupsChange: (sectionId: string, groups: TemplateSectionGroup[]) => void
   onReorder: (fromIndex: number, toIndex: number) => void
   onConfirm: () => void
 }
@@ -48,6 +54,7 @@ export type TemplateSectionCardProps = {
     renderType: TemplateSectionType,
   ) => void
   onFieldsChange?: (sectionId: string, fields: string[]) => void
+  onGroupsChange?: (sectionId: string, groups: TemplateSectionGroup[]) => void
   draggable?: boolean
   isDragging?: boolean
   dropIndicator?: 'before' | 'after' | null
@@ -68,7 +75,41 @@ export type TemplateSectionGridProps = {
     renderType: TemplateSectionType,
   ) => void
   onFieldsChange?: (sectionId: string, fields: string[]) => void
+  onGroupsChange?: (sectionId: string, groups: TemplateSectionGroup[]) => void
   onReorder?: (fromIndex: number, toIndex: number) => void
+}
+
+export type TemplateSectionFieldsProps = {
+  sectionId: string
+  sectionLabel: string
+  renderType: TemplateSectionType
+  fields: string[]
+  groups: TemplateSectionGroup[] | null
+  readonly: boolean
+  visibleFieldsCount: number
+  onFieldsChange?: (sectionId: string, fields: string[]) => void
+  onGroupsChange?: (sectionId: string, groups: TemplateSectionGroup[]) => void
+}
+
+export type TemplateSectionGroupsProps = {
+  sectionId: string
+  sectionLabel: string
+  fields: string[]
+  groups: TemplateSectionGroup[] | null
+  readonly: boolean
+  onGroupsChange?: (sectionId: string, groups: TemplateSectionGroup[]) => void
+}
+
+export type TemplateSectionGroupEditorProps = {
+  collapsed: boolean
+  group: TemplateSectionGroup
+  readonly: boolean
+  onAddRow: (groupId: string) => void
+  onRemoveGroup: (groupId: string) => void
+  onRemoveRow: (groupId: string, rowIndex: number) => void
+  onToggleGroup: (groupId: string) => void
+  onUpdateGroupLabel: (groupId: string, label: string) => void
+  onUpdateRow: (groupId: string, rowIndex: number, field: string) => void
 }
 
 export type TemplateSummaryStat = {
@@ -93,6 +134,35 @@ export type TemplateTypeSelectorProps = {
   readonly?: boolean
   ariaLabel: string
   onChange: (renderType: TemplateSectionType) => void
+}
+
+export type TemplateTypeSelectorMenuPosition = {
+  top: number
+  left: number
+}
+
+export type TemplateSectionLabelEditorProps = {
+  sectionId: string
+  label: string
+  readonly: boolean
+  onLabelChange?: (sectionId: string, label: string) => void
+}
+
+export type UseTemplateSectionDragParameters = {
+  sectionId: string
+  index: number
+  draggable: boolean
+  onDragStart?: (index: number) => void
+  onDragOver?: (index: number, position: 'before' | 'after') => void
+  onDrop?: () => void
+  onDragEnd?: () => void
+}
+
+export type UseTemplateSectionDragResult = {
+  handleDragStart: (event: DragEvent<HTMLElement>) => void
+  handleDragOver: (event: DragEvent<HTMLElement>) => void
+  handleDrop: (event: DragEvent<HTMLElement>) => void
+  handleDragEnd: (event: DragEvent<HTMLElement>) => void
 }
 
 export type TemplateUploadingStateProps = {

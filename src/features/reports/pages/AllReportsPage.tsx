@@ -4,7 +4,7 @@ import { translations } from '@/lib/translations'
 import { AppShell } from '@/app/AppShell'
 import { ReportsTable } from '../components/ReportsTable'
 import { useReportList } from '../hooks/useReportList'
-import type { AllReportsPageProps } from '../types/reportView'
+import type { AllReportsPageProps } from '@/types/reportView'
 import './DashboardPage.css'
 
 export function AllReportsPage({

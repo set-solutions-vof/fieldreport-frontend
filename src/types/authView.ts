@@ -7,3 +7,17 @@ export type LoginPageProps = {
 export type UseLoginFormParameters = {
   onLoginSuccess: (user: CurrentUser) => void
 }
+
+export type CurrentUserStatus = 'loading' | 'success' | 'error'
+
+export type UseCurrentUserParameters = {
+  onAuthenticationExpired: () => void
+}
+
+export type UseCurrentUserResult = {
+  currentUser: CurrentUser | null
+  isLoading: boolean
+  isError: boolean
+  errorMessage: string | null
+  retry: () => void
+}

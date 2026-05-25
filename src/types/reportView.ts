@@ -3,6 +3,7 @@ import type { ReportRouteSource } from '@/types/routes'
 
 export type DashboardPageProps = {
   onOpenReport: (reportId: string) => void
+  onOpenNewReport: () => void
   onOpenDashboard: () => void
   onOpenReports: () => void
   onAuthenticationExpired: () => void

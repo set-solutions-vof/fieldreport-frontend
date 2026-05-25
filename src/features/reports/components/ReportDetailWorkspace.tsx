@@ -1,16 +1,15 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { Card } from '@/design-system'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import { getReport } from '@/lib/api/reports'
 import { translations } from '@/lib/translations'
 import type { ReportStatus, UpdateReportSectionResponse } from '@/types/report'
 import { AppShell } from '@/app/AppShell'
 import { ReportActionBar } from './ReportActionBar'
 import { ReportDetailHeaderBlock } from './ReportDetailHeaderBlock'
+import { ReportDetailMainView } from './ReportDetailMainView'
 import { ReportDetailTabs } from './ReportDetailTabs'
-import { ReportDocument } from './ReportDocument'
-import { ReportSourceRail } from './ReportSourceRail'
 import { TimelineStrip } from './TimelinePanel'
 import { useReportDraftAutosave } from '../hooks/useReportDraftAutosave'
+import { useReportDetailScrolling } from '../hooks/useReportDetailScrolling'
 import {
   allSectionsApproved,
   buildSourceRailItems,
@@ -20,9 +19,8 @@ import type {
   ReportDetailTab,
   ReportDetailWorkspaceProps,
   SourceActivationOrigin,
-  ReportStubViewProps,
   SourceRailFilter,
-} from '../types/reportDetailView'
+} from '@/types/reportDetailView'
 
 export function ReportDetailWorkspace({
   report,
@@ -37,7 +35,7 @@ export function ReportDetailWorkspace({
   const [activeSourceItemId, setActiveSourceItemId] = useState<string | null>(
     null,
   )
-  const sourceActivationOrigin = useRef<SourceActivationOrigin | null>(null)
+  const sourceActivationOriginRef = useRef<SourceActivationOrigin | null>(null)
   const [reportStatus, setReportStatus] = useState<ReportStatus>(report.status)
   const [reportUpdatedAt, setReportUpdatedAt] = useState<string | null>(
     report.updated_at,
@@ -61,44 +59,11 @@ export function ReportDetailWorkspace({
     () => buildSourceRailItems(sections, report.timeline_items),
     [report.timeline_items, sections],
   )
-
-  useEffect(() => {
-    if (activeSectionId === null) {
-      return
-    }
-
-    document.getElementById(`sec-${activeSectionId}`)?.scrollIntoView({
-      block: 'center',
-      behavior: 'smooth',
-    })
-  }, [activeSectionId])
-
-  useEffect(() => {
-    if (
-      activeSourceItemId === null ||
-      sourceActivationOrigin.current === null
-    ) {
-      return
-    }
-
-    if (sourceActivationOrigin.current === 'timeline') {
-      document
-        .getElementById(`source-item-${activeSourceItemId}`)
-        ?.scrollIntoView({
-          block: 'center',
-          behavior: 'smooth',
-        })
-    }
-
-    if (sourceActivationOrigin.current === 'source-rail') {
-      document.getElementById('report-timeline-strip')?.scrollIntoView({
-        block: 'center',
-        behavior: 'smooth',
-      })
-    }
-
-    sourceActivationOrigin.current = null
-  }, [activeSourceItemId])
+  useReportDetailScrolling({
+    activeSectionId,
+    activeSourceItemId,
+    sourceActivationOriginRef,
+  })
 
   const handleSectionUpdated = useCallback(
     (updatedSection: UpdateReportSectionResponse): void => {
@@ -126,13 +91,13 @@ export function ReportDetailWorkspace({
   const handleSectionActivation = useCallback((sectionId: string): void => {
     setActiveSectionId(sectionId)
     setActiveSourceItemId(null)
-    sourceActivationOrigin.current = null
+    sourceActivationOriginRef.current = null
   }, [])
 
   const handleTimelineSourceActivation = useCallback(
     (sourceItemId: string): void => {
       setSourceFilter('all')
-      sourceActivationOrigin.current = 'timeline'
+      sourceActivationOriginRef.current = 'timeline'
       setActiveSourceItemId(sourceItemId)
       setActiveSectionId(null)
     },
@@ -141,7 +106,7 @@ export function ReportDetailWorkspace({
 
   const handleSourceRailActivation = useCallback(
     (sourceItemId: string): void => {
-      sourceActivationOrigin.current = 'source-rail'
+      sourceActivationOriginRef.current = 'source-rail'
       setActiveSourceItemId(sourceItemId)
       setActiveSectionId(null)
     },
@@ -188,70 +153,24 @@ export function ReportDetailWorkspace({
           onActiveTabChange={setActiveTab}
         />
 
-        <div
-          className={viewClassName(activeTab, 'report')}
-          id="view-report"
-          role="tabpanel"
-        >
-          <div className="fr-report-detail-report-body">
-            <ReportSourceRail
-              activeSourceItemId={activeSourceItemId}
-              filter={sourceFilter}
-              items={sourceRailItems}
-              onActiveSourceItemChange={handleSourceRailActivation}
-              onFilterChange={setSourceFilter}
-            />
-            <ReportDocument
-              activeSectionId={activeSectionId}
-              draftContent={draftContent}
-              reportId={report.id}
-              reportUpdatedAt={reportUpdatedAt}
-              sections={sections}
-              timelineItems={report.timeline_items}
-              onActiveSectionChange={handleSectionActivation}
-              onContentChange={handleContentChange}
-              onSectionUpdated={handleSectionUpdated}
-            />
-          </div>
-        </div>
-
-        <ReportStubView activeTab={activeTab} tab="transcript">
-          {translations.report_detail.stubs.transcript}
-        </ReportStubView>
-        <ReportStubView activeTab={activeTab} tab="evidence">
-          {translations.report_detail.stubs.evidence}
-        </ReportStubView>
-
+        <ReportDetailMainView
+          activeSectionId={activeSectionId}
+          activeSourceItemId={activeSourceItemId}
+          activeTab={activeTab}
+          draftContent={draftContent}
+          filter={sourceFilter}
+          report={report}
+          reportUpdatedAt={reportUpdatedAt}
+          sections={sections}
+          sourceRailItems={sourceRailItems}
+          onActiveSectionChange={handleSectionActivation}
+          onContentChange={handleContentChange}
+          onFilterChange={setSourceFilter}
+          onSectionUpdated={handleSectionUpdated}
+          onSourceRailActivation={handleSourceRailActivation}
+        />
         <ReportActionBar dirtyCount={dirtyCount} saveStatus={saveStatus} />
       </div>
     </AppShell>
   )
-}
-
-function ReportStubView({ activeTab, children, tab }: ReportStubViewProps) {
-  return (
-    <div
-      className={viewClassName(activeTab, tab)}
-      id={`view-${tab}`}
-      role="tabpanel"
-    >
-      <div className="fr-report-detail-stub">
-        <Card padding="md">
-          <p>{children}</p>
-        </Card>
-      </div>
-    </div>
-  )
-}
-
-function viewClassName(
-  activeTab: ReportDetailTab,
-  tab: ReportDetailTab,
-): string {
-  return [
-    'fr-report-detail-view',
-    activeTab === tab && 'fr-report-detail-view--active',
-  ]
-    .filter(Boolean)
-    .join(' ')
 }

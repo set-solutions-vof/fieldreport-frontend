@@ -3,7 +3,7 @@ import { saveTemplateStructure } from '@/lib/api/templates'
 import type {
   TemplatePageState,
   TemplateSaveStatus,
-} from '../types/templateConfiguration'
+} from '@/types/templateConfiguration'
 
 export function useTemplateAutoSave(
   pageState: TemplatePageState,

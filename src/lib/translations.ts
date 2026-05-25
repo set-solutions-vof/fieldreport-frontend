@@ -1,3 +1,3 @@
-import nlTranslations from '@/translations/nl.json'
+import nlTranslations from '@/translations/nl'
 
 export const translations = nlTranslations

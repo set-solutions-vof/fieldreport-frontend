@@ -1,26 +1,38 @@
 import { useState } from 'react'
 import { Button, Input } from '@/design-system'
 import { translations } from '@/lib/translations'
+import type { TemplateSectionFieldsProps } from '@/types/templateView'
 import { TemplateFieldChip } from './TemplateFieldChip'
+import { TemplateSectionGroups } from './TemplateSectionGroups'
 import { TemplateIcon } from './icons/TemplateIcon'
-
-type TemplateSectionFieldsProps = {
-  sectionId: string
-  fields: string[]
-  readonly: boolean
-  visibleFieldsCount: number
-  onFieldsChange?: (sectionId: string, fields: string[]) => void
-}
 
 export function TemplateSectionFields({
   sectionId,
+  sectionLabel,
+  renderType,
   fields,
+  groups,
   readonly,
   visibleFieldsCount,
   onFieldsChange,
+  onGroupsChange,
 }: TemplateSectionFieldsProps) {
   const [draftField, setDraftField] = useState('')
   const [isCollapsed, setIsCollapsed] = useState(false)
+
+  if (renderType === 'measurement_table') {
+    return (
+      <TemplateSectionGroups
+        sectionId={sectionId}
+        sectionLabel={sectionLabel}
+        fields={fields}
+        groups={groups}
+        readonly={readonly}
+        onGroupsChange={onGroupsChange}
+      />
+    )
+  }
+
   const visibleFields = readonly
     ? fields.slice(0, visibleFieldsCount)
     : isCollapsed
@@ -36,12 +48,12 @@ export function TemplateSectionFields({
       return
     }
 
-    onFieldsChange?.(sectionId, [...fields, fieldName])
+    onFieldsChange!(sectionId, [...fields, fieldName])
     setDraftField('')
   }
 
   function removeField(fieldName: string): void {
-    onFieldsChange?.(
+    onFieldsChange!(
       sectionId,
       fields.filter((field) => field !== fieldName),
     )

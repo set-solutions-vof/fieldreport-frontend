@@ -6,11 +6,12 @@ import { DashboardStats } from '../components/DashboardStats'
 import { RecentReportsTable } from '../components/RecentReportsTable'
 import { ValidationReportsSection } from '../components/ValidationReportsSection'
 import { useReportList } from '../hooks/useReportList'
-import type { DashboardPageProps } from '../types/reportView'
+import type { DashboardPageProps } from '@/types/reportView'
 import './DashboardPage.css'
 
 export function DashboardPage({
   onOpenReport,
+  onOpenNewReport,
   onOpenDashboard,
   onOpenReports,
   onAuthenticationExpired,
@@ -70,6 +71,11 @@ export function DashboardPage({
       onOpenDashboard={onOpenDashboard}
       onOpenReports={onOpenReports}
     >
+      <div className="fr-dashboard-page-actions">
+        <Button type="button" variant="primary" onClick={onOpenNewReport}>
+          {translations.dashboard.actions.new_report}
+        </Button>
+      </div>
       <ValidationReportsSection
         reports={reportsToValidate}
         onOpenReport={onOpenReport}

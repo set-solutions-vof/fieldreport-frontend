@@ -1,9 +1,9 @@
 import type { ChangeEvent } from 'react'
-import { Textarea } from '@/design-system'
 import { translations } from '@/lib/translations'
+import type { ReportSectionProps } from '@/types/reportDetailView'
 import { useReportSection } from '../hooks/useReportSection'
 import { sectionSourceChipLabels } from '../lib/reportDetailView'
-import type { ReportSectionProps } from '../types/reportDetailView'
+import { SectionContentEditor } from './ReportSectionContentEditor'
 import './ReportSection.css'
 
 export function ReportSection({
@@ -31,11 +31,11 @@ export function ReportSection({
     onContentChange(section.id, event.currentTarget.value)
   }
 
-  function handleApprove(): void {
-    if (section.is_approved || content.trim() === '') {
-      return
-    }
+  function updateStructuredContent(nextContent: string): void {
+    onContentChange(section.id, nextContent)
+  }
 
+  function handleApprove(): void {
     void approve()
   }
 
@@ -94,13 +94,12 @@ export function ReportSection({
         </div>
       </div>
 
-      <Textarea
-        aria-label={`${section.label} ${translations.report_detail.section.inspector_text_suffix}`}
-        className="fr-report-section-textarea"
-        fieldClassName="fr-report-section-field"
-        value={content}
-        rows={textareaRows(content)}
-        onChange={handleContentChange}
+      <SectionContentEditor
+        section={section}
+        content={content}
+        timelineItemsById={timelineItemsById}
+        onTextChange={handleContentChange}
+        onStructuredChange={updateStructuredContent}
       />
 
       {sourceChipLabels.length > 0 && (
@@ -136,8 +135,4 @@ function accuracyClassName(confidencePercentage: number): string | null {
   }
 
   return null
-}
-
-function textareaRows(content: string): number {
-  return Math.max(5, Math.min(12, content.split('\n').length + 3))
 }

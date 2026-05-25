@@ -1,5 +1,5 @@
 import { getTemplateTypeMeta } from '../lib/templateMeta'
-import type { TemplateTypePillProps } from '../types/templateView'
+import type { TemplateTypePillProps } from '@/types/templateView'
 import { TemplateIcon } from './icons/TemplateIcon'
 
 export function TemplateTypePill({ type }: TemplateTypePillProps) {

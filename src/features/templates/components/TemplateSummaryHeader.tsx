@@ -1,5 +1,5 @@
 import { translations } from '@/lib/translations'
-import type { TemplateSummaryHeaderProps } from '../types/templateView'
+import type { TemplateSummaryHeaderProps } from '@/types/templateView'
 import { TemplateIcon } from './icons/TemplateIcon'
 
 export function TemplateSummaryHeader({

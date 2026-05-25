@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import type { TemplateSectionGridProps } from '../types/templateView'
+import type { TemplateSectionGridProps } from '@/types/templateView'
 import { templateSectionRenderType } from '../lib/templateSection'
 import { TemplateSectionCard } from './TemplateSectionCard'
 
@@ -10,6 +10,7 @@ export function TemplateSectionGrid({
   onDelete,
   onRenderTypeChange,
   onFieldsChange,
+  onGroupsChange,
   onReorder,
 }: TemplateSectionGridProps) {
   const dragIndexRef = useRef<number | null>(null)
@@ -79,6 +80,7 @@ export function TemplateSectionGrid({
             onDelete={onDelete}
             onRenderTypeChange={onRenderTypeChange}
             onFieldsChange={onFieldsChange}
+            onGroupsChange={onGroupsChange}
             onDragStart={handleDragStart}
             onDragOver={handleDragOver}
             onDrop={handleDrop}

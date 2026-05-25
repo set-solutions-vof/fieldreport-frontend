@@ -1,5 +1,5 @@
 import { translations } from '@/lib/translations'
-import type { ValidationReportsSectionProps } from '../types/reportView'
+import type { ValidationReportsSectionProps } from '@/types/reportView'
 import { ReportsTable } from './ReportsTable'
 
 export function ValidationReportsSection({

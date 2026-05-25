@@ -4,13 +4,20 @@ export type TemplateSectionType =
   | 'measurement_table'
   | 'photo_grid'
 
+export type TemplateSectionGroup = {
+  id: string
+  label: string
+  fields: string[]
+}
+
 export type TemplateSection = {
   id: string
-  key: string
   label: string
   order: number
   render_type: TemplateSectionType
   fields: string[] | null
+  found_in?: number
+  groups?: TemplateSectionGroup[] | null
 }
 
 export type TemplateStatusResponse =
@@ -41,4 +48,15 @@ export type TemplateStatusResponse =
 
 export type ConfirmTemplatePayload = {
   sections: TemplateSection[]
+}
+
+export type TemplateSectionWire = {
+  id: string
+  label: string
+  order?: number
+  render_type?: TemplateSectionType
+  type?: TemplateSectionType
+  fields?: string[] | null
+  found_in?: number
+  groups?: TemplateSectionGroup[] | null
 }

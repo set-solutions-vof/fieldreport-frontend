@@ -1,6 +1,6 @@
 import { Card } from '@/design-system'
 import { translations } from '@/lib/translations'
-import type { DashboardStatsProps, StatCardProps } from '../types/reportView'
+import type { DashboardStatsProps, StatCardProps } from '@/types/reportView'
 import './DashboardStats.css'
 
 export function DashboardStats({ reports }: DashboardStatsProps) {

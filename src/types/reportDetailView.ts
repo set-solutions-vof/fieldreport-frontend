@@ -110,6 +110,29 @@ export type ReportStubViewProps = {
   tab: ReportDetailTab
 }
 
+export type ReportDetailMainViewProps = {
+  activeSectionId: string | null
+  activeSourceItemId: string | null
+  activeTab: ReportDetailTab
+  draftContent: Record<string, string>
+  filter: SourceRailFilter
+  report: ReportDetail
+  reportUpdatedAt: string | null
+  sections: ReportSectionModel[]
+  sourceRailItems: SourceRailItem[]
+  onActiveSectionChange: (sectionId: string) => void
+  onContentChange: (sectionId: string, content: string) => void
+  onFilterChange: (filter: SourceRailFilter) => void
+  onSectionUpdated: (updatedSection: UpdateReportSectionResponse) => void
+  onSourceRailActivation: (sourceItemId: string) => void
+}
+
+export type UseReportDetailScrollingParameters = {
+  activeSectionId: string | null
+  activeSourceItemId: string | null
+  sourceActivationOriginRef: RefObject<SourceActivationOrigin | null>
+}
+
 export type ReportSectionProps = {
   section: ReportSectionModel
   reportId: string

@@ -1,0 +1,33 @@
+.fr-file-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--fr-space-1);
+  max-width: var(--fr-space-13);
+  padding: calc(var(--fr-space-1) / 2) var(--fr-space-2);
+  color: var(--fr-text-secondary);
+  background: var(--fr-surface-sunken);
+  border: var(--fr-border-width-sm) solid var(--fr-border);
+  border-radius: var(--fr-radius-full);
+  font-size: var(--fr-text-xs);
+}
+
+.fr-file-chip__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fr-file-chip__remove {
+  flex-shrink: 0;
+  padding: var(--fr-space-0);
+  color: var(--fr-text-tertiary);
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  font-size: var(--fr-text-sm);
+  line-height: var(--fr-leading-tight);
+}
+
+.fr-file-chip__remove:hover {
+  color: var(--fr-text-primary);
+}

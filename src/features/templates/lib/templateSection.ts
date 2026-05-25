@@ -1,18 +1,9 @@
 import type {
   TemplateSection,
   TemplateSectionType,
+  TemplateSectionWire,
   TemplateStatusResponse,
 } from '@/types/template'
-
-type TemplateSectionWire = {
-  id: string
-  key?: string
-  label: string
-  order?: number
-  render_type?: TemplateSectionType
-  type?: TemplateSectionType
-  fields?: string[] | null
-}
 
 export function templateSectionRenderType(
   section: TemplateSectionWire,
@@ -26,11 +17,12 @@ export function normalizeTemplateSection(
 ): TemplateSection {
   return {
     id: section.id,
-    key: section.key ?? section.id,
     label: section.label,
     order: section.order ?? index,
     render_type: templateSectionRenderType(section),
     fields: section.fields ?? null,
+    found_in: section.found_in,
+    groups: section.groups ?? null,
   }
 }
 

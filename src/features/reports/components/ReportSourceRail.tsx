@@ -8,7 +8,7 @@ import { SourceTypeIcon } from './icons/SourceTypeIcon'
 import type {
   ReportSourceRailProps,
   SourceFilterChipProps,
-} from '../types/reportDetailView'
+} from '@/types/reportDetailView'
 
 export function ReportSourceRail({
   activeSourceItemId,

@@ -19,5 +19,7 @@ export function AppRouter() {
     return <AdminRouter onAuthenticationExpired={handleAuthenticationExpired} />
   }
 
-  return <InspectorRouter onAuthenticationExpired={handleAuthenticationExpired} />
+  return (
+    <InspectorRouter onAuthenticationExpired={handleAuthenticationExpired} />
+  )
 }

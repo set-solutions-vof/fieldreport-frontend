@@ -1,10 +1,6 @@
-export function TemplateIcon({
-  name,
-  className,
-}: {
-  name: TemplateIconName
-  className?: string
-}) {
+import type { TemplateIconProps } from '@/types/templateIcon'
+
+export function TemplateIcon({ name, className }: TemplateIconProps) {
   if (name === 'upload') {
     return (
       <svg className={className} viewBox="0 0 24 24" aria-hidden="true">
@@ -133,22 +129,6 @@ export function TemplateIcon({
     </svg>
   )
 }
-
-export type TemplateIconName =
-  | 'upload'
-  | 'document'
-  | 'documentDashed'
-  | 'x'
-  | 'plus'
-  | 'trash'
-  | 'chevronDown'
-  | 'grip'
-  | 'paragraph'
-  | 'gridKV'
-  | 'list'
-  | 'photo'
-  | 'checkCircle'
-  | 'edit'
 
 const strokeProps = {
   fill: 'none',

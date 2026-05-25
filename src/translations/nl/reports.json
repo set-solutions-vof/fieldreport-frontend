@@ -1,0 +1,12 @@
+{
+  "status": {
+    "draft": "Concept",
+    "generating": "Genereren",
+    "approved": "Goedgekeurd",
+    "failed": "Mislukt"
+  },
+  "errors": {
+    "reports_load_failed": "Rapporten konden niet worden geladen.",
+    "report_load_failed": "Rapport kon niet worden geladen."
+  }
+}

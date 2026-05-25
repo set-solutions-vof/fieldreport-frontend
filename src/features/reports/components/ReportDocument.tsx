@@ -9,7 +9,7 @@ import { formatUpdatedAt } from '../lib/formatReportDate'
 import type {
   DocumentStatusCellProps,
   ReportDocumentProps,
-} from '../types/reportDetailView'
+} from '@/types/reportDetailView'
 
 export function ReportDocument({
   activeSectionId,

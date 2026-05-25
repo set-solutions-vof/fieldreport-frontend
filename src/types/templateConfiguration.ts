@@ -1,4 +1,9 @@
-import type { TemplateSection, TemplateSectionType } from '@/types/template'
+import type { Dispatch, SetStateAction } from 'react'
+import type {
+  TemplateSectionGroup,
+  TemplateSection,
+  TemplateSectionType,
+} from '@/types/template'
 
 export type TemplatePageState =
   | { kind: 'empty' }
@@ -12,6 +17,16 @@ export type TemplatePageState =
     }
   | { kind: 'approved'; sections: TemplateSection[]; reportsCount: number }
   | { kind: 'failed'; errorMessage: string; reportsCount: number }
+
+export type TemplateUploadingPageState = Extract<
+  TemplatePageState,
+  { kind: 'uploading' }
+>
+
+export type TemplatePreviewPageState = Extract<
+  TemplatePageState,
+  { kind: 'preview' }
+>
 
 export type TemplateLoadStatus = 'loading' | 'success' | 'error'
 export type TemplateSaveStatus = 'idle' | 'saved'
@@ -39,8 +54,27 @@ export type UseTemplateConfigurationResult = {
     renderType: TemplateSectionType,
   ) => void
   updateSectionFields: (sectionId: string, fields: string[]) => void
+  updateSectionGroups: (
+    sectionId: string,
+    groups: TemplateSectionGroup[],
+  ) => void
   deleteSection: (sectionId: string) => void
   reorderSections: (fromIndex: number, toIndex: number) => void
   confirmCurrentTemplate: () => Promise<void>
   resetAfterFailure: () => void
+}
+
+export type UseTemplateStatusStateParameters = {
+  onAuthenticationExpired: () => void
+}
+
+export type UseTemplateStatusStateResult = {
+  pageState: TemplatePageState
+  setPageState: Dispatch<SetStateAction<TemplatePageState>>
+  loadStatus: TemplateLoadStatus
+  errorMessage: string | null
+  actionErrorMessage: string | null
+  setActionErrorMessage: Dispatch<SetStateAction<string | null>>
+  retry: () => void
+  showAuthenticationOrError: (error: unknown, message: string) => void
 }

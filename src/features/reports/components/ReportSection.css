@@ -160,23 +160,6 @@
   background: var(--fr-surface);
 }
 
-.fr-report-section-field {
-  gap: var(--fr-space-0);
-}
-
-.fr-report-section-textarea {
-  min-height: calc(var(--fr-control-height-lg) * 3);
-  padding: var(--fr-space-3);
-  border-color: transparent;
-  font-size: var(--fr-text-md);
-  line-height: var(--fr-leading-relaxed);
-  background: transparent;
-}
-
-.fr-report-section-textarea:hover:not(:disabled):not([aria-invalid='true']) {
-  border-color: var(--fr-border);
-}
-
 .fr-report-section-save-status {
   display: inline-flex;
   margin-top: var(--fr-space-2);

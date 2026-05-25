@@ -2,7 +2,7 @@ import { translations } from '@/lib/translations'
 import { formatSeconds } from '../lib/formatSeconds'
 import { sourceTypeLabel } from '../lib/reportDetailView'
 import { timelineEventPosition } from '../lib/timelineStrip'
-import type { TimelineStripTrackProps } from '../types/reportDetailView'
+import type { TimelineStripTrackProps } from '@/types/reportDetailView'
 
 export function TimelineStripTrack({
   activeSourceItemId,

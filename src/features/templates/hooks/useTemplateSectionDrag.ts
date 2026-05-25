@@ -1,14 +1,8 @@
 import type { DragEvent } from 'react'
-
-type UseTemplateSectionDragParameters = {
-  sectionId: string
-  index: number
-  draggable: boolean
-  onDragStart?: (index: number) => void
-  onDragOver?: (index: number, position: 'before' | 'after') => void
-  onDrop?: () => void
-  onDragEnd?: () => void
-}
+import type {
+  UseTemplateSectionDragParameters,
+  UseTemplateSectionDragResult,
+} from '@/types/templateView'
 
 export function useTemplateSectionDrag({
   sectionId,
@@ -18,7 +12,7 @@ export function useTemplateSectionDrag({
   onDragOver,
   onDrop,
   onDragEnd,
-}: UseTemplateSectionDragParameters) {
+}: UseTemplateSectionDragParameters): UseTemplateSectionDragResult {
   function handleDragStart(event: DragEvent<HTMLElement>): void {
     event.stopPropagation()
     event.dataTransfer.effectAllowed = 'move'

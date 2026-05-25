@@ -2,10 +2,10 @@ import { Logo } from '@/design-system'
 import { formatUserRole } from '@/features/reports/lib/formatUserRole'
 import { getUserInitials } from '@/features/reports/lib/getUserInitials'
 import { translations } from '@/lib/translations'
-import type { AppShellNavigationItem, AppShellProps } from './types/appShell'
+import type { AppShellNavigationItem, AppShellProps } from '@/types/appShell'
 import './AppShell.css'
 
-export type { AppShellProps } from './types/appShell'
+export type { AppShellProps } from '@/types/appShell'
 
 export function AppShell({
   children,
@@ -50,7 +50,10 @@ export function AppShell({
                 {translations.dashboard.navigation.dashboard}
               </button>
               <button
-                className={navigationItemClassName(activeNavigationItem, 'reports')}
+                className={navigationItemClassName(
+                  activeNavigationItem,
+                  'reports',
+                )}
                 type="button"
                 onClick={onOpenReports}
                 aria-current={
@@ -86,7 +89,10 @@ export function AppShell({
           )}
           {onOpenDashboard !== undefined && (
             <button
-              className={navigationItemClassName(activeNavigationItem, 'profile')}
+              className={navigationItemClassName(
+                activeNavigationItem,
+                'profile',
+              )}
               type="button"
               aria-current={
                 activeNavigationItem === 'profile' ? 'page' : undefined

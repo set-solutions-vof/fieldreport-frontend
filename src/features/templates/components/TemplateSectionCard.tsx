@@ -3,7 +3,7 @@ import { translations } from '@/lib/translations'
 import { useTemplateSectionDrag } from '../hooks/useTemplateSectionDrag'
 import { formatTemplateOrder } from '../lib/templateFormatters'
 import { templateSectionRenderType } from '../lib/templateSection'
-import type { TemplateSectionCardProps } from '../types/templateView'
+import type { TemplateSectionCardProps } from '@/types/templateView'
 import { TemplateIcon } from './icons/TemplateIcon'
 import { TemplateSectionFields } from './TemplateSectionFields'
 import { TemplateSectionLabelEditor } from './TemplateSectionLabelEditor'
@@ -22,6 +22,7 @@ export function TemplateSectionCard({
   onDelete,
   onRenderTypeChange,
   onFieldsChange,
+  onGroupsChange,
   onDragStart,
   onDragOver,
   onDrop,
@@ -92,10 +93,14 @@ export function TemplateSectionCard({
         {hasEditableFields && (
           <TemplateSectionFields
             sectionId={section.id}
+            sectionLabel={section.label}
+            renderType={renderType}
             fields={fields}
+            groups={section.groups ?? null}
             readonly={readonly}
             visibleFieldsCount={visibleFieldsCount}
             onFieldsChange={onFieldsChange}
+            onGroupsChange={onGroupsChange}
           />
         )}
         {renderType === 'photo_grid' && <TemplateSectionPhotoHint />}

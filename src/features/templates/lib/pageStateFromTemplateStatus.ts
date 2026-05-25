@@ -1,5 +1,5 @@
 import type { TemplateStatusResponse } from '@/types/template'
-import type { TemplatePageState } from '../types/templateConfiguration'
+import type { TemplatePageState } from '@/types/templateConfiguration'
 
 export function pageStateFromTemplateStatus(
   templateStatus: TemplateStatusResponse,

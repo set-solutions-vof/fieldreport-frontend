@@ -2,7 +2,7 @@ import { translations } from '@/lib/translations'
 import type {
   ReportDetailTabButtonProps,
   ReportDetailTabsProps,
-} from '../types/reportDetailView'
+} from '@/types/reportDetailView'
 import { ReportDetailTabIcon } from './icons/ReportDetailTabIcon'
 
 export function ReportDetailTabs({

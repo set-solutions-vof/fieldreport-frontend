@@ -1,6 +1,6 @@
 import { translations } from '@/lib/translations'
 import type { ReportStatus } from '@/types/report'
-import type { ReportDetailHeaderBlockProps } from '../types/reportDetailView'
+import type { ReportDetailHeaderBlockProps } from '@/types/reportDetailView'
 import { formatDutchShortDate } from '../lib/formatReportDate'
 import { reportReference } from '../lib/reportDetailView'
 import { reportStatusLabel } from '../lib/reportLabels'
