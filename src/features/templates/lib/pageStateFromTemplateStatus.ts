@@ -9,7 +9,7 @@ export function pageStateFromTemplateStatus(
     return { kind: 'empty' }
   }
 
-  if (templateStatus.status === 'extracting') {
+  if (templateStatus.status === 'processing') {
     return {
       kind: 'processing',
       files,

@@ -79,7 +79,7 @@ export function useTemplateStatusState({
     const pollAnalysis = window.setInterval(() => {
       void getTemplateAnalysis(pageState.jobId)
         .then((templateStatus) => {
-          if (templateStatus.status !== 'extracting') {
+          if (templateStatus.status !== 'processing') {
             showTemplateStatus(templateStatus)
           }
         })

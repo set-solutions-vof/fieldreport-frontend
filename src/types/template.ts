@@ -25,7 +25,7 @@ export type TemplateStatusResponse =
       status: 'not_configured'
     }
   | {
-      status: 'extracting'
+      status: 'processing'
       jobId: string
       reports_count: number
     }

@@ -3,7 +3,6 @@ import { authenticatedFetch } from '@/lib/api/authenticatedFetch'
 import { apiBaseUrl } from '@/lib/config'
 import type {
   ConfirmTemplatePayload,
-  TemplateSection,
   TemplateStatusResponse,
 } from '@/types/template'
 
@@ -58,19 +57,6 @@ export async function getTemplateAnalysis(
   return normalizeTemplateStatus(
     (await response.json()) as TemplateStatusResponse,
   )
-}
-
-export async function saveTemplateStructure(
-  jobId: string,
-  sections: TemplateSection[],
-): Promise<void> {
-  await authenticatedFetch(`${templateEndpoint}/analysis/${jobId}`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ sections }),
-  })
 }
 
 export async function confirmTemplate(
