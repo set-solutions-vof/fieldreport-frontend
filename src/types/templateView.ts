@@ -15,6 +15,10 @@ export type TemplateFailedStateProps = {
   onTryAgain: () => void
 }
 
+export type TemplateSkeletonGridProps = {
+  label?: string
+}
+
 export type TemplateFieldChipProps = {
   children: string
   neutral?: boolean

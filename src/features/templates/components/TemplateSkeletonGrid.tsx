@@ -1,13 +1,10 @@
 import { LogoMark } from '@/design-system'
+import type { TemplateSkeletonGridProps } from '@/types/templateView'
 import '../pages/TemplateSectionGroupsState.css'
 import '../pages/TemplateSummaryState.css'
 import '../pages/TemplateUploadState.css'
 
 const skeletonCards = Array.from({ length: 7 }, (_, index) => index)
-
-type TemplateSkeletonGridProps = {
-  label?: string
-}
 
 export function TemplateSkeletonGrid({
   label = 'Analysing your reports',
