@@ -21,7 +21,7 @@ design-system/
     ├── CitationChip.tsx + .css
     ├── FilterChip.tsx + .css
     ├── IssueCallout.tsx + .css
-    ├── SourceRailItem.tsx + .css
+    ├── EvidenceRailItem.tsx + .css
     ├── CalmTimeline.tsx + .css
     ├── DocumentPaper.tsx + .css
     ├── TranscriptBlock.tsx + .css
@@ -145,7 +145,7 @@ Monochrome human-review toggle. Use this for section approval instead of a
 green status badge.
 
 ```tsx
-<ApprovalPill approved={section.is_approved} onToggle={approveSection} />
+<ApprovalPill approved={section.approved} onToggle={approveSection} />
 ```
 
 ### AccuracyChip
@@ -193,13 +193,13 @@ Inset warning or alert banner with an optional action slot.
 </IssueCallout>
 ```
 
-### SourceRailItem
+### EvidenceRailItem
 
 Vertical source rail row with connector, node, mono timestamp, icon, title, and
 section reference.
 
 ```tsx
-<SourceRailItem
+<EvidenceRailItem
   timestamp="10:20"
   title="Foto kruipruimte"
   sectionRef="Sectie 3"
@@ -381,7 +381,7 @@ Built and verified against the brief:
 - ✅ Approval is monochrome: `Badge variant="approved"` and `ApprovalPill`
   resolve to neutral ink.
 - ✅ Confidence owns warning colors: `AccuracyChip`, `CitationChip`,
-  `CalmTimeline`, `SourceRailItem`, and `IssueCallout` use neutral, amber, and
+  `CalmTimeline`, `EvidenceRailItem`, and `IssueCallout` use neutral, amber, and
   red signal variants.
 - ✅ New tokens added for mono type, accent-soft, amber/red signal colors, paper
   radius, and paper shadow.

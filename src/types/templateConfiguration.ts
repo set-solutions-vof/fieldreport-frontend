@@ -8,10 +8,10 @@ import type {
 export type TemplatePageState =
   | { kind: 'empty' }
   | { kind: 'uploading'; files: File[] }
-  | { kind: 'processing'; files: File[]; jobId: string; reportsCount: number }
+  | { kind: 'processing'; files: File[]; job_id: string; reportsCount: number }
   | {
       kind: 'preview'
-      jobId: string
+      job_id: string
       sections: TemplateSection[]
       reportsCount: number
     }

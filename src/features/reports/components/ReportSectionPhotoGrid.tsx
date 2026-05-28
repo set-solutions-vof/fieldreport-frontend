@@ -10,11 +10,11 @@ import { AutoSizedTextarea } from './AutoSizedTextarea'
 export function PhotoGridSectionEditor({
   section,
   content,
-  timelineItemsById,
+  evidenceItemsById,
   onContentChange,
 }: PhotoGridSectionEditorProps) {
-  const imageItems = section.source_item_ids.map(
-    (sourceItemId) => timelineItemsById[sourceItemId] as PhotoGridTile,
+  const imageItems = section.evidence_item_ids.map(
+    (evidenceItemId) => evidenceItemsById[evidenceItemId] as PhotoGridTile,
   )
   const captions = contentLines(content)
   const tiles = imageItems.length > 0 ? imageItems : emptyPhotoTiles(captions)
@@ -27,17 +27,17 @@ export function PhotoGridSectionEditor({
 
   return (
     <div className="fr-report-section-photo-grid">
-      {tiles.map((timelineItem, tileIndex) => (
+      {tiles.map((evidenceItem, tileIndex) => (
         <figure
           className="fr-report-section-photo"
-          key={`${timelineItem.id}-${tileIndex}`}
+          key={`${evidenceItem.id}-${tileIndex}`}
         >
-          <ReportSectionImage timelineItem={timelineItem} />
+          <ReportSectionImage evidenceItem={evidenceItem} />
           <AutoSizedTextarea
             aria-label={`Foto ${tileIndex + 1}`}
             className="fr-report-section-photo-caption"
             fieldClassName="fr-report-section-structured-field"
-            value={captions[tileIndex] ?? timelineItem.content_summary}
+            value={captions[tileIndex] ?? evidenceItem.content_summary}
             onChange={(event) =>
               updateCaption(tileIndex, event.currentTarget.value)
             }
@@ -48,15 +48,15 @@ export function PhotoGridSectionEditor({
   )
 }
 
-function ReportSectionImage({ timelineItem }: ReportSectionImageProps) {
-  const imageUrl = timelineItem.thumbnail_url ?? timelineItem.image_url
+function ReportSectionImage({ evidenceItem }: ReportSectionImageProps) {
+  const imageUrl = evidenceItem.thumbnail_url ?? evidenceItem.image_url
 
   if (imageUrl) {
     return (
       <img
         className="fr-report-section-photo-image"
         src={imageUrl}
-        alt={timelineItem.content_summary}
+        alt={evidenceItem.content_summary}
       />
     )
   }

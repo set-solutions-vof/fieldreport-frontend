@@ -2,7 +2,7 @@ import type { ChangeEvent } from 'react'
 import { translations } from '@/lib/translations'
 import type { ReportSectionProps } from '@/types/reportDetailView'
 import { useReportSection } from '../hooks/useReportSection'
-import { sectionSourceChipLabels } from '../lib/reportDetailView'
+import { sectionEvidenceChipLabels } from '../lib/reportDetailView'
 import { SectionContentEditor } from './ReportSectionContentEditor'
 import './ReportSection.css'
 
@@ -12,7 +12,7 @@ export function ReportSection({
   index,
   content,
   active,
-  timelineItemsById,
+  evidenceItemsById,
   onSectionUpdated,
   onContentChange,
   onActivate,
@@ -25,7 +25,7 @@ export function ReportSection({
   const confidencePercentage = confidenceScorePercentage(
     section.confidence_score,
   )
-  const sourceChipLabels = sectionSourceChipLabels(section, timelineItemsById)
+  const evidenceChipLabels = sectionEvidenceChipLabels(section, evidenceItemsById)
 
   function handleContentChange(event: ChangeEvent<HTMLTextAreaElement>): void {
     onContentChange(section.id, event.currentTarget.value)
@@ -73,21 +73,21 @@ export function ReportSection({
             type="button"
             className={[
               'fr-report-section-approval',
-              section.is_approved && 'fr-report-section-approval--done',
+              section.approved && 'fr-report-section-approval--done',
             ]
               .filter(Boolean)
               .join(' ')}
-            aria-pressed={section.is_approved}
-            disabled={!section.is_approved && content.trim() === ''}
+            aria-pressed={section.approved}
+            disabled={!section.approved && content.trim() === ''}
             onClick={handleApprove}
           >
             <span
               className="fr-report-section-approval-icon"
               aria-hidden="true"
             >
-              {section.is_approved ? '✓' : '○'}
+              {section.approved ? '✓' : '○'}
             </span>
-            {section.is_approved
+            {section.approved
               ? translations.report_detail.section.approved_button
               : translations.report_detail.section.approve_button}
           </button>
@@ -97,22 +97,22 @@ export function ReportSection({
       <SectionContentEditor
         section={section}
         content={content}
-        timelineItemsById={timelineItemsById}
+        evidenceItemsById={evidenceItemsById}
         onTextChange={handleContentChange}
         onStructuredChange={updateStructuredContent}
       />
 
-      {sourceChipLabels.length > 0 && (
+      {evidenceChipLabels.length > 0 && (
         <div
-          className="fr-report-section-source-chips"
+          className="fr-report-section-evidence-chips"
           aria-label={`${translations.report_detail.section.sources_for_prefix} ${section.label}`}
         >
-          {sourceChipLabels.map((sourceChipLabel) => (
+          {evidenceChipLabels.map((evidenceChipLabel) => (
             <span
-              className="fr-report-section-source-chip"
-              key={`${section.id}-${sourceChipLabel}`}
+              className="fr-report-section-evidence-chip"
+              key={`${section.id}-${evidenceChipLabel}`}
             >
-              {sourceChipLabel}
+              {evidenceChipLabel}
             </span>
           ))}
         </div>

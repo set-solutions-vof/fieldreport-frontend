@@ -172,14 +172,14 @@
   color: var(--fr-color-red-700);
 }
 
-.fr-report-section-source-chips {
+.fr-report-section-evidence-chips {
   display: flex;
   flex-wrap: wrap;
   gap: var(--fr-space-2);
   margin-top: var(--fr-space-4);
 }
 
-.fr-report-section-source-chip {
+.fr-report-section-evidence-chip {
   display: inline-flex;
   align-items: center;
   min-height: var(--fr-control-height-sm);

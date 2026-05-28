@@ -32,7 +32,7 @@
     "review": "Controleren",
     "open": "openstaand"
   },
-  "source_rail": {
+  "evidence_rail": {
     "aria_label": "Bron-momenten",
     "title": "Bron-momenten",
     "filter_aria_label": "Bronnen filteren",

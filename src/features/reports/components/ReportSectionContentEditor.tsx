@@ -11,7 +11,7 @@ import './ReportSectionContent.css'
 export function SectionContentEditor({
   section,
   content,
-  timelineItemsById,
+  evidenceItemsById,
   onTextChange,
   onStructuredChange,
 }: SectionContentEditorProps) {
@@ -42,7 +42,7 @@ export function SectionContentEditor({
       <PhotoGridSectionEditor
         section={section}
         content={content}
-        timelineItemsById={timelineItemsById}
+        evidenceItemsById={evidenceItemsById}
         onContentChange={onStructuredChange}
       />
     )

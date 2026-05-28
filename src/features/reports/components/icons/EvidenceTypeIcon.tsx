@@ -1,6 +1,6 @@
-import type { SourceTypeIconProps } from '@/types/reportIconView'
+import type { EvidenceTypeIconProps } from '@/types/reportIconView'
 
-export function SourceTypeIcon({ type, size }: SourceTypeIconProps) {
+export function EvidenceTypeIcon({ type, size }: EvidenceTypeIconProps) {
   if (type === 'audio') {
     return (
       <svg

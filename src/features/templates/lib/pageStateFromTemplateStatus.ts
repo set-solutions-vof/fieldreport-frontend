@@ -13,31 +13,31 @@ export function pageStateFromTemplateStatus(
     return {
       kind: 'processing',
       files,
-      jobId: templateStatus.jobId,
-      reportsCount: templateStatus.reports_count,
+      job_id: templateStatus.job_id,
+      reportsCount: templateStatus.source_reports_count,
     }
   }
 
   if (templateStatus.status === 'pending_review') {
     return {
       kind: 'preview',
-      jobId: templateStatus.job_id,
+      job_id: templateStatus.job_id,
       sections: templateStatus.sections,
-      reportsCount: templateStatus.reports_count,
+      reportsCount: templateStatus.source_reports_count,
     }
   }
 
   if (templateStatus.status === 'failed') {
     return {
       kind: 'failed',
-      errorMessage: templateStatus.error_message,
-      reportsCount: templateStatus.reports_count,
+      errorMessage: templateStatus.failure_message,
+      reportsCount: templateStatus.source_reports_count,
     }
   }
 
   return {
     kind: 'approved',
     sections: templateStatus.sections,
-    reportsCount: templateStatus.reports_count,
+    reportsCount: templateStatus.source_reports_count,
   }
 }

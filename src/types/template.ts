@@ -26,24 +26,24 @@ export type TemplateStatusResponse =
     }
   | {
       status: 'processing'
-      jobId: string
-      reports_count: number
+      job_id: string
+      source_reports_count: number
     }
   | {
       status: 'pending_review'
       job_id: string
       sections: TemplateSection[]
-      reports_count: number
+      source_reports_count: number
     }
   | {
       status: 'active'
       sections: TemplateSection[]
-      reports_count: number
+      source_reports_count: number
     }
   | {
       status: 'failed'
-      reports_count: number
-      error_message: string
+      source_reports_count: number
+      failure_message: string
     }
 
 export type ConfirmTemplatePayload = {

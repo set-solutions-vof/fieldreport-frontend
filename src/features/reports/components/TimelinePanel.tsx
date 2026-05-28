@@ -17,13 +17,13 @@ import './TimelinePanel.css'
 export function TimelineStrip({
   items,
   sections,
-  activeSourceItemId,
-  onActiveSourceItemChange,
+  activeEvidenceItemId,
+  onActiveEvidenceItemChange,
 }: TimelineStripProps) {
   const { elementRef: trackRef, elementWidth: trackWidth } =
     useElementWidth<HTMLDivElement>()
   const events = timelineEvents(items)
-  const approvedCount = sections.filter((section) => section.is_approved).length
+  const approvedCount = sections.filter((section) => section.approved).length
   const openCount = sections.length - approvedCount
 
   if (events.length === 0) {
@@ -61,13 +61,13 @@ export function TimelineStrip({
         }`}
       />
       <TimelineStripTrack
-        activeSourceItemId={activeSourceItemId}
+        activeEvidenceItemId={activeEvidenceItemId}
         durationMs={durationMs}
         events={events}
         startTimestampMs={startTimestampMs}
         ticks={ticks}
         trackRef={trackRef}
-        onActiveSourceItemChange={onActiveSourceItemChange}
+        onActiveEvidenceItemChange={onActiveEvidenceItemChange}
       />
       <TimelineStripStats
         approvedCount={approvedCount}

@@ -1,13 +1,13 @@
 import type { ChangeEvent } from 'react'
 import type { TextareaProps } from '@/design-system'
-import type { ReportTimelineItem } from './report'
+import type { ReportEvidenceItem } from './report'
 import type { ReportSectionProps } from './reportDetailView'
 import type { TemplateSectionGroup } from './template'
 
 export type SectionContentEditorProps = {
   section: ReportSectionProps['section']
   content: string
-  timelineItemsById: Record<string, ReportTimelineItem>
+  evidenceItemsById: Record<string, ReportEvidenceItem>
   onTextChange: (event: ChangeEvent<HTMLTextAreaElement>) => void
   onStructuredChange: (content: string) => void
 }
@@ -29,17 +29,17 @@ export type GroupedFieldsSectionEditorProps = {
 export type PhotoGridSectionEditorProps = {
   section: ReportSectionProps['section']
   content: string
-  timelineItemsById: Record<string, ReportTimelineItem>
+  evidenceItemsById: Record<string, ReportEvidenceItem>
   onContentChange: (content: string) => void
 }
 
 export type PhotoGridTile = Pick<
-  ReportTimelineItem,
+  ReportEvidenceItem,
   'id' | 'content_summary' | 'image_url' | 'thumbnail_url'
 >
 
 export type ReportSectionImageProps = {
-  timelineItem: PhotoGridTile
+  evidenceItem: PhotoGridTile
 }
 
 export type AutoSizedTextareaProps = TextareaProps

@@ -4,7 +4,8 @@ import type {
 } from '@/types/templateConfiguration'
 
 export function useTemplateAutoSave(
-  _pageState: TemplatePageState,
+  pageState: TemplatePageState,
 ): TemplateSaveStatus {
+  void pageState
   return 'idle'
 }

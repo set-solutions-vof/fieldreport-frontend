@@ -44,10 +44,10 @@ export async function startTemplateAnalysis(
 }
 
 export async function getTemplateAnalysis(
-  jobId: string,
+  job_id: string,
 ): Promise<TemplateStatusResponse> {
   const response = await authenticatedFetch(
-    `${templateEndpoint}/analysis/${jobId}`,
+    `${templateEndpoint}/analysis/${job_id}`,
   )
 
   if (!response.ok) {

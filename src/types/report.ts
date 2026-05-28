@@ -1,7 +1,7 @@
 import type { TemplateSectionGroup, TemplateSectionType } from './template'
 
 export type ReportStatus = 'generating' | 'draft' | 'approved' | 'failed'
-export type TimelineItemSourceType = 'transcription_segment' | 'image_analysis'
+export type EvidenceItemType = 'transcription_segment' | 'image_analysis'
 export type ReportConfidenceLevel = 'high' | 'medium' | 'low'
 
 export type ReportSummary = {
@@ -14,10 +14,10 @@ export type ReportSummary = {
   inspector_name: string
 }
 
-export type ReportTimelineItem = {
+export type ReportEvidenceItem = {
   id: string
-  source_type: TimelineItemSourceType
-  timeline_offset_seconds: number
+  evidence_type: EvidenceItemType
+  timeline_seconds: number
   start_seconds: number | null
   end_seconds: number | null
   captured_at: string | null
@@ -26,34 +26,34 @@ export type ReportTimelineItem = {
   thumbnail_url?: string | null
 }
 
-export type ReportSectionSource = {
+export type ReportEvidenceSource = {
   type: 'audio' | 'image'
-  timestamp_start: number | null
-  timestamp_end: number | null
-  capture_time: string | null
+  start_seconds: number | null
+  end_seconds: number | null
+  captured_at: string | null
   content_summary: string
 }
 
-export type ReportSectionBase = {
+export type ReportSectionContent = {
   id: string
   section_id: string
   label: string
-  ai_draft: string
-  field_expert_content: string | null
+  generated_content: string
+  reviewed_content: string | null
   confidence_level: ReportConfidenceLevel
   confidence_score: number
-  is_approved: boolean
+  approved: boolean
   render_type?: TemplateSectionType
   fields?: string[] | null
   groups?: TemplateSectionGroup[] | null
 }
 
-export type ReportSection = ReportSectionBase & {
-  source_item_ids: string[]
+export type ReportSection = ReportSectionContent & {
+  evidence_item_ids: string[]
 }
 
-export type UpdateReportSectionResponse = ReportSectionBase & {
-  sources: ReportSectionSource[]
+export type ReportSectionUpdateResponse = ReportSectionContent & {
+  evidence_sources: ReportEvidenceSource[]
 }
 
 export type ReportDetail = {
@@ -65,10 +65,10 @@ export type ReportDetail = {
   inspector_name: string
   updated_at: string | null
   sections: ReportSection[]
-  timeline_items: ReportTimelineItem[]
+  evidence_items: ReportEvidenceItem[]
 }
 
-export type UpdateReportSectionPayload = {
-  field_expert_content?: string
-  is_approved?: boolean
+export type ReportSectionUpdatePayload = {
+  reviewed_content?: string
+  approved?: boolean
 }

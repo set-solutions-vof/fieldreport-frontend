@@ -13,7 +13,7 @@ export function useReportSection({
   const approve = useCallback(async (): Promise<void> => {
     try {
       const updatedSection = await updateSection(reportId, sectionId, {
-        is_approved: true,
+        approved: true,
       })
       onSuccess(updatedSection)
     } catch {

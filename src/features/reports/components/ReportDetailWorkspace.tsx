@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useRef, useState } from 'react'
 import { getReport } from '@/lib/api/reports'
 import { translations } from '@/lib/translations'
-import type { ReportStatus, UpdateReportSectionResponse } from '@/types/report'
+import type { ReportStatus, ReportSectionUpdateResponse } from '@/types/report'
 import { AppShell } from '@/app/AppShell'
 import { ReportActionBar } from './ReportActionBar'
 import { ReportDetailHeaderBlock } from './ReportDetailHeaderBlock'
@@ -12,14 +12,14 @@ import { useReportDraftAutosave } from '../hooks/useReportDraftAutosave'
 import { useReportDetailScrolling } from '../hooks/useReportDetailScrolling'
 import {
   allSectionsApproved,
-  buildSourceRailItems,
+  buildEvidenceRailItems,
   mergeUpdatedSection,
 } from '../lib/reportDetailView'
 import type {
   ReportDetailTab,
   ReportDetailWorkspaceProps,
-  SourceActivationOrigin,
-  SourceRailFilter,
+  EvidenceActivationOrigin,
+  EvidenceRailFilter,
 } from '@/types/reportDetailView'
 
 export function ReportDetailWorkspace({
@@ -32,15 +32,15 @@ export function ReportDetailWorkspace({
 }: ReportDetailWorkspaceProps) {
   const [activeTab, setActiveTab] = useState<ReportDetailTab>('report')
   const [activeSectionId, setActiveSectionId] = useState<string | null>(null)
-  const [activeSourceItemId, setActiveSourceItemId] = useState<string | null>(
+  const [activeEvidenceItemId, setActiveEvidenceItemId] = useState<string | null>(
     null,
   )
-  const sourceActivationOriginRef = useRef<SourceActivationOrigin | null>(null)
+  const evidenceActivationOriginRef = useRef<EvidenceActivationOrigin | null>(null)
   const [reportStatus, setReportStatus] = useState<ReportStatus>(report.status)
   const [reportUpdatedAt, setReportUpdatedAt] = useState<string | null>(
     report.updated_at,
   )
-  const [sourceFilter, setSourceFilter] = useState<SourceRailFilter>('all')
+  const [evidenceFilter, setEvidenceFilter] = useState<EvidenceRailFilter>('all')
   const {
     dirtyCount,
     draftContent,
@@ -55,18 +55,18 @@ export function ReportDetailWorkspace({
       setReportUpdatedAt(new Date().toISOString())
     },
   })
-  const sourceRailItems = useMemo(
-    () => buildSourceRailItems(sections, report.timeline_items),
-    [report.timeline_items, sections],
+  const evidenceRailItems = useMemo(
+    () => buildEvidenceRailItems(sections, report.evidence_items),
+    [report.evidence_items, sections],
   )
   useReportDetailScrolling({
     activeSectionId,
-    activeSourceItemId,
-    sourceActivationOriginRef,
+    activeEvidenceItemId,
+    evidenceActivationOriginRef,
   })
 
   const handleSectionUpdated = useCallback(
-    (updatedSection: UpdateReportSectionResponse): void => {
+    (updatedSection: ReportSectionUpdateResponse): void => {
       setReportUpdatedAt(new Date().toISOString())
       applySectionUpdated(updatedSection)
 
@@ -90,24 +90,24 @@ export function ReportDetailWorkspace({
 
   const handleSectionActivation = useCallback((sectionId: string): void => {
     setActiveSectionId(sectionId)
-    setActiveSourceItemId(null)
-    sourceActivationOriginRef.current = null
+    setActiveEvidenceItemId(null)
+    evidenceActivationOriginRef.current = null
   }, [])
 
-  const handleTimelineSourceActivation = useCallback(
-    (sourceItemId: string): void => {
-      setSourceFilter('all')
-      sourceActivationOriginRef.current = 'timeline'
-      setActiveSourceItemId(sourceItemId)
+  const handleTimelineEvidenceActivation = useCallback(
+    (evidenceItemId: string): void => {
+      setEvidenceFilter('all')
+      evidenceActivationOriginRef.current = 'timeline'
+      setActiveEvidenceItemId(evidenceItemId)
       setActiveSectionId(null)
     },
     [],
   )
 
-  const handleSourceRailActivation = useCallback(
-    (sourceItemId: string): void => {
-      sourceActivationOriginRef.current = 'source-rail'
-      setActiveSourceItemId(sourceItemId)
+  const handleEvidenceRailActivation = useCallback(
+    (evidenceItemId: string): void => {
+      evidenceActivationOriginRef.current = 'evidence-rail'
+      setActiveEvidenceItemId(evidenceItemId)
       setActiveSectionId(null)
     },
     [],
@@ -138,10 +138,10 @@ export function ReportDetailWorkspace({
         <div className="fr-report-detail-timeline-wrap">
           <div id="report-timeline-strip">
             <TimelineStrip
-              items={sourceRailItems}
+              items={evidenceRailItems}
               sections={sections}
-              activeSourceItemId={activeSourceItemId}
-              onActiveSourceItemChange={handleTimelineSourceActivation}
+              activeEvidenceItemId={activeEvidenceItemId}
+              onActiveEvidenceItemChange={handleTimelineEvidenceActivation}
             />
           </div>
         </div>
@@ -149,25 +149,25 @@ export function ReportDetailWorkspace({
         <ReportDetailTabs
           activeTab={activeTab}
           reportCount={sections.length}
-          evidenceCount={sourceRailItems.length}
+          evidenceCount={evidenceRailItems.length}
           onActiveTabChange={setActiveTab}
         />
 
         <ReportDetailMainView
           activeSectionId={activeSectionId}
-          activeSourceItemId={activeSourceItemId}
+          activeEvidenceItemId={activeEvidenceItemId}
           activeTab={activeTab}
           draftContent={draftContent}
-          filter={sourceFilter}
+          filter={evidenceFilter}
           report={report}
           reportUpdatedAt={reportUpdatedAt}
           sections={sections}
-          sourceRailItems={sourceRailItems}
+          evidenceRailItems={evidenceRailItems}
           onActiveSectionChange={handleSectionActivation}
           onContentChange={handleContentChange}
-          onFilterChange={setSourceFilter}
+          onFilterChange={setEvidenceFilter}
           onSectionUpdated={handleSectionUpdated}
-          onSourceRailActivation={handleSourceRailActivation}
+          onEvidenceRailActivation={handleEvidenceRailActivation}
         />
         <ReportActionBar dirtyCount={dirtyCount} saveStatus={saveStatus} />
       </div>

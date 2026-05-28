@@ -3,24 +3,24 @@ import type { RefObject } from 'react'
 import type {
   ReportDetail,
   ReportSection as ReportSectionModel,
-  ReportTimelineItem,
-  UpdateReportSectionResponse,
+  ReportEvidenceItem,
+  ReportSectionUpdateResponse,
 } from '@/types/report'
 import type { ReportRouteSource } from '@/types/routes'
 
 export type ReportDetailTab = 'report' | 'transcript' | 'evidence'
-export type SourceRailFilter = 'all' | 'open' | 'approved'
-export type SourceActivationOrigin = 'timeline' | 'source-rail'
+export type EvidenceRailFilter = 'all' | 'open' | 'approved'
+export type EvidenceActivationOrigin = 'timeline' | 'evidence-rail'
 export type SaveAllStatus = 'idle' | 'saving' | 'saved' | 'error'
 
-export type SourceRailItem = {
+export type EvidenceRailItem = {
   id: string
   primarySectionId: string
   sectionIds: string[]
   sectionLabels: string[]
   allSectionsApproved: boolean
   hasOpenSections: boolean
-  timelineItem: ReportTimelineItem
+  evidenceItem: ReportEvidenceItem
 }
 
 export type ReportDetailWorkspaceProps = {
@@ -44,7 +44,7 @@ export type UseReportDraftAutosaveResult = {
   saveStatus: SaveAllStatus
   sections: ReportSectionModel[]
   handleContentChange: (sectionId: string, content: string) => void
-  handleSectionUpdated: (updatedSection: UpdateReportSectionResponse) => void
+  handleSectionUpdated: (updatedSection: ReportSectionUpdateResponse) => void
 }
 
 export type ReportDetailHeaderBlockProps = {
@@ -67,15 +67,15 @@ export type ReportDetailTabButtonProps = {
   onClick: () => void
 }
 
-export type ReportSourceRailProps = {
-  activeSourceItemId: string | null
-  filter: SourceRailFilter
-  items: SourceRailItem[]
-  onActiveSourceItemChange: (sourceItemId: string) => void
-  onFilterChange: (filter: SourceRailFilter) => void
+export type ReportEvidenceRailProps = {
+  activeEvidenceItemId: string | null
+  filter: EvidenceRailFilter
+  items: EvidenceRailItem[]
+  onActiveEvidenceItemChange: (evidenceItemId: string) => void
+  onFilterChange: (filter: EvidenceRailFilter) => void
 }
 
-export type SourceFilterChipProps = {
+export type EvidenceFilterChipProps = {
   active: boolean
   label: string
   onClick: () => void
@@ -87,10 +87,10 @@ export type ReportDocumentProps = {
   reportId: string
   reportUpdatedAt: string | null
   sections: ReportSectionModel[]
-  timelineItems: ReportTimelineItem[]
+  evidenceItems: ReportEvidenceItem[]
   onActiveSectionChange: (sectionId: string) => void
   onContentChange: (sectionId: string, content: string) => void
-  onSectionUpdated: (updatedSection: UpdateReportSectionResponse) => void
+  onSectionUpdated: (updatedSection: ReportSectionUpdateResponse) => void
 }
 
 export type DocumentStatusCellProps = {
@@ -112,25 +112,25 @@ export type ReportStubViewProps = {
 
 export type ReportDetailMainViewProps = {
   activeSectionId: string | null
-  activeSourceItemId: string | null
+  activeEvidenceItemId: string | null
   activeTab: ReportDetailTab
   draftContent: Record<string, string>
-  filter: SourceRailFilter
+  filter: EvidenceRailFilter
   report: ReportDetail
   reportUpdatedAt: string | null
   sections: ReportSectionModel[]
-  sourceRailItems: SourceRailItem[]
+  evidenceRailItems: EvidenceRailItem[]
   onActiveSectionChange: (sectionId: string) => void
   onContentChange: (sectionId: string, content: string) => void
-  onFilterChange: (filter: SourceRailFilter) => void
-  onSectionUpdated: (updatedSection: UpdateReportSectionResponse) => void
-  onSourceRailActivation: (sourceItemId: string) => void
+  onFilterChange: (filter: EvidenceRailFilter) => void
+  onSectionUpdated: (updatedSection: ReportSectionUpdateResponse) => void
+  onEvidenceRailActivation: (evidenceItemId: string) => void
 }
 
 export type UseReportDetailScrollingParameters = {
   activeSectionId: string | null
-  activeSourceItemId: string | null
-  sourceActivationOriginRef: RefObject<SourceActivationOrigin | null>
+  activeEvidenceItemId: string | null
+  evidenceActivationOriginRef: RefObject<EvidenceActivationOrigin | null>
 }
 
 export type ReportSectionProps = {
@@ -139,17 +139,17 @@ export type ReportSectionProps = {
   index: number
   content: string
   active: boolean
-  timelineItemsById: Record<string, ReportTimelineItem>
-  onSectionUpdated: (updated: UpdateReportSectionResponse) => void
+  evidenceItemsById: Record<string, ReportEvidenceItem>
+  onSectionUpdated: (updated: ReportSectionUpdateResponse) => void
   onContentChange: (sectionId: string, content: string) => void
   onActivate: (sectionId: string) => void
 }
 
 export type TimelineStripProps = {
   sections: ReportSectionModel[]
-  items: SourceRailItem[]
-  activeSourceItemId: string | null
-  onActiveSourceItemChange: (sourceItemId: string) => void
+  items: EvidenceRailItem[]
+  activeEvidenceItemId: string | null
+  onActiveEvidenceItemChange: (evidenceItemId: string) => void
 }
 
 export type TimelineStripEvent = {
@@ -158,8 +158,8 @@ export type TimelineStripEvent = {
   sectionIds: string[]
   sectionLabels: string[]
   allSectionsApproved: boolean
-  timelineOffsetSeconds: number
-  sourceType: ReportTimelineItem['source_type']
+  timelineSeconds: number
+  evidenceType: ReportEvidenceItem['evidence_type']
 }
 
 export type TimelineTick = {
@@ -181,11 +181,11 @@ export type TimelineStripStatsProps = {
 }
 
 export type TimelineStripTrackProps = {
-  activeSourceItemId: string | null
+  activeEvidenceItemId: string | null
   durationMs: number
   events: TimelineStripEvent[]
   startTimestampMs: number
   ticks: TimelineTick[]
   trackRef: RefObject<HTMLDivElement | null>
-  onActiveSourceItemChange: (sourceItemId: string) => void
+  onActiveEvidenceItemChange: (evidenceItemId: string) => void
 }

@@ -4,7 +4,7 @@ export type ReportDetailTabIconProps = {
   tab: ReportDetailTab
 }
 
-export type SourceTypeIconProps = {
+export type EvidenceTypeIconProps = {
   type: 'audio' | 'image'
   size: number
 }

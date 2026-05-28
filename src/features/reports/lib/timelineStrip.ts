@@ -19,12 +19,12 @@ export function timelineEvents(
       sectionIds: item.sectionIds,
       sectionLabels: item.sectionLabels,
       allSectionsApproved: item.allSectionsApproved,
-      timelineOffsetSeconds: item.timelineItem.timeline_offset_seconds,
-      sourceType: item.timelineItem.source_type,
+      timelineSeconds: item.evidenceItem.timeline_seconds,
+      evidenceType: item.evidenceItem.evidence_type,
     }))
     .sort(
       (firstEvent, secondEvent) =>
-        firstEvent.timelineOffsetSeconds - secondEvent.timelineOffsetSeconds,
+        firstEvent.timelineSeconds - secondEvent.timelineSeconds,
     )
 }
 
@@ -35,7 +35,7 @@ export function timelineStartTimestampMs(): number {
 export function timelineEndTimestampMs(events: TimelineStripEvent[]): number {
   return Math.max(
     ...events.map(
-      (timelineEvent) => timelineEvent.timelineOffsetSeconds * 1000,
+      (timelineEvent) => timelineEvent.timelineSeconds * 1000,
     ),
   )
 }
@@ -53,7 +53,7 @@ export function timelineEventPosition(
   durationMs: number,
 ): number {
   return (
-    ((timelineEvent.timelineOffsetSeconds * 1000 - startTimestampMs) /
+    ((timelineEvent.timelineSeconds * 1000 - startTimestampMs) /
       durationMs) *
     100
   )

@@ -1,25 +1,25 @@
 import { translations } from '@/lib/translations'
 import type { ReportDetailMainViewProps } from '@/types/reportDetailView'
 import { ReportDocument } from './ReportDocument'
-import { ReportSourceRail } from './ReportSourceRail'
+import { ReportEvidenceRail } from './ReportEvidenceRail'
 import { ReportStubView } from './ReportStubView'
 import { reportDetailViewClassName } from '../lib/reportDetailClassNames'
 
 export function ReportDetailMainView({
   activeSectionId,
-  activeSourceItemId,
+  activeEvidenceItemId,
   activeTab,
   draftContent,
   filter,
   report,
   reportUpdatedAt,
   sections,
-  sourceRailItems,
+  evidenceRailItems,
   onActiveSectionChange,
   onContentChange,
   onFilterChange,
   onSectionUpdated,
-  onSourceRailActivation,
+  onEvidenceRailActivation,
 }: ReportDetailMainViewProps) {
   return (
     <>
@@ -29,11 +29,11 @@ export function ReportDetailMainView({
         role="tabpanel"
       >
         <div className="fr-report-detail-report-body">
-          <ReportSourceRail
-            activeSourceItemId={activeSourceItemId}
+          <ReportEvidenceRail
+            activeEvidenceItemId={activeEvidenceItemId}
             filter={filter}
-            items={sourceRailItems}
-            onActiveSourceItemChange={onSourceRailActivation}
+            items={evidenceRailItems}
+            onActiveEvidenceItemChange={onEvidenceRailActivation}
             onFilterChange={onFilterChange}
           />
           <ReportDocument
@@ -42,7 +42,7 @@ export function ReportDetailMainView({
             reportId={report.id}
             reportUpdatedAt={reportUpdatedAt}
             sections={sections}
-            timelineItems={report.timeline_items}
+            evidenceItems={report.evidence_items}
             onActiveSectionChange={onActiveSectionChange}
             onContentChange={onContentChange}
             onSectionUpdated={onSectionUpdated}

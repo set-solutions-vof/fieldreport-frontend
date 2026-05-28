@@ -3,8 +3,8 @@ import type { UseReportDetailScrollingParameters } from '@/types/reportDetailVie
 
 export function useReportDetailScrolling({
   activeSectionId,
-  activeSourceItemId,
-  sourceActivationOriginRef,
+  activeEvidenceItemId,
+  evidenceActivationOriginRef,
 }: UseReportDetailScrollingParameters): void {
   useEffect(() => {
     if (activeSectionId === null) {
@@ -19,28 +19,28 @@ export function useReportDetailScrolling({
 
   useEffect(() => {
     if (
-      activeSourceItemId === null ||
-      sourceActivationOriginRef.current === null
+      activeEvidenceItemId === null ||
+      evidenceActivationOriginRef.current === null
     ) {
       return
     }
 
-    if (sourceActivationOriginRef.current === 'timeline') {
+    if (evidenceActivationOriginRef.current === 'timeline') {
       document
-        .getElementById(`source-item-${activeSourceItemId}`)
+        .getElementById(`evidence-item-${activeEvidenceItemId}`)
         ?.scrollIntoView({
           block: 'center',
           behavior: 'smooth',
         })
     }
 
-    if (sourceActivationOriginRef.current === 'source-rail') {
+    if (evidenceActivationOriginRef.current === 'evidence-rail') {
       document.getElementById('report-timeline-strip')?.scrollIntoView({
         block: 'center',
         behavior: 'smooth',
       })
     }
 
-    sourceActivationOriginRef.current = null
-  }, [activeSourceItemId, sourceActivationOriginRef])
+    evidenceActivationOriginRef.current = null
+  }, [activeEvidenceItemId, evidenceActivationOriginRef])
 }

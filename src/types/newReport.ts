@@ -55,5 +55,5 @@ export type UseNewReportResult = {
 
 export type CreateInspectionResponse = {
   report_id: string
-  status: 'processing'
+  status: 'generating'
 }
