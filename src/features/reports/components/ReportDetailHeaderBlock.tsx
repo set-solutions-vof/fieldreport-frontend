@@ -1,20 +1,22 @@
 import { translations } from '@/lib/translations'
-import type { ReportDetailHeaderBlockProps } from '../types/reportDetailView'
+import type { ReportStatus } from '@/types/report'
+import type { ReportDetailHeaderBlockProps } from '@/types/reportDetailView'
 import { formatDutchShortDate } from '../lib/formatReportDate'
 import { reportReference } from '../lib/reportDetailView'
+import { reportStatusLabel } from '../lib/reportLabels'
 
 export function ReportDetailHeaderBlock({
   report,
+  reportStatus,
 }: ReportDetailHeaderBlockProps) {
   return (
     <header className="fr-report-detail-page-header">
       <div className="fr-report-detail-title-group">
         <span className="fr-report-detail-status-pill">
-          {translations.report_detail.header.draft_pill}
+          {reportStatusLabel(reportStatus)}
         </span>
         <h1>
-          {report.address} —{' '}
-          {translations.report_detail.header.draft_title_suffix}
+          {report.address} — {reportTitleSuffix(reportStatus)}
         </h1>
         <p className="fr-report-detail-meta-line">
           <strong>{report.client_name}</strong> · {reportReference(report.id)} ·{' '}
@@ -25,6 +27,14 @@ export function ReportDetailHeaderBlock({
       <HeaderLegend />
     </header>
   )
+}
+
+function reportTitleSuffix(status: ReportStatus): string {
+  if (status === 'approved') {
+    return translations.report_detail.header.approved_title_suffix
+  }
+
+  return translations.report_detail.header.draft_title_suffix
 }
 
 function HeaderLegend() {

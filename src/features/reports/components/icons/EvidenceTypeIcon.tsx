@@ -1,4 +1,6 @@
-export function SourceTypeIcon({ type, size }: SourceTypeIconProps) {
+import type { EvidenceTypeIconProps } from '@/types/reportIconView'
+
+export function EvidenceTypeIcon({ type, size }: EvidenceTypeIconProps) {
   if (type === 'audio') {
     return (
       <svg
@@ -30,9 +32,4 @@ export function SourceTypeIcon({ type, size }: SourceTypeIconProps) {
       <circle cx="8" cy="8" r="2.2" />
     </svg>
   )
-}
-
-type SourceTypeIconProps = {
-  type: 'audio' | 'image'
-  size: number
 }

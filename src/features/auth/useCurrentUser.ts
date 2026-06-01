@@ -3,20 +3,11 @@ import { isAuthenticationExpiredError } from '@/lib/api/authenticatedFetch'
 import { getCurrentUser } from '@/lib/api/currentUser'
 import { translations } from '@/lib/translations'
 import type { CurrentUser } from '@/types/auth'
-
-type CurrentUserStatus = 'loading' | 'success' | 'error'
-
-type UseCurrentUserParameters = {
-  onAuthenticationExpired: () => void
-}
-
-type UseCurrentUserResult = {
-  currentUser: CurrentUser | null
-  isLoading: boolean
-  isError: boolean
-  errorMessage: string | null
-  retry: () => void
-}
+import type {
+  CurrentUserStatus,
+  UseCurrentUserParameters,
+  UseCurrentUserResult,
+} from '@/types/authView'
 
 export function useCurrentUser({
   onAuthenticationExpired,

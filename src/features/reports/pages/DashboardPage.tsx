@@ -1,16 +1,17 @@
 import { Button, Spinner } from '@/design-system'
 import { useCurrentUser } from '@/features/auth/useCurrentUser'
 import { translations } from '@/lib/translations'
-import { DashboardShell } from '../components/DashboardShell'
+import { AppShell } from '@/app/AppShell'
 import { DashboardStats } from '../components/DashboardStats'
 import { RecentReportsTable } from '../components/RecentReportsTable'
 import { ValidationReportsSection } from '../components/ValidationReportsSection'
 import { useReportList } from '../hooks/useReportList'
-import type { DashboardPageProps } from '../types/reportView'
+import type { DashboardPageProps } from '@/types/reportView'
 import './DashboardPage.css'
 
 export function DashboardPage({
   onOpenReport,
+  onOpenNewReport,
   onOpenDashboard,
   onOpenReports,
   onAuthenticationExpired,
@@ -62,7 +63,7 @@ export function DashboardPage({
   }
 
   return (
-    <DashboardShell
+    <AppShell
       currentUser={currentUser}
       activeNavigationItem="dashboard"
       breadcrumbItems={[{ label: translations.dashboard.navigation.dashboard }]}
@@ -70,6 +71,11 @@ export function DashboardPage({
       onOpenDashboard={onOpenDashboard}
       onOpenReports={onOpenReports}
     >
+      <div className="fr-dashboard-page-actions">
+        <Button type="button" variant="primary" onClick={onOpenNewReport}>
+          {translations.dashboard.actions.new_report}
+        </Button>
+      </div>
       <ValidationReportsSection
         reports={reportsToValidate}
         onOpenReport={onOpenReport}
@@ -79,6 +85,6 @@ export function DashboardPage({
         reports={recentReports}
         onOpenReports={onOpenReports}
       />
-    </DashboardShell>
+    </AppShell>
   )
 }

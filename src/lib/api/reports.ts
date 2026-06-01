@@ -3,8 +3,8 @@ import { apiBaseUrl } from '@/lib/config'
 import type {
   ReportDetail,
   ReportSummary,
-  UpdateReportSectionResponse,
-  UpdateReportSectionPayload,
+  ReportSectionUpdateResponse,
+  ReportSectionUpdatePayload,
 } from '@/types/report'
 
 export async function getReports(): Promise<ReportSummary[]> {
@@ -32,8 +32,8 @@ export async function getReport(reportId: string): Promise<ReportDetail> {
 export async function updateSection(
   reportId: string,
   sectionId: string,
-  payload: UpdateReportSectionPayload,
-): Promise<UpdateReportSectionResponse> {
+  payload: ReportSectionUpdatePayload,
+): Promise<ReportSectionUpdateResponse> {
   const response = await authenticatedFetch(
     `${apiBaseUrl}/api/v1/reports/${reportId}/sections/${sectionId}`,
     {
@@ -49,5 +49,5 @@ export async function updateSection(
     throw new Error('Report section update failed')
   }
 
-  return (await response.json()) as UpdateReportSectionResponse
+  return (await response.json()) as ReportSectionUpdateResponse
 }

@@ -16,6 +16,7 @@ export function useReportDetail({
   const [report, setReport] = useState<ReportDetail | null>(null)
   const [status, setStatus] = useState<ReportDetailLoadStatus>('loading')
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const [reloadIndex, setReloadIndex] = useState(0)
 
   const showReport = useCallback((fetchedReport: ReportDetail): void => {
     setReport(fetchedReport)
@@ -35,19 +36,46 @@ export function useReportDetail({
     [onAuthenticationExpired],
   )
 
-  const fetchReport = useCallback((): void => {
-    void getReport(reportId).then(showReport).catch(showReportError)
-  }, [reportId, showReport, showReportError])
-
   const loadReport = useCallback((): void => {
     setStatus('loading')
     setErrorMessage(null)
-    fetchReport()
-  }, [fetchReport])
+    setReloadIndex((currentReloadIndex) => currentReloadIndex + 1)
+  }, [])
 
   useEffect(() => {
+    let isCancelled = false
+    let pollTimeoutId: number | undefined
+
+    function fetchReport(): void {
+      void getReport(reportId)
+        .then((fetchedReport) => {
+          if (isCancelled) {
+            return
+          }
+
+          showReport(fetchedReport)
+
+          if (fetchedReport.status === 'generating') {
+            pollTimeoutId = window.setTimeout(fetchReport, 3000)
+          }
+        })
+        .catch((error: unknown) => {
+          if (!isCancelled) {
+            showReportError(error)
+          }
+        })
+    }
+
     fetchReport()
-  }, [fetchReport])
+
+    return () => {
+      isCancelled = true
+
+      if (pollTimeoutId !== undefined) {
+        window.clearTimeout(pollTimeoutId)
+      }
+    }
+  }, [reportId, reloadIndex, showReport, showReportError])
 
   return {
     report,

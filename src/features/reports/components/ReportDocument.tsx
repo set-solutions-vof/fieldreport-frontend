@@ -9,7 +9,7 @@ import { formatUpdatedAt } from '../lib/formatReportDate'
 import type {
   DocumentStatusCellProps,
   ReportDocumentProps,
-} from '../types/reportDetailView'
+} from '@/types/reportDetailView'
 
 export function ReportDocument({
   activeSectionId,
@@ -17,14 +17,14 @@ export function ReportDocument({
   reportId,
   reportUpdatedAt,
   sections,
-  timelineItems,
+  evidenceItems,
   onActiveSectionChange,
   onContentChange,
   onSectionUpdated,
 }: ReportDocumentProps) {
-  const approvedCount = sections.filter((section) => section.is_approved).length
-  const timelineItemsById = Object.fromEntries(
-    timelineItems.map((timelineItem) => [timelineItem.id, timelineItem]),
+  const approvedCount = sections.filter((section) => section.approved).length
+  const evidenceItemsById = Object.fromEntries(
+    evidenceItems.map((evidenceItem) => [evidenceItem.id, evidenceItem]),
   )
 
   return (
@@ -76,7 +76,7 @@ export function ReportDocument({
               index={sectionIndex}
               content={draftContent[section.id] ?? sectionContent(section)}
               active={activeSectionId === section.id}
-              timelineItemsById={timelineItemsById}
+              evidenceItemsById={evidenceItemsById}
               onSectionUpdated={onSectionUpdated}
               onContentChange={onContentChange}
               onActivate={onActiveSectionChange}

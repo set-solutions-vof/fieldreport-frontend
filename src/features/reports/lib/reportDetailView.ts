@@ -1,17 +1,21 @@
 import { translations } from '@/lib/translations'
 import type {
-  ReportSectionBase,
+  ReportSectionContent,
   ReportSection as ReportSectionModel,
-  ReportTimelineItem,
-  UpdateReportSectionResponse,
+  ReportEvidenceItem,
+  ReportSectionUpdateResponse,
 } from '@/types/report'
-import type { SaveAllStatus, SourceRailItem } from '../types/reportDetailView'
+import type { SaveAllStatus, EvidenceRailItem } from '@/types/reportDetailView'
 import { formatSeconds } from './formatSeconds'
 
+export function allSectionsApproved(sections: ReportSectionModel[]): boolean {
+  return sections.length > 0 && sections.every((section) => section.approved)
+}
+
 export function sectionContent(
-  section: Pick<ReportSectionBase, 'field_expert_content' | 'ai_draft'>,
+  section: Pick<ReportSectionContent, 'reviewed_content' | 'generated_content'>,
 ): string {
-  return section.field_expert_content ?? section.ai_draft
+  return section.reviewed_content ?? section.generated_content
 }
 
 export function initialDraftContent(
@@ -26,47 +30,47 @@ export function reportReference(reportId: string): string {
   return `LK-${reportId.slice(0, 8).toUpperCase()}`
 }
 
-export function buildSourceRailItems(
+export function buildEvidenceRailItems(
   sections: ReportSectionModel[],
-  timelineItems: ReportTimelineItem[],
-): SourceRailItem[] {
-  const sectionsByTimelineItemId = new Map<string, ReportSectionModel[]>()
+  evidenceItems: ReportEvidenceItem[],
+): EvidenceRailItem[] {
+  const sectionsByEvidenceItemId = new Map<string, ReportSectionModel[]>()
 
   sections.forEach((section) => {
-    section.source_item_ids.forEach((sourceItemId) => {
-      const linkedSections = sectionsByTimelineItemId.get(sourceItemId) ?? []
+    section.evidence_item_ids.forEach((evidenceItemId) => {
+      const linkedSections = sectionsByEvidenceItemId.get(evidenceItemId) ?? []
 
       linkedSections.push(section)
-      sectionsByTimelineItemId.set(sourceItemId, linkedSections)
+      sectionsByEvidenceItemId.set(evidenceItemId, linkedSections)
     })
   })
 
-  return timelineItems
-    .filter((timelineItem) => sectionsByTimelineItemId.has(timelineItem.id))
-    .map((timelineItem) => {
-      const linkedSections = sectionsByTimelineItemId.get(timelineItem.id)!
+  return evidenceItems
+    .filter((evidenceItem) => sectionsByEvidenceItemId.has(evidenceItem.id))
+    .map((evidenceItem) => {
+      const linkedSections = sectionsByEvidenceItemId.get(evidenceItem.id)!
 
       return {
-        id: timelineItem.id,
+        id: evidenceItem.id,
         primarySectionId: linkedSections[0]!.id,
         sectionIds: linkedSections.map((section) => section.id),
         sectionLabels: linkedSections.map((section) => section.label),
         allSectionsApproved: linkedSections.every(
-          (section) => section.is_approved,
+          (section) => section.approved,
         ),
-        hasOpenSections: linkedSections.some((section) => !section.is_approved),
-        timelineItem,
+        hasOpenSections: linkedSections.some((section) => !section.approved),
+        evidenceItem: evidenceItem,
       }
     })
     .sort(
       (firstItem, secondItem) =>
-        firstItem.timelineItem.timeline_offset_seconds -
-        secondItem.timelineItem.timeline_offset_seconds,
+        firstItem.evidenceItem.timeline_seconds -
+        secondItem.evidenceItem.timeline_seconds,
     )
 }
 
-export function sourceTimeLabel(sourceRailItem: SourceRailItem): string {
-  return formatSeconds(sourceRailItem.timelineItem.timeline_offset_seconds)
+export function evidenceTimeLabel(evidenceRailItem: EvidenceRailItem): string {
+  return formatSeconds(evidenceRailItem.evidenceItem.timeline_seconds)
 }
 
 export function truncateSummary(contentSummary: string): string {
@@ -124,36 +128,36 @@ export function saveStatusLabel(
 
 export function mergeUpdatedSection(
   section: ReportSectionModel,
-  updatedSection: UpdateReportSectionResponse | ReportSectionModel,
+  updatedSection: ReportSectionUpdateResponse | ReportSectionModel,
 ): ReportSectionModel {
-  const updatedSourceItemIds =
-    'source_item_ids' in updatedSection
-      ? updatedSection.source_item_ids
+  const updatedEvidenceItemIds =
+    'evidence_item_ids' in updatedSection
+      ? updatedSection.evidence_item_ids
       : undefined
 
   return {
     ...section,
     ...updatedSection,
-    source_item_ids: updatedSourceItemIds ?? section.source_item_ids,
+    evidence_item_ids: updatedEvidenceItemIds ?? section.evidence_item_ids,
   }
 }
 
-export function sectionSourceChipLabels(
+export function sectionEvidenceChipLabels(
   section: ReportSectionModel,
-  timelineItemsById: Record<string, ReportTimelineItem>,
+  evidenceItemsById: Record<string, ReportEvidenceItem>,
 ): string[] {
   let imageCount = 0
 
-  return section.source_item_ids.flatMap((sourceItemId) => {
-    const timelineItem = timelineItemsById[sourceItemId]
+  return section.evidence_item_ids.flatMap((evidenceItemId) => {
+    const evidenceItem = evidenceItemsById[evidenceItemId]
 
-    if (!timelineItem) {
+    if (!evidenceItem) {
       return []
     }
 
-    if (timelineItem.source_type === 'transcription_segment') {
+    if (evidenceItem.evidence_type === 'transcription_segment') {
       return `[${formatSeconds(
-        timelineItem.start_seconds ?? timelineItem.timeline_offset_seconds,
+        evidenceItem.start_seconds ?? evidenceItem.timeline_seconds,
       )}]`
     }
 
@@ -162,18 +166,18 @@ export function sectionSourceChipLabels(
   })
 }
 
-export function sourceTypeLabel(
-  sourceType: ReportTimelineItem['source_type'],
+export function evidenceTypeLabel(
+  evidenceType: ReportEvidenceItem['evidence_type'],
 ): string {
-  return sourceType === 'transcription_segment'
+  return evidenceType === 'transcription_segment'
     ? translations.report_detail.section.audio_label
     : translations.report_detail.section.image_label
 }
 
-export function sourceTypeIconType(
-  sourceType: ReportTimelineItem['source_type'],
+export function evidenceTypeIconType(
+  evidenceType: ReportEvidenceItem['evidence_type'],
 ): 'audio' | 'image' {
-  return sourceType === 'transcription_segment' ? 'audio' : 'image'
+  return evidenceType === 'transcription_segment' ? 'audio' : 'image'
 }
 
 function averageConfidenceScore(sections: ReportSectionModel[]): number | null {

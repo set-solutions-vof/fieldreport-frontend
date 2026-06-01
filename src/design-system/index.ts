@@ -38,12 +38,12 @@ export type {
   IssueCalloutVariant,
 } from './components/IssueCallout'
 
-export { SourceRailItem } from './components/SourceRailItem'
+export { EvidenceRailItem } from './components/EvidenceRailItem'
 export type {
-  SourceRailItemConnector,
-  SourceRailItemProps,
-  SourceRailItemVariant,
-} from './components/SourceRailItem'
+  EvidenceRailItemConnector,
+  EvidenceRailItemProps,
+  EvidenceRailItemVariant,
+} from './components/EvidenceRailItem'
 
 export { CalmTimeline } from './components/CalmTimeline'
 export type {

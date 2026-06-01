@@ -1,0 +1,95 @@
+.fr-dashboard-content--template {
+  gap: var(--fr-space-0);
+  padding: var(--fr-space-0);
+}
+
+.fr-template-page {
+  display: flex;
+  min-height: calc(100dvh - var(--fr-space-10));
+  flex-direction: column;
+  background: var(--fr-background);
+}
+
+.fr-template-file-input {
+  position: absolute;
+  width: var(--fr-space-0);
+  height: var(--fr-space-0);
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.fr-template-button-icon,
+.fr-template-type-pill__icon,
+.fr-template-type-selector__chevron,
+.fr-template-type-selector__option-icon,
+.fr-template-section-card__button-icon,
+.fr-template-section-card__edit,
+.fr-template-field-chip__icon,
+.fr-template-summary__save-status-icon,
+.fr-template-section-card__photo-hint-icon,
+.fr-template-file__remove-icon {
+  display: block;
+  width: var(--fr-space-4);
+  height: var(--fr-space-4);
+  stroke-width: 1.6;
+}
+
+.fr-template-empty {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--fr-space-5);
+  box-sizing: border-box;
+  padding: var(--fr-space-6);
+  text-align: center;
+}
+
+.fr-template-empty__icon {
+  width: calc(var(--fr-space-6) - var(--fr-space-1));
+  height: calc(var(--fr-space-6) - var(--fr-space-1));
+  color: var(--fr-text-tertiary);
+  stroke-width: 1.4;
+}
+
+.fr-template-empty h1 {
+  margin: var(--fr-space-0);
+  font-size: var(--fr-text-xl);
+  font-weight: var(--fr-weight-semibold);
+  line-height: var(--fr-leading-snug);
+  color: var(--fr-text-primary);
+}
+
+.fr-template-empty p {
+  max-width: calc(var(--fr-space-16) + var(--fr-space-12));
+  margin: var(--fr-space-0);
+  font-size: var(--fr-text-base);
+  line-height: var(--fr-leading-relaxed);
+  color: var(--fr-text-secondary);
+}
+
+.fr-template-empty__extract {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--fr-space-3);
+  margin-top: var(--fr-space-6);
+}
+
+.fr-template-empty__extract > span,
+.fr-template-summary__stat dt {
+  font-size: var(--fr-text-xs);
+  font-weight: var(--fr-weight-medium);
+  line-height: var(--fr-leading-snug);
+  color: var(--fr-text-tertiary);
+  text-transform: uppercase;
+}
+
+.fr-template-empty__pills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--fr-space-2);
+}

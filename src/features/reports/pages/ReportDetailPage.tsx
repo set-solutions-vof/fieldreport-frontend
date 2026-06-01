@@ -1,10 +1,12 @@
 import { Button, Spinner } from '@/design-system'
 import { useCurrentUser } from '@/features/auth/useCurrentUser'
+import { AppShell } from '@/app/AppShell'
+import { TemplateSkeletonGrid } from '@/features/templates/components/TemplateSkeletonGrid'
 import { translations } from '@/lib/translations'
 import { ReportDetailWorkspace } from '../components/ReportDetailWorkspace'
 import { useReportDetail } from '../hooks/useReportDetail'
 import { useReportList } from '../hooks/useReportList'
-import type { ReportDetailPageProps } from '../types/reportView'
+import type { ReportDetailPageProps } from '@/types/reportView'
 import './ReportDetailPage.css'
 
 export function ReportDetailPage({
@@ -70,6 +72,35 @@ export function ReportDetailPage({
           </Button>
         </div>
       </main>
+    )
+  }
+
+  if (report.status === 'generating') {
+    return (
+      <AppShell
+        currentUser={currentUser}
+        activeNavigationItem={source === 'dashboard' ? 'dashboard' : 'reports'}
+        breadcrumbItems={[
+          {
+            label:
+              source === 'dashboard'
+                ? translations.dashboard.navigation.dashboard
+                : translations.dashboard.navigation.all_reports,
+            onClick: source === 'dashboard' ? onOpenDashboard : onOpenReports,
+          },
+          { label: translations.report_detail.states.generating_breadcrumb },
+        ]}
+        contentClassName="fr-dashboard-content--template"
+        totalReportsCount={reports.length}
+        onOpenDashboard={onOpenDashboard}
+        onOpenReports={onOpenReports}
+      >
+        <main className="fr-report-generating-page">
+          <TemplateSkeletonGrid
+            label={translations.report_detail.states.generating_title}
+          />
+        </main>
+      </AppShell>
     )
   }
 

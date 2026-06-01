@@ -1,6 +1,6 @@
 import { Badge, Button, Card } from '@/design-system'
 import { translations } from '@/lib/translations'
-import type { ReportsTableProps } from '../types/reportView'
+import type { ReportsTableProps } from '@/types/reportView'
 import { formatDutchShortDate } from '../lib/formatReportDate'
 import { reportStatusLabel } from '../lib/reportLabels'
 import './ReportsTable.css'

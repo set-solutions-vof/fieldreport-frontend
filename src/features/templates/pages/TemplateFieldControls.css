@@ -1,0 +1,99 @@
+.fr-template-field-chip {
+  display: inline-flex;
+  height: var(--fr-space-5);
+  align-items: center;
+  gap: var(--fr-space-1);
+  padding: var(--fr-space-0) var(--fr-space-2);
+  border-radius: var(--fr-radius-full);
+  background: var(--fr-accent-soft);
+  color: var(--fr-color-accent-800);
+  font-size: var(--fr-text-xs);
+  font-weight: var(--fr-weight-medium);
+  line-height: var(--fr-leading-tight);
+}
+
+.fr-template-field-chip--removable {
+  padding-right: var(--fr-space-1);
+}
+
+.fr-template-field-chip--neutral {
+  color: var(--fr-text-tertiary);
+  background: var(--fr-color-neutral-100);
+}
+
+.fr-template-field-chip__remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--fr-space-4);
+  height: var(--fr-space-4);
+  padding: var(--fr-space-0);
+  color: inherit;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-radius: var(--fr-radius-full);
+}
+
+.fr-template-field-chip__remove:hover,
+.fr-template-field-chip__remove:focus-visible {
+  background: color-mix(in oklch, currentColor 12%, transparent);
+  outline: none;
+}
+
+.fr-template-section-card__field-row {
+  display: flex;
+  max-width: calc(var(--fr-space-15) * 2);
+  align-items: center;
+  gap: var(--fr-space-2);
+}
+
+.fr-template-section-card__new-field {
+  flex: 1;
+}
+
+.fr-template-section-card__icon-button {
+  width: var(--fr-control-height-sm);
+  gap: var(--fr-space-0);
+  padding: var(--fr-space-0);
+}
+
+.fr-template-section-card__icon-button .fr-button__label {
+  position: absolute;
+  width: var(--fr-space-0);
+  height: var(--fr-space-0);
+  overflow: hidden;
+}
+
+.fr-template-section-card__delete {
+  color: var(--fr-text-tertiary);
+}
+
+.fr-template-section-card__delete:hover,
+.fr-template-section-card__delete:focus-visible {
+  color: var(--fr-destructive);
+}
+
+.fr-template-section-card__photo-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--fr-space-2);
+  margin: var(--fr-space-0);
+  color: var(--fr-text-tertiary);
+  font-size: var(--fr-text-sm);
+  line-height: var(--fr-leading-snug);
+}
+
+.fr-template-section-card__photo-hint-icon {
+  width: var(--fr-space-4);
+  height: var(--fr-space-4);
+  flex-shrink: 0;
+}
+
+.fr-template-section-card__order {
+  flex-shrink: 0;
+  font-size: var(--fr-text-sm);
+  font-weight: var(--fr-weight-medium);
+  line-height: var(--fr-leading-snug);
+  color: var(--fr-text-tertiary);
+}

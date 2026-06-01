@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { updateSection } from '@/lib/api/reports'
 import type {
   ReportSection as ReportSectionModel,
-  UpdateReportSectionResponse,
+  ReportSectionUpdateResponse,
 } from '@/types/report'
 import {
   initialDraftContent,
@@ -13,7 +13,7 @@ import type {
   SaveAllStatus,
   UseReportDraftAutosaveParameters,
   UseReportDraftAutosaveResult,
-} from '../types/reportDetailView'
+} from '@/types/reportDetailView'
 
 export function useReportDraftAutosave({
   reportId,
@@ -42,7 +42,7 @@ export function useReportDraftAutosave({
   }, [dirtySectionIds])
 
   const handleSectionUpdated = useCallback(
-    (updatedSection: UpdateReportSectionResponse): void => {
+    (updatedSection: ReportSectionUpdateResponse): void => {
       setSections((currentSections) =>
         currentSections.map((section) =>
           section.id === updatedSection.id
@@ -104,7 +104,7 @@ export function useReportDraftAutosave({
       void Promise.all(
         sectionIds.map((sectionId) =>
           updateSection(reportId, sectionId, {
-            field_expert_content: contentBySectionId[sectionId],
+            reviewed_content: contentBySectionId[sectionId],
           }),
         ),
       )

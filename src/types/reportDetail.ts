@@ -1,4 +1,4 @@
-import type { ReportDetail, UpdateReportSectionResponse } from './report'
+import type { ReportDetail, ReportSectionUpdateResponse } from './report'
 
 export type ReportDetailLoadStatus = 'loading' | 'success' | 'error'
 
@@ -18,7 +18,7 @@ export type UseReportDetailResult = {
 export type UseReportSectionParameters = {
   reportId: string
   sectionId: string
-  onSuccess: (updatedSection: UpdateReportSectionResponse) => void
+  onSuccess: (updatedSection: ReportSectionUpdateResponse) => void
 }
 
 export type UseReportSectionResult = {

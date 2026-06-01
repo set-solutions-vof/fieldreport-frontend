@@ -1,10 +1,10 @@
 import { Button, Spinner } from '@/design-system'
 import { useCurrentUser } from '@/features/auth/useCurrentUser'
 import { translations } from '@/lib/translations'
-import { DashboardShell } from '../components/DashboardShell'
+import { AppShell } from '@/app/AppShell'
 import { ReportsTable } from '../components/ReportsTable'
 import { useReportList } from '../hooks/useReportList'
-import type { AllReportsPageProps } from '../types/reportView'
+import type { AllReportsPageProps } from '@/types/reportView'
 import './DashboardPage.css'
 
 export function AllReportsPage({
@@ -56,7 +56,7 @@ export function AllReportsPage({
   }
 
   return (
-    <DashboardShell
+    <AppShell
       currentUser={currentUser}
       activeNavigationItem="reports"
       breadcrumbItems={[
@@ -77,6 +77,6 @@ export function AllReportsPage({
           onOpenReport={onOpenReport}
         />
       </section>
-    </DashboardShell>
+    </AppShell>
   )
 }

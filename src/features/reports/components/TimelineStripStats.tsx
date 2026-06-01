@@ -1,5 +1,5 @@
 import { translations } from '@/lib/translations'
-import type { TimelineStripStatsProps } from '../types/reportDetailView'
+import type { TimelineStripStatsProps } from '@/types/reportDetailView'
 
 export function TimelineStripStats({
   approvedCount,

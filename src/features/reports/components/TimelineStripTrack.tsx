@@ -1,17 +1,17 @@
 import { translations } from '@/lib/translations'
 import { formatSeconds } from '../lib/formatSeconds'
-import { sourceTypeLabel } from '../lib/reportDetailView'
+import { evidenceTypeLabel } from '../lib/reportDetailView'
 import { timelineEventPosition } from '../lib/timelineStrip'
-import type { TimelineStripTrackProps } from '../types/reportDetailView'
+import type { TimelineStripTrackProps } from '@/types/reportDetailView'
 
 export function TimelineStripTrack({
-  activeSourceItemId,
+  activeEvidenceItemId,
   durationMs,
   events,
   startTimestampMs,
   ticks,
   trackRef,
-  onActiveSourceItemChange,
+  onActiveEvidenceItemChange,
 }: TimelineStripTrackProps) {
   return (
     <div
@@ -44,7 +44,7 @@ export function TimelineStripTrack({
             'fr-timeline-strip-event',
             timelineEvent.allSectionsApproved &&
               'fr-timeline-strip-event--approved',
-            activeSourceItemId === timelineEvent.id &&
+            activeEvidenceItemId === timelineEvent.id &&
               'fr-timeline-strip-event--active',
           ]
             .filter(Boolean)
@@ -59,8 +59,8 @@ export function TimelineStripTrack({
           }}
           title={timelineEventTitle(timelineEvent)}
           aria-label={timelineEventLabel(timelineEvent)}
-          aria-pressed={activeSourceItemId === timelineEvent.id}
-          onClick={() => onActiveSourceItemChange(timelineEvent.id)}
+          aria-pressed={activeEvidenceItemId === timelineEvent.id}
+          onClick={() => onActiveEvidenceItemChange(timelineEvent.id)}
         />
       ))}
     </div>
@@ -70,15 +70,15 @@ export function TimelineStripTrack({
 function timelineEventTitle(
   timelineEvent: TimelineStripTrackProps['events'][number],
 ): string {
-  return `${formatSeconds(timelineEvent.timelineOffsetSeconds)} · ${sourceTypeLabel(
-    timelineEvent.sourceType,
+  return `${formatSeconds(timelineEvent.timelineSeconds)} · ${evidenceTypeLabel(
+    timelineEvent.evidenceType,
   )} · ${timelineEvent.sectionLabels.join(', ')}`
 }
 
 function timelineEventLabel(
   timelineEvent: TimelineStripTrackProps['events'][number],
 ): string {
-  return `${formatSeconds(timelineEvent.timelineOffsetSeconds)} ${sourceTypeLabel(
-    timelineEvent.sourceType,
+  return `${formatSeconds(timelineEvent.timelineSeconds)} ${evidenceTypeLabel(
+    timelineEvent.evidenceType,
   )} ${timelineEvent.sectionLabels.join(', ')}`
 }
