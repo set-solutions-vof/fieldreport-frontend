@@ -10,11 +10,16 @@ import type {
 
 const templateEndpoint = `${apiBaseUrl}/api/v1/template`
 
-function templateSectionRenderType(section: TemplateSectionWire): TemplateSectionType {
+function templateSectionRenderType(
+  section: TemplateSectionWire,
+): TemplateSectionType {
   return section.render_type ?? section.type ?? 'text_block'
 }
 
-function normalizeTemplateSection(section: TemplateSectionWire, index: number): TemplateSection {
+function normalizeTemplateSection(
+  section: TemplateSectionWire,
+  index: number,
+): TemplateSection {
   return {
     id: section.id,
     label: section.label,
@@ -26,13 +31,17 @@ function normalizeTemplateSection(section: TemplateSectionWire, index: number): 
   }
 }
 
-function normalizeTemplateSections(sections: TemplateSectionWire[]): TemplateSection[] {
+function normalizeTemplateSections(
+  sections: TemplateSectionWire[],
+): TemplateSection[] {
   return sections
     .map(normalizeTemplateSection)
     .sort((left, right) => left.order - right.order)
 }
 
-function normalizeTemplateStatus(templateStatus: TemplateStatusResponse): TemplateStatusResponse {
+function normalizeTemplateStatus(
+  templateStatus: TemplateStatusResponse,
+): TemplateStatusResponse {
   if (templateStatus.status === 'pending_review') {
     return {
       ...templateStatus,

@@ -30,9 +30,7 @@ export function useActiveTemplate({
     [onAuthenticationExpired],
   )
 
-  const loadTemplate = useCallback((): void => {
-    setStatus('loading')
-    setErrorMessage(null)
+  const fetchTemplate = useCallback((): void => {
     void getTemplateStatus()
       .then((templateStatus) => {
         if (templateStatus.status !== 'active') {
@@ -44,9 +42,15 @@ export function useActiveTemplate({
       .catch(showTemplateError)
   }, [showTemplateError])
 
+  const loadTemplate = useCallback((): void => {
+    setStatus('loading')
+    setErrorMessage(null)
+    fetchTemplate()
+  }, [fetchTemplate])
+
   useEffect(() => {
-    loadTemplate()
-  }, [loadTemplate])
+    fetchTemplate()
+  }, [fetchTemplate])
 
   return {
     template,

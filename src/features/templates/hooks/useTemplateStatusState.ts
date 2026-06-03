@@ -56,18 +56,22 @@ export function useTemplateStatusState({
     [onAuthenticationExpired],
   )
 
-  const loadTemplateStatus = useCallback((): void => {
-    setLoadStatus('loading')
-    setErrorMessage(null)
-    setActionErrorMessage(null)
+  const fetchTemplateStatus = useCallback((): void => {
     void getTemplateStatus()
       .then(showTemplateStatus)
       .catch(showTemplateLoadError)
   }, [showTemplateStatus, showTemplateLoadError])
 
+  const loadTemplateStatus = useCallback((): void => {
+    setLoadStatus('loading')
+    setErrorMessage(null)
+    setActionErrorMessage(null)
+    fetchTemplateStatus()
+  }, [fetchTemplateStatus])
+
   useEffect(() => {
-    loadTemplateStatus()
-  }, [loadTemplateStatus])
+    fetchTemplateStatus()
+  }, [fetchTemplateStatus])
 
   useEffect(() => {
     if (pageState.kind !== 'processing') {

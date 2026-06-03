@@ -19,7 +19,8 @@ export function ReportDetailHeaderBlock({
           {report.metadata.address} — {reportTitleSuffix(reportStatus)}
         </h1>
         <p className="fr-report-detail-meta-line">
-          <strong>{report.metadata.client_name}</strong> · {reportReference(report.id)} ·{' '}
+          <strong>{report.metadata.client_name}</strong> ·{' '}
+          {reportReference(report.id)} ·{' '}
           {formatDutchShortDate(report.inspection_date)} ·{' '}
           <strong>{report.inspector_name}</strong>
         </p>

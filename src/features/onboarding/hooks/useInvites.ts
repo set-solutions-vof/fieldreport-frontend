@@ -23,9 +23,7 @@ export function useInvites({ onAuthenticationExpired }: UseInvitesParameters) {
     [onAuthenticationExpired],
   )
 
-  const loadInvites = useCallback((): void => {
-    setIsLoading(true)
-    setErrorMessage(null)
+  const fetchInvites = useCallback((): void => {
     void listInvites()
       .then((loadedInvites) => {
         setInvites(loadedInvites)
@@ -37,9 +35,15 @@ export function useInvites({ onAuthenticationExpired }: UseInvitesParameters) {
       })
   }, [showInviteError])
 
+  const loadInvites = useCallback((): void => {
+    setIsLoading(true)
+    setErrorMessage(null)
+    fetchInvites()
+  }, [fetchInvites])
+
   useEffect(() => {
-    loadInvites()
-  }, [loadInvites])
+    fetchInvites()
+  }, [fetchInvites])
 
   async function sendInvite(payload: CreateInvitePayload): Promise<void> {
     setIsSending(true)

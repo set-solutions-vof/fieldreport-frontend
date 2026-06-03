@@ -131,7 +131,11 @@ export function ReportDetailWorkspace({
           onClick: source === 'dashboard' ? onOpenDashboard : onOpenReports,
         },
         { label: translations.report_detail.tabs.report },
-        { label: report.metadata.address },
+        {
+          label:
+            report.metadata.address ??
+            translations.dashboard.reports_table.unknown_address,
+        },
       ]}
       totalReportsCount={totalReportsCount}
       onOpenDashboard={onOpenDashboard}

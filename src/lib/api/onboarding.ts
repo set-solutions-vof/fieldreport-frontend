@@ -2,7 +2,6 @@ import { authenticatedFetch } from '@/lib/api/authenticatedFetch'
 import { apiBaseUrl } from '@/lib/config'
 import type {
   CreateInvitePayload,
-  CreateInviteResponse,
   InviteResponse,
   OnboardingCompany,
   UpdateOnboardingCompanyPayload,
@@ -34,17 +33,20 @@ export async function uploadOnboardingCompanyLogo(
   const formData = new FormData()
   formData.append('file', file)
 
-  const response = await authenticatedFetch(`${apiBaseUrl}/api/v1/uploads/logo`, {
-    method: 'POST',
-    body: formData,
-  })
+  const response = await authenticatedFetch(
+    `${apiBaseUrl}/api/v1/uploads/logo`,
+    {
+      method: 'POST',
+      body: formData,
+    },
+  )
   const { url } = (await response.json()) as { url: string }
   return updateOnboardingCompany({ logo_url: url })
 }
 
 export async function createInvite(
   payload: CreateInvitePayload,
-): Promise<CreateInviteResponse> {
+): Promise<InviteResponse> {
   const response = await authenticatedFetch(`${onboardingEndpoint}/invites`, {
     method: 'POST',
     headers: {
@@ -52,7 +54,7 @@ export async function createInvite(
     },
     body: JSON.stringify(payload),
   })
-  return (await response.json()) as CreateInviteResponse
+  return (await response.json()) as InviteResponse
 }
 
 export async function listInvites(): Promise<InviteResponse[]> {
@@ -61,10 +63,7 @@ export async function listInvites(): Promise<InviteResponse[]> {
 }
 
 export async function deleteInvite(inviteId: string): Promise<void> {
-  await authenticatedFetch(
-    `${onboardingEndpoint}/invites/${inviteId}`,
-    {
-      method: 'DELETE',
-    },
-  )
+  await authenticatedFetch(`${onboardingEndpoint}/invites/${inviteId}`, {
+    method: 'DELETE',
+  })
 }

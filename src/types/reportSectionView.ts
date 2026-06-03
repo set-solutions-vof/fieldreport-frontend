@@ -27,10 +27,7 @@ export type PhotoGridSectionEditorProps = {
   onContentChange: (content: string) => void
 }
 
-export type PhotoGridTile = Pick<
-  ReportEvidenceItem,
-  'id' | 'content_summary'
->
+export type PhotoGridTile = Pick<ReportEvidenceItem, 'id' | 'content_summary'>
 
 export type ReportSectionImageProps = {
   evidenceItem: PhotoGridTile

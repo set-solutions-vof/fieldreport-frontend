@@ -72,4 +72,7 @@ export type MetadataField = {
   required: boolean
 }
 
-export type ActiveTemplate = Extract<TemplateStatusResponse, { status: 'active' }>
+export type ActiveTemplate = Extract<
+  TemplateStatusResponse,
+  { status: 'active' }
+>

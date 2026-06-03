@@ -5,7 +5,6 @@ import {
 } from '@/lib/auth/tokenStore'
 import { TokenRefreshError, refreshAccessToken } from './auth'
 
-
 export async function authenticatedFetch(
   url: string,
   init: RequestInit = {},
@@ -62,16 +61,27 @@ async function fetchWithAccessToken(
 }
 
 async function buildApiError(response: Response): Promise<Error> {
+  let body: unknown
+
   try {
-    const body = await response.json()
-    if (body.detail !== undefined) {
-      const detail =
-        typeof body.detail === 'string'
-          ? body.detail
-          : JSON.stringify(body.detail)
-      return new Error(detail)
-    }
-  } catch {}
+    body = await response.json()
+  } catch {
+    return new Error(`Request failed with status ${response.status}`)
+  }
+
+  if (
+    typeof body === 'object' &&
+    body !== null &&
+    'detail' in body &&
+    body.detail !== undefined
+  ) {
+    const detail =
+      typeof body.detail === 'string'
+        ? body.detail
+        : JSON.stringify(body.detail)
+    return new Error(detail)
+  }
+
   return new Error(`Request failed with status ${response.status}`)
 }
 

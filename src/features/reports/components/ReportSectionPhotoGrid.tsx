@@ -51,7 +51,8 @@ export function PhotoGridSectionEditor({
 function ReportSectionImage({ evidenceItem }: ReportSectionImageProps) {
   return (
     <div className="fr-report-section-photo-placeholder">
-      {evidenceItem.content_summary || translations.report_detail.section.image_label}
+      {evidenceItem.content_summary ||
+        translations.report_detail.section.image_label}
     </div>
   )
 }
