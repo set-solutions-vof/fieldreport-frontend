@@ -13,6 +13,9 @@ export async function authenticatedFetch(
   const response = await fetchWithAccessToken(url, init)
 
   if (response.status !== 401) {
+    if (!response.ok) {
+      throw await buildApiError(response)
+    }
     return response
   }
 
@@ -37,6 +40,10 @@ export async function authenticatedFetch(
     throw new AuthenticationExpiredError()
   }
 
+  if (!retryResponse.ok) {
+    throw await buildApiError(retryResponse)
+  }
+
   return retryResponse
 }
 
@@ -54,6 +61,19 @@ async function fetchWithAccessToken(
   })
 }
 
+async function buildApiError(response: Response): Promise<Error> {
+  try {
+    const body = await response.json()
+    if (body.detail !== undefined) {
+      const detail =
+        typeof body.detail === 'string'
+          ? body.detail
+          : JSON.stringify(body.detail)
+      return new Error(detail)
+    }
+  } catch {}
+  return new Error(`Request failed with status ${response.status}`)
+}
 
 export class AuthenticationExpiredError extends Error {
   constructor() {

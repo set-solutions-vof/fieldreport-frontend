@@ -52,11 +52,6 @@ function normalizeTemplateStatus(templateStatus: TemplateStatusResponse): Templa
 
 export async function getTemplateStatus(): Promise<TemplateStatusResponse> {
   const response = await authenticatedFetch(templateEndpoint)
-
-  if (!response.ok) {
-    throw new Error('Template request failed')
-  }
-
   return normalizeTemplateStatus(
     (await response.json()) as TemplateStatusResponse,
   )
@@ -75,11 +70,6 @@ export async function startTemplateAnalysis(
     method: 'POST',
     body: formData,
   })
-
-  if (!response.ok) {
-    throw new Error('Template analysis request failed')
-  }
-
   return normalizeTemplateStatus(
     (await response.json()) as TemplateStatusResponse,
   )
@@ -91,11 +81,6 @@ export async function getTemplateAnalysis(
   const response = await authenticatedFetch(
     `${templateEndpoint}/analysis/${jobId}`,
   )
-
-  if (!response.ok) {
-    throw new Error('Template analysis status request failed')
-  }
-
   return normalizeTemplateStatus(
     (await response.json()) as TemplateStatusResponse,
   )
@@ -111,11 +96,6 @@ export async function confirmTemplate(
     },
     body: JSON.stringify(payload),
   })
-
-  if (!response.ok) {
-    throw new Error('Template confirmation request failed')
-  }
-
   return normalizeTemplateStatus(
     (await response.json()) as TemplateStatusResponse,
   )

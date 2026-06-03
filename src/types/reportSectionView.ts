@@ -29,7 +29,7 @@ export type PhotoGridSectionEditorProps = {
 
 export type PhotoGridTile = Pick<
   ReportEvidenceItem,
-  'id' | 'content_summary' | 'image_url' | 'thumbnail_url'
+  'id' | 'content_summary'
 >
 
 export type ReportSectionImageProps = {

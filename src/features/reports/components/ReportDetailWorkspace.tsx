@@ -83,10 +83,12 @@ export function ReportDetailWorkspace({
         return
       }
 
-      void getReport(report.id).then((fetchedReport) => {
-        setReportStatus(fetchedReport.status)
-        setReportUpdatedAt(fetchedReport.updated_at)
-      })
+      void getReport(report.id)
+        .then((fetchedReport) => {
+          setReportStatus(fetchedReport.status)
+          setReportUpdatedAt(fetchedReport.updated_at)
+        })
+        .catch(() => {})
     },
     [applySectionUpdated, report.id, sections],
   )
@@ -129,7 +131,7 @@ export function ReportDetailWorkspace({
           onClick: source === 'dashboard' ? onOpenDashboard : onOpenReports,
         },
         { label: translations.report_detail.tabs.report },
-        { label: report.address },
+        { label: report.metadata.address },
       ]}
       totalReportsCount={totalReportsCount}
       onOpenDashboard={onOpenDashboard}

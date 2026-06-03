@@ -1,6 +1,8 @@
 import type { CurrentUser } from '@/types/auth'
 
 export type OnboardingCompany = {
+  id: string
+  name: string
   logo_url: string | null
   primary_color: string | null
   onboarding_completed: boolean
@@ -30,6 +32,9 @@ export type InviteResponse = {
   id: string
   email: string
   role: InviteRole
+  is_accepted: boolean
+  created_at: string
+  expires_at: string
 }
 
 export type OnboardingWizardPageProps = {

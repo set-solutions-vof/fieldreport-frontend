@@ -12,11 +12,6 @@ const onboardingEndpoint = `${apiBaseUrl}/api/v1/onboarding`
 
 export async function getOnboardingCompany(): Promise<OnboardingCompany> {
   const response = await authenticatedFetch(`${onboardingEndpoint}/company`)
-
-  if (!response.ok) {
-    throw new Error('Onboarding company request failed')
-  }
-
   return (await response.json()) as OnboardingCompany
 }
 
@@ -30,11 +25,6 @@ export async function updateOnboardingCompany(
     },
     body: JSON.stringify(payload),
   })
-
-  if (!response.ok) {
-    throw new Error('Onboarding company update request failed')
-  }
-
   return (await response.json()) as OnboardingCompany
 }
 
@@ -48,11 +38,6 @@ export async function uploadOnboardingCompanyLogo(
     method: 'POST',
     body: formData,
   })
-
-  if (!response.ok) {
-    throw new Error('Logo upload failed')
-  }
-
   const { url } = (await response.json()) as { url: string }
   return updateOnboardingCompany({ logo_url: url })
 }
@@ -67,33 +52,19 @@ export async function createInvite(
     },
     body: JSON.stringify(payload),
   })
-
-  if (!response.ok) {
-    throw new Error('Invite creation request failed')
-  }
-
   return (await response.json()) as CreateInviteResponse
 }
 
 export async function listInvites(): Promise<InviteResponse[]> {
   const response = await authenticatedFetch(`${onboardingEndpoint}/invites`)
-
-  if (!response.ok) {
-    throw new Error('Invite list request failed')
-  }
-
   return (await response.json()) as InviteResponse[]
 }
 
 export async function deleteInvite(inviteId: string): Promise<void> {
-  const response = await authenticatedFetch(
+  await authenticatedFetch(
     `${onboardingEndpoint}/invites/${inviteId}`,
     {
       method: 'DELETE',
     },
   )
-
-  if (!response.ok) {
-    throw new Error('Invite delete request failed')
-  }
 }

@@ -25,10 +25,5 @@ export async function createInspection(
     method: 'POST',
     body: formData,
   })
-
-  if (!response.ok) {
-    throw new Error('Failed to create inspection')
-  }
-
   return (await response.json()) as CreateInspectionResponse
 }

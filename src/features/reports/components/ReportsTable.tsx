@@ -31,7 +31,7 @@ export function ReportsTable({
           <tbody>
             {reports.map((report) => (
               <tr key={report.id}>
-                <td>{report.address ?? unknownAddress}</td>
+                <td>{report.metadata.address ?? unknownAddress}</td>
                 <td>{formatDutchShortDate(report.inspection_date)}</td>
                 <td>-</td>
                 <td>

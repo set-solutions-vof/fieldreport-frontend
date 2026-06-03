@@ -49,21 +49,9 @@ export function PhotoGridSectionEditor({
 }
 
 function ReportSectionImage({ evidenceItem }: ReportSectionImageProps) {
-  const imageUrl = evidenceItem.thumbnail_url ?? evidenceItem.image_url
-
-  if (imageUrl) {
-    return (
-      <img
-        className="fr-report-section-photo-image"
-        src={imageUrl}
-        alt={evidenceItem.content_summary}
-      />
-    )
-  }
-
   return (
     <div className="fr-report-section-photo-placeholder">
-      {translations.report_detail.section.image_label}
+      {evidenceItem.content_summary || translations.report_detail.section.image_label}
     </div>
   )
 }
@@ -72,7 +60,5 @@ function emptyPhotoTiles(captions: string[]): PhotoGridTile[] {
   return captions.map((caption, captionIndex) => ({
     id: `photo-placeholder-${captionIndex}`,
     content_summary: caption,
-    image_url: null,
-    thumbnail_url: null,
   }))
 }

@@ -8,8 +8,7 @@ export type ReportSummary = {
   id: string
   company_id: string
   status: ReportStatus
-  client_name: string
-  address: string
+  metadata: { client_name: string | null; address: string | null }
   inspection_date: string
   inspector_name: string
 }
@@ -22,8 +21,6 @@ export type ReportEvidenceItem = {
   end_seconds: number | null
   captured_at: string | null
   content_summary: string
-  image_url?: string | null
-  thumbnail_url?: string | null
 }
 
 export type ReportEvidenceSource = {
@@ -59,8 +56,7 @@ export type ReportSectionUpdateResponse = ReportSectionContent & {
 export type ReportDetail = {
   id: string
   status: ReportStatus
-  client_name: string
-  address: string
+  metadata: { client_name: string | null; address: string | null }
   inspection_date: string
   inspector_name: string
   updated_at: string | null
