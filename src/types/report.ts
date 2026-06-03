@@ -21,6 +21,7 @@ export type ReportEvidenceItem = {
   end_seconds: number | null
   captured_at: string | null
   content_summary: string
+  storage_key: string | null
 }
 
 export type ReportEvidenceSource = {

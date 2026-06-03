@@ -1,3 +1,4 @@
+import { apiBaseUrl } from '@/lib/config'
 import { translations } from '@/lib/translations'
 import type {
   PhotoGridSectionEditorProps,
@@ -49,10 +50,19 @@ export function PhotoGridSectionEditor({
 }
 
 function ReportSectionImage({ evidenceItem }: ReportSectionImageProps) {
+  if (evidenceItem.storage_key) {
+    return (
+      <img
+        className="fr-report-section-photo-image"
+        src={`${apiBaseUrl}/api/v1/inspections/photos/${evidenceItem.storage_key}`}
+        alt={evidenceItem.content_summary}
+      />
+    )
+  }
+
   return (
     <div className="fr-report-section-photo-placeholder">
-      {evidenceItem.content_summary ||
-        translations.report_detail.section.image_label}
+      {translations.report_detail.section.image_label}
     </div>
   )
 }
@@ -61,5 +71,6 @@ function emptyPhotoTiles(captions: string[]): PhotoGridTile[] {
   return captions.map((caption, captionIndex) => ({
     id: `photo-placeholder-${captionIndex}`,
     content_summary: caption,
+    storage_key: null,
   }))
 }
