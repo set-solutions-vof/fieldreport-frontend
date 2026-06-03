@@ -55,6 +55,7 @@
   "section": {
     "approve_button": "Goedkeuren",
     "approved_button": "Goedgekeurd",
+    "approve_failed": "Goedkeuren is mislukt. Probeer het opnieuw.",
     "inspector_text_suffix": "inspecteurstekst",
     "sources_for_prefix": "Bronnen voor",
     "image_label": "Foto",

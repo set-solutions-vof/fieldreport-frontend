@@ -12,12 +12,6 @@ export type SectionContentEditorProps = {
   onStructuredChange: (content: string) => void
 }
 
-export type KeyValueSectionEditorProps = {
-  fields: string[]
-  content: string
-  onContentChange: (content: string) => void
-}
-
 export type GroupedFieldsSectionEditorProps = {
   sectionLabel: string
   fields: string[]

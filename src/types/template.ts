@@ -32,11 +32,13 @@ export type TemplateStatusResponse =
   | {
       status: 'pending_review'
       job_id: string
+      metadata_fields: MetadataField[]
       sections: TemplateSection[]
       source_reports_count: number
     }
   | {
       status: 'active'
+      metadata_fields: MetadataField[]
       sections: TemplateSection[]
       source_reports_count: number
     }
@@ -47,6 +49,7 @@ export type TemplateStatusResponse =
     }
 
 export type ConfirmTemplatePayload = {
+  metadata_fields: MetadataField[]
   sections: TemplateSection[]
 }
 
@@ -60,3 +63,13 @@ export type TemplateSectionWire = {
   found_in?: number
   groups?: TemplateSectionGroup[] | null
 }
+
+export type MetadataField = {
+  key: string
+  label: string
+  type: 'text' | 'select' | 'date' | 'phone' | 'email' | 'boolean'
+  options?: string[]
+  required: boolean
+}
+
+export type ActiveTemplate = Extract<TemplateStatusResponse, { status: 'active' }>

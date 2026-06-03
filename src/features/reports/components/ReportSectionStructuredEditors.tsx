@@ -1,48 +1,10 @@
-import type {
-  KeyValueSectionEditorProps,
-  GroupedFieldsSectionEditorProps,
-} from '@/types/reportSectionView'
+import type { GroupedFieldsSectionEditorProps } from '@/types/reportSectionView'
 import {
   serializeStructuredFields,
   structuredFieldValues,
   updatedValues,
 } from '../lib/reportSectionContent'
 import { AutoSizedTextarea } from './AutoSizedTextarea'
-
-export function KeyValueSectionEditor({
-  fields,
-  content,
-  onContentChange,
-}: KeyValueSectionEditorProps) {
-  const values = structuredFieldValues(fields, content)
-
-  return (
-    <div className="fr-report-section-kv">
-      {fields.map((field, fieldIndex) => (
-        <div
-          className="fr-report-section-kv-row"
-          key={`${field}-${fieldIndex}`}
-        >
-          <span>{field}</span>
-          <AutoSizedTextarea
-            aria-label={field}
-            className="fr-report-section-structured-textarea"
-            fieldClassName="fr-report-section-structured-field"
-            value={values[fieldIndex] ?? ''}
-            onChange={(event) =>
-              onContentChange(
-                serializeStructuredFields(
-                  fields,
-                  updatedValues(values, fieldIndex, event.currentTarget.value),
-                ),
-              )
-            }
-          />
-        </div>
-      ))}
-    </div>
-  )
-}
 
 export function GroupedFieldsSectionEditor({
   sectionLabel,

@@ -6,6 +6,13 @@ import type {
   RefreshTokenResponse,
 } from '@/types/auth'
 
+export class TokenRefreshError extends Error {
+  constructor() {
+    super('Token refresh failed')
+    this.name = 'TokenRefreshError'
+  }
+}
+
 export async function login(credentials: LoginRequest): Promise<LoginResponse> {
   const response = await fetch(`${apiBaseUrl}/api/v1/auth/login/json`, {
     method: 'POST',
@@ -34,7 +41,7 @@ export async function refreshAccessToken(
   })
 
   if (!response.ok) {
-    throw new Error('Token refresh failed')
+    throw new TokenRefreshError()
   }
 
   return (await response.json()) as RefreshTokenResponse

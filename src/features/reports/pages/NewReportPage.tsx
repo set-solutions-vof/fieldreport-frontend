@@ -4,27 +4,14 @@ import { Button, Spinner } from '@/design-system'
 import { AppShell } from '@/app/AppShell'
 import { useCurrentUser } from '@/features/auth/useCurrentUser'
 import { translations } from '@/lib/translations'
-import type { ClientType, InvestigationType } from '@/types/newReport'
 import type { NewReportPageProps } from '@/types/newReportView'
 import { NewReportCompletionProgress } from '../components/NewReportCompletionProgress'
 import { NewReportContextCard } from '../components/NewReportContextCard'
 import { NewReportFilesCard } from '../components/NewReportFilesCard'
 import { NewReportProjectDetailsCard } from '../components/NewReportProjectDetailsCard'
+import { useActiveTemplate } from '../hooks/useActiveTemplate'
 import { useNewReport } from '../hooks/useNewReport'
 import './NewReportPage.css'
-
-const investigationTypes: InvestigationType[] = [
-  'lekdetectie',
-  'bouwkundig',
-  'droogtechniek',
-]
-
-const clientTypes: ClientType[] = [
-  'particulier',
-  'verzekeraar',
-  'juridisch',
-  'aannemer',
-]
 
 export function NewReportPage({
   onAuthenticationExpired,
@@ -40,6 +27,8 @@ export function NewReportPage({
     form,
     errors,
     isSubmitting,
+    showMetadataErrors,
+    updateMetadata,
     updateField,
     addAudioFiles,
     removeAudioFile,
@@ -51,6 +40,13 @@ export function NewReportPage({
     onSuccess: onReportCreated,
   })
   const {
+    template,
+    isLoading: isTemplateLoading,
+    isError: isTemplateError,
+    errorMessage: templateErrorMessage,
+    retry: retryTemplate,
+  } = useActiveTemplate({ onAuthenticationExpired })
+  const {
     currentUser,
     isLoading: isCurrentUserLoading,
     isError: isCurrentUserError,
@@ -60,7 +56,7 @@ export function NewReportPage({
 
   function handleSubmit(event: FormEvent<HTMLFormElement>): void {
     event.preventDefault()
-    void submit()
+    void submit(template?.metadata_fields ?? [])
   }
 
   if (isCurrentUserLoading) {
@@ -103,15 +99,22 @@ export function NewReportPage({
       onOpenDashboard={onOpenDashboard}
       onOpenReports={onOpenReports}
     >
-      <form className="fr-new-report-page" onSubmit={handleSubmit}>
-        <NewReportCompletionProgress form={form} errors={errors} />
+      <form className="fr-new-report-page" noValidate onSubmit={handleSubmit}>
+        <NewReportCompletionProgress
+          metadataFields={template?.metadata_fields ?? []}
+          metadataValue={form.metadata}
+        />
         <NewReportProjectDetailsCard
-          clientTypes={clientTypes}
-          errors={errors}
-          form={form}
-          investigationTypes={investigationTypes}
+          fields={template?.metadata_fields ?? []}
+          inspectorName={currentUser!.name}
           isSubmitting={isSubmitting}
-          onFieldChange={updateField}
+          isTemplateError={isTemplateError}
+          isTemplateLoading={isTemplateLoading}
+          metadataValue={form.metadata}
+          showMetadataErrors={showMetadataErrors}
+          templateErrorMessage={templateErrorMessage}
+          onMetadataChange={updateMetadata}
+          onRetryTemplate={retryTemplate}
         />
         <NewReportFilesCard
           audioFiles={form.audioFiles}
@@ -145,7 +148,12 @@ export function NewReportPage({
           >
             {translations.new_report.cancel_button}
           </Button>
-          <Button type="submit" variant="primary" loading={isSubmitting}>
+          <Button
+            type="submit"
+            variant="primary"
+            disabled={isTemplateLoading || isTemplateError}
+            loading={isSubmitting}
+          >
             {translations.new_report.submit_button}
           </Button>
         </footer>

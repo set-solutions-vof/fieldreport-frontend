@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react'
 import { LoginPage } from '@/features/auth/LoginPage'
 import type { CurrentUser } from '@/types/auth'
-import { AdminRouter } from './admin/AdminRouter'
+import { AdminOnboardingGate } from './admin/AdminOnboardingGate'
 import { InspectorRouter } from './inspector/InspectorRouter'
 
 export function AppRouter() {
@@ -16,7 +16,12 @@ export function AppRouter() {
   }
 
   if (currentUser.role === 'admin') {
-    return <AdminRouter onAuthenticationExpired={handleAuthenticationExpired} />
+    return (
+      <AdminOnboardingGate
+        currentUser={currentUser}
+        onAuthenticationExpired={handleAuthenticationExpired}
+      />
+    )
   }
 
   return (

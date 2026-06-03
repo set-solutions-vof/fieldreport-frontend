@@ -24,36 +24,17 @@
   width: 75%;
 }
 
-.fr-template-preview-panel__table {
-  width: 100%;
-  border-spacing: var(--fr-space-0);
-  border-collapse: collapse;
-  color: var(--fr-text-secondary);
-  font-size: var(--fr-text-xs);
-  line-height: var(--fr-leading-snug);
-}
-
-.fr-template-preview-panel__table th,
-.fr-template-preview-panel__table td {
-  padding: var(--fr-space-2) var(--fr-space-3);
-  border: var(--fr-border-width-sm) solid var(--fr-border);
-}
-
-.fr-template-preview-panel__table th {
-  color: var(--fr-text-secondary);
-  font-weight: var(--fr-weight-semibold);
-  text-align: left;
-}
-
-.fr-template-preview-panel__table--key-value th,
-.fr-template-preview-panel__table--key-value td {
-  width: 50%;
-}
-
 .fr-template-preview-panel__grouped-table {
   display: flex;
   flex-direction: column;
   gap: var(--fr-space-4);
+}
+
+.fr-template-preview-panel__grouped-table--compact {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(var(--fr-space-0), 1fr));
+  column-gap: var(--fr-space-8);
+  row-gap: var(--fr-space-5);
 }
 
 .fr-template-preview-panel__section-group {
@@ -69,6 +50,18 @@
   font-size: var(--fr-text-xs);
   font-weight: var(--fr-weight-bold);
   line-height: var(--fr-leading-snug);
+}
+
+.fr-template-preview-panel__section-group--compact {
+  gap: var(--fr-space-2);
+}
+
+.fr-template-preview-panel__section-group--compact
+  .fr-template-preview-panel__section-group-title {
+  padding: var(--fr-space-0);
+  color: var(--fr-accent);
+  background: transparent;
+  font-size: var(--fr-text-sm);
 }
 
 .fr-template-preview-panel__section-group-title--placeholder {
@@ -92,6 +85,24 @@
   font-size: var(--fr-text-xs);
   font-style: italic;
   line-height: var(--fr-leading-snug);
+}
+
+.fr-template-preview-panel__section-group--compact
+  .fr-template-preview-panel__section-group-row {
+  grid-template-columns: minmax(var(--fr-space-11), 0.45fr) minmax(
+      var(--fr-space-0),
+      1fr
+    );
+  gap: var(--fr-space-3);
+}
+
+.fr-template-preview-panel__section-group--compact
+  .fr-template-preview-panel__section-group-label {
+  color: var(--fr-accent);
+  font-size: var(--fr-text-xs);
+  font-style: normal;
+  font-weight: var(--fr-weight-medium);
+  text-transform: uppercase;
 }
 
 .fr-template-preview-panel__section-group-copy {

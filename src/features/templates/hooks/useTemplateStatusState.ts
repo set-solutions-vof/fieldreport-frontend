@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { getTemplateAnalysis, getTemplateStatus } from '@/lib/api/templates'
-import { isAuthenticationExpiredError } from '@/lib/api/authenticatedFetch'
+import { AuthenticationExpiredError } from '@/lib/api/authenticatedFetch'
 import { translations } from '@/lib/translations'
 import type { TemplateStatusResponse } from '@/types/template'
 import type {
@@ -25,7 +25,7 @@ export function useTemplateStatusState({
 
   const showAuthenticationOrError = useCallback(
     (error: unknown, message: string): void => {
-      if (isAuthenticationExpiredError(error)) {
+      if (error instanceof AuthenticationExpiredError) {
         onAuthenticationExpired()
         return
       }
@@ -45,7 +45,7 @@ export function useTemplateStatusState({
 
   const showTemplateLoadError = useCallback(
     (error: unknown): void => {
-      if (isAuthenticationExpiredError(error)) {
+      if (error instanceof AuthenticationExpiredError) {
         onAuthenticationExpired()
         return
       }
@@ -66,10 +66,8 @@ export function useTemplateStatusState({
   }, [showTemplateStatus, showTemplateLoadError])
 
   useEffect(() => {
-    void getTemplateStatus()
-      .then(showTemplateStatus)
-      .catch(showTemplateLoadError)
-  }, [showTemplateStatus, showTemplateLoadError])
+    loadTemplateStatus()
+  }, [loadTemplateStatus])
 
   useEffect(() => {
     if (pageState.kind !== 'processing') {

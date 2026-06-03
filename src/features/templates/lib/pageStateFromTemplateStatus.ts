@@ -22,6 +22,7 @@ export function pageStateFromTemplateStatus(
     return {
       kind: 'preview',
       job_id: templateStatus.job_id,
+      metadataFields: templateStatus.metadata_fields,
       sections: templateStatus.sections,
       reportsCount: templateStatus.source_reports_count,
     }
@@ -37,6 +38,7 @@ export function pageStateFromTemplateStatus(
 
   return {
     kind: 'approved',
+    metadataFields: templateStatus.metadata_fields,
     sections: templateStatus.sections,
     reportsCount: templateStatus.source_reports_count,
   }

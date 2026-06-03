@@ -89,7 +89,8 @@ export function ReportEvidenceRail({
             <span className="fr-report-evidence-rail-title">
               {truncateSummary(
                 evidenceRailItem.evidenceItem.content_summary ||
-                  translations.report_detail.evidence_rail.fallback_source_title,
+                  translations.report_detail.evidence_rail
+                    .fallback_source_title,
               )}
             </span>
             <span className="fr-report-evidence-rail-section">
@@ -103,7 +104,11 @@ export function ReportEvidenceRail({
   )
 }
 
-function EvidenceFilterChip({ active, label, onClick }: EvidenceFilterChipProps) {
+function EvidenceFilterChip({
+  active,
+  label,
+  onClick,
+}: EvidenceFilterChipProps) {
   return (
     <button
       type="button"

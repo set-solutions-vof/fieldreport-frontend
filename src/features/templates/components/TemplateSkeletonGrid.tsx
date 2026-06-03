@@ -1,4 +1,5 @@
 import { LogoMark } from '@/design-system'
+import { translations } from '@/lib/translations'
 import type { TemplateSkeletonGridProps } from '@/types/templateView'
 import '../pages/TemplateSectionGroupsState.css'
 import '../pages/TemplateSummaryState.css'
@@ -7,7 +8,7 @@ import '../pages/TemplateUploadState.css'
 const skeletonCards = Array.from({ length: 7 }, (_, index) => index)
 
 export function TemplateSkeletonGrid({
-  label = 'Analysing your reports',
+  label = translations.template.processing.label,
 }: TemplateSkeletonGridProps) {
   return (
     <div className="fr-template-processing">

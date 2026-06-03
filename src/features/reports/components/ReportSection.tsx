@@ -17,7 +17,7 @@ export function ReportSection({
   onContentChange,
   onActivate,
 }: ReportSectionProps) {
-  const { approve } = useReportSection({
+  const { approve, approveError } = useReportSection({
     reportId,
     sectionId: section.id,
     onSuccess: onSectionUpdated,
@@ -25,7 +25,10 @@ export function ReportSection({
   const confidencePercentage = confidenceScorePercentage(
     section.confidence_score,
   )
-  const evidenceChipLabels = sectionEvidenceChipLabels(section, evidenceItemsById)
+  const evidenceChipLabels = sectionEvidenceChipLabels(
+    section,
+    evidenceItemsById,
+  )
 
   function handleContentChange(event: ChangeEvent<HTMLTextAreaElement>): void {
     onContentChange(section.id, event.currentTarget.value)
@@ -101,6 +104,12 @@ export function ReportSection({
         onTextChange={handleContentChange}
         onStructuredChange={updateStructuredContent}
       />
+
+      {approveError !== null && (
+        <p className="fr-report-section-approve-error" role="alert">
+          {approveError}
+        </p>
+      )}
 
       {evidenceChipLabels.length > 0 && (
         <div

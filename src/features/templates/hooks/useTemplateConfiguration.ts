@@ -68,7 +68,7 @@ export function useTemplateConfiguration({
     setPageState({ kind: 'empty' })
   }
 
-  async function startAnalysis(): Promise<void> {
+  async function startAnalysis(): Promise<boolean> {
     const uploadingState = pageState as TemplateUploadingPageState
     setActionErrorMessage(null)
 
@@ -77,11 +77,13 @@ export function useTemplateConfiguration({
       setPageState(
         pageStateFromTemplateStatus(templateStatus, uploadingState.files),
       )
+      return true
     } catch (error) {
       showAuthenticationOrError(
         error,
         translations.template.errors.analysis_failed,
       )
+      return false
     }
   }
 
@@ -132,21 +134,24 @@ export function useTemplateConfiguration({
     setPageState({ kind: 'empty' })
   }
 
-  async function confirmCurrentTemplate(): Promise<void> {
+  async function confirmCurrentTemplate(): Promise<boolean> {
     const previewState = pageState as TemplatePreviewPageState
     setActionErrorMessage(null)
     setIsConfirming(true)
 
     try {
       const templateStatus = await confirmTemplate({
+        metadata_fields: previewState.metadataFields,
         sections: previewState.sections,
       })
       setPageState(pageStateFromTemplateStatus(templateStatus))
+      return true
     } catch (error) {
       showAuthenticationOrError(
         error,
         translations.template.errors.confirm_failed,
       )
+      return false
     } finally {
       setIsConfirming(false)
     }

@@ -44,11 +44,13 @@
   top: 50%;
 }
 
-.fr-evidence-rail-item[data-connector='end'] .fr-evidence-rail-item__rail::before {
+.fr-evidence-rail-item[data-connector='end']
+  .fr-evidence-rail-item__rail::before {
   bottom: 50%;
 }
 
-.fr-evidence-rail-item[data-connector='none'] .fr-evidence-rail-item__rail::before {
+.fr-evidence-rail-item[data-connector='none']
+  .fr-evidence-rail-item__rail::before {
   display: none;
 }
 

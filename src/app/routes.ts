@@ -4,6 +4,7 @@ export const dashboardRoute = '/dashboard'
 export const allReportsRoute = '/reports'
 export const newReportRoute = '/reports/new'
 export const templateRoute = '/admin/template'
+export const onboardingRoute = '/onboarding'
 export const dashboardReportRoutePrefix = '/dashboard/reports/'
 export const allReportsReportRoutePrefix = '/reports/'
 

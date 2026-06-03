@@ -34,9 +34,7 @@ export function timelineStartTimestampMs(): number {
 
 export function timelineEndTimestampMs(events: TimelineStripEvent[]): number {
   return Math.max(
-    ...events.map(
-      (timelineEvent) => timelineEvent.timelineSeconds * 1000,
-    ),
+    ...events.map((timelineEvent) => timelineEvent.timelineSeconds * 1000),
   )
 }
 
@@ -53,8 +51,7 @@ export function timelineEventPosition(
   durationMs: number,
 ): number {
   return (
-    ((timelineEvent.timelineSeconds * 1000 - startTimestampMs) /
-      durationMs) *
+    ((timelineEvent.timelineSeconds * 1000 - startTimestampMs) / durationMs) *
     100
   )
 }

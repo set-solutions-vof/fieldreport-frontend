@@ -94,7 +94,7 @@
 .fr-template-approved-title__icon {
   width: var(--fr-space-4);
   height: var(--fr-space-4);
-  color: var(--fr-text-tertiary);
+  color: var(--fr-status-approved-fg);
   stroke-width: 1.6;
 }
 

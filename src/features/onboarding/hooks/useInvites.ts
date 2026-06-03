@@ -1,0 +1,80 @@
+import { useCallback, useEffect, useState } from 'react'
+import { createInvite, deleteInvite, listInvites } from '@/lib/api/onboarding'
+import { AuthenticationExpiredError } from '@/lib/api/authenticatedFetch'
+import { translations } from '@/lib/translations'
+import type { CreateInvitePayload, InviteResponse } from '@/types/onboarding'
+import type { UseInvitesParameters } from '@/types/onboardingView'
+
+export function useInvites({ onAuthenticationExpired }: UseInvitesParameters) {
+  const [invites, setInvites] = useState<InviteResponse[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [isSending, setIsSending] = useState(false)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+
+  const showInviteError = useCallback(
+    (error: unknown, message: string): void => {
+      if (error instanceof AuthenticationExpiredError) {
+        onAuthenticationExpired()
+        return
+      }
+
+      setErrorMessage(message)
+    },
+    [onAuthenticationExpired],
+  )
+
+  const loadInvites = useCallback((): void => {
+    setIsLoading(true)
+    setErrorMessage(null)
+    void listInvites()
+      .then((loadedInvites) => {
+        setInvites(loadedInvites)
+        setIsLoading(false)
+      })
+      .catch((error: unknown) => {
+        showInviteError(error, translations.onboarding.invites.load_failed)
+        setIsLoading(false)
+      })
+  }, [showInviteError])
+
+  useEffect(() => {
+    loadInvites()
+  }, [loadInvites])
+
+  async function sendInvite(payload: CreateInvitePayload): Promise<void> {
+    setIsSending(true)
+    setErrorMessage(null)
+
+    try {
+      const invite = await createInvite(payload)
+      setInvites((currentInvites) => [...currentInvites, invite])
+    } catch (error) {
+      showInviteError(error, translations.onboarding.invites.send_failed)
+    } finally {
+      setIsSending(false)
+    }
+  }
+
+  async function removeInvite(inviteId: string): Promise<void> {
+    setErrorMessage(null)
+
+    try {
+      await deleteInvite(inviteId)
+      setInvites((currentInvites) =>
+        currentInvites.filter((invite) => invite.id !== inviteId),
+      )
+    } catch (error) {
+      showInviteError(error, translations.onboarding.invites.delete_failed)
+    }
+  }
+
+  return {
+    invites,
+    isLoading,
+    isSending,
+    errorMessage,
+    retry: loadInvites,
+    sendInvite,
+    removeInvite,
+  }
+}

@@ -12,14 +12,7 @@ export async function createInspection(
 ): Promise<CreateInspectionResponse> {
   const formData = new FormData()
 
-  formData.append('address', form.address)
-  formData.append('inspection_date', form.inspectionDate)
-  formData.append('investigation_type', form.investigationType)
-  formData.append('client_type', form.clientType)
-
-  if (form.referenceNumber) {
-    formData.append('reference_number', form.referenceNumber)
-  }
+  formData.append('metadata', JSON.stringify(form.metadata))
 
   if (form.extraContext) {
     formData.append('extra_context', form.extraContext)

@@ -20,7 +20,7 @@ export function TemplateSectionFields({
   const [draftField, setDraftField] = useState('')
   const [isCollapsed, setIsCollapsed] = useState(false)
 
-  if (renderType === 'measurement_table') {
+  if (renderType === 'key_value_table' || renderType === 'measurement_table') {
     return (
       <TemplateSectionGroups
         sectionId={sectionId}
@@ -74,7 +74,7 @@ export function TemplateSectionFields({
         {hiddenFieldsCount > 0 && (
           <TemplateFieldChip
             neutral
-          >{`+${hiddenFieldsCount} more`}</TemplateFieldChip>
+          >{`+${hiddenFieldsCount} meer`}</TemplateFieldChip>
         )}
       </div>
       {shouldShowCollapseToggle && (

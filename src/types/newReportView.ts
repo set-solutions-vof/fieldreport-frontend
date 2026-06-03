@@ -1,11 +1,5 @@
 import type { ChangeEvent, DragEvent, KeyboardEvent, RefObject } from 'react'
-import type {
-  ClientType,
-  InvestigationType,
-  NewReportFormErrors,
-  NewReportFormState,
-  NewReportTextField,
-} from './newReport'
+import type { MetadataField } from './template'
 
 export type NewReportPageProps = {
   onAuthenticationExpired: () => void
@@ -22,17 +16,28 @@ export type FileChipProps = {
 }
 
 export type NewReportCompletionProgressProps = {
-  errors: NewReportFormErrors
-  form: NewReportFormState
+  metadataFields: MetadataField[]
+  metadataValue: Record<string, string>
 }
 
 export type NewReportProjectDetailsCardProps = {
-  clientTypes: ClientType[]
-  errors: NewReportFormErrors
-  form: NewReportFormState
-  investigationTypes: InvestigationType[]
+  fields: MetadataField[]
+  inspectorName: string
   isSubmitting: boolean
-  onFieldChange: (field: NewReportTextField, value: string) => void
+  isTemplateError: boolean
+  isTemplateLoading: boolean
+  metadataValue: Record<string, string>
+  showMetadataErrors: boolean
+  templateErrorMessage: string | null
+  onMetadataChange: (value: Record<string, string>) => void
+  onRetryTemplate: () => void
+}
+
+export type DynamicMetadataFormProps = {
+  fields: MetadataField[]
+  value: Record<string, string>
+  onChange: (value: Record<string, string>) => void
+  showErrors: boolean
 }
 
 export type NewReportFilesCardProps = {

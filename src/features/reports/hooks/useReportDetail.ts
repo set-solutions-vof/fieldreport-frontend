@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { isAuthenticationExpiredError } from '@/lib/api/authenticatedFetch'
+import { AuthenticationExpiredError } from '@/lib/api/authenticatedFetch'
 import { getReport } from '@/lib/api/reports'
 import { translations } from '@/lib/translations'
 import type { ReportDetail } from '@/types/report'
@@ -25,7 +25,7 @@ export function useReportDetail({
 
   const showReportError = useCallback(
     (error: unknown): void => {
-      if (isAuthenticationExpiredError(error)) {
+      if (error instanceof AuthenticationExpiredError) {
         onAuthenticationExpired()
         return
       }

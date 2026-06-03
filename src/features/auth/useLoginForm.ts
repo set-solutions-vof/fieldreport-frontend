@@ -4,7 +4,7 @@ import { login } from '@/lib/api/auth'
 import { getCurrentUser } from '@/lib/api/currentUser'
 import { translations } from '@/lib/translations'
 import type { UseLoginFormParameters } from '@/types/authView'
-import { storeAuthTokens } from './tokenStore'
+import { storeAuthTokens } from '@/lib/auth/tokenStore'
 
 export function useLoginForm({ onLoginSuccess }: UseLoginFormParameters) {
   const [email, setEmail] = useState('')
@@ -30,10 +30,16 @@ export function useLoginForm({ onLoginSuccess }: UseLoginFormParameters) {
     try {
       const tokens = await login({ email, password })
       storeAuthTokens(tokens)
-      const user = await getCurrentUser()
-      onLoginSuccess(user)
+
+      try {
+        const user = await getCurrentUser()
+        onLoginSuccess(user)
+      } catch {
+        setLoginError(translations.auth.errors.current_user_load_failed)
+      }
     } catch {
       setLoginError(translations.auth.login.invalid_credentials_error)
+    } finally {
       setIsSubmitting(false)
     }
   }

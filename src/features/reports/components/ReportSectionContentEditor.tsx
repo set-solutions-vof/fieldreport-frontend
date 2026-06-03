@@ -2,10 +2,7 @@ import { translations } from '@/lib/translations'
 import type { SectionContentEditorProps } from '@/types/reportSectionView'
 import { AutoSizedTextarea } from './AutoSizedTextarea'
 import { PhotoGridSectionEditor } from './ReportSectionPhotoGrid'
-import {
-  KeyValueSectionEditor,
-  GroupedFieldsSectionEditor,
-} from './ReportSectionStructuredEditors'
+import { GroupedFieldsSectionEditor } from './ReportSectionStructuredEditors'
 import './ReportSectionContent.css'
 
 export function SectionContentEditor({
@@ -17,8 +14,10 @@ export function SectionContentEditor({
 }: SectionContentEditorProps) {
   if (section.render_type === 'key_value_table') {
     return (
-      <KeyValueSectionEditor
+      <GroupedFieldsSectionEditor
+        sectionLabel={section.label}
         fields={section.fields!}
+        groups={section.groups ?? null}
         content={content}
         onContentChange={onStructuredChange}
       />
@@ -30,7 +29,7 @@ export function SectionContentEditor({
       <GroupedFieldsSectionEditor
         sectionLabel={section.label}
         fields={section.fields!}
-        groups={section.groups!}
+        groups={section.groups ?? null}
         content={content}
         onContentChange={onStructuredChange}
       />

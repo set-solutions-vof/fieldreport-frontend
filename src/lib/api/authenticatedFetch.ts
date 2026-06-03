@@ -2,21 +2,9 @@ import {
   clearAuthTokens,
   getAuthTokens,
   storeAccessToken,
-} from '@/features/auth/tokenStore'
-import { refreshAccessToken } from './auth'
+} from '@/lib/auth/tokenStore'
+import { TokenRefreshError, refreshAccessToken } from './auth'
 
-export class AuthenticationExpiredError extends Error {
-  constructor() {
-    super('Authentication expired')
-    this.name = 'AuthenticationExpiredError'
-  }
-}
-
-export function isAuthenticationExpiredError(
-  error: unknown,
-): error is AuthenticationExpiredError {
-  return error instanceof AuthenticationExpiredError
-}
 
 export async function authenticatedFetch(
   url: string,
@@ -34,9 +22,12 @@ export async function authenticatedFetch(
       refresh_token: authTokens.refresh_token,
     })
     storeAccessToken(refreshedToken.access_token)
-  } catch {
-    clearAuthTokens()
-    throw new AuthenticationExpiredError()
+  } catch (error) {
+    if (error instanceof TokenRefreshError) {
+      clearAuthTokens()
+      throw new AuthenticationExpiredError()
+    }
+    throw error
   }
 
   const retryResponse = await fetchWithAccessToken(url, init)
@@ -61,4 +52,12 @@ async function fetchWithAccessToken(
     ...init,
     headers,
   })
+}
+
+
+export class AuthenticationExpiredError extends Error {
+  constructor() {
+    super('Authentication expired')
+    this.name = 'AuthenticationExpiredError'
+  }
 }

@@ -23,4 +23,5 @@ export type UseReportSectionParameters = {
 
 export type UseReportSectionResult = {
   approve: () => Promise<void>
+  approveError: string | null
 }

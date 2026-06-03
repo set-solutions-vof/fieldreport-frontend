@@ -52,6 +52,13 @@
   --fr-color-amber: #b45309;
   --fr-color-amber-soft: #fbf1de;
 
+  --fr-color-green-50: oklch(96.5% 0.03 145);
+  --fr-color-green-100: oklch(92% 0.06 145);
+  --fr-color-green-500: oklch(60% 0.16 145);
+  --fr-color-green-700: oklch(45% 0.14 145);
+  --fr-color-green: #15803d;
+  --fr-color-green-soft: #e9f7ee;
+
   --fr-color-red-50: oklch(96.5% 0.025 25);
   --fr-color-red-100: oklch(92.5% 0.055 25);
   --fr-color-red-500: oklch(58% 0.18 25);
@@ -97,9 +104,9 @@
   --fr-status-draft-bg: var(--fr-color-neutral-100);
   --fr-status-draft-border: var(--fr-color-neutral-300);
 
-  --fr-status-approved-fg: var(--fr-color-neutral-800);
-  --fr-status-approved-bg: var(--fr-color-neutral-100);
-  --fr-status-approved-border: var(--fr-color-neutral-300);
+  --fr-status-approved-fg: var(--fr-color-green-700);
+  --fr-status-approved-bg: var(--fr-color-green-soft);
+  --fr-status-approved-border: var(--fr-color-green-100);
 
   --fr-status-generating-fg: var(--fr-color-amber-700);
   --fr-status-generating-bg: var(--fr-color-amber-50);

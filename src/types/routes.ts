@@ -1,3 +1,5 @@
+import type { CurrentUser } from '@/types/auth'
+
 export type ReportRouteSource = 'dashboard' | 'reports'
 
 export type ReportRouteMatch = {
@@ -10,5 +12,10 @@ export type InspectorRouterProps = {
 }
 
 export type AdminRouterProps = {
+  onAuthenticationExpired: () => void
+}
+
+export type AdminOnboardingGateProps = {
+  currentUser: CurrentUser
   onAuthenticationExpired: () => void
 }

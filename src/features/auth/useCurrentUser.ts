@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { isAuthenticationExpiredError } from '@/lib/api/authenticatedFetch'
+import { AuthenticationExpiredError } from '@/lib/api/authenticatedFetch'
 import { getCurrentUser } from '@/lib/api/currentUser'
 import { translations } from '@/lib/translations'
 import type { CurrentUser } from '@/types/auth'
@@ -26,7 +26,7 @@ export function useCurrentUser({
 
   const showCurrentUserError = useCallback(
     (error: unknown): void => {
-      if (isAuthenticationExpiredError(error)) {
+      if (error instanceof AuthenticationExpiredError) {
         onAuthenticationExpired()
         return
       }

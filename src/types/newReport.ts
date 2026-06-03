@@ -1,40 +1,18 @@
-export type InvestigationType = 'lekdetectie' | 'bouwkundig' | 'droogtechniek'
-
-export type ClientType =
-  | 'particulier'
-  | 'verzekeraar'
-  | 'juridisch'
-  | 'aannemer'
+import type { ActiveTemplate, MetadataField } from './template'
 
 export type NewReportFormState = {
-  address: string
-  inspectionDate: string
-  investigationType: InvestigationType | ''
-  clientType: ClientType | ''
-  referenceNumber: string
+  metadata: Record<string, string>
   audioFiles: File[]
   photoFiles: File[]
   extraContext: string
 }
 
 export type NewReportFormErrors = {
-  address?: string
-  inspectionDate?: string
-  investigationType?: string
-  clientType?: string
   audioFiles?: string
   submit?: string
 }
 
-export type NewReportTextField = keyof Pick<
-  NewReportFormState,
-  | 'address'
-  | 'inspectionDate'
-  | 'investigationType'
-  | 'clientType'
-  | 'referenceNumber'
-  | 'extraContext'
->
+export type NewReportTextField = 'extraContext'
 
 export type UseNewReportParameters = {
   onAuthenticationExpired: () => void
@@ -45,15 +23,29 @@ export type UseNewReportResult = {
   form: NewReportFormState
   errors: NewReportFormErrors
   isSubmitting: boolean
+  showMetadataErrors: boolean
+  updateMetadata: (metadata: Record<string, string>) => void
   updateField: (field: NewReportTextField, value: string) => void
   addAudioFiles: (files: File[]) => void
   removeAudioFile: (name: string) => void
   addPhotoFiles: (files: File[]) => void
   removePhotoFile: (name: string) => void
-  submit: () => Promise<void>
+  submit: (metadataFields: MetadataField[]) => Promise<void>
 }
 
 export type CreateInspectionResponse = {
   report_id: string
   status: 'generating'
+}
+
+export type UseActiveTemplateParameters = {
+  onAuthenticationExpired: () => void
+}
+
+export type UseActiveTemplateResult = {
+  template: ActiveTemplate | null
+  isLoading: boolean
+  isError: boolean
+  errorMessage: string | null
+  retry: () => void
 }

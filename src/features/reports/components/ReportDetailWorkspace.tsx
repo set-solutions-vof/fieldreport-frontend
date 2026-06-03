@@ -32,15 +32,18 @@ export function ReportDetailWorkspace({
 }: ReportDetailWorkspaceProps) {
   const [activeTab, setActiveTab] = useState<ReportDetailTab>('report')
   const [activeSectionId, setActiveSectionId] = useState<string | null>(null)
-  const [activeEvidenceItemId, setActiveEvidenceItemId] = useState<string | null>(
+  const [activeEvidenceItemId, setActiveEvidenceItemId] = useState<
+    string | null
+  >(null)
+  const evidenceActivationOriginRef = useRef<EvidenceActivationOrigin | null>(
     null,
   )
-  const evidenceActivationOriginRef = useRef<EvidenceActivationOrigin | null>(null)
   const [reportStatus, setReportStatus] = useState<ReportStatus>(report.status)
   const [reportUpdatedAt, setReportUpdatedAt] = useState<string | null>(
     report.updated_at,
   )
-  const [evidenceFilter, setEvidenceFilter] = useState<EvidenceRailFilter>('all')
+  const [evidenceFilter, setEvidenceFilter] =
+    useState<EvidenceRailFilter>('all')
   const {
     dirtyCount,
     draftContent,

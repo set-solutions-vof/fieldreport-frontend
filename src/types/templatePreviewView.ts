@@ -9,7 +9,7 @@ export type TemplatePreviewContentProps = {
 }
 
 export type TemplateKeyValuePreviewProps = {
-  fields: string[] | null
+  section: TemplateSection
 }
 
 export type TemplateGroupedTablePreviewProps = {
@@ -18,9 +18,11 @@ export type TemplateGroupedTablePreviewProps = {
 
 export type TemplateSectionGroupListProps = {
   groups: TemplateSectionGroup[]
+  compact?: boolean
 }
 
 export type TemplateSectionGroupProps = {
   title: string
   rows: string[]
+  compact?: boolean
 }

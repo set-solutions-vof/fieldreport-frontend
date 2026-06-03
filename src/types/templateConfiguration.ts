@@ -1,5 +1,6 @@
 import type { Dispatch, SetStateAction } from 'react'
 import type {
+  MetadataField,
   TemplateSectionGroup,
   TemplateSection,
   TemplateSectionType,
@@ -12,10 +13,16 @@ export type TemplatePageState =
   | {
       kind: 'preview'
       job_id: string
+      metadataFields: MetadataField[]
       sections: TemplateSection[]
       reportsCount: number
     }
-  | { kind: 'approved'; sections: TemplateSection[]; reportsCount: number }
+  | {
+      kind: 'approved'
+      metadataFields: MetadataField[]
+      sections: TemplateSection[]
+      reportsCount: number
+    }
   | { kind: 'failed'; errorMessage: string; reportsCount: number }
 
 export type TemplateUploadingPageState = Extract<
@@ -47,7 +54,7 @@ export type UseTemplateConfigurationResult = {
   addFiles: (files: File[]) => void
   removeFile: (fileName: string) => void
   cancelUpload: () => void
-  startAnalysis: () => Promise<void>
+  startAnalysis: () => Promise<boolean>
   updateSectionLabel: (sectionId: string, label: string) => void
   updateSectionRenderType: (
     sectionId: string,
@@ -60,7 +67,7 @@ export type UseTemplateConfigurationResult = {
   ) => void
   deleteSection: (sectionId: string) => void
   reorderSections: (fromIndex: number, toIndex: number) => void
-  confirmCurrentTemplate: () => Promise<void>
+  confirmCurrentTemplate: () => Promise<boolean>
   resetAfterFailure: () => void
 }
 

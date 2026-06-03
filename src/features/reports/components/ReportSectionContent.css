@@ -17,36 +17,10 @@
   border-color: var(--fr-border);
 }
 
-.fr-report-section-kv,
 .fr-report-section-grouped-fields,
 .fr-report-section-group {
   display: flex;
   flex-direction: column;
-}
-
-.fr-report-section-kv {
-  border-top: 1px solid var(--fr-border);
-  border-left: 1px solid var(--fr-border);
-}
-
-.fr-report-section-kv-row {
-  display: grid;
-  grid-template-columns: minmax(var(--fr-space-13), 0.34fr) minmax(
-      var(--fr-space-0),
-      1fr
-    );
-  border-right: 1px solid var(--fr-border);
-  border-bottom: 1px solid var(--fr-border);
-}
-
-.fr-report-section-kv-row > span {
-  padding: var(--fr-space-3);
-  color: var(--fr-text-secondary);
-  background: var(--fr-color-neutral-50);
-  border-right: 1px solid var(--fr-border);
-  font-size: var(--fr-text-sm);
-  font-weight: var(--fr-weight-medium);
-  line-height: var(--fr-leading-snug);
 }
 
 .fr-report-section-grouped-fields {
