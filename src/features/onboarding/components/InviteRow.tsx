@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { ChangeEvent } from 'react'
 import { Button, Input } from '@/design-system'
+import { inviteRoleLabel } from '@/lib/inviteRole'
 import { translations } from '@/lib/translations'
 import type { InviteRole } from '@/types/onboarding'
 import type {
@@ -19,7 +20,7 @@ export function InviteRow(props: InviteRowProps) {
         </span>
         <div className="fr-onboarding-invite-row__identity">
           <strong>{props.invite.email}</strong>
-          <span>{roleLabels[props.invite.role]}</span>
+          <span>{inviteRoleLabel(props.invite.role)}</span>
         </div>
         <span className="fr-onboarding-invite-row__badge">
           <OnboardingIcon
@@ -111,7 +112,3 @@ function inviteInitials(email: string): string {
   return email.slice(0, 2).toUpperCase()
 }
 
-const roleLabels: Record<InviteRole, string> = {
-  admin: translations.onboarding.invites.roles.admin,
-  inspector: translations.onboarding.invites.roles.inspector,
-}

@@ -42,8 +42,10 @@
   "approved": {
     "title": "Je template is actief",
     "hint": "Alle nieuwe inspecties gebruiken deze structuur.",
+    "editing_hint": "Pas secties en velden aan en sla je wijzigingen op.",
     "edit_button": "Template bewerken",
-    "edit_tooltip": "Bewerken volgt later"
+    "save_button": "Wijzigingen opslaan",
+    "cancel_button": "Annuleren"
   },
   "failed": {
     "title": "Analyse mislukt",

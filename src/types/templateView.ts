@@ -29,6 +29,7 @@ export type TemplateFieldChipProps = {
 export type TemplateReviewStateProps = {
   sections: TemplateSection[]
   approved?: boolean
+  editing?: boolean
   showPreview?: boolean
   actionErrorMessage: string | null
   isConfirming: boolean
@@ -43,6 +44,8 @@ export type TemplateReviewStateProps = {
   onGroupsChange: (sectionId: string, groups: TemplateSectionGroup[]) => void
   onReorder: (fromIndex: number, toIndex: number) => void
   onConfirm: () => void
+  onEdit?: () => void
+  onCancel?: () => void
 }
 
 export type TemplateSectionCardProps = {
@@ -180,5 +183,6 @@ export type TemplateUploadingStateProps = {
 
 export type TemplateConfigurationPageProps = {
   onOpenTemplate: () => void
+  onOpenTeam: () => void
   onAuthenticationExpired: () => void
 }

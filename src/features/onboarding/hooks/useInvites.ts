@@ -50,8 +50,9 @@ export function useInvites({ onAuthenticationExpired }: UseInvitesParameters) {
     setErrorMessage(null)
 
     try {
-      const invite = await createInvite(payload)
-      setInvites((currentInvites) => [...currentInvites, invite])
+      await createInvite(payload)
+      const loadedInvites = await listInvites()
+      setInvites(loadedInvites)
     } catch (error) {
       showInviteError(error, translations.onboarding.invites.send_failed)
     } finally {

@@ -10,6 +10,7 @@ import './TemplateReviewState.css'
 export function TemplateReviewState({
   sections,
   approved = false,
+  editing = false,
   showPreview = false,
   actionErrorMessage,
   isConfirming,
@@ -21,6 +22,8 @@ export function TemplateReviewState({
   onGroupsChange,
   onReorder,
   onConfirm,
+  onEdit,
+  onCancel,
 }: TemplateReviewStateProps) {
   const fieldsCount = sections.reduce(
     (totalFields, section) => totalFields + (section.fields?.length ?? 0),
@@ -56,19 +59,30 @@ export function TemplateReviewState({
         hint={
           approved
             ? translations.template.approved.hint
-            : translations.template.review.hint
+            : editing
+              ? translations.template.approved.editing_hint
+              : translations.template.review.hint
         }
         stats={stats}
         saveStatus={approved ? 'idle' : saveStatus}
         action={
           approved ? (
-            <Button
-              variant="ghost"
-              disabled
-              title={translations.template.approved.edit_tooltip}
-            >
+            <Button variant="secondary" onClick={onEdit}>
               {translations.template.approved.edit_button}
             </Button>
+          ) : editing ? (
+            <div className="fr-template-summary__actions">
+              <Button variant="ghost" onClick={onCancel}>
+                {translations.template.approved.cancel_button}
+              </Button>
+              <Button
+                variant="primary"
+                loading={isConfirming}
+                onClick={onConfirm}
+              >
+                {translations.template.approved.save_button}
+              </Button>
+            </div>
           ) : (
             <Button
               variant="primary"

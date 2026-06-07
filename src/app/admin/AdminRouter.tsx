@@ -1,31 +1,61 @@
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import { TeamPage } from '@/features/team/pages/TeamPage'
 import { TemplateConfigurationPage } from '@/features/templates/pages/TemplateConfigurationPage'
 import type { AdminRouterProps } from '@/types/routes'
-import { templateRoute } from '../routes'
+import { adminTeamRoute, templateRoute } from '../routes'
 
 export function AdminRouter({ onAuthenticationExpired }: AdminRouterProps) {
-  const openTemplate = useCallback((): void => {
-    if (window.location.pathname !== templateRoute) {
-      window.history.pushState(null, '', templateRoute)
+  const [currentPath, setCurrentPath] = useState(() => {
+    const path = window.location.pathname
+    const resolvedPath = resolveAdminPath(path)
+    if (resolvedPath !== path) {
+      window.history.replaceState(null, '', resolvedPath)
     }
+    return resolvedPath
+  })
+
+  const navigate = useCallback((path: string): void => {
+    const resolvedPath = resolveAdminPath(path)
+    window.history.pushState(null, '', resolvedPath)
+    setCurrentPath(resolvedPath)
   }, [])
 
   useEffect(() => {
-    function normalizePath(): void {
-      if (window.location.pathname !== templateRoute) {
-        window.history.replaceState(null, '', templateRoute)
+    function handlePopState(): void {
+      const resolvedPath = resolveAdminPath(window.location.pathname)
+      if (resolvedPath !== window.location.pathname) {
+        window.history.replaceState(null, '', resolvedPath)
       }
+      setCurrentPath(resolvedPath)
     }
 
-    normalizePath()
-    window.addEventListener('popstate', normalizePath)
-    return () => window.removeEventListener('popstate', normalizePath)
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
   }, [])
+
+  if (currentPath === adminTeamRoute) {
+    return (
+      <TeamPage
+        onOpenTemplate={() => navigate(templateRoute)}
+        onOpenTeam={() => navigate(adminTeamRoute)}
+        onAuthenticationExpired={onAuthenticationExpired}
+      />
+    )
+  }
 
   return (
     <TemplateConfigurationPage
-      onOpenTemplate={openTemplate}
+      onOpenTemplate={() => navigate(templateRoute)}
+      onOpenTeam={() => navigate(adminTeamRoute)}
       onAuthenticationExpired={onAuthenticationExpired}
     />
   )
+}
+
+function resolveAdminPath(path: string): string {
+  if (path === adminTeamRoute) {
+    return adminTeamRoute
+  }
+
+  return templateRoute
 }

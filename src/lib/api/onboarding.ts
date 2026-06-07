@@ -2,6 +2,7 @@ import { authenticatedFetch } from '@/lib/api/authenticatedFetch'
 import { apiBaseUrl } from '@/lib/config'
 import type {
   CreateInvitePayload,
+  InviteCreatedResponse,
   InviteResponse,
   OnboardingCompany,
   UpdateOnboardingCompanyPayload,
@@ -46,7 +47,7 @@ export async function uploadOnboardingCompanyLogo(
 
 export async function createInvite(
   payload: CreateInvitePayload,
-): Promise<InviteResponse> {
+): Promise<InviteCreatedResponse> {
   const response = await authenticatedFetch(`${onboardingEndpoint}/invites`, {
     method: 'POST',
     headers: {
@@ -54,7 +55,7 @@ export async function createInvite(
     },
     body: JSON.stringify(payload),
   })
-  return (await response.json()) as InviteResponse
+  return (await response.json()) as InviteCreatedResponse
 }
 
 export async function listInvites(): Promise<InviteResponse[]> {

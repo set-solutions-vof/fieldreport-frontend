@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { confirmTemplate, startTemplateAnalysis } from '@/lib/api/templates'
 import { translations } from '@/lib/translations'
 import type {
@@ -15,7 +15,8 @@ import {
   updatePreviewSectionRenderType,
 } from '../lib/templatePreviewState'
 import type {
-  TemplatePreviewPageState,
+  TemplateEditablePageState,
+  TemplatePageState,
   TemplateUploadingPageState,
   UseTemplateConfigurationParameters,
   UseTemplateConfigurationResult,
@@ -37,6 +38,10 @@ export function useTemplateConfiguration({
     showAuthenticationOrError,
   } = useTemplateStatusState({ onAuthenticationExpired })
   const [isConfirming, setIsConfirming] = useState(false)
+  const approvedSnapshotRef = useRef<Extract<
+    TemplatePageState,
+    { kind: 'approved' }
+  > | null>(null)
   const saveStatus = useTemplateAutoSave(pageState)
 
   function addFiles(files: File[]): void {
@@ -134,16 +139,47 @@ export function useTemplateConfiguration({
     setPageState({ kind: 'empty' })
   }
 
+  function startEditingTemplate(): void {
+    if (pageState.kind !== 'approved') {
+      return
+    }
+
+    approvedSnapshotRef.current = pageState
+    setActionErrorMessage(null)
+    setPageState({
+      kind: 'editing',
+      metadataFields: pageState.metadataFields,
+      sections: pageState.sections,
+      reportsCount: pageState.reportsCount,
+    })
+  }
+
+  function cancelEditing(): void {
+    const approvedSnapshot = approvedSnapshotRef.current
+    if (pageState.kind !== 'editing' || approvedSnapshot === null) {
+      return
+    }
+
+    setActionErrorMessage(null)
+    setPageState(approvedSnapshot)
+    approvedSnapshotRef.current = null
+  }
+
   async function confirmCurrentTemplate(): Promise<boolean> {
-    const previewState = pageState as TemplatePreviewPageState
+    if (pageState.kind !== 'preview' && pageState.kind !== 'editing') {
+      return false
+    }
+
+    const editableState = pageState as TemplateEditablePageState
     setActionErrorMessage(null)
     setIsConfirming(true)
 
     try {
       const templateStatus = await confirmTemplate({
-        metadata_fields: previewState.metadataFields,
-        sections: previewState.sections,
+        metadata_fields: editableState.metadataFields,
+        sections: editableState.sections,
       })
+      approvedSnapshotRef.current = null
       setPageState(pageStateFromTemplateStatus(templateStatus))
       return true
     } catch (error) {
@@ -177,6 +213,8 @@ export function useTemplateConfiguration({
     deleteSection,
     reorderSections,
     confirmCurrentTemplate,
+    startEditingTemplate,
+    cancelEditing,
     resetAfterFailure,
   }
 }

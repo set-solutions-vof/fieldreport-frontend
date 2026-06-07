@@ -1,0 +1,13 @@
+{
+  "navigation_label": "Je team",
+  "title": "Je team",
+  "description": "Nodig collega's uit als beheerder of inspecteur.",
+  "members_title": "Teamleden",
+  "members_empty": "Er zijn nog geen teamleden.",
+  "pending_title": "Openstaande uitnodigingen",
+  "empty": "Er zijn nog geen uitnodigingen verstuurd.",
+  "errors": {
+    "load_failed_title": "Team laden is mislukt",
+    "load_failed": "Teamleden konden niet worden geladen."
+  }
+}

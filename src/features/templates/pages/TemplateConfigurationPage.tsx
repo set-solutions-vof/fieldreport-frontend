@@ -18,6 +18,7 @@ import './TemplateFieldControls.css'
 
 export function TemplateConfigurationPage({
   onOpenTemplate,
+  onOpenTeam,
   onAuthenticationExpired,
 }: TemplateConfigurationPageProps) {
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -41,6 +42,8 @@ export function TemplateConfigurationPage({
     deleteSection,
     reorderSections,
     confirmCurrentTemplate,
+    startEditingTemplate,
+    cancelEditing,
     resetAfterFailure,
   } = useTemplateConfiguration({ onAuthenticationExpired })
   const {
@@ -107,6 +110,7 @@ export function TemplateConfigurationPage({
       breadcrumbItems={[{ label: translations.template.navigation_label }]}
       contentClassName="fr-dashboard-content--template"
       onOpenTemplate={onOpenTemplate}
+      onOpenTeam={onOpenTeam}
     >
       <main
         className="fr-template-page"
@@ -157,6 +161,24 @@ export function TemplateConfigurationPage({
             onConfirm={() => void confirmCurrentTemplate()}
           />
         )}
+        {pageState.kind === 'editing' && (
+          <TemplateReviewState
+            editing
+            showPreview
+            sections={pageState.sections}
+            actionErrorMessage={actionErrorMessage}
+            isConfirming={isConfirming}
+            saveStatus={saveStatus}
+            onLabelChange={updateSectionLabel}
+            onDelete={deleteSection}
+            onRenderTypeChange={updateSectionRenderType}
+            onFieldsChange={updateSectionFields}
+            onGroupsChange={updateSectionGroups}
+            onReorder={reorderSections}
+            onConfirm={() => void confirmCurrentTemplate()}
+            onCancel={cancelEditing}
+          />
+        )}
         {pageState.kind === 'approved' && (
           <TemplateReviewState
             approved
@@ -170,6 +192,7 @@ export function TemplateConfigurationPage({
             onGroupsChange={updateSectionGroups}
             onReorder={reorderSections}
             onConfirm={() => void confirmCurrentTemplate()}
+            onEdit={startEditingTemplate}
           />
         )}
       </main>

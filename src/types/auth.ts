@@ -26,3 +26,14 @@ export type CurrentUser = {
   company_id: string
   company_name: string
 }
+
+export type InvitePreview = {
+  email: string
+  role: 'admin' | 'inspector'
+  company_name: string
+}
+
+export type AcceptInviteRequest = {
+  name: string
+  password: string
+}

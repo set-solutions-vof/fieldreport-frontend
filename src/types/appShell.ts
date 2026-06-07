@@ -5,6 +5,7 @@ export type AppShellNavigationItem =
   | 'dashboard'
   | 'reports'
   | 'template'
+  | 'team'
   | 'profile'
 
 export type AppShellBreadcrumbItem = {
@@ -22,4 +23,5 @@ export type AppShellProps = {
   onOpenDashboard?: () => void
   onOpenReports?: () => void
   onOpenTemplate?: () => void
+  onOpenTeam?: () => void
 }

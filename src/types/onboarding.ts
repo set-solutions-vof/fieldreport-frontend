@@ -21,6 +21,13 @@ export type CreateInvitePayload = {
   role: InviteRole
 }
 
+export type InviteCreatedResponse = {
+  id: string
+  email: string
+  role: InviteRole
+  created_at: string
+}
+
 export type InviteResponse = {
   id: string
   email: string

@@ -4,7 +4,17 @@ export type LoginPageProps = {
   onLoginSuccess: (user: CurrentUser) => void
 }
 
+export type AcceptInvitePageProps = {
+  token: string
+  onLoginSuccess: (user: CurrentUser) => void
+}
+
 export type UseLoginFormParameters = {
+  onLoginSuccess: (user: CurrentUser) => void
+}
+
+export type UseAcceptInviteFormParameters = {
+  token: string
   onLoginSuccess: (user: CurrentUser) => void
 }
 

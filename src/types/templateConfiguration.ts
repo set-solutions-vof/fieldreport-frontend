@@ -23,6 +23,12 @@ export type TemplatePageState =
       sections: TemplateSection[]
       reportsCount: number
     }
+  | {
+      kind: 'editing'
+      metadataFields: MetadataField[]
+      sections: TemplateSection[]
+      reportsCount: number
+    }
   | { kind: 'failed'; errorMessage: string; reportsCount: number }
 
 export type TemplateUploadingPageState = Extract<
@@ -34,6 +40,15 @@ export type TemplatePreviewPageState = Extract<
   TemplatePageState,
   { kind: 'preview' }
 >
+
+export type TemplateEditingPageState = Extract<
+  TemplatePageState,
+  { kind: 'editing' }
+>
+
+export type TemplateEditablePageState =
+  | TemplatePreviewPageState
+  | TemplateEditingPageState
 
 export type TemplateLoadStatus = 'loading' | 'success' | 'error'
 export type TemplateSaveStatus = 'idle' | 'saved'
@@ -68,6 +83,8 @@ export type UseTemplateConfigurationResult = {
   deleteSection: (sectionId: string) => void
   reorderSections: (fromIndex: number, toIndex: number) => void
   confirmCurrentTemplate: () => Promise<boolean>
+  startEditingTemplate: () => void
+  cancelEditing: () => void
   resetAfterFailure: () => void
 }
 

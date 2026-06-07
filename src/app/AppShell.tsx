@@ -17,6 +17,7 @@ export function AppShell({
   onOpenDashboard,
   onOpenReports,
   onOpenTemplate,
+  onOpenTeam,
 }: AppShellProps) {
   const userInitials = getUserInitials(currentUser.name)
   const userRoleLabel = formatUserRole(currentUser.role)
@@ -85,6 +86,18 @@ export function AppShell({
               }
             >
               {translations.dashboard.navigation.template}
+            </button>
+          )}
+          {onOpenTeam !== undefined && (
+            <button
+              className={navigationItemClassName(activeNavigationItem, 'team')}
+              type="button"
+              onClick={onOpenTeam}
+              aria-current={
+                activeNavigationItem === 'team' ? 'page' : undefined
+              }
+            >
+              {translations.dashboard.navigation.team}
             </button>
           )}
           {onOpenDashboard !== undefined && (

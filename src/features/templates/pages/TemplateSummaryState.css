@@ -150,3 +150,9 @@
   width: var(--fr-space-3);
   height: var(--fr-space-3);
 }
+
+.fr-template-summary__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--fr-space-2);
+}
