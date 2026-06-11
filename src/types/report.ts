@@ -8,7 +8,7 @@ export type ReportSummary = {
   id: string
   company_id: string
   status: ReportStatus
-  metadata: { client_name: string | null; address: string | null }
+  metadata: Record<string, string | null>
   inspection_date: string
   inspector_name: string
 }
@@ -57,7 +57,7 @@ export type ReportSectionUpdateResponse = ReportSectionContent & {
 export type ReportDetail = {
   id: string
   status: ReportStatus
-  metadata: { client_name: string | null; address: string | null }
+  metadata: Record<string, string | null>
   inspection_date: string
   inspector_name: string
   updated_at: string | null

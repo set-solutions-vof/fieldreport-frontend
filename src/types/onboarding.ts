@@ -42,6 +42,7 @@ export type OnboardingWizardPageProps = {
   initialCompany: OnboardingCompany
   onCompleted: () => void
   onAuthenticationExpired: () => void
+  onLogout: () => void
 }
 
 export type OnboardingStep = 1 | 2 | 3 | 4

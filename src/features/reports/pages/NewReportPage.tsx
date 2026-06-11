@@ -19,6 +19,8 @@ export function NewReportPage({
   onCancel,
   onOpenDashboard,
   onOpenReports,
+  onOpenProfile,
+  onLogout,
   totalReportsCount,
 }: NewReportPageProps) {
   const audioInputRef = useRef<HTMLInputElement>(null)
@@ -98,6 +100,8 @@ export function NewReportPage({
       totalReportsCount={totalReportsCount}
       onOpenDashboard={onOpenDashboard}
       onOpenReports={onOpenReports}
+      onOpenProfile={onOpenProfile}
+      onLogout={onLogout}
     >
       <form className="fr-new-report-page" noValidate onSubmit={handleSubmit}>
         <NewReportCompletionProgress

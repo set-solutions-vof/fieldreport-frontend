@@ -36,7 +36,7 @@
     "remove_field_label": "Veld verwijderen",
     "collapse_fields": "Inklappen ↑",
     "expand_fields": "Uitklappen ↓",
-    "saved_label": "Opgeslagen",
+    "unsaved_changes_label": "Niet-opgeslagen wijzigingen",
     "confirm_button": "Template bevestigen"
   },
   "approved": {
@@ -44,7 +44,7 @@
     "hint": "Alle nieuwe inspecties gebruiken deze structuur.",
     "editing_hint": "Pas secties en velden aan en sla je wijzigingen op.",
     "edit_button": "Template bewerken",
-    "save_button": "Wijzigingen opslaan",
+    "save_button": "Publiceer wijzigingen",
     "cancel_button": "Annuleren"
   },
   "failed": {

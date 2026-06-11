@@ -9,13 +9,16 @@ export type ReportRouteMatch = {
 
 export type InspectorRouterProps = {
   onAuthenticationExpired: () => void
+  onLogout: () => void
 }
 
 export type AdminRouterProps = {
   onAuthenticationExpired: () => void
+  onLogout: () => void
 }
 
 export type AdminOnboardingGateProps = {
   currentUser: CurrentUser
   onAuthenticationExpired: () => void
+  onLogout: () => void
 }

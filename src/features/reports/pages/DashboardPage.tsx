@@ -14,7 +14,9 @@ export function DashboardPage({
   onOpenNewReport,
   onOpenDashboard,
   onOpenReports,
+  onOpenProfile,
   onAuthenticationExpired,
+  onLogout,
 }: DashboardPageProps) {
   const { reports, isLoading, isError, errorMessage, retry } = useReportList({
     onAuthenticationExpired,
@@ -70,6 +72,8 @@ export function DashboardPage({
       totalReportsCount={reports.length}
       onOpenDashboard={onOpenDashboard}
       onOpenReports={onOpenReports}
+      onOpenProfile={onOpenProfile}
+      onLogout={onLogout}
     >
       <div className="fr-dashboard-page-actions">
         <Button type="button" variant="primary" onClick={onOpenNewReport}>

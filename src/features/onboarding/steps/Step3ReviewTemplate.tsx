@@ -10,7 +10,7 @@ export function Step3ReviewTemplate({
     pageState,
     actionErrorMessage,
     isConfirming,
-    saveStatus,
+    hasUnsavedChanges,
     updateSectionLabel,
     updateSectionRenderType,
     updateSectionFields,
@@ -51,7 +51,7 @@ export function Step3ReviewTemplate({
         sections={pageState.sections}
         actionErrorMessage={actionErrorMessage}
         isConfirming={isConfirming}
-        saveStatus={saveStatus}
+        hasUnsavedChanges={hasUnsavedChanges}
         onLabelChange={updateSectionLabel}
         onDelete={deleteSection}
         onRenderTypeChange={updateSectionRenderType}

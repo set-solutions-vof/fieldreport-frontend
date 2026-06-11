@@ -51,7 +51,6 @@ export type TemplateEditablePageState =
   | TemplateEditingPageState
 
 export type TemplateLoadStatus = 'loading' | 'success' | 'error'
-export type TemplateSaveStatus = 'idle' | 'saved'
 
 export type UseTemplateConfigurationParameters = {
   onAuthenticationExpired: () => void
@@ -64,7 +63,7 @@ export type UseTemplateConfigurationResult = {
   errorMessage: string | null
   actionErrorMessage: string | null
   isConfirming: boolean
-  saveStatus: TemplateSaveStatus
+  hasUnsavedChanges: boolean
   retry: () => void
   addFiles: (files: File[]) => void
   removeFile: (fileName: string) => void

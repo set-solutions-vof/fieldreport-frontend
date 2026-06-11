@@ -7,6 +7,8 @@ export type NewReportPageProps = {
   onCancel: () => void
   onOpenDashboard: () => void
   onOpenReports: () => void
+  onOpenProfile: () => void
+  onLogout: () => void
   totalReportsCount: number
 }
 
@@ -17,7 +19,7 @@ export type FileChipProps = {
 
 export type NewReportCompletionProgressProps = {
   metadataFields: MetadataField[]
-  metadataValue: Record<string, string>
+  metadataValue: Record<string, string | null>
 }
 
 export type NewReportProjectDetailsCardProps = {
@@ -26,17 +28,17 @@ export type NewReportProjectDetailsCardProps = {
   isSubmitting: boolean
   isTemplateError: boolean
   isTemplateLoading: boolean
-  metadataValue: Record<string, string>
+  metadataValue: Record<string, string | null>
   showMetadataErrors: boolean
   templateErrorMessage: string | null
-  onMetadataChange: (value: Record<string, string>) => void
+  onMetadataChange: (value: Record<string, string | null>) => void
   onRetryTemplate: () => void
 }
 
 export type DynamicMetadataFormProps = {
   fields: MetadataField[]
-  value: Record<string, string>
-  onChange: (value: Record<string, string>) => void
+  value: Record<string, string | null>
+  onChange: (value: Record<string, string | null>) => void
   showErrors: boolean
 }
 

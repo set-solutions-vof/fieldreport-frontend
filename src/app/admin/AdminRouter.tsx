@@ -1,10 +1,14 @@
 import { useCallback, useEffect, useState } from 'react'
+import { AccountProfilePage } from '@/features/profile/AccountProfilePage'
 import { TeamPage } from '@/features/team/pages/TeamPage'
 import { TemplateConfigurationPage } from '@/features/templates/pages/TemplateConfigurationPage'
 import type { AdminRouterProps } from '@/types/routes'
-import { adminTeamRoute, templateRoute } from '../routes'
+import { adminTeamRoute, profileRoute, templateRoute } from '../routes'
 
-export function AdminRouter({ onAuthenticationExpired }: AdminRouterProps) {
+export function AdminRouter({
+  onAuthenticationExpired,
+  onLogout,
+}: AdminRouterProps) {
   const [currentPath, setCurrentPath] = useState(() => {
     const path = window.location.pathname
     const resolvedPath = resolveAdminPath(path)
@@ -38,7 +42,22 @@ export function AdminRouter({ onAuthenticationExpired }: AdminRouterProps) {
       <TeamPage
         onOpenTemplate={() => navigate(templateRoute)}
         onOpenTeam={() => navigate(adminTeamRoute)}
+        onOpenProfile={() => navigate(profileRoute)}
         onAuthenticationExpired={onAuthenticationExpired}
+        onLogout={onLogout}
+      />
+    )
+  }
+
+  if (currentPath === profileRoute) {
+    return (
+      <AccountProfilePage
+        onCancel={() => navigate(templateRoute)}
+        onOpenTemplate={() => navigate(templateRoute)}
+        onOpenTeam={() => navigate(adminTeamRoute)}
+        onOpenProfile={() => navigate(profileRoute)}
+        onAuthenticationExpired={onAuthenticationExpired}
+        onLogout={onLogout}
       />
     )
   }
@@ -47,7 +66,9 @@ export function AdminRouter({ onAuthenticationExpired }: AdminRouterProps) {
     <TemplateConfigurationPage
       onOpenTemplate={() => navigate(templateRoute)}
       onOpenTeam={() => navigate(adminTeamRoute)}
+      onOpenProfile={() => navigate(profileRoute)}
       onAuthenticationExpired={onAuthenticationExpired}
+      onLogout={onLogout}
     />
   )
 }
@@ -55,6 +76,10 @@ export function AdminRouter({ onAuthenticationExpired }: AdminRouterProps) {
 function resolveAdminPath(path: string): string {
   if (path === adminTeamRoute) {
     return adminTeamRoute
+  }
+
+  if (path === profileRoute) {
+    return profileRoute
   }
 
   return templateRoute

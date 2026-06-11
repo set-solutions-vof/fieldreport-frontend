@@ -6,14 +6,18 @@ export type DashboardPageProps = {
   onOpenNewReport: () => void
   onOpenDashboard: () => void
   onOpenReports: () => void
+  onOpenProfile: () => void
   onAuthenticationExpired: () => void
+  onLogout: () => void
 }
 
 export type AllReportsPageProps = {
   onOpenReport: (reportId: string) => void
   onOpenDashboard: () => void
   onOpenReports: () => void
+  onOpenProfile: () => void
   onAuthenticationExpired: () => void
+  onLogout: () => void
 }
 
 export type ReportDetailPageProps = {
@@ -21,7 +25,9 @@ export type ReportDetailPageProps = {
   source: ReportRouteSource
   onOpenDashboard: () => void
   onOpenReports: () => void
+  onOpenProfile: () => void
   onAuthenticationExpired: () => void
+  onLogout: () => void
 }
 
 export type DashboardStatsProps = {

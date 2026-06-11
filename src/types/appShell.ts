@@ -24,4 +24,6 @@ export type AppShellProps = {
   onOpenReports?: () => void
   onOpenTemplate?: () => void
   onOpenTeam?: () => void
+  onOpenProfile: () => void
+  onLogout: () => void
 }

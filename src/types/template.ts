@@ -58,7 +58,6 @@ export type TemplateSectionWire = {
   label: string
   order?: number
   render_type?: TemplateSectionType
-  type?: TemplateSectionType
   fields?: string[] | null
   found_in?: number
   groups?: TemplateSectionGroup[] | null

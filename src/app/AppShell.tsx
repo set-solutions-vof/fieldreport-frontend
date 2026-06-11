@@ -1,8 +1,7 @@
 import { Logo } from '@/design-system'
-import { formatUserRole } from '@/features/reports/lib/formatUserRole'
-import { getUserInitials } from '@/features/reports/lib/getUserInitials'
 import { translations } from '@/lib/translations'
 import type { AppShellNavigationItem, AppShellProps } from '@/types/appShell'
+import { UserProfileDropdown } from './UserProfileDropdown'
 import './AppShell.css'
 
 export type { AppShellProps } from '@/types/appShell'
@@ -18,10 +17,9 @@ export function AppShell({
   onOpenReports,
   onOpenTemplate,
   onOpenTeam,
+  onOpenProfile,
+  onLogout,
 }: AppShellProps) {
-  const userInitials = getUserInitials(currentUser.name)
-  const userRoleLabel = formatUserRole(currentUser.role)
-
   return (
     <div className="fr-dashboard-shell">
       <aside className="fr-dashboard-sidebar">
@@ -107,6 +105,22 @@ export function AppShell({
                 'profile',
               )}
               type="button"
+              onClick={onOpenProfile}
+              aria-current={
+                activeNavigationItem === 'profile' ? 'page' : undefined
+              }
+            >
+              {translations.dashboard.navigation.profile}
+            </button>
+          )}
+          {onOpenDashboard === undefined && (
+            <button
+              className={navigationItemClassName(
+                activeNavigationItem,
+                'profile',
+              )}
+              type="button"
+              onClick={onOpenProfile}
               aria-current={
                 activeNavigationItem === 'profile' ? 'page' : undefined
               }
@@ -115,15 +129,11 @@ export function AppShell({
             </button>
           )}
         </nav>
-        <div className="fr-dashboard-user">
-          <span className="fr-dashboard-avatar">{userInitials}</span>
-          <div>
-            <strong>{currentUser.name}</strong>
-            <span>
-              {userRoleLabel} — {currentUser.company_name}
-            </span>
-          </div>
-        </div>
+        <UserProfileDropdown
+          currentUser={currentUser}
+          onOpenProfile={onOpenProfile}
+          onLogout={onLogout}
+        />
       </aside>
       <main className="fr-dashboard-page">
         <header className="fr-dashboard-topbar">

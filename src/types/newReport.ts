@@ -1,7 +1,7 @@
 import type { ActiveTemplate, MetadataField } from './template'
 
 export type NewReportFormState = {
-  metadata: Record<string, string>
+  metadata: Record<string, string | null>
   audioFiles: File[]
   photoFiles: File[]
   extraContext: string
@@ -24,7 +24,7 @@ export type UseNewReportResult = {
   errors: NewReportFormErrors
   isSubmitting: boolean
   showMetadataErrors: boolean
-  updateMetadata: (metadata: Record<string, string>) => void
+  updateMetadata: (metadata: Record<string, string | null>) => void
   updateField: (field: NewReportTextField, value: string) => void
   addAudioFiles: (files: File[]) => void
   removeAudioFile: (name: string) => void

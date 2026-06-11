@@ -29,6 +29,8 @@ export function ReportDetailWorkspace({
   source,
   onOpenDashboard,
   onOpenReports,
+  onOpenProfile,
+  onLogout,
 }: ReportDetailWorkspaceProps) {
   const [activeTab, setActiveTab] = useState<ReportDetailTab>('report')
   const [activeSectionId, setActiveSectionId] = useState<string | null>(null)
@@ -140,6 +142,8 @@ export function ReportDetailWorkspace({
       totalReportsCount={totalReportsCount}
       onOpenDashboard={onOpenDashboard}
       onOpenReports={onOpenReports}
+      onOpenProfile={onOpenProfile}
+      onLogout={onLogout}
     >
       <div className="fr-report-detail-page">
         <ReportDetailHeaderBlock report={report} reportStatus={reportStatus} />

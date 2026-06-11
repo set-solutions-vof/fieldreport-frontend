@@ -136,14 +136,7 @@
   font-weight: var(--fr-weight-medium);
   line-height: var(--fr-leading-snug);
   white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
   transform: translateY(-50%);
-  transition: opacity var(--fr-transition-base);
-}
-
-.fr-template-summary__save-status--saved {
-  opacity: 1;
 }
 
 .fr-template-summary__save-status-icon {

@@ -127,5 +127,6 @@ export type OnboardingWizardShellProps = {
   onDragOver: (event: DragEvent<HTMLElement>) => void
   onFileInputChange: (event: ChangeEvent<HTMLInputElement>) => void
   onFinishWelcome: () => void
+  onLogout: () => void
   children: ReactNode
 }

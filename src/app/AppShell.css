@@ -85,38 +85,11 @@
   background: var(--fr-surface-sunken);
 }
 
-.fr-dashboard-user {
-  display: flex;
-  align-items: center;
-  gap: var(--fr-space-3);
-  padding: var(--fr-space-4);
-  border-top: 1px solid var(--fr-border);
-}
-
 .fr-dashboard-avatar {
   width: var(--fr-space-8);
   height: var(--fr-space-8);
   color: var(--fr-text-on-accent);
   background: var(--fr-accent);
-}
-
-.fr-dashboard-user div {
-  display: flex;
-  min-width: var(--fr-space-0);
-  flex-direction: column;
-  gap: var(--fr-space-1);
-}
-
-.fr-dashboard-user strong {
-  font-size: var(--fr-text-base);
-  line-height: var(--fr-leading-snug);
-  color: var(--fr-text-primary);
-}
-
-.fr-dashboard-user div span {
-  font-size: var(--fr-text-sm);
-  line-height: var(--fr-leading-snug);
-  color: var(--fr-text-secondary);
 }
 
 .fr-dashboard-page {

@@ -21,7 +21,6 @@ import type {
   UseTemplateConfigurationParameters,
   UseTemplateConfigurationResult,
 } from '@/types/templateConfiguration'
-import { useTemplateAutoSave } from './useTemplateAutoSave'
 import { useTemplateStatusState } from './useTemplateStatusState'
 
 export function useTemplateConfiguration({
@@ -42,7 +41,8 @@ export function useTemplateConfiguration({
     TemplatePageState,
     { kind: 'approved' }
   > | null>(null)
-  const saveStatus = useTemplateAutoSave(pageState)
+  const [hasEditedApprovedTemplate, setHasEditedApprovedTemplate] =
+    useState(false)
 
   function addFiles(files: File[]): void {
     setActionErrorMessage(null)
@@ -93,6 +93,7 @@ export function useTemplateConfiguration({
   }
 
   function updateSectionLabel(sectionId: string, label: string): void {
+    markTemplateChanged()
     setPageState((currentState) =>
       updatePreviewSectionLabel(currentState, sectionId, label),
     )
@@ -102,12 +103,14 @@ export function useTemplateConfiguration({
     sectionId: string,
     renderType: TemplateSectionType,
   ): void {
+    markTemplateChanged()
     setPageState((currentState) =>
       updatePreviewSectionRenderType(currentState, sectionId, renderType),
     )
   }
 
   function updateSectionFields(sectionId: string, fields: string[]): void {
+    markTemplateChanged()
     setPageState((currentState) =>
       updatePreviewSectionFields(currentState, sectionId, fields),
     )
@@ -117,21 +120,30 @@ export function useTemplateConfiguration({
     sectionId: string,
     groups: TemplateSectionGroup[],
   ): void {
+    markTemplateChanged()
     setPageState((currentState) =>
       updatePreviewSectionGroups(currentState, sectionId, groups),
     )
   }
 
   function deleteSection(sectionId: string): void {
+    markTemplateChanged()
     setPageState((currentState) =>
       deletePreviewSection(currentState, sectionId),
     )
   }
 
   function reorderSections(fromIndex: number, toIndex: number): void {
+    markTemplateChanged()
     setPageState((currentState) =>
       reorderPreviewSections(currentState, fromIndex, toIndex),
     )
+  }
+
+  function markTemplateChanged(): void {
+    if (pageState.kind === 'editing') {
+      setHasEditedApprovedTemplate(true)
+    }
   }
 
   function resetAfterFailure(): void {
@@ -145,6 +157,7 @@ export function useTemplateConfiguration({
     }
 
     approvedSnapshotRef.current = pageState
+    setHasEditedApprovedTemplate(false)
     setActionErrorMessage(null)
     setPageState({
       kind: 'editing',
@@ -163,6 +176,7 @@ export function useTemplateConfiguration({
     setActionErrorMessage(null)
     setPageState(approvedSnapshot)
     approvedSnapshotRef.current = null
+    setHasEditedApprovedTemplate(false)
   }
 
   async function confirmCurrentTemplate(): Promise<boolean> {
@@ -180,6 +194,7 @@ export function useTemplateConfiguration({
         sections: editableState.sections,
       })
       approvedSnapshotRef.current = null
+      setHasEditedApprovedTemplate(false)
       setPageState(pageStateFromTemplateStatus(templateStatus))
       return true
     } catch (error) {
@@ -200,7 +215,9 @@ export function useTemplateConfiguration({
     errorMessage,
     actionErrorMessage,
     isConfirming,
-    saveStatus,
+    hasUnsavedChanges:
+      pageState.kind === 'preview' ||
+      (pageState.kind === 'editing' && hasEditedApprovedTemplate),
     retry,
     addFiles,
     removeFile,

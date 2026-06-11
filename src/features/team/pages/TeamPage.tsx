@@ -12,7 +12,9 @@ import './TeamPage.css'
 export function TeamPage({
   onOpenTemplate,
   onOpenTeam,
+  onOpenProfile,
   onAuthenticationExpired,
+  onLogout,
 }: TeamPageProps) {
   const {
     currentUser,
@@ -70,6 +72,8 @@ export function TeamPage({
       breadcrumbItems={[{ label: translations.team.navigation_label }]}
       onOpenTemplate={onOpenTemplate}
       onOpenTeam={onOpenTeam}
+      onOpenProfile={onOpenProfile}
+      onLogout={onLogout}
     >
       <main className="fr-team-page">
         <header className="fr-team-page__header">

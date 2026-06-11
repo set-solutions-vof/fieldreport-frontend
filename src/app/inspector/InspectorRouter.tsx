@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import { AccountProfilePage } from '@/features/profile/AccountProfilePage'
 import { AllReportsPage } from '@/features/reports/pages/AllReportsPage'
 import { DashboardPage } from '@/features/reports/pages/DashboardPage'
 import { NewReportPage } from '@/features/reports/pages/NewReportPage'
@@ -6,17 +7,19 @@ import { ReportDetailPage } from '@/features/reports/pages/ReportDetailPage'
 import type { InspectorRouterProps } from '@/types/routes'
 import {
   allReportsReportRoute,
-  allReportsReportRoutePrefix,
   allReportsRoute,
   dashboardReportRoute,
   dashboardReportRoutePrefix,
   dashboardRoute,
+  isReportDetailRoute,
   newReportRoute,
+  profileRoute,
   reportRouteMatch,
 } from '../routes'
 
 export function InspectorRouter({
   onAuthenticationExpired,
+  onLogout,
 }: InspectorRouterProps) {
   const [currentPath, setCurrentPath] = useState(() => {
     const path = window.location.pathname
@@ -53,7 +56,9 @@ export function InspectorRouter({
         onOpenNewReport={() => navigate(newReportRoute)}
         onOpenDashboard={() => navigate(dashboardRoute)}
         onOpenReports={() => navigate(allReportsRoute)}
+        onOpenProfile={() => navigate(profileRoute)}
         onAuthenticationExpired={onAuthenticationExpired}
+        onLogout={onLogout}
       />
     )
   }
@@ -64,7 +69,9 @@ export function InspectorRouter({
         onOpenReport={(reportId) => navigate(allReportsReportRoute(reportId))}
         onOpenDashboard={() => navigate(dashboardRoute)}
         onOpenReports={() => navigate(allReportsRoute)}
+        onOpenProfile={() => navigate(profileRoute)}
         onAuthenticationExpired={onAuthenticationExpired}
+        onLogout={onLogout}
       />
     )
   }
@@ -78,8 +85,23 @@ export function InspectorRouter({
         onCancel={() => navigate(dashboardRoute)}
         onOpenDashboard={() => navigate(dashboardRoute)}
         onOpenReports={() => navigate(allReportsRoute)}
+        onOpenProfile={() => navigate(profileRoute)}
         onAuthenticationExpired={onAuthenticationExpired}
+        onLogout={onLogout}
         totalReportsCount={0}
+      />
+    )
+  }
+
+  if (currentPath === profileRoute) {
+    return (
+      <AccountProfilePage
+        onCancel={() => navigate(dashboardRoute)}
+        onOpenDashboard={() => navigate(dashboardRoute)}
+        onOpenReports={() => navigate(allReportsRoute)}
+        onOpenProfile={() => navigate(profileRoute)}
+        onAuthenticationExpired={onAuthenticationExpired}
+        onLogout={onLogout}
       />
     )
   }
@@ -93,7 +115,9 @@ export function InspectorRouter({
         source={currentReportRoute.source}
         onOpenDashboard={() => navigate(dashboardRoute)}
         onOpenReports={() => navigate(allReportsRoute)}
+        onOpenProfile={() => navigate(profileRoute)}
         onAuthenticationExpired={onAuthenticationExpired}
+        onLogout={onLogout}
       />
     )
   }
@@ -104,7 +128,9 @@ export function InspectorRouter({
       onOpenNewReport={() => navigate(newReportRoute)}
       onOpenDashboard={() => navigate(dashboardRoute)}
       onOpenReports={() => navigate(allReportsRoute)}
+      onOpenProfile={() => navigate(profileRoute)}
       onAuthenticationExpired={onAuthenticationExpired}
+      onLogout={onLogout}
     />
   )
 }
@@ -114,7 +140,8 @@ function isInspectorPath(path: string): boolean {
     path === dashboardRoute ||
     path === allReportsRoute ||
     path === newReportRoute ||
+    path === profileRoute ||
     path.startsWith(dashboardReportRoutePrefix) ||
-    path.startsWith(allReportsReportRoutePrefix)
+    isReportDetailRoute(path)
   )
 }

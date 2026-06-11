@@ -7,7 +7,7 @@ export function TemplateSummaryHeader({
   hint,
   stats,
   action,
-  saveStatus = 'idle',
+  hasUnsavedChanges = false,
 }: TemplateSummaryHeaderProps) {
   return (
     <header className="fr-template-summary">
@@ -24,20 +24,15 @@ export function TemplateSummaryHeader({
             </div>
           ))}
         </dl>
-        <span
-          className={[
-            'fr-template-summary__save-status',
-            saveStatus === 'saved' && 'fr-template-summary__save-status--saved',
-          ]
-            .filter(Boolean)
-            .join(' ')}
-        >
-          <TemplateIcon
-            name="checkCircle"
-            className="fr-template-summary__save-status-icon"
-          />
-          {translations.template.review.saved_label}
-        </span>
+        {hasUnsavedChanges && (
+          <span className="fr-template-summary__save-status">
+            <TemplateIcon
+              name="edit"
+              className="fr-template-summary__save-status-icon"
+            />
+            {translations.template.review.unsaved_changes_label}
+          </span>
+        )}
       </div>
       <div className="fr-template-summary__action">{action}</div>
     </header>

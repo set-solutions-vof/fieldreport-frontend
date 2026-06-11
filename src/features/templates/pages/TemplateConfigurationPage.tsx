@@ -19,7 +19,9 @@ import './TemplateFieldControls.css'
 export function TemplateConfigurationPage({
   onOpenTemplate,
   onOpenTeam,
+  onOpenProfile,
   onAuthenticationExpired,
+  onLogout,
 }: TemplateConfigurationPageProps) {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const {
@@ -29,7 +31,7 @@ export function TemplateConfigurationPage({
     errorMessage,
     actionErrorMessage,
     isConfirming,
-    saveStatus,
+    hasUnsavedChanges,
     retry,
     addFiles,
     removeFile,
@@ -111,6 +113,8 @@ export function TemplateConfigurationPage({
       contentClassName="fr-dashboard-content--template"
       onOpenTemplate={onOpenTemplate}
       onOpenTeam={onOpenTeam}
+      onOpenProfile={onOpenProfile}
+      onLogout={onLogout}
     >
       <main
         className="fr-template-page"
@@ -151,7 +155,7 @@ export function TemplateConfigurationPage({
             sections={pageState.sections}
             actionErrorMessage={actionErrorMessage}
             isConfirming={isConfirming}
-            saveStatus={saveStatus}
+            hasUnsavedChanges={hasUnsavedChanges}
             onLabelChange={updateSectionLabel}
             onDelete={deleteSection}
             onRenderTypeChange={updateSectionRenderType}
@@ -168,7 +172,7 @@ export function TemplateConfigurationPage({
             sections={pageState.sections}
             actionErrorMessage={actionErrorMessage}
             isConfirming={isConfirming}
-            saveStatus={saveStatus}
+            hasUnsavedChanges={hasUnsavedChanges}
             onLabelChange={updateSectionLabel}
             onDelete={deleteSection}
             onRenderTypeChange={updateSectionRenderType}

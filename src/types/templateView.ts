@@ -4,7 +4,6 @@ import type {
   TemplateSection,
   TemplateSectionType,
 } from '@/types/template'
-import type { TemplateSaveStatus } from './templateConfiguration'
 
 export type TemplateEmptyStateProps = {
   onUploadReports: () => void
@@ -33,7 +32,7 @@ export type TemplateReviewStateProps = {
   showPreview?: boolean
   actionErrorMessage: string | null
   isConfirming: boolean
-  saveStatus?: TemplateSaveStatus
+  hasUnsavedChanges?: boolean
   onLabelChange: (sectionId: string, label: string) => void
   onDelete: (sectionId: string) => void
   onRenderTypeChange: (
@@ -129,7 +128,7 @@ export type TemplateSummaryHeaderProps = {
   hint: string
   stats: TemplateSummaryStat[]
   action: ReactNode
-  saveStatus?: TemplateSaveStatus
+  hasUnsavedChanges?: boolean
 }
 
 export type TemplateTypePillProps = {
@@ -184,5 +183,7 @@ export type TemplateUploadingStateProps = {
 export type TemplateConfigurationPageProps = {
   onOpenTemplate: () => void
   onOpenTeam: () => void
+  onOpenProfile: () => void
   onAuthenticationExpired: () => void
+  onLogout: () => void
 }

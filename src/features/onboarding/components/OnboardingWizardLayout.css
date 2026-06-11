@@ -49,8 +49,7 @@
   justify-self: start;
 }
 
-.fr-onboarding-header__spacer {
-  display: block;
+.fr-onboarding-header__logout {
   justify-self: end;
 }
 
@@ -221,8 +220,8 @@
     grid-template-columns: 1fr;
   }
 
-  .fr-onboarding-header__spacer {
-    display: none;
+  .fr-onboarding-header__logout {
+    justify-self: start;
   }
 
   .fr-onboarding-stepper {

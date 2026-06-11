@@ -18,6 +18,7 @@ export function OnboardingWizardPage({
   initialCompany,
   onCompleted,
   onAuthenticationExpired,
+  onLogout,
 }: OnboardingWizardPageProps) {
   const {
     wizard,
@@ -113,6 +114,7 @@ export function OnboardingWizardPage({
       onDragOver={handleDragOver}
       onFileInputChange={handleFileInputChange}
       onFinishWelcome={wizard.finishWelcome}
+      onLogout={onLogout}
       footer={{
         leftLabel,
         rightLabel,

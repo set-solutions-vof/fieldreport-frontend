@@ -7,6 +7,7 @@ import { AdminRouter } from './AdminRouter'
 export function AdminOnboardingGate({
   currentUser,
   onAuthenticationExpired,
+  onLogout,
 }: AdminOnboardingGateProps) {
   const { status, company, retry, completeOnboarding } = useAdminOnboardingGate(
     {
@@ -29,9 +30,15 @@ export function AdminOnboardingGate({
         initialCompany={company!}
         onCompleted={completeOnboarding}
         onAuthenticationExpired={onAuthenticationExpired}
+        onLogout={onLogout}
       />
     )
   }
 
-  return <AdminRouter onAuthenticationExpired={onAuthenticationExpired} />
+  return (
+    <AdminRouter
+      onAuthenticationExpired={onAuthenticationExpired}
+      onLogout={onLogout}
+    />
+  )
 }

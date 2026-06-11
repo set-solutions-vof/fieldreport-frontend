@@ -14,7 +14,9 @@ export function ReportDetailPage({
   source,
   onOpenDashboard,
   onOpenReports,
+  onOpenProfile,
   onAuthenticationExpired,
+  onLogout,
 }: ReportDetailPageProps) {
   const { report, isLoading, isError, errorMessage, retry } = useReportDetail({
     reportId,
@@ -94,6 +96,8 @@ export function ReportDetailPage({
         totalReportsCount={reports.length}
         onOpenDashboard={onOpenDashboard}
         onOpenReports={onOpenReports}
+        onOpenProfile={onOpenProfile}
+        onLogout={onLogout}
       >
         <main className="fr-report-generating-page">
           <TemplateSkeletonGrid
@@ -113,6 +117,8 @@ export function ReportDetailPage({
       source={source}
       onOpenDashboard={onOpenDashboard}
       onOpenReports={onOpenReports}
+      onOpenProfile={onOpenProfile}
+      onLogout={onLogout}
     />
   )
 }

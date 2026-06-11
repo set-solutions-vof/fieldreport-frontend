@@ -23,7 +23,7 @@ export async function authenticatedFetch(
     const refreshedToken = await refreshAccessToken({
       refresh_token: authTokens.refresh_token,
     })
-    storeAccessToken(refreshedToken.access_token)
+    storeAccessToken(refreshedToken.access_token, refreshedToken.token_type)
   } catch (error) {
     if (error instanceof TokenRefreshError) {
       clearAuthTokens()
@@ -66,7 +66,10 @@ async function buildApiError(response: Response): Promise<Error> {
   try {
     body = await response.json()
   } catch {
-    return new Error(`Request failed with status ${response.status}`)
+    return new ApiError(
+      response.status,
+      `Request failed with status ${response.status}`,
+    )
   }
 
   if (
@@ -79,15 +82,28 @@ async function buildApiError(response: Response): Promise<Error> {
       typeof body.detail === 'string'
         ? body.detail
         : JSON.stringify(body.detail)
-    return new Error(detail)
+    return new ApiError(response.status, detail)
   }
 
-  return new Error(`Request failed with status ${response.status}`)
+  return new ApiError(
+    response.status,
+    `Request failed with status ${response.status}`,
+  )
 }
 
 export class AuthenticationExpiredError extends Error {
   constructor() {
     super('Authentication expired')
     this.name = 'AuthenticationExpiredError'
+  }
+}
+
+export class ApiError extends Error {
+  public readonly status: number
+
+  constructor(status: number, message: string) {
+    super(message)
+    this.status = status
+    this.name = 'ApiError'
   }
 }

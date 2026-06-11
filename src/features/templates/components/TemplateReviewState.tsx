@@ -14,7 +14,7 @@ export function TemplateReviewState({
   showPreview = false,
   actionErrorMessage,
   isConfirming,
-  saveStatus,
+  hasUnsavedChanges,
   onLabelChange,
   onDelete,
   onRenderTypeChange,
@@ -64,7 +64,7 @@ export function TemplateReviewState({
               : translations.template.review.hint
         }
         stats={stats}
-        saveStatus={approved ? 'idle' : saveStatus}
+        hasUnsavedChanges={!approved && hasUnsavedChanges}
         action={
           approved ? (
             <Button variant="secondary" onClick={onEdit}>

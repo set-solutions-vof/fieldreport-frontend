@@ -13,7 +13,7 @@ const templateEndpoint = `${apiBaseUrl}/api/v1/template`
 function templateSectionRenderType(
   section: TemplateSectionWire,
 ): TemplateSectionType {
-  return section.render_type ?? section.type ?? 'text_block'
+  return section.render_type ?? 'text_block'
 }
 
 function normalizeTemplateSection(

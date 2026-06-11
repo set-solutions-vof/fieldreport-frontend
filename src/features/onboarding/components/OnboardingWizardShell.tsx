@@ -15,6 +15,7 @@ export function OnboardingWizardShell({
   onDragOver,
   onFileInputChange,
   onFinishWelcome,
+  onLogout,
   children,
 }: OnboardingWizardShellProps) {
   return (
@@ -34,7 +35,15 @@ export function OnboardingWizardShell({
       <header className="fr-onboarding-header">
         <Logo variant="accent" />
         <OnboardingStepper currentStep={currentStep} />
-        <span className="fr-onboarding-header__spacer" aria-hidden="true" />
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          className="fr-onboarding-header__logout"
+          onClick={onLogout}
+        >
+          {translations.auth.logout_button}
+        </Button>
       </header>
       <div className="fr-onboarding-content">{children}</div>
       <OnboardingFooter {...footer} />

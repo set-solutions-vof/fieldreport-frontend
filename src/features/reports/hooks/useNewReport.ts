@@ -39,7 +39,7 @@ export function useNewReport({
     setForm((currentForm) => ({ ...currentForm, [field]: value }))
   }
 
-  function updateMetadata(metadata: Record<string, string>): void {
+  function updateMetadata(metadata: Record<string, string | null>): void {
     setErrors((currentErrors) => ({ ...currentErrors, submit: undefined }))
     setForm((currentForm) => ({ ...currentForm, metadata }))
   }
@@ -142,7 +142,7 @@ function validateForm(form: NewReportFormState): NewReportFormErrors {
 
 function hasMissingRequiredMetadata(
   metadataFields: MetadataField[],
-  metadataValue: Record<string, string>,
+  metadataValue: Record<string, string | null>,
 ): boolean {
   return metadataFields.some(
     (field) => field.required && !metadataValue[field.key]?.trim(),
