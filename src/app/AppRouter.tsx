@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Spinner } from '@/design-system'
 import { AcceptInvitePage } from '@/features/auth/AcceptInvitePage'
+import { ForgotPasswordPage } from '@/features/auth/ForgotPasswordPage'
 import { LoginPage } from '@/features/auth/LoginPage'
+import { ResetPasswordPage } from '@/features/auth/ResetPasswordPage'
 import { refreshAccessToken } from '@/lib/api/auth'
 import { getCurrentUser } from '@/lib/api/currentUser'
 import {
@@ -11,12 +13,14 @@ import {
   storeAccessToken,
 } from '@/lib/auth/tokenStore'
 import type { CurrentUser } from '@/types/auth'
+import type { AuthView } from '@/types/authView'
 import { inviteTokenFromPath } from './routes'
 import { AdminOnboardingGate } from './admin/AdminOnboardingGate'
 import { InspectorRouter } from './inspector/InspectorRouter'
 
 export function AppRouter() {
   const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null)
+  const [view, setView] = useState<AuthView>('login')
   const [isRestoringSession, setIsRestoringSession] = useState(() =>
     hasStoredRefreshToken(),
   )
@@ -59,6 +63,11 @@ export function AppRouter() {
     window.history.pushState(null, '', '/')
   }, [])
 
+  const handleResetPasswordSuccess = useCallback((): void => {
+    setView('login')
+    window.history.pushState(null, '', '/')
+  }, [])
+
   if (isRestoringSession) {
     return (
       <main className="fr-dashboard-loading-page">
@@ -78,8 +87,21 @@ export function AppRouter() {
     )
   }
 
+  if (currentUser === null && currentPath.startsWith('/reset-password/')) {
+    return <ResetPasswordPage onSuccess={handleResetPasswordSuccess} />
+  }
+
   if (currentUser === null) {
-    return <LoginPage onLoginSuccess={(user) => setCurrentUser(user)} />
+    if (view === 'forgot-password') {
+      return <ForgotPasswordPage onBack={() => setView('login')} />
+    }
+
+    return (
+      <LoginPage
+        onLoginSuccess={(user) => setCurrentUser(user)}
+        onForgotPassword={() => setView('forgot-password')}
+      />
+    )
   }
 
   if (currentUser.role === 'admin') {

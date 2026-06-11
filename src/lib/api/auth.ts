@@ -46,3 +46,33 @@ export async function refreshAccessToken(
 
   return (await response.json()) as RefreshTokenResponse
 }
+
+export async function requestPasswordReset(email: string): Promise<void> {
+  await fetch(`${apiBaseUrl}/api/v1/auth/password-reset/request`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email }),
+  })
+}
+
+export async function confirmPasswordReset(
+  token: string,
+  newPassword: string,
+): Promise<void> {
+  const response = await fetch(
+    `${apiBaseUrl}/api/v1/auth/password-reset/confirm`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ token, new_password: newPassword }),
+    },
+  )
+
+  if (!response.ok) {
+    throw await response.json()
+  }
+}

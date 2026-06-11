@@ -4,7 +4,10 @@ import type { LoginPageProps } from '@/types/authView'
 import { useLoginForm } from './useLoginForm'
 import './LoginPage.css'
 
-export function LoginPage({ onLoginSuccess }: LoginPageProps) {
+export function LoginPage({
+  onLoginSuccess,
+  onForgotPassword,
+}: LoginPageProps) {
   const {
     email,
     password,
@@ -49,6 +52,13 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
             error={loginError}
             required
           />
+          <button
+            className="fr-login-text-link fr-login-forgot-password-link"
+            type="button"
+            onClick={onForgotPassword}
+          >
+            {translations.auth.login.forgot_password_link}
+          </button>
           <Button type="submit" variant="primary" loading={isSubmitting}>
             {translations.auth.login.submit_button}
           </Button>
