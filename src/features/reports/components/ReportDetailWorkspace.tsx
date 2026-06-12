@@ -14,6 +14,7 @@ import {
   allSectionsApproved,
   buildEvidenceRailItems,
   mergeUpdatedSection,
+  transcriptSegments,
 } from '../lib/reportDetailView'
 import type {
   ReportDetailTab,
@@ -162,6 +163,7 @@ export function ReportDetailWorkspace({
         <ReportDetailTabs
           activeTab={activeTab}
           reportCount={sections.length}
+          transcriptCount={transcriptSegments(report.evidence_items).length}
           evidenceCount={evidenceRailItems.length}
           onActiveTabChange={setActiveTab}
         />

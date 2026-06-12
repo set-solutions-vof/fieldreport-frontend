@@ -1,4 +1,3 @@
-import { apiBaseUrl } from '@/lib/config'
 import { translations } from '@/lib/translations'
 import type {
   PhotoGridSectionEditorProps,
@@ -7,6 +6,7 @@ import type {
 } from '@/types/reportSectionView'
 import { contentLines } from '../lib/reportSectionContent'
 import { AutoSizedTextarea } from './AutoSizedTextarea'
+import { InspectionPhoto } from './InspectionPhoto'
 
 export function PhotoGridSectionEditor({
   section,
@@ -14,9 +14,15 @@ export function PhotoGridSectionEditor({
   evidenceItemsById,
   onContentChange,
 }: PhotoGridSectionEditorProps) {
-  const imageItems = section.evidence_item_ids.map(
-    (evidenceItemId) => evidenceItemsById[evidenceItemId] as PhotoGridTile,
-  )
+  const imageItems = section.evidence_item_ids.flatMap((evidenceItemId) => {
+    const evidenceItem = evidenceItemsById[evidenceItemId]
+
+    if (evidenceItem?.storage_key) {
+      return [evidenceItem as PhotoGridTile]
+    }
+
+    return []
+  })
   const captions = contentLines(content)
   const tiles = imageItems.length > 0 ? imageItems : emptyPhotoTiles(captions)
 
@@ -50,20 +56,20 @@ export function PhotoGridSectionEditor({
 }
 
 function ReportSectionImage({ evidenceItem }: ReportSectionImageProps) {
-  if (evidenceItem.storage_key) {
+  if (!evidenceItem.storage_key) {
     return (
-      <img
-        className="fr-report-section-photo-image"
-        src={`${apiBaseUrl}/api/v1/inspections/photos/${evidenceItem.storage_key}`}
-        alt={evidenceItem.content_summary}
-      />
+      <div className="fr-report-section-photo-placeholder">
+        {translations.report_detail.section.image_label}
+      </div>
     )
   }
 
   return (
-    <div className="fr-report-section-photo-placeholder">
-      {translations.report_detail.section.image_label}
-    </div>
+    <InspectionPhoto
+      storageKey={evidenceItem.storage_key}
+      alt={evidenceItem.content_summary}
+      className="fr-report-section-photo-image"
+    />
   )
 }
 

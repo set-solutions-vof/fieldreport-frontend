@@ -1,6 +1,7 @@
 import { translations } from '@/lib/translations'
-import { formatSeconds } from '../lib/formatSeconds'
+import { formatDuration } from '../lib/formatDuration'
 import {
+  timelineAudioDurationSeconds,
   timelineDurationMs,
   timelineEndTimestampMs,
   timelineEvents,
@@ -44,16 +45,16 @@ export function TimelineStrip({
   }
 
   const startTimestampMs = timelineStartTimestampMs()
-  const endTimestampMs = timelineEndTimestampMs(events)
+  const audioDurationSeconds = timelineAudioDurationSeconds(items)
+  const endTimestampMs = timelineEndTimestampMs(events, audioDurationSeconds)
+  const durationSeconds = (endTimestampMs - startTimestampMs) / 1000
   const durationMs = timelineDurationMs(startTimestampMs, endTimestampMs)
   const ticks = timelineTicks(startTimestampMs, endTimestampMs, trackWidth)
 
   return (
     <div className="fr-timeline-strip-card">
       <TimelineStripMeta
-        range={`${formatSeconds(0)} → ${formatSeconds(
-          (endTimestampMs - startTimestampMs) / 1000,
-        )}`}
+        range={`${formatDuration(0)} → ${formatDuration(durationSeconds)}`}
         summary={`${events.length} ${
           translations.report_detail.timeline.moments_suffix
         } · ${sections.length} ${

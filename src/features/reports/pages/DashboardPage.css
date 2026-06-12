@@ -34,11 +34,6 @@
   gap: var(--fr-space-4);
 }
 
-.fr-dashboard-page-actions {
-  display: flex;
-  justify-content: flex-end;
-}
-
 .fr-dashboard-section-header {
   display: flex;
   align-items: center;

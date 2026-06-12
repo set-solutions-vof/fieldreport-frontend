@@ -70,8 +70,10 @@
     "one_unsaved_change": "1 wijziging niet opgeslagen",
     "many_unsaved_changes_suffix": "wijzigingen niet opgeslagen"
   },
-  "stubs": {
-    "transcript": "Transcript komt binnenkort.",
-    "evidence": "Bewijsmateriaal komt binnenkort."
+  "transcript": {
+    "empty": "Er is nog geen transcript beschikbaar voor dit rapport."
+  },
+  "evidence": {
+    "empty": "Er is nog geen bewijsmateriaal gekoppeld aan dit rapport."
   }
 }

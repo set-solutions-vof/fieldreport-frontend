@@ -8,6 +8,7 @@ import { ReportDetailTabIcon } from './icons/ReportDetailTabIcon'
 export function ReportDetailTabs({
   activeTab,
   reportCount,
+  transcriptCount,
   evidenceCount,
   onActiveTabChange,
 }: ReportDetailTabsProps) {
@@ -23,7 +24,7 @@ export function ReportDetailTabs({
         />
         <TabButton
           active={activeTab === 'transcript'}
-          count="–"
+          count={String(transcriptCount)}
           label={translations.report_detail.tabs.transcript}
           tab="transcript"
           onClick={() => onActiveTabChange('transcript')}

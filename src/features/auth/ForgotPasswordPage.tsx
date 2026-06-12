@@ -72,11 +72,7 @@ export function ForgotPasswordPage({ onBack }: ForgotPasswordPageProps) {
           >
             {translations.auth.forgot_password.submit}
           </Button>
-          <button
-            className="fr-login-text-link"
-            type="button"
-            onClick={onBack}
-          >
+          <button className="fr-login-text-link" type="button" onClick={onBack}>
             {translations.auth.forgot_password.back_to_login}
           </button>
         </form>

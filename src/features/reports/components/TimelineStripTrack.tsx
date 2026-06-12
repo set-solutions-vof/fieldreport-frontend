@@ -1,5 +1,5 @@
 import { translations } from '@/lib/translations'
-import { formatSeconds } from '../lib/formatSeconds'
+import { formatDuration } from '../lib/formatDuration'
 import { evidenceTypeLabel } from '../lib/reportDetailView'
 import { timelineEventPosition } from '../lib/timelineStrip'
 import type { TimelineStripTrackProps } from '@/types/reportDetailView'
@@ -70,7 +70,7 @@ export function TimelineStripTrack({
 function timelineEventTitle(
   timelineEvent: TimelineStripTrackProps['events'][number],
 ): string {
-  return `${formatSeconds(timelineEvent.timelineSeconds)} · ${evidenceTypeLabel(
+  return `${formatDuration(timelineEvent.timelineSeconds)} · ${evidenceTypeLabel(
     timelineEvent.evidenceType,
   )} · ${timelineEvent.sectionLabels.join(', ')}`
 }
@@ -78,7 +78,7 @@ function timelineEventTitle(
 function timelineEventLabel(
   timelineEvent: TimelineStripTrackProps['events'][number],
 ): string {
-  return `${formatSeconds(timelineEvent.timelineSeconds)} ${evidenceTypeLabel(
+  return `${formatDuration(timelineEvent.timelineSeconds)} ${evidenceTypeLabel(
     timelineEvent.evidenceType,
   )} ${timelineEvent.sectionLabels.join(', ')}`
 }

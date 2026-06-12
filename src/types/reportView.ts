@@ -47,6 +47,7 @@ export type RecentReportsTableProps = {
 export type ValidationReportsSectionProps = {
   reports: ReportSummary[]
   onOpenReport: (reportId: string) => void
+  onOpenNewReport: () => void
 }
 
 export type ReportsTableProps = {

@@ -18,9 +18,7 @@ export function ResetPasswordPage({ onSuccess }: ResetPasswordPageProps) {
   const [message, setMessage] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
 
-  function handleNewPasswordChange(
-    event: ChangeEvent<HTMLInputElement>,
-  ): void {
+  function handleNewPasswordChange(event: ChangeEvent<HTMLInputElement>): void {
     setNewPassword(event.currentTarget.value)
   }
 

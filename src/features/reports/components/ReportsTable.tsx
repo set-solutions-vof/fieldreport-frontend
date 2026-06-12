@@ -2,7 +2,10 @@ import { Badge, Button, Card } from '@/design-system'
 import { translations } from '@/lib/translations'
 import type { ReportsTableProps } from '@/types/reportView'
 import { formatDutchShortDate } from '../lib/formatReportDate'
-import { reportStatusLabel } from '../lib/reportLabels'
+import {
+  reportStatusBadgeVariant,
+  reportStatusLabel,
+} from '../lib/reportLabels'
 import './ReportsTable.css'
 
 export function ReportsTable({
@@ -35,7 +38,7 @@ export function ReportsTable({
                 <td>{formatDutchShortDate(report.inspection_date)}</td>
                 <td>-</td>
                 <td>
-                  <Badge variant={report.status}>
+                  <Badge variant={reportStatusBadgeVariant(report.status)}>
                     {reportStatusLabel(report.status)}
                   </Badge>
                 </td>

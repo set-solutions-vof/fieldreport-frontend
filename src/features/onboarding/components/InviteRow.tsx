@@ -111,4 +111,3 @@ function ActiveInviteRow({ isSending, onSend }: ActiveInviteRowProps) {
 function inviteInitials(email: string): string {
   return email.slice(0, 2).toUpperCase()
 }
-

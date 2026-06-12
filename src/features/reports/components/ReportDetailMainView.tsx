@@ -1,9 +1,10 @@
-import { translations } from '@/lib/translations'
 import type { ReportDetailMainViewProps } from '@/types/reportDetailView'
+import { reportDetailViewClassName } from '../lib/reportDetailClassNames'
+import { transcriptSegments } from '../lib/reportDetailView'
 import { ReportDocument } from './ReportDocument'
 import { ReportEvidenceRail } from './ReportEvidenceRail'
-import { ReportStubView } from './ReportStubView'
-import { reportDetailViewClassName } from '../lib/reportDetailClassNames'
+import { ReportEvidenceView } from './ReportEvidenceView'
+import { ReportTranscriptView } from './ReportTranscriptView'
 
 export function ReportDetailMainView({
   activeSectionId,
@@ -49,12 +50,13 @@ export function ReportDetailMainView({
           />
         </div>
       </div>
-      <ReportStubView activeTab={activeTab} tab="transcript">
-        {translations.report_detail.stubs.transcript}
-      </ReportStubView>
-      <ReportStubView activeTab={activeTab} tab="evidence">
-        {translations.report_detail.stubs.evidence}
-      </ReportStubView>
+      <ReportTranscriptView
+        activeTab={activeTab}
+        inspectorName={report.inspector_name}
+        segments={transcriptSegments(report.evidence_items)}
+        evidenceRailItems={evidenceRailItems}
+      />
+      <ReportEvidenceView activeTab={activeTab} items={evidenceRailItems} />
     </>
   )
 }

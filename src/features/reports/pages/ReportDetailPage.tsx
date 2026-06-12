@@ -6,6 +6,7 @@ import { translations } from '@/lib/translations'
 import { ReportDetailWorkspace } from '../components/ReportDetailWorkspace'
 import { useReportDetail } from '../hooks/useReportDetail'
 import { useReportList } from '../hooks/useReportList'
+import { isReportGenerating } from '../lib/reportLabels'
 import type { ReportDetailPageProps } from '@/types/reportView'
 import './ReportDetailPage.css'
 
@@ -77,7 +78,7 @@ export function ReportDetailPage({
     )
   }
 
-  if (report.status === 'generating') {
+  if (isReportGenerating(report.status)) {
     return (
       <AppShell
         currentUser={currentUser}

@@ -1,4 +1,4 @@
-import { formatSeconds } from './formatSeconds'
+import { formatDuration } from './formatDuration'
 import type {
   TimelineStripEvent,
   TimelineStripProps,
@@ -28,21 +28,46 @@ export function timelineEvents(
     )
 }
 
+export function timelineAudioDurationSeconds(
+  items: TimelineStripProps['items'],
+): number {
+  return items.reduce((maxDuration, item) => {
+    if (item.evidenceItem.evidence_type !== 'transcription_segment') {
+      return maxDuration
+    }
+
+    const endSeconds = item.evidenceItem.end_seconds
+
+    if (endSeconds === null) {
+      return maxDuration
+    }
+
+    return Math.max(maxDuration, endSeconds)
+  }, 0)
+}
+
 export function timelineStartTimestampMs(): number {
   return 0
 }
 
-export function timelineEndTimestampMs(events: TimelineStripEvent[]): number {
-  return Math.max(
-    ...events.map((timelineEvent) => timelineEvent.timelineSeconds * 1000),
+export function timelineEndTimestampMs(
+  events: TimelineStripEvent[],
+  audioDurationSeconds: number,
+): number {
+  const maxEventSeconds = events.reduce(
+    (maxSeconds, timelineEvent) =>
+      Math.max(maxSeconds, timelineEvent.timelineSeconds),
+    0,
   )
+
+  return Math.max(maxEventSeconds, audioDurationSeconds) * 1000
 }
 
 export function timelineDurationMs(
   startTimestampMs: number,
   endTimestampMs: number,
 ): number {
-  return Math.max(endTimestampMs - startTimestampMs, minuteMs)
+  return Math.max(endTimestampMs - startTimestampMs, 1000)
 }
 
 export function timelineEventPosition(
@@ -72,7 +97,7 @@ export function timelineTicks(
 
     ticks.push({
       id: String(timestampMs),
-      label: formatSeconds((timestampMs - startTimestampMs) / 1000),
+      label: formatDuration((timestampMs - startTimestampMs) / 1000),
       position: ((minuteOffset * minuteMs) / durationMs) * 100,
       major,
     })
@@ -81,7 +106,7 @@ export function timelineTicks(
   if (!ticks.some((tick) => tick.major)) {
     ticks.push({
       id: String(startTimestampMs),
-      label: formatSeconds(0),
+      label: formatDuration(0),
       position: 0,
       major: true,
     })

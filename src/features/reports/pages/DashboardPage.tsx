@@ -75,14 +75,10 @@ export function DashboardPage({
       onOpenProfile={onOpenProfile}
       onLogout={onLogout}
     >
-      <div className="fr-dashboard-page-actions">
-        <Button type="button" variant="primary" onClick={onOpenNewReport}>
-          {translations.dashboard.actions.new_report}
-        </Button>
-      </div>
       <ValidationReportsSection
         reports={reportsToValidate}
         onOpenReport={onOpenReport}
+        onOpenNewReport={onOpenNewReport}
       />
       <DashboardStats reports={reports} />
       <RecentReportsTable

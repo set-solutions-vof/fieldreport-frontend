@@ -6,7 +6,7 @@ import type {
   ReportSectionUpdateResponse,
 } from '@/types/report'
 import type { SaveAllStatus, EvidenceRailItem } from '@/types/reportDetailView'
-import { formatSeconds } from './formatSeconds'
+import { formatDuration } from './formatDuration'
 
 export function allSectionsApproved(sections: ReportSectionModel[]): boolean {
   return sections.length > 0 && sections.every((section) => section.approved)
@@ -70,15 +70,32 @@ export function buildEvidenceRailItems(
 }
 
 export function evidenceTimeLabel(evidenceRailItem: EvidenceRailItem): string {
-  return formatSeconds(evidenceRailItem.evidenceItem.timeline_seconds)
+  return formatDuration(evidenceRailItem.evidenceItem.timeline_seconds)
 }
 
-export function truncateSummary(contentSummary: string): string {
-  if (contentSummary.length <= 40) {
+export function truncateSummary(
+  contentSummary: string,
+  maxLength = 40,
+): string {
+  if (contentSummary.length <= maxLength) {
     return contentSummary
   }
 
-  return `${contentSummary.slice(0, 40)}...`
+  return `${contentSummary.slice(0, maxLength)}...`
+}
+
+export function transcriptSegments(
+  evidenceItems: ReportEvidenceItem[],
+): ReportEvidenceItem[] {
+  return evidenceItems
+    .filter(
+      (evidenceItem) => evidenceItem.evidence_type === 'transcription_segment',
+    )
+    .sort(
+      (firstItem, secondItem) =>
+        (firstItem.start_seconds ?? firstItem.timeline_seconds) -
+        (secondItem.start_seconds ?? secondItem.timeline_seconds),
+    )
 }
 
 export function averageConfidenceLabel(sections: ReportSectionModel[]): string {
@@ -156,7 +173,7 @@ export function sectionEvidenceChipLabels(
     }
 
     if (evidenceItem.evidence_type === 'transcription_segment') {
-      return `[${formatSeconds(
+      return `[${formatDuration(
         evidenceItem.start_seconds ?? evidenceItem.timeline_seconds,
       )}]`
     }

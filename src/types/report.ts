@@ -1,6 +1,11 @@
 import type { TemplateSectionGroup, TemplateSectionType } from './template'
 
-export type ReportStatus = 'generating' | 'draft' | 'approved' | 'failed'
+export type ReportStatus =
+  | 'generating'
+  | 'processing'
+  | 'draft'
+  | 'approved'
+  | 'failed'
 export type EvidenceItemType = 'transcription_segment' | 'image_analysis'
 export type ReportConfidenceLevel = 'high' | 'medium' | 'low'
 

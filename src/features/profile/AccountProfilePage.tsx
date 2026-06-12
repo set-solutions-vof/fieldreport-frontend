@@ -84,13 +84,13 @@ function AccountProfileContent({
   const [newPassword, setNewPassword] = useState('')
   const [confirmedNewPassword, setConfirmedNewPassword] = useState('')
   const [isSaving, setIsSaving] = useState(false)
-  const [currentPasswordError, setCurrentPasswordError] = useState<string | null>(
-    null,
-  )
+  const [currentPasswordError, setCurrentPasswordError] = useState<
+    string | null
+  >(null)
   const [newPasswordError, setNewPasswordError] = useState<string | null>(null)
-  const [confirmPasswordError, setConfirmPasswordError] = useState<string | null>(
-    null,
-  )
+  const [confirmPasswordError, setConfirmPasswordError] = useState<
+    string | null
+  >(null)
   const [formError, setFormError] = useState<string | null>(null)
   const [showSuccessToast, setShowSuccessToast] = useState(false)
 

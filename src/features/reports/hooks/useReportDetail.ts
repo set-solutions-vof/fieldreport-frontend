@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { AuthenticationExpiredError } from '@/lib/api/authenticatedFetch'
 import { getReport } from '@/lib/api/reports'
 import { translations } from '@/lib/translations'
+import { isReportGenerating } from '../lib/reportLabels'
 import type { ReportDetail } from '@/types/report'
 import type {
   ReportDetailLoadStatus,
@@ -55,7 +56,7 @@ export function useReportDetail({
 
           showReport(fetchedReport)
 
-          if (fetchedReport.status === 'generating') {
+          if (isReportGenerating(fetchedReport.status)) {
             pollTimeoutId = window.setTimeout(fetchReport, 3000)
           }
         })

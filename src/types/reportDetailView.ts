@@ -57,6 +57,7 @@ export type ReportDetailHeaderBlockProps = {
 export type ReportDetailTabsProps = {
   activeTab: ReportDetailTab
   reportCount: number
+  transcriptCount: number
   evidenceCount: number
   onActiveTabChange: (tab: ReportDetailTab) => void
 }
