@@ -42,7 +42,10 @@ export function DashboardPage({
         onOpenNewReport={onOpenNewReport}
       />
       <DashboardStats reports={reports} />
-      <RecentReportsTable reports={recentReports} onOpenReports={onOpenReports} />
+      <RecentReportsTable
+        reports={recentReports}
+        onOpenReports={onOpenReports}
+      />
     </>
   )
 }

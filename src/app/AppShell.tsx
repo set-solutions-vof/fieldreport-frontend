@@ -122,10 +122,7 @@ export function AppShell({
             </button>
           )}
           <button
-            className={navigationItemClassName(
-              activeNavigationItem,
-              'profile',
-            )}
+            className={navigationItemClassName(activeNavigationItem, 'profile')}
             type="button"
             onClick={onOpenProfile}
             aria-current={
@@ -169,7 +166,10 @@ export function AppShell({
           </p>
         </header>
         <div
-          className={['flex flex-col [gap:var(--fr-space-7)] [padding:var(--fr-space-7)]', contentClassName]
+          className={[
+            'flex flex-col [gap:var(--fr-space-7)] [padding:var(--fr-space-7)]',
+            contentClassName,
+          ]
             .filter(Boolean)
             .join(' ')}
         >
@@ -187,7 +187,8 @@ function navigationItemClassName(
   const isActive = activeNavigationItem === navigationItem
   return [
     'flex items-center justify-between w-full [min-height:var(--fr-control-height-lg)] [padding:var(--fr-space-0)_var(--fr-space-2)] [font:inherit] [font-size:var(--fr-text-sm)] [font-weight:var(--fr-weight-medium)] [color:var(--fr-text-secondary)] cursor-pointer bg-transparent border-0 [border-radius:var(--fr-radius-lg)] transition-colors hover:[color:var(--fr-text-primary)] hover:[background:var(--fr-surface-sidebar-hover)]',
-    isActive && '[color:white] [background:var(--fr-accent)] hover:[background:var(--fr-accent-hover)] hover:[color:white]',
+    isActive &&
+      '[color:white] [background:var(--fr-accent)] hover:[background:var(--fr-accent-hover)] hover:[color:white]',
   ]
     .filter(Boolean)
     .join(' ')

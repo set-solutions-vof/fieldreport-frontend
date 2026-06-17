@@ -80,7 +80,10 @@ export function NewReportFilesCard({
       />
       <CardHeader>
         <CardTitle className="flex items-center [gap:var(--fr-space-2)]">
-          <span className="inline-block [width:calc(var(--fr-space-1)_-_var(--fr-border-width-sm))] [height:calc(var(--fr-space-4)_-_var(--fr-space-1)_/_2)] [border-radius:var(--fr-radius-sm)] [background:var(--fr-accent)] shrink-0" aria-hidden="true" />
+          <span
+            className="inline-block [width:calc(var(--fr-space-1)_-_var(--fr-border-width-sm))] [height:calc(var(--fr-space-4)_-_var(--fr-space-1)_/_2)] [border-radius:var(--fr-radius-sm)] [background:var(--fr-accent)] shrink-0"
+            aria-hidden="true"
+          />
           {translations.new_report.sections.files}
         </CardTitle>
       </CardHeader>

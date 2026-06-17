@@ -7,9 +7,7 @@ import type { TeamPageProps } from '@/typing/teamView'
 import { TeamMemberRow } from '../components/TeamMemberRow'
 import { useTeamMembers } from '../hooks/useTeamMembers'
 
-export function TeamPage({
-  onAuthenticationExpired,
-}: TeamPageProps) {
+export function TeamPage({ onAuthenticationExpired }: TeamPageProps) {
   const {
     members,
     isLoading: isMembersLoading,

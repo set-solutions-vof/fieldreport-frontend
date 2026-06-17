@@ -65,7 +65,10 @@ export function TemplateSectionLabelEditor({
     >
       <span>{label}</span>
       {!readonly && (
-        <TemplateIcon name="edit" className="[width:var(--fr-space-3)] [height:var(--fr-space-3)] [color:var(--fr-text-tertiary)] [opacity:0.5] block [width:var(--fr-space-4)] [height:var(--fr-space-4)] [stroke-width:1.6]" />
+        <TemplateIcon
+          name="edit"
+          className="[width:var(--fr-space-3)] [height:var(--fr-space-3)] [color:var(--fr-text-tertiary)] [opacity:0.5] block [width:var(--fr-space-4)] [height:var(--fr-space-4)] [stroke-width:1.6]"
+        />
       )}
     </button>
   )

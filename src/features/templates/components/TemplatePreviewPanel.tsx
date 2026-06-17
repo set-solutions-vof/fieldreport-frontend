@@ -3,7 +3,10 @@ import { TemplatePreviewContent } from './TemplatePreviewContent'
 
 export function TemplatePreviewPanel({ sections }: TemplatePreviewPanelProps) {
   return (
-    <aside className="flex [min-width:var(--fr-space-0)] flex-col [gap:var(--fr-space-4)] items-center" aria-label="Voorbeeldrapport">
+    <aside
+      className="flex [min-width:var(--fr-space-0)] flex-col [gap:var(--fr-space-4)] items-center"
+      aria-label="Voorbeeldrapport"
+    >
       <div className="flex [width:min(_100%,_calc(var(--fr-space-15)_*_2_+_var(--fr-space-11)_+_var(--fr-space-4))_)] items-center justify-between [gap:var(--fr-space-4)] [color:var(--fr-text-tertiary)] [font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-medium)] [line-height:var(--fr-leading-snug)]">
         <span>VOORBEELDRAPPORT</span>
         <span>Zo ziet een rapport eruit</span>

@@ -137,7 +137,10 @@ function SectionGroupPlaceholder({ compact = false }: { compact?: boolean }) {
         <span className="block w-full [height:calc(var(--fr-space-3)_-_var(--fr-space-1)_/_2)] [background:var(--fr-color-neutral-100)] [border-radius:var(--fr-radius-md)] [width:60%]" />
       </div>
       {groupedTablePlaceholderRows.map((row) => (
-        <div className="grid [grid-template-columns:minmax(var(--fr-space-12),_0.34fr)_minmax(_var(--fr-space-0),_1fr_)] [gap:var(--fr-space-4)] [align-items:start] [grid-template-columns:minmax(var(--fr-space-11),_0.45fr)_minmax(_var(--fr-space-0),_1fr_)] [gap:var(--fr-space-3)]" key={row}>
+        <div
+          className="grid [grid-template-columns:minmax(var(--fr-space-12),_0.34fr)_minmax(_var(--fr-space-0),_1fr_)] [gap:var(--fr-space-4)] [align-items:start] [grid-template-columns:minmax(var(--fr-space-11),_0.45fr)_minmax(_var(--fr-space-0),_1fr_)] [gap:var(--fr-space-3)]"
+          key={row}
+        >
           <span className="[min-width:var(--fr-space-0)] [color:var(--fr-text-primary)] [font-size:var(--fr-text-xs)] [font-style:italic] [line-height:var(--fr-leading-snug)] [color:var(--fr-accent)] [font-style:normal] [font-weight:var(--fr-weight-medium)] uppercase">
             <span className="block w-full [height:calc(var(--fr-space-3)_-_var(--fr-space-1)_/_2)] [background:var(--fr-color-neutral-100)] [border-radius:var(--fr-radius-md)] [width:75%]" />
           </span>

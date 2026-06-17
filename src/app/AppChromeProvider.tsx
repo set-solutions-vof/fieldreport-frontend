@@ -14,9 +14,12 @@ export function AppChromeProvider({
 }: AppChromeProviderProps & { children: ReactNode }) {
   const [overrides, setOverridesState] = useState<AppChromeOverrides>({})
 
-  const setOverrides = useCallback((nextOverrides: AppChromeOverrides): void => {
-    setOverridesState(nextOverrides)
-  }, [])
+  const setOverrides = useCallback(
+    (nextOverrides: AppChromeOverrides): void => {
+      setOverridesState(nextOverrides)
+    },
+    [],
+  )
 
   const contextValue = useMemo(
     () => ({

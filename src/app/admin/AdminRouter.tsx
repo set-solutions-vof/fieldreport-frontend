@@ -67,10 +67,7 @@ export function AdminRouter({
     content = <TeamPage {...sharedPageProps} />
   } else if (currentPath === profileRoute) {
     content = (
-      <AccountProfilePage
-        {...sharedPageProps}
-        onCancel={onOpenTemplate}
-      />
+      <AccountProfilePage {...sharedPageProps} onCancel={onOpenTemplate} />
     )
   } else {
     content = <TemplateConfigurationPage {...sharedPageProps} />

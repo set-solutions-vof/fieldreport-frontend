@@ -19,10 +19,7 @@ export function PageHeader({
 }: PageHeaderProps) {
   return (
     <div
-      className={[
-        '[margin-bottom:var(--fr-space-6)]',
-        className,
-      ]
+      className={['[margin-bottom:var(--fr-space-6)]', className]
         .filter(Boolean)
         .join(' ')}
     >

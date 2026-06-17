@@ -28,7 +28,8 @@ export function TemplateReviewState({
 }: TemplateReviewStateProps) {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false)
   const fieldsCount = sections.reduce(
-    (totalFields, section) => totalFields + getTemplateSectionFieldCount(section),
+    (totalFields, section) =>
+      totalFields + getTemplateSectionFieldCount(section),
     0,
   )
 

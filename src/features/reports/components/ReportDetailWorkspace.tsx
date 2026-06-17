@@ -22,9 +22,7 @@ import type {
   EvidenceRailFilter,
 } from '@/typing/reportDetailView'
 
-export function ReportDetailWorkspace({
-  report,
-}: ReportDetailWorkspaceProps) {
+export function ReportDetailWorkspace({ report }: ReportDetailWorkspaceProps) {
   const [activeTab, setActiveTab] = useState<ReportDetailTab>('report')
   const [activeSectionId, setActiveSectionId] = useState<string | null>(null)
   const [activeEvidenceItemId, setActiveEvidenceItemId] = useState<
@@ -119,45 +117,45 @@ export function ReportDetailWorkspace({
 
   return (
     <div className="flex flex-col [min-width:var(--fr-space-0)] [margin:calc(var(--fr-space-7)_*_-1)] [padding-bottom:var(--fr-space-10)]">
-        <ReportDetailHeaderBlock report={report} reportStatus={reportStatus} />
+      <ReportDetailHeaderBlock report={report} reportStatus={reportStatus} />
 
-        <div className="[padding:var(--fr-space-0)_var(--fr-space-7)_var(--fr-space-4)]">
-          <div id="report-timeline-strip">
-            <TimelineStrip
-              items={sourceMoments}
-              sections={sections}
-              activeEvidenceItemId={activeEvidenceItemId}
-              onActiveEvidenceItemChange={handleTimelineEvidenceActivation}
-            />
-          </div>
+      <div className="[padding:var(--fr-space-0)_var(--fr-space-7)_var(--fr-space-4)]">
+        <div id="report-timeline-strip">
+          <TimelineStrip
+            items={sourceMoments}
+            sections={sections}
+            activeEvidenceItemId={activeEvidenceItemId}
+            onActiveEvidenceItemChange={handleTimelineEvidenceActivation}
+          />
         </div>
+      </div>
 
-        <ReportDetailTabs
-          activeTab={activeTab}
-          reportCount={sections.length}
-          transcriptCount={transcriptSegments(report.evidence_items).length}
-          evidenceCount={evidenceRailItems.length}
-          onActiveTabChange={setActiveTab}
-        />
+      <ReportDetailTabs
+        activeTab={activeTab}
+        reportCount={sections.length}
+        transcriptCount={transcriptSegments(report.evidence_items).length}
+        evidenceCount={evidenceRailItems.length}
+        onActiveTabChange={setActiveTab}
+      />
 
-        <ReportDetailMainView
-          activeSectionId={activeSectionId}
-          activeEvidenceItemId={activeEvidenceItemId}
-          activeTab={activeTab}
-          draftContent={draftContent}
-          filter={evidenceFilter}
-          report={report}
-          reportUpdatedAt={reportUpdatedAt}
-          sections={sections}
-          evidenceRailItems={evidenceRailItems}
-          sourceMomentRailItems={sourceMoments}
-          onActiveSectionChange={handleSectionActivation}
-          onContentChange={handleContentChange}
-          onFilterChange={setEvidenceFilter}
-          onSectionUpdated={handleSectionUpdated}
-          onEvidenceRailActivation={handleEvidenceRailActivation}
-        />
-        <ReportActionBar dirtyCount={dirtyCount} saveStatus={saveStatus} />
+      <ReportDetailMainView
+        activeSectionId={activeSectionId}
+        activeEvidenceItemId={activeEvidenceItemId}
+        activeTab={activeTab}
+        draftContent={draftContent}
+        filter={evidenceFilter}
+        report={report}
+        reportUpdatedAt={reportUpdatedAt}
+        sections={sections}
+        evidenceRailItems={evidenceRailItems}
+        sourceMomentRailItems={sourceMoments}
+        onActiveSectionChange={handleSectionActivation}
+        onContentChange={handleContentChange}
+        onFilterChange={setEvidenceFilter}
+        onSectionUpdated={handleSectionUpdated}
+        onEvidenceRailActivation={handleEvidenceRailActivation}
+      />
+      <ReportActionBar dirtyCount={dirtyCount} saveStatus={saveStatus} />
     </div>
   )
 }

@@ -4,10 +4,7 @@ import { templateSectionRenderType } from './templateSection'
 export function getTemplateSectionFieldCount(section: TemplateSection): number {
   const renderType = templateSectionRenderType(section)
 
-  if (
-    renderType !== 'key_value_table' &&
-    renderType !== 'measurement_table'
-  ) {
+  if (renderType !== 'key_value_table' && renderType !== 'measurement_table') {
     return 0
   }
 

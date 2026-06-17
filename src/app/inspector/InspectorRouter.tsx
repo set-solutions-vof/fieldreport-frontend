@@ -98,7 +98,9 @@ export function InspectorRouter({
     content = (
       <NewReportPage
         {...sharedPageProps}
-        onReportCreated={(reportId) => navigate(allReportsReportRoute(reportId))}
+        onReportCreated={(reportId) =>
+          navigate(allReportsReportRoute(reportId))
+        }
         onCancel={onOpenDashboard}
       />
     )

@@ -2,18 +2,14 @@ import { useState } from 'react'
 import type { ChangeEvent, FormEvent } from 'react'
 import { useAppChrome } from '@/app/useAppChrome'
 import { PageHeader } from '@/components/PageHeader'
-import {
-  Button,
-  Divider,
-  Input,
-} from '@set-solutions-vof/design-system'
+import { Button, Divider, Input } from '@set-solutions-vof/design-system'
 import { getUserInitials } from '@/features/reports/lib/getUserInitials'
 import {
   ApiError,
   AuthenticationExpiredError,
 } from '@/lib/api/authenticatedFetch'
 import { changePassword, updateProfile } from '@/lib/api/user'
-import { useLocale } from '@/lib/locale'
+import { useLocale } from '@/lib/useLocale'
 import { translations, type Locale } from '@/lib/translations'
 import type { CurrentUser } from '@/typing/auth'
 
@@ -146,121 +142,121 @@ export function AccountProfilePage({
 
   return (
     <main className="relative flex flex-col [gap:var(--fr-space-5)]">
-        {showSuccessToast && (
-          <div
-            className="fixed [top:var(--fr-space-5)] [right:var(--fr-space-5)] [z-index:2] [padding:var(--fr-space-3)_var(--fr-space-4)] [color:var(--fr-status-approved-fg)] [background:var(--fr-status-approved-bg)] [border:var(--fr-border-width-sm)_solid_var(--fr-status-approved-border)] [border-radius:var(--fr-radius-lg)] [font-size:var(--fr-text-sm)] [font-weight:var(--fr-weight-medium)]"
-            role="status"
-          >
-            {translations.profile.success_toast}
-          </div>
-        )}
-        <PageHeader title={translations.profile.title} />
-        <form
-          className="flex [width:min(100%,_calc(var(--fr-space-16)_*_3))] flex-col [gap:var(--fr-space-5)] [padding:var(--fr-space-5)] [background:var(--fr-surface)] [border:var(--fr-border-width-sm)_solid_var(--fr-border)] [border-radius:var(--fr-radius-lg)]"
-          noValidate
-          onSubmit={(event) => void handleSubmit(event)}
+      {showSuccessToast && (
+        <div
+          className="fixed [top:var(--fr-space-5)] [right:var(--fr-space-5)] [z-index:2] [padding:var(--fr-space-3)_var(--fr-space-4)] [color:var(--fr-status-approved-fg)] [background:var(--fr-status-approved-bg)] [border:var(--fr-border-width-sm)_solid_var(--fr-status-approved-border)] [border-radius:var(--fr-radius-lg)] [font-size:var(--fr-text-sm)] [font-weight:var(--fr-weight-medium)]"
+          role="status"
         >
-          <section className="grid [grid-template-columns:var(--fr-space-10)_minmax(var(--fr-space-0),_1fr)] [gap:var(--fr-space-5)] items-start">
-            <span className="inline-flex [width:var(--fr-space-10)] [height:var(--fr-space-10)] items-center justify-center [border-radius:var(--fr-radius-full)] [color:var(--fr-text-on-accent)] [background:var(--fr-accent)] [font-size:var(--fr-text-xl)] [font-weight:var(--fr-weight-semibold)]">
-              {getUserInitials(profileUser.name)}
-            </span>
-            <div className="grid [grid-template-columns:repeat(2,_minmax(var(--fr-space-0),_1fr))] [gap:var(--fr-space-4)]">
-              <Input
-                fieldClassName="[grid-column:1_/_-1]"
-                label={translations.profile.name_label}
-                value={name}
-                onChange={(event) => setName(event.currentTarget.value)}
-              />
-              <Input
-                className="[color:var(--fr-text-disabled)] cursor-not-allowed [background:var(--fr-surface-sunken)]"
-                fieldClassName="[grid-column:1_/_-1]"
-                label={translations.profile.email_label}
-                value={profileUser.email}
-                readOnly
-              />
-            </div>
-          </section>
+          {translations.profile.success_toast}
+        </div>
+      )}
+      <PageHeader title={translations.profile.title} />
+      <form
+        className="flex [width:min(100%,_calc(var(--fr-space-16)_*_3))] flex-col [gap:var(--fr-space-5)] [padding:var(--fr-space-5)] [background:var(--fr-surface)] [border:var(--fr-border-width-sm)_solid_var(--fr-border)] [border-radius:var(--fr-radius-lg)]"
+        noValidate
+        onSubmit={(event) => void handleSubmit(event)}
+      >
+        <section className="grid [grid-template-columns:var(--fr-space-10)_minmax(var(--fr-space-0),_1fr)] [gap:var(--fr-space-5)] items-start">
+          <span className="inline-flex [width:var(--fr-space-10)] [height:var(--fr-space-10)] items-center justify-center [border-radius:var(--fr-radius-full)] [color:var(--fr-text-on-accent)] [background:var(--fr-accent)] [font-size:var(--fr-text-xl)] [font-weight:var(--fr-weight-semibold)]">
+            {getUserInitials(profileUser.name)}
+          </span>
+          <div className="grid [grid-template-columns:repeat(2,_minmax(var(--fr-space-0),_1fr))] [gap:var(--fr-space-4)]">
+            <Input
+              fieldClassName="[grid-column:1_/_-1]"
+              label={translations.profile.name_label}
+              value={name}
+              onChange={(event) => setName(event.currentTarget.value)}
+            />
+            <Input
+              className="[color:var(--fr-text-disabled)] cursor-not-allowed [background:var(--fr-surface-sunken)]"
+              fieldClassName="[grid-column:1_/_-1]"
+              label={translations.profile.email_label}
+              value={profileUser.email}
+              readOnly
+            />
+          </div>
+        </section>
 
-          <Divider spacing="lg" />
+        <Divider spacing="lg" />
 
-          <section className="flex flex-col [gap:var(--fr-space-4)] [&_h2]:[margin:var(--fr-space-0)] [&_h2]:[font-size:var(--fr-text-lg)] [&_h2]:[font-weight:var(--fr-weight-bold)] [&_h2]:[letter-spacing:var(--fr-tracking-section)] [&_h2]:[line-height:var(--fr-leading-snug)] [&_h2]:[color:var(--fr-text-primary)]">
-            <h2>{translations.profile.language_section_title}</h2>
-            <label className="flex flex-col [gap:var(--fr-space-2)] [max-width:calc(var(--fr-space-16)_+_var(--fr-space-10))] [font-size:var(--fr-text-sm)] [font-weight:var(--fr-weight-medium)] [color:var(--fr-text-primary)]">
-              <span>{translations.profile.language_label}</span>
-              <select
-                className="[height:var(--fr-control-height-md)] [padding:var(--fr-space-0)_var(--fr-space-3)] [font:inherit] [color:var(--fr-text-primary)] [background:var(--fr-surface)] [border:var(--fr-border-width-sm)_solid_var(--fr-border-strong)] [border-radius:var(--fr-radius-md)] focus:[border-color:var(--fr-border-focus)] focus:outline-none focus:[box-shadow:var(--fr-shadow-focus)]"
-                value={locale}
-                onChange={handleLocaleChange}
-              >
-                <option value="nl">
-                  {translations.profile.language_options.nl}
-                </option>
-                <option value="en">
-                  {translations.profile.language_options.en}
-                </option>
-              </select>
-            </label>
-          </section>
-
-          <Divider spacing="lg" />
-
-          <section className="flex flex-col [gap:var(--fr-space-4)] [&_h2]:[margin:var(--fr-space-0)] [&_h2]:[font-size:var(--fr-text-lg)] [&_h2]:[font-weight:var(--fr-weight-bold)] [&_h2]:[letter-spacing:var(--fr-tracking-section)] [&_h2]:[line-height:var(--fr-leading-snug)] [&_h2]:[color:var(--fr-text-primary)]">
-            <h2>{translations.profile.password_section_title}</h2>
-            <div className="grid [grid-template-columns:repeat(2,_minmax(var(--fr-space-0),_1fr))] [gap:var(--fr-space-4)]">
-              <Input
-                label={translations.profile.current_password_label}
-                type="password"
-                autoComplete="current-password"
-                value={currentPassword}
-                error={currentPasswordError}
-                onChange={(event) =>
-                  setCurrentPassword(event.currentTarget.value)
-                }
-              />
-              <Input
-                label={translations.profile.new_password_label}
-                type="password"
-                autoComplete="new-password"
-                value={newPassword}
-                error={newPasswordError}
-                onChange={(event) => setNewPassword(event.currentTarget.value)}
-              />
-              <Input
-                label={translations.profile.confirm_password_label}
-                type="password"
-                autoComplete="new-password"
-                value={confirmedNewPassword}
-                error={confirmPasswordError}
-                onChange={(event) =>
-                  setConfirmedNewPassword(event.currentTarget.value)
-                }
-              />
-            </div>
-          </section>
-
-          {formError !== null && (
-            <p
-              className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-sm)] [color:var(--fr-destructive)]"
-              role="alert"
+        <section className="flex flex-col [gap:var(--fr-space-4)] [&_h2]:[margin:var(--fr-space-0)] [&_h2]:[font-size:var(--fr-text-lg)] [&_h2]:[font-weight:var(--fr-weight-bold)] [&_h2]:[letter-spacing:var(--fr-tracking-section)] [&_h2]:[line-height:var(--fr-leading-snug)] [&_h2]:[color:var(--fr-text-primary)]">
+          <h2>{translations.profile.language_section_title}</h2>
+          <label className="flex flex-col [gap:var(--fr-space-2)] [max-width:calc(var(--fr-space-16)_+_var(--fr-space-10))] [font-size:var(--fr-text-sm)] [font-weight:var(--fr-weight-medium)] [color:var(--fr-text-primary)]">
+            <span>{translations.profile.language_label}</span>
+            <select
+              className="[height:var(--fr-control-height-md)] [padding:var(--fr-space-0)_var(--fr-space-3)] [font:inherit] [color:var(--fr-text-primary)] [background:var(--fr-surface)] [border:var(--fr-border-width-sm)_solid_var(--fr-border-strong)] [border-radius:var(--fr-radius-md)] focus:[border-color:var(--fr-border-focus)] focus:outline-none focus:[box-shadow:var(--fr-shadow-focus)]"
+              value={locale}
+              onChange={handleLocaleChange}
             >
-              {formError}
-            </p>
-          )}
+              <option value="nl">
+                {translations.profile.language_options.nl}
+              </option>
+              <option value="en">
+                {translations.profile.language_options.en}
+              </option>
+            </select>
+          </label>
+        </section>
 
-          <footer className="flex justify-end [gap:var(--fr-space-2)]">
-            <Button
-              type="button"
-              variant="ghost"
-              disabled={isSaving}
-              onClick={onCancel}
-            >
-              {translations.profile.cancel_button}
-            </Button>
-            <Button type="submit" variant="primary" loading={isSaving}>
-              {translations.profile.save_button}
-            </Button>
-          </footer>
-        </form>
+        <Divider spacing="lg" />
+
+        <section className="flex flex-col [gap:var(--fr-space-4)] [&_h2]:[margin:var(--fr-space-0)] [&_h2]:[font-size:var(--fr-text-lg)] [&_h2]:[font-weight:var(--fr-weight-bold)] [&_h2]:[letter-spacing:var(--fr-tracking-section)] [&_h2]:[line-height:var(--fr-leading-snug)] [&_h2]:[color:var(--fr-text-primary)]">
+          <h2>{translations.profile.password_section_title}</h2>
+          <div className="grid [grid-template-columns:repeat(2,_minmax(var(--fr-space-0),_1fr))] [gap:var(--fr-space-4)]">
+            <Input
+              label={translations.profile.current_password_label}
+              type="password"
+              autoComplete="current-password"
+              value={currentPassword}
+              error={currentPasswordError}
+              onChange={(event) =>
+                setCurrentPassword(event.currentTarget.value)
+              }
+            />
+            <Input
+              label={translations.profile.new_password_label}
+              type="password"
+              autoComplete="new-password"
+              value={newPassword}
+              error={newPasswordError}
+              onChange={(event) => setNewPassword(event.currentTarget.value)}
+            />
+            <Input
+              label={translations.profile.confirm_password_label}
+              type="password"
+              autoComplete="new-password"
+              value={confirmedNewPassword}
+              error={confirmPasswordError}
+              onChange={(event) =>
+                setConfirmedNewPassword(event.currentTarget.value)
+              }
+            />
+          </div>
+        </section>
+
+        {formError !== null && (
+          <p
+            className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-sm)] [color:var(--fr-destructive)]"
+            role="alert"
+          >
+            {formError}
+          </p>
+        )}
+
+        <footer className="flex justify-end [gap:var(--fr-space-2)]">
+          <Button
+            type="button"
+            variant="ghost"
+            disabled={isSaving}
+            onClick={onCancel}
+          >
+            {translations.profile.cancel_button}
+          </Button>
+          <Button type="submit" variant="primary" loading={isSaving}>
+            {translations.profile.save_button}
+          </Button>
+        </footer>
+      </form>
     </main>
   )
 }

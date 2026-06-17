@@ -1,4 +1,9 @@
-import { Card, CardHeader, CardTitle, Textarea } from '@set-solutions-vof/design-system'
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  Textarea,
+} from '@set-solutions-vof/design-system'
 import { translations } from '@/lib/translations'
 import type { NewReportContextCardProps } from '@/typing/newReportView'
 
@@ -21,7 +26,10 @@ export function NewReportContextCard({
           </span>
         </CardTitle>
       </CardHeader>
-      <div className="[background:var(--fr-accent-soft)] [border:var(--fr-border-width-sm)_solid_var(--fr-color-accent-200)] [border-radius:var(--fr-radius-md)] [padding:var(--fr-space-2)_var(--fr-space-3)] [font-size:var(--fr-text-sm)] [color:var(--fr-color-accent-700)] [margin-bottom:var(--fr-space-3)]" role="note">
+      <div
+        className="[background:var(--fr-accent-soft)] [border:var(--fr-border-width-sm)_solid_var(--fr-color-accent-200)] [border-radius:var(--fr-radius-md)] [padding:var(--fr-space-2)_var(--fr-space-3)] [font-size:var(--fr-text-sm)] [color:var(--fr-color-accent-700)] [margin-bottom:var(--fr-space-3)]"
+        role="note"
+      >
         {translations.new_report.fields.context_help}
       </div>
       <Textarea

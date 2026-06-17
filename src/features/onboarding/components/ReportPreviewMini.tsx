@@ -16,7 +16,10 @@ export function ReportPreviewMini({
   return (
     <div className="flex flex-col [gap:var(--fr-space-4)] [padding-top:var(--fr-space-11)] [&>strong]:[font-size:var(--fr-text-sm)] [&>strong]:[font-weight:var(--fr-weight-bold)] [&>strong]:[letter-spacing:var(--fr-space-0)] [&>strong]:[line-height:var(--fr-leading-snug)] [&>strong]:[color:var(--fr-text-tertiary)] [&>strong]:uppercase [&>p]:[margin:var(--fr-space-0)] [&>p]:text-center [&>p]:[font-size:var(--fr-text-base)] [&>p]:[color:var(--fr-text-secondary)]">
       <strong>{translations.onboarding.preview.label}</strong>
-      <Card className="relative w-full overflow-hidden [justify-self:stretch] [border-radius:var(--fr-radius-paper)] [box-shadow:var(--fr-shadow-paper)]" padding="lg">
+      <Card
+        className="relative w-full overflow-hidden [justify-self:stretch] [border-radius:var(--fr-radius-paper)] [box-shadow:var(--fr-shadow-paper)]"
+        padding="lg"
+      >
         <div className="absolute [top:var(--fr-space-0)] [right:var(--fr-space-0)] [left:var(--fr-space-0)] [height:var(--fr-space-1)] [background:var(--fr-onboarding-company-color,_var(--fr-accent))]" />
         <div className="flex items-start justify-between [gap:var(--fr-space-5)] [&_div]:flex [&_div]:flex-col [&_div]:items-end [&_div]:[gap:var(--fr-space-1)]">
           <span

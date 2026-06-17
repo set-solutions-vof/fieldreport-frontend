@@ -50,7 +50,9 @@ export function GroupedFieldsSectionEditor({
             className="flex flex-col [gap:var(--fr-space-3)]"
             key={`${group.id}-${groupIndex}`}
           >
-            <div className="[padding:var(--fr-space-2)_var(--fr-space-3)] [color:var(--fr-text-primary)] [background:var(--fr-color-neutral-100)] [font-size:var(--fr-text-sm)] [font-weight:var(--fr-weight-semibold)] [line-height:var(--fr-leading-snug)]">{group.label}</div>
+            <div className="[padding:var(--fr-space-2)_var(--fr-space-3)] [color:var(--fr-text-primary)] [background:var(--fr-color-neutral-100)] [font-size:var(--fr-text-sm)] [font-weight:var(--fr-weight-semibold)] [line-height:var(--fr-leading-snug)]">
+              {group.label}
+            </div>
             {group.fields.map((field, fieldIndex) => {
               const valueIndex = currentFieldOffset + fieldIndex
 

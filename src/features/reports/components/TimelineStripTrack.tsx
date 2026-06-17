@@ -25,7 +25,8 @@ export function TimelineStripTrack({
         <span
           className={[
             'absolute [top:18px] [width:1px] [height:5px] [background:var(--fr-text-disabled)]',
-            tick.major && '[top:16px] [height:var(--fr-space-2)] [background:var(--fr-text-tertiary)]',
+            tick.major &&
+              '[top:16px] [height:var(--fr-space-2)] [background:var(--fr-text-tertiary)]',
           ]
             .filter(Boolean)
             .join(' ')}
@@ -33,7 +34,9 @@ export function TimelineStripTrack({
           style={{ left: `${tick.position}%` }}
         >
           {tick.major && (
-            <span className="absolute [top:var(--fr-space-3)] [left:50%] [transform:translateX(-50%)] [font-family:var(--fr-font-mono)] [font-size:10.5px] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-tertiary)] whitespace-nowrap">{tick.label}</span>
+            <span className="absolute [top:var(--fr-space-3)] [left:50%] [transform:translateX(-50%)] [font-family:var(--fr-font-mono)] [font-size:10.5px] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-tertiary)] whitespace-nowrap">
+              {tick.label}
+            </span>
           )}
         </span>
       ))}
@@ -48,7 +51,7 @@ export function TimelineStripTrack({
               active
                 ? '[color:var(--fr-text-on-accent)] [background:var(--fr-accent)] [border-color:var(--fr-accent)] [box-shadow:0_0_0_4px_color-mix(in_oklch,_var(--fr-accent)_18%,_transparent)]'
                 : timelineEvent.allSectionsApproved &&
-                    '[color:var(--fr-status-approved-fg)] [background:var(--fr-status-approved-bg)] [border-color:var(--fr-status-approved-border)]',
+                  '[color:var(--fr-status-approved-fg)] [background:var(--fr-status-approved-bg)] [border-color:var(--fr-status-approved-border)]',
             ]
               .filter(Boolean)
               .join(' ')}

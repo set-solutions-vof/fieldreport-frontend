@@ -81,7 +81,7 @@ export function ReportEvidenceRail({
                   active
                     ? '[border-color:var(--fr-accent)] [background:var(--fr-accent)]'
                     : evidenceRailItem.allSectionsApproved &&
-                        '[border-color:var(--fr-status-approved-border)] [background:var(--fr-status-approved-bg)]',
+                      '[border-color:var(--fr-status-approved-border)] [background:var(--fr-status-approved-bg)]',
                 ]
                   .filter(Boolean)
                   .join(' ')}

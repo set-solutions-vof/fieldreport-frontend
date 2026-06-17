@@ -70,7 +70,9 @@ export function TemplateTypeSelector({
       if (
         selectorRef.current?.contains(target) ||
         (event.target instanceof Element &&
-          event.target.closest('.fixed [z-index:100] flex [width:calc(var(--fr-space-15)_*_2)] flex-col [gap:var(--fr-space-1)] [padding:var(--fr-space-2)] [background:var(--fr-surface)] [border:var(--fr-border-width-sm)_solid_var(--fr-border)] [border-radius:var(--fr-radius-lg)] [box-shadow:var(--fr-shadow-lg)] [transform:translateY(var(--fr-space-2))]') !== null)
+          event.target.closest(
+            '.fixed [z-index:100] flex [width:calc(var(--fr-space-15)_*_2)] flex-col [gap:var(--fr-space-1)] [padding:var(--fr-space-2)] [background:var(--fr-surface)] [border:var(--fr-border-width-sm)_solid_var(--fr-border)] [border-radius:var(--fr-radius-lg)] [box-shadow:var(--fr-shadow-lg)] [transform:translateY(var(--fr-space-2))]',
+          ) !== null)
       ) {
         return
       }
@@ -124,7 +126,8 @@ export function TemplateTypeSelector({
                   aria-selected={isSelected}
                   className={[
                     'flex items-start [gap:var(--fr-space-3)] [padding:var(--fr-space-3)] [color:var(--fr-text-secondary)] text-left cursor-pointer bg-transparent border-0 [border-radius:var(--fr-radius-md)] hover:[color:var(--fr-text-primary)] hover:[background:var(--fr-surface-hover)] hover:outline-none focus-visible:[color:var(--fr-text-primary)] focus-visible:[background:var(--fr-surface-hover)] focus-visible:outline-none',
-                    isSelected && '[color:var(--fr-text-primary)] [background:var(--fr-surface-hover)] outline-none [box-shadow:inset_0_0_0_var(--fr-border-width-sm)_var(--fr-border-strong)]',
+                    isSelected &&
+                      '[color:var(--fr-text-primary)] [background:var(--fr-surface-hover)] outline-none [box-shadow:inset_0_0_0_var(--fr-border-width-sm)_var(--fr-border-strong)]',
                   ]
                     .filter(Boolean)
                     .join(' ')}

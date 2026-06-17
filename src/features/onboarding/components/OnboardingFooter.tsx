@@ -25,10 +25,14 @@ export function OnboardingFooter({
       </Button>
       <div className="flex items-center [gap:var(--fr-space-4)]">
         {helperText !== null && helperText !== undefined && (
-          <p className="[font-size:var(--fr-text-sm)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-secondary)]">{helperText}</p>
+          <p className="[font-size:var(--fr-text-sm)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-secondary)]">
+            {helperText}
+          </p>
         )}
         {errorMessage !== null && errorMessage !== undefined && (
-          <p className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-sm)] [color:var(--fr-destructive)]">{errorMessage}</p>
+          <p className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-sm)] [color:var(--fr-destructive)]">
+            {errorMessage}
+          </p>
         )}
         <Button
           type="button"

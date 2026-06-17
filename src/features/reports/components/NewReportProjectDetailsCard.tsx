@@ -1,4 +1,10 @@
-import { Button, Card, CardHeader, CardTitle, Input } from '@set-solutions-vof/design-system'
+import {
+  Button,
+  Card,
+  CardHeader,
+  CardTitle,
+  Input,
+} from '@set-solutions-vof/design-system'
 import { translations } from '@/lib/translations'
 import type { NewReportProjectDetailsCardProps } from '@/typing/newReportView'
 import { DynamicMetadataForm } from './DynamicMetadataForm'
@@ -19,7 +25,10 @@ export function NewReportProjectDetailsCard({
     <Card padding="lg" className="flex flex-col [gap:var(--fr-space-4)]">
       <CardHeader>
         <CardTitle className="flex items-center [gap:var(--fr-space-2)]">
-          <span className="inline-block [width:calc(var(--fr-space-1)_-_var(--fr-border-width-sm))] [height:calc(var(--fr-space-4)_-_var(--fr-space-1)_/_2)] [border-radius:var(--fr-radius-sm)] [background:var(--fr-accent)] shrink-0" aria-hidden="true" />
+          <span
+            className="inline-block [width:calc(var(--fr-space-1)_-_var(--fr-border-width-sm))] [height:calc(var(--fr-space-4)_-_var(--fr-space-1)_/_2)] [border-radius:var(--fr-radius-sm)] [background:var(--fr-accent)] shrink-0"
+            aria-hidden="true"
+          />
           {translations.new_report.sections.project_details}
         </CardTitle>
       </CardHeader>
@@ -43,7 +52,10 @@ export function NewReportProjectDetailsCard({
         </div>
       )}
       {isTemplateError && (
-        <div className="flex items-center justify-between [gap:var(--fr-space-4)] [padding:var(--fr-space-3)] [border:var(--fr-border-width-sm)_solid_var(--fr-destructive)] [border-radius:var(--fr-radius-md)] [color:var(--fr-destructive)] [&_p]:[margin:var(--fr-space-0)] [&_p]:[font-size:var(--fr-text-sm)] [&_p]:[line-height:var(--fr-leading-snug)]" role="alert">
+        <div
+          className="flex items-center justify-between [gap:var(--fr-space-4)] [padding:var(--fr-space-3)] [border:var(--fr-border-width-sm)_solid_var(--fr-destructive)] [border-radius:var(--fr-radius-md)] [color:var(--fr-destructive)] [&_p]:[margin:var(--fr-space-0)] [&_p]:[font-size:var(--fr-text-sm)] [&_p]:[line-height:var(--fr-leading-snug)]"
+          role="alert"
+        >
           <p>{templateErrorMessage}</p>
           <Button type="button" variant="secondary" onClick={onRetryTemplate}>
             {translations.dashboard.states.retry_button}
@@ -51,7 +63,10 @@ export function NewReportProjectDetailsCard({
         </div>
       )}
       {!isTemplateLoading && !isTemplateError && (
-        <fieldset className="[min-width:var(--fr-space-0)] [padding:var(--fr-space-0)] [margin:var(--fr-space-0)] border-0" disabled={isSubmitting}>
+        <fieldset
+          className="[min-width:var(--fr-space-0)] [padding:var(--fr-space-0)] [margin:var(--fr-space-0)] border-0"
+          disabled={isSubmitting}
+        >
           <DynamicMetadataForm
             fields={fields}
             value={metadataValue}

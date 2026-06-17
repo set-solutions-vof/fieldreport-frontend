@@ -1,4 +1,7 @@
-import type { AppShellBreadcrumbItem, AppShellNavigationItem } from '@/typing/appShell'
+import type {
+  AppShellBreadcrumbItem,
+  AppShellNavigationItem,
+} from '@/typing/appShell'
 import type { CurrentUser } from '@/typing/auth'
 
 export type AppChromeDefaults = {

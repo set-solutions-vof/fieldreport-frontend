@@ -65,7 +65,10 @@ export function CompanyLogoUpload({
               className="inline-flex items-center justify-center [width:var(--fr-space-7)] [height:var(--fr-space-7)] shrink-0 [border-radius:var(--fr-radius-paper)] [color:var(--fr-text-tertiary)] [background:var(--fr-surface)] [border:var(--fr-border-width-sm)_solid_var(--fr-border)]"
               aria-hidden="true"
             >
-              <OnboardingIcon name="photo" className="block [width:var(--fr-space-4)] [height:var(--fr-space-4)] shrink-0 [width:var(--fr-space-5)] [height:var(--fr-space-5)]" />
+              <OnboardingIcon
+                name="photo"
+                className="block [width:var(--fr-space-4)] [height:var(--fr-space-4)] shrink-0 [width:var(--fr-space-5)] [height:var(--fr-space-5)]"
+              />
             </span>
             <span>
               <strong>
@@ -82,7 +85,9 @@ export function CompanyLogoUpload({
         )}
       </button>
       {errorMessage !== null && (
-        <p className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-sm)] [color:var(--fr-destructive)]">{errorMessage}</p>
+        <p className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-sm)] [color:var(--fr-destructive)]">
+          {errorMessage}
+        </p>
       )}
     </div>
   )
