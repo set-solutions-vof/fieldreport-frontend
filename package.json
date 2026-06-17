@@ -13,7 +13,7 @@
     "typecheck": "tsc -b"
   },
   "dependencies": {
-    "@set-solutions-vof/design-system": "^0.1.4",
+    "@set-solutions-vof/design-system": "^0.1.6",
     "@tailwindcss/vite": "^4.1.17",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",

@@ -21,9 +21,9 @@ export function AppShell({
 }: AppShellProps) {
   return (
     <div className="grid [grid-template-columns:var(--fr-space-15)_minmax(var(--fr-space-0),_1fr)] min-h-[100dvh] [background:var(--fr-background)]">
-      <aside className="sticky [top:var(--fr-space-0)] flex flex-col h-[100dvh] min-h-[100dvh] overflow-hidden [border-right:1px_solid_var(--fr-border)] [background:var(--fr-surface)]">
+      <aside className="fr-sidebar-dark sticky [top:var(--fr-space-0)] flex flex-col h-[100dvh] min-h-[100dvh] overflow-hidden [border-right:1px_solid_var(--fr-border)] [background:var(--fr-surface-sidebar)]">
         <div className="flex items-center [height:var(--fr-space-10)] box-border [padding:var(--fr-space-0)_var(--fr-space-5)]">
-          <Logo variant="accent" />
+          <Logo variant="accent" onDark />
         </div>
         <nav
           className="flex flex-1 flex-col [gap:var(--fr-space-2)] [min-height:var(--fr-space-0)] overflow-y-auto [padding:var(--fr-space-4)_var(--fr-space-3)]"
@@ -31,7 +31,7 @@ export function AppShell({
         >
           {onOpenDashboard !== undefined && (
             <>
-              <span className="[margin-top:var(--fr-space-6)] [padding:var(--fr-space-0)_var(--fr-space-2)] [font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-semibold)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-tertiary)] uppercase first-child:[margin-top:var(--fr-space-0)]">
+              <span className="[margin-top:var(--fr-space-6)] [padding:var(--fr-space-0)_var(--fr-space-2)] [font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-semibold)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-tertiary)] [letter-spacing:var(--fr-tracking-label)] uppercase first-child:[margin-top:var(--fr-space-0)]">
                 {translations.dashboard.navigation.workspace_label}
               </span>
               <button
@@ -60,12 +60,12 @@ export function AppShell({
               >
                 <span>{translations.dashboard.navigation.all_reports}</span>
                 {totalReportsCount > 0 && (
-                  <span className="inline-flex items-center justify-center [min-width:var(--fr-space-4)] [height:var(--fr-space-4)] [border-radius:var(--fr-radius-full)] [font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-semibold)] [color:var(--fr-text-secondary)] [background:var(--fr-surface-sunken)]">
+                  <span className="inline-flex items-center justify-center [min-width:var(--fr-space-4)] [height:var(--fr-space-4)] [border-radius:var(--fr-radius-full)] [font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-semibold)] [color:var(--fr-text-tertiary)] [background:var(--fr-surface-sunken)]">
                     {totalReportsCount}
                   </span>
                 )}
               </button>
-              <span className="[margin-top:var(--fr-space-6)] [padding:var(--fr-space-0)_var(--fr-space-2)] [font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-semibold)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-tertiary)] uppercase first-child:[margin-top:var(--fr-space-0)]">
+              <span className="[margin-top:var(--fr-space-6)] [padding:var(--fr-space-0)_var(--fr-space-2)] [font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-semibold)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-tertiary)] [letter-spacing:var(--fr-tracking-label)] uppercase first-child:[margin-top:var(--fr-space-0)]">
                 {translations.dashboard.navigation.settings_label}
               </span>
             </>
@@ -177,9 +177,10 @@ function navigationItemClassName(
   activeNavigationItem: AppShellNavigationItem,
   navigationItem: AppShellNavigationItem,
 ): string {
+  const isActive = activeNavigationItem === navigationItem
   return [
-    'flex items-center justify-between [min-height:var(--fr-control-height-lg)] [padding:var(--fr-space-0)_var(--fr-space-2)] [font:inherit] [font-weight:var(--fr-weight-medium)] [color:var(--fr-text-secondary)] cursor-pointer bg-transparent border-0 [border-radius:var(--fr-radius-lg)] hover:[color:var(--fr-text-primary)] hover:[background:var(--fr-surface-hover)]',
-    activeNavigationItem === navigationItem && '[color:var(--fr-text-primary)] [background:var(--fr-surface-hover)]',
+    'flex items-center justify-between w-full [min-height:var(--fr-control-height-lg)] [padding:var(--fr-space-0)_var(--fr-space-2)] [font:inherit] [font-size:var(--fr-text-sm)] [font-weight:var(--fr-weight-medium)] [color:var(--fr-text-secondary)] cursor-pointer bg-transparent border-0 [border-radius:var(--fr-radius-lg)] transition-colors hover:[color:var(--fr-text-primary)] hover:[background:var(--fr-surface-sidebar-hover)]',
+    isActive && '[color:white] [background:var(--fr-accent)] hover:[background:var(--fr-accent-hover)] hover:[color:white]',
   ]
     .filter(Boolean)
     .join(' ')
