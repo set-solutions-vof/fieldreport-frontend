@@ -24,23 +24,25 @@ export function DashboardStats({ reports }: DashboardStatsProps) {
 
   return (
     <Card
-      className="grid [grid-template-columns:repeat(4,_minmax(var(--fr-space-0),_1fr))] overflow-hidden"
+      className="overflow-hidden"
       padding="none"
       aria-label={translations.dashboard.stats.aria_label}
     >
-      <StatCard
-        title={translations.dashboard.stats.reports_this_month}
-        value={String(reportsThisMonth.length)}
-      />
-      <StatCard
-        title={translations.dashboard.stats.writing_time_saved}
-        value="-"
-      />
-      <StatCard title={translations.dashboard.stats.ai_accuracy} value="-" />
-      <StatCard
-        title={translations.dashboard.stats.approved_last_seven_days}
-        value={String(approvedLastSevenDays.length)}
-      />
+      <div className="grid grid-cols-4">
+        <StatCard
+          title={translations.dashboard.stats.reports_this_month}
+          value={String(reportsThisMonth.length)}
+        />
+        <StatCard
+          title={translations.dashboard.stats.writing_time_saved}
+          value="-"
+        />
+        <StatCard title={translations.dashboard.stats.ai_accuracy} value="-" />
+        <StatCard
+          title={translations.dashboard.stats.approved_last_seven_days}
+          value={String(approvedLastSevenDays.length)}
+        />
+      </div>
     </Card>
   )
 }
