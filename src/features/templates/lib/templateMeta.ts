@@ -1,5 +1,5 @@
-import type { TemplateSectionType } from '@/types/template'
-import type { TemplateTypeMeta } from '@/types/templateIcon'
+import type { TemplateSectionType } from '@/typing/template'
+import type { TemplateTypeMeta } from '@/typing/templateIcon'
 
 export function getTemplateTypeMeta(
   renderType: TemplateSectionType,

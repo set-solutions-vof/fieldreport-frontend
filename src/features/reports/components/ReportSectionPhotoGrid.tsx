@@ -3,9 +3,10 @@ import type {
   PhotoGridSectionEditorProps,
   PhotoGridTile,
   ReportSectionImageProps,
-} from '@/types/reportSectionView'
+} from '@/typing/reportSectionView'
 import { contentLines } from '../lib/reportSectionContent'
 import { AutoSizedTextarea } from './AutoSizedTextarea'
+import { InspectionPhoto } from './InspectionPhoto'
 
 export function PhotoGridSectionEditor({
   section,
@@ -13,9 +14,15 @@ export function PhotoGridSectionEditor({
   evidenceItemsById,
   onContentChange,
 }: PhotoGridSectionEditorProps) {
-  const imageItems = section.evidence_item_ids.map(
-    (evidenceItemId) => evidenceItemsById[evidenceItemId] as PhotoGridTile,
-  )
+  const imageItems = section.evidence_item_ids.flatMap((evidenceItemId) => {
+    const evidenceItem = evidenceItemsById[evidenceItemId]
+
+    if (evidenceItem?.storage_key) {
+      return [evidenceItem as PhotoGridTile]
+    }
+
+    return []
+  })
   const captions = contentLines(content)
   const tiles = imageItems.length > 0 ? imageItems : emptyPhotoTiles(captions)
 
@@ -26,17 +33,17 @@ export function PhotoGridSectionEditor({
   }
 
   return (
-    <div className="fr-report-section-photo-grid">
+    <div className="grid [grid-template-columns:repeat(2,_minmax(var(--fr-space-0),_1fr))] [gap:var(--fr-space-4)]">
       {tiles.map((evidenceItem, tileIndex) => (
         <figure
-          className="fr-report-section-photo"
+          className="flex [min-width:var(--fr-space-0)] flex-col [gap:var(--fr-space-2)] [margin:var(--fr-space-0)]"
           key={`${evidenceItem.id}-${tileIndex}`}
         >
           <ReportSectionImage evidenceItem={evidenceItem} />
           <AutoSizedTextarea
             aria-label={`Foto ${tileIndex + 1}`}
-            className="fr-report-section-photo-caption"
-            fieldClassName="fr-report-section-structured-field"
+            className="[min-height:var(--fr-control-height-lg)] [padding:var(--fr-space-2)] overflow-hidden [font-size:var(--fr-text-sm)] [line-height:var(--fr-leading-normal)] bg-transparent [border-color:transparent] [resize:none]"
+            fieldClassName="[gap:var(--fr-space-0)]"
             value={captions[tileIndex] ?? evidenceItem.content_summary}
             onChange={(event) =>
               updateCaption(tileIndex, event.currentTarget.value)
@@ -49,22 +56,20 @@ export function PhotoGridSectionEditor({
 }
 
 function ReportSectionImage({ evidenceItem }: ReportSectionImageProps) {
-  const imageUrl = evidenceItem.thumbnail_url ?? evidenceItem.image_url
-
-  if (imageUrl) {
+  if (!evidenceItem.storage_key) {
     return (
-      <img
-        className="fr-report-section-photo-image"
-        src={imageUrl}
-        alt={evidenceItem.content_summary}
-      />
+      <div className="w-full [border-radius:var(--fr-radius-md)] [aspect-ratio:4_/_3] grid place-items-center [color:var(--fr-text-tertiary)] [background:var(--fr-color-neutral-100)] [font-size:var(--fr-text-sm)] [font-weight:var(--fr-weight-medium)]">
+        {translations.report_detail.section.image_label}
+      </div>
     )
   }
 
   return (
-    <div className="fr-report-section-photo-placeholder">
-      {translations.report_detail.section.image_label}
-    </div>
+    <InspectionPhoto
+      storageKey={evidenceItem.storage_key}
+      alt={evidenceItem.content_summary}
+      className="w-full [border-radius:var(--fr-radius-md)] [aspect-ratio:4_/_3] block object-cover [background:var(--fr-color-neutral-100)]"
+    />
   )
 }
 
@@ -72,7 +77,6 @@ function emptyPhotoTiles(captions: string[]): PhotoGridTile[] {
   return captions.map((caption, captionIndex) => ({
     id: `photo-placeholder-${captionIndex}`,
     content_summary: caption,
-    image_url: null,
-    thumbnail_url: null,
+    storage_key: null,
   }))
 }

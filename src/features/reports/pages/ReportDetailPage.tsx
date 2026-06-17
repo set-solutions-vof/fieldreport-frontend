@@ -1,17 +1,20 @@
-import { Button, Spinner } from '@/design-system'
-import { useCurrentUser } from '@/features/auth/useCurrentUser'
-import { AppShell } from '@/app/AppShell'
-import { TemplateSkeletonGrid } from '@/features/templates/components/TemplateSkeletonGrid'
+import { useMemo } from 'react'
+import { useAppChrome } from '@/app/useAppChrome'
 import { translations } from '@/lib/translations'
+import {
+  ShellContentError,
+  ShellContentLoader,
+} from '@/components/ShellContentState'
+import { TemplateSkeletonGrid } from '@/features/templates/components/TemplateSkeletonGrid'
 import { ReportDetailWorkspace } from '../components/ReportDetailWorkspace'
 import { useReportDetail } from '../hooks/useReportDetail'
-import { useReportList } from '../hooks/useReportList'
-import type { ReportDetailPageProps } from '@/types/reportView'
-import './ReportDetailPage.css'
+import { isReportGenerating } from '../lib/reportLabels'
+import type { ReportDetailPageProps } from '@/typing/reportView'
 
 export function ReportDetailPage({
   reportId,
   source,
+  reportList,
   onOpenDashboard,
   onOpenReports,
   onAuthenticationExpired,
@@ -20,99 +23,71 @@ export function ReportDetailPage({
     reportId,
     onAuthenticationExpired,
   })
-  const {
-    currentUser,
-    isLoading: isCurrentUserLoading,
-    isError: isCurrentUserError,
-    errorMessage: currentUserErrorMessage,
-    retry: retryCurrentUser,
-  } = useCurrentUser({ onAuthenticationExpired })
-  const {
-    reports,
-    isLoading: isReportsLoading,
-    isError: isReportsError,
-    errorMessage: reportsErrorMessage,
-    retry: retryReports,
-  } = useReportList({ onAuthenticationExpired })
+  const { isLoading: isReportsLoading, isError: isReportsError } = reportList
 
-  if (isLoading || isCurrentUserLoading || isReportsLoading) {
+  const reportBreadcrumbItems = useMemo(() => {
+    if (report === null) {
+      return undefined
+    }
+
+    if (isReportGenerating(report.status)) {
+      return [
+        {
+          label:
+            source === 'dashboard'
+              ? translations.dashboard.navigation.dashboard
+              : translations.dashboard.navigation.all_reports,
+          onClick: source === 'dashboard' ? onOpenDashboard : onOpenReports,
+        },
+        { label: translations.report_detail.states.generating_breadcrumb },
+      ]
+    }
+
+    return [
+      {
+        label:
+          source === 'dashboard'
+            ? translations.dashboard.navigation.dashboard
+            : translations.dashboard.navigation.all_reports,
+        onClick: source === 'dashboard' ? onOpenDashboard : onOpenReports,
+      },
+      { label: translations.report_detail.tabs.report },
+      {
+        label:
+          report.metadata.address ??
+          translations.dashboard.reports_table.unknown_address,
+      },
+    ]
+  }, [onOpenDashboard, onOpenReports, report, source])
+
+  useAppChrome({
+    activeNavigationItem: source === 'dashboard' ? 'dashboard' : 'reports',
+    breadcrumbItems: reportBreadcrumbItems,
+  })
+
+  if (isLoading || isReportsLoading) {
+    return <ShellContentLoader />
+  }
+
+  if (isError || isReportsError || report === null) {
     return (
-      <main className="fr-report-detail-loading-page">
-        <div className="fr-report-detail-state">
-          <Spinner size="lg" />
-        </div>
+      <ShellContentError
+        title={translations.report_detail.states.load_failed_title}
+        message={errorMessage}
+        onRetry={retry}
+      />
+    )
+  }
+
+  if (isReportGenerating(report.status)) {
+    return (
+      <main className="flex [min-height:calc(100dvh_-_var(--fr-space-14))] flex-col">
+        <TemplateSkeletonGrid
+          label={translations.report_detail.states.generating_title}
+        />
       </main>
     )
   }
 
-  if (
-    isError ||
-    isCurrentUserError ||
-    isReportsError ||
-    report === null ||
-    currentUser === null
-  ) {
-    return (
-      <main className="fr-report-detail-loading-page">
-        <div className="fr-report-detail-state">
-          <h1>{translations.report_detail.states.load_failed_title}</h1>
-          <p>
-            {errorMessage ?? currentUserErrorMessage ?? reportsErrorMessage}
-          </p>
-          <Button
-            type="button"
-            variant="primary"
-            onClick={() => {
-              retry()
-              retryCurrentUser()
-              retryReports()
-            }}
-          >
-            {translations.report_detail.states.retry_button}
-          </Button>
-        </div>
-      </main>
-    )
-  }
-
-  if (report.status === 'generating') {
-    return (
-      <AppShell
-        currentUser={currentUser}
-        activeNavigationItem={source === 'dashboard' ? 'dashboard' : 'reports'}
-        breadcrumbItems={[
-          {
-            label:
-              source === 'dashboard'
-                ? translations.dashboard.navigation.dashboard
-                : translations.dashboard.navigation.all_reports,
-            onClick: source === 'dashboard' ? onOpenDashboard : onOpenReports,
-          },
-          { label: translations.report_detail.states.generating_breadcrumb },
-        ]}
-        contentClassName="fr-dashboard-content--template"
-        totalReportsCount={reports.length}
-        onOpenDashboard={onOpenDashboard}
-        onOpenReports={onOpenReports}
-      >
-        <main className="fr-report-generating-page">
-          <TemplateSkeletonGrid
-            label={translations.report_detail.states.generating_title}
-          />
-        </main>
-      </AppShell>
-    )
-  }
-
-  return (
-    <ReportDetailWorkspace
-      key={report.id}
-      report={report}
-      currentUser={currentUser}
-      totalReportsCount={reports.length}
-      source={source}
-      onOpenDashboard={onOpenDashboard}
-      onOpenReports={onOpenReports}
-    />
-  )
+  return <ReportDetailWorkspace key={report.id} report={report} />
 }

@@ -1,0 +1,12 @@
+{
+  "status": {
+    "draft": "Draft",
+    "generating": "Generating",
+    "approved": "Approved",
+    "failed": "Failed"
+  },
+  "errors": {
+    "reports_load_failed": "Reports could not be loaded.",
+    "report_load_failed": "Report could not be loaded."
+  }
+}

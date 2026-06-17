@@ -1,8 +1,17 @@
 import type {
   TemplateSectionGroup,
   TemplateSectionType,
-} from '@/types/template'
-import type { TemplatePageState } from '@/types/templateConfiguration'
+} from '@/typing/template'
+import type {
+  TemplateEditablePageState,
+  TemplatePageState,
+} from '@/typing/templateConfiguration'
+
+function isEditableTemplateState(
+  state: TemplatePageState,
+): state is TemplateEditablePageState {
+  return state.kind === 'preview' || state.kind === 'editing'
+}
 
 export function updatePreviewSectionLabel(
   currentState: TemplatePageState,
@@ -82,7 +91,7 @@ export function reorderPreviewSections(
   fromIndex: number,
   toIndex: number,
 ): TemplatePageState {
-  if (fromIndex === toIndex || currentState.kind !== 'preview') {
+  if (fromIndex === toIndex || !isEditableTemplateState(currentState)) {
     return currentState
   }
 
@@ -102,10 +111,10 @@ export function reorderPreviewSections(
 function updatePreviewSections(
   currentState: TemplatePageState,
   updateSections: (
-    sections: Extract<TemplatePageState, { kind: 'preview' }>['sections'],
-  ) => Extract<TemplatePageState, { kind: 'preview' }>['sections'],
+    sections: TemplateEditablePageState['sections'],
+  ) => TemplateEditablePageState['sections'],
 ): TemplatePageState {
-  if (currentState.kind !== 'preview') {
+  if (!isEditableTemplateState(currentState)) {
     return currentState
   }
 

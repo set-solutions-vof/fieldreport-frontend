@@ -1,9 +1,13 @@
-import type { ReportRouteMatch } from '@/types/routes'
+import type { ReportRouteMatch } from '@/typing/routes'
 
 export const dashboardRoute = '/dashboard'
 export const allReportsRoute = '/reports'
 export const newReportRoute = '/reports/new'
+export const profileRoute = '/profile'
 export const templateRoute = '/admin/template'
+export const adminTeamRoute = '/admin/team'
+export const onboardingRoute = '/onboarding'
+export const inviteRoutePrefix = '/invite/'
 export const dashboardReportRoutePrefix = '/dashboard/reports/'
 export const allReportsReportRoutePrefix = '/reports/'
 
@@ -25,7 +29,9 @@ export function reportRouteMatch(path: string): ReportRouteMatch | null {
     }
   }
 
-  const allReportsReportId = routeId(path, allReportsReportRoutePrefix)
+  const allReportsReportId = isReportDetailRoute(path)
+    ? routeId(path, allReportsReportRoutePrefix)
+    : null
 
   if (allReportsReportId !== null) {
     return {
@@ -35,6 +41,27 @@ export function reportRouteMatch(path: string): ReportRouteMatch | null {
   }
 
   return null
+}
+
+export function isReportDetailRoute(path: string): boolean {
+  return (
+    path.startsWith(allReportsReportRoutePrefix) &&
+    path.replace(allReportsReportRoutePrefix, '') !== 'new'
+  )
+}
+
+export function inviteTokenFromPath(path: string): string | null {
+  if (!path.startsWith(inviteRoutePrefix)) {
+    return null
+  }
+
+  const token = path.slice(inviteRoutePrefix.length)
+
+  if (token === '') {
+    return null
+  }
+
+  return token
 }
 
 function routeId(path: string, routePrefix: string): string | null {

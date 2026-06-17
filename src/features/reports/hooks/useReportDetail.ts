@@ -1,13 +1,14 @@
 import { useCallback, useEffect, useState } from 'react'
-import { isAuthenticationExpiredError } from '@/lib/api/authenticatedFetch'
+import { AuthenticationExpiredError } from '@/lib/api/authenticatedFetch'
 import { getReport } from '@/lib/api/reports'
 import { translations } from '@/lib/translations'
-import type { ReportDetail } from '@/types/report'
+import { isReportGenerating } from '../lib/reportLabels'
+import type { ReportDetail } from '@/typing/report'
 import type {
   ReportDetailLoadStatus,
   UseReportDetailParameters,
   UseReportDetailResult,
-} from '@/types/reportDetail'
+} from '@/typing/reportDetail'
 
 export function useReportDetail({
   reportId,
@@ -25,7 +26,7 @@ export function useReportDetail({
 
   const showReportError = useCallback(
     (error: unknown): void => {
-      if (isAuthenticationExpiredError(error)) {
+      if (error instanceof AuthenticationExpiredError) {
         onAuthenticationExpired()
         return
       }
@@ -55,7 +56,7 @@ export function useReportDetail({
 
           showReport(fetchedReport)
 
-          if (fetchedReport.status === 'generating') {
+          if (isReportGenerating(fetchedReport.status)) {
             pollTimeoutId = window.setTimeout(fetchReport, 3000)
           }
         })

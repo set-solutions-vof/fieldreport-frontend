@@ -1,9 +1,12 @@
 import { AppRouter } from '@/app/AppRouter'
+import { LocaleProvider } from '@/lib/locale'
 
 export default function App() {
   return (
-    <div className="fr-app">
-      <AppRouter />
-    </div>
+    <LocaleProvider>
+      <div className="fr-app">
+        <AppRouter />
+      </div>
+    </LocaleProvider>
   )
 }

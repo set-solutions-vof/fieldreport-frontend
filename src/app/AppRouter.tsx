@@ -1,25 +1,161 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import { Spinner } from '@set-solutions-vof/design-system'
+import { AcceptInvitePage } from '@/features/auth/AcceptInvitePage'
+import { ForgotPasswordPage } from '@/features/auth/ForgotPasswordPage'
 import { LoginPage } from '@/features/auth/LoginPage'
-import type { CurrentUser } from '@/types/auth'
-import { AdminRouter } from './admin/AdminRouter'
+import { ResetPasswordPage } from '@/features/auth/ResetPasswordPage'
+import { refreshAccessToken } from '@/lib/api/auth'
+import { getCurrentUser } from '@/lib/api/currentUser'
+import {
+  clearAuthTokens,
+  getStoredRefreshToken,
+  hasStoredRefreshToken,
+  storeAccessToken,
+} from '@/lib/auth/tokenStore'
+import type { CurrentUser } from '@/typing/auth'
+import type { AuthView } from '@/typing/authView'
+import { inviteTokenFromPath } from './routes'
+import { AdminOnboardingGate } from './admin/AdminOnboardingGate'
 import { InspectorRouter } from './inspector/InspectorRouter'
 
 export function AppRouter() {
   const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null)
+  const [view, setView] = useState<AuthView>('login')
+  const [isRestoringSession, setIsRestoringSession] = useState(() =>
+    hasStoredRefreshToken(),
+  )
+  const currentPath = useCurrentPath()
+  const inviteToken = inviteTokenFromPath(currentPath)
+
+  useEffect(() => {
+    const refreshToken = getStoredRefreshToken()
+
+    if (refreshToken === '') {
+      return
+    }
+
+    async function restoreSession(): Promise<void> {
+      try {
+        const refreshedToken = await refreshAccessToken({
+          refresh_token: refreshToken,
+        })
+        storeAccessToken(refreshedToken.access_token, refreshedToken.token_type)
+        const user = await getCurrentUser()
+        setCurrentUser(user)
+      } catch {
+        clearAuthTokens()
+      } finally {
+        setIsRestoringSession(false)
+      }
+    }
+
+    void restoreSession()
+  }, [])
 
   const handleAuthenticationExpired = useCallback((): void => {
+    clearAuthTokens()
     setCurrentUser(null)
   }, [])
 
+  const handleLogout = useCallback((): void => {
+    clearAuthTokens()
+    setCurrentUser(null)
+    window.history.pushState(null, '', '/')
+  }, [])
+
+  const handleResetPasswordSuccess = useCallback((): void => {
+    setView('login')
+    window.history.pushState(null, '', '/')
+  }, [])
+
+  if (isRestoringSession) {
+    return (
+      <main className="flex min-h-[100dvh] box-border [padding:var(--fr-space-7)] [background:var(--fr-background)]">
+        <div className="[&_h1]:[margin:var(--fr-space-0)] [&_h1]:[font-size:var(--fr-text-xl)] [&_h1]:[font-weight:var(--fr-weight-semibold)] [&_h1]:[line-height:var(--fr-leading-snug)] [&_h1]:[color:var(--fr-text-primary)] flex [max-width:calc(var(--fr-space-16)_+_var(--fr-space-15))] flex-col items-start [gap:var(--fr-space-4)] [&_p]:[margin:var(--fr-space-0)] [&_p]:[font-size:var(--fr-text-base)] [&_p]:[line-height:var(--fr-leading-normal)] [&_p]:[color:var(--fr-text-secondary)]">
+          <Spinner size="lg" />
+        </div>
+      </main>
+    )
+  }
+
+  if (currentUser === null && inviteToken !== null) {
+    return (
+      <AcceptInvitePage
+        token={inviteToken}
+        onLoginSuccess={(user) => setCurrentUser(user)}
+      />
+    )
+  }
+
+  if (currentUser === null && currentPath.startsWith('/reset-password/')) {
+    return <ResetPasswordPage onSuccess={handleResetPasswordSuccess} />
+  }
+
   if (currentUser === null) {
-    return <LoginPage onLoginSuccess={(user) => setCurrentUser(user)} />
+    if (view === 'forgot-password') {
+      return <ForgotPasswordPage onBack={() => setView('login')} />
+    }
+
+    return (
+      <LoginPage
+        onLoginSuccess={(user) => setCurrentUser(user)}
+        onForgotPassword={() => setView('forgot-password')}
+      />
+    )
   }
 
   if (currentUser.role === 'admin') {
-    return <AdminRouter onAuthenticationExpired={handleAuthenticationExpired} />
+    return (
+      <AdminOnboardingGate
+        currentUser={currentUser}
+        onAuthenticationExpired={handleAuthenticationExpired}
+        onLogout={handleLogout}
+      />
+    )
   }
 
   return (
-    <InspectorRouter onAuthenticationExpired={handleAuthenticationExpired} />
+    <InspectorRouter
+      currentUser={currentUser}
+      onAuthenticationExpired={handleAuthenticationExpired}
+      onLogout={handleLogout}
+    />
   )
+}
+
+function useCurrentPath(): string {
+  const [currentPath, setCurrentPath] = useState(window.location.pathname)
+
+  useEffect(() => {
+    function updateCurrentPath(): void {
+      setCurrentPath(window.location.pathname)
+    }
+
+    const originalPushState = window.history.pushState
+    const originalReplaceState = window.history.replaceState
+
+    window.history.pushState = function pushState(
+      ...parameters: Parameters<History['pushState']>
+    ): void {
+      originalPushState.apply(window.history, parameters)
+      updateCurrentPath()
+    }
+
+    window.history.replaceState = function replaceState(
+      ...parameters: Parameters<History['replaceState']>
+    ): void {
+      originalReplaceState.apply(window.history, parameters)
+      updateCurrentPath()
+    }
+
+    window.addEventListener('popstate', updateCurrentPath)
+
+    return () => {
+      window.history.pushState = originalPushState
+      window.history.replaceState = originalReplaceState
+      window.removeEventListener('popstate', updateCurrentPath)
+    }
+  }, [])
+
+  return currentPath
 }

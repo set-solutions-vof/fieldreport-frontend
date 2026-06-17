@@ -1,0 +1,71 @@
+{
+  "navigation_label": "Template",
+  "empty": {
+    "title": "Upload your existing reports",
+    "description": "Upload a few of your existing inspection reports. The FieldReport engine automatically extracts your template structure.",
+    "upload_button": "Upload reports",
+    "extract_label": "What we detect"
+  },
+  "uploading": {
+    "title": "Existing reports",
+    "description": "Feel free to add more reports. The more examples, the more accurate your template.",
+    "dropzone_label": "Drag more reports here or",
+    "dropzone_browse_label": "browse",
+    "dropzone_helper": "PDF · max 25 MB per file",
+    "ready_badge": "Ready",
+    "files_ready_singular": "{{count}} report uploaded · ready to analyze",
+    "files_ready_plural": "{{count}} reports uploaded · ready to analyze",
+    "remove_file_label": "Remove",
+    "cancel_button": "Cancel",
+    "start_button": "Start analysis"
+  },
+  "processing": {
+    "label": "Your reports are being analyzed"
+  },
+  "review": {
+    "section_structure_title": "Section structure",
+    "breadcrumb_label": "Template · Standard inspection report",
+    "title": "Review the structure below",
+    "hint": "Adjust section labels where needed and then confirm the template.",
+    "sections_heading": "Sections",
+    "section_label": "Section",
+    "fields_heading": "Fields",
+    "text_block_hint": "This section contains free text without separate fields.",
+    "sections_stat": "Sections",
+    "fields_stat": "Fields",
+    "fields_count_singular": "{{count}} field",
+    "fields_count_plural": "{{count}} fields",
+    "active_status": "Active for all new reports",
+    "preview_button": "Preview",
+    "save_changes_button": "Save changes",
+    "reports_stat": "Reports",
+    "delete_section_label": "Delete section",
+    "change_render_type_label": "Change display type",
+    "field_input_label": "Field name",
+    "field_input_placeholder": "New field",
+    "add_field_label": "Add field",
+    "remove_field_label": "Remove field",
+    "collapse_fields": "Collapse ↑",
+    "expand_fields": "Expand ↓",
+    "unsaved_changes_label": "Unsaved changes",
+    "confirm_button": "Confirm template"
+  },
+  "approved": {
+    "title": "Your template is active",
+    "hint": "All new inspections use this structure.",
+    "editing_hint": "Adjust sections and fields and save your changes.",
+    "edit_button": "Edit template",
+    "save_button": "Publish changes",
+    "cancel_button": "Cancel"
+  },
+  "failed": {
+    "title": "Analysis failed",
+    "try_again_button": "Upload again"
+  },
+  "errors": {
+    "load_failed_title": "Failed to load template",
+    "load_failed": "Template could not be loaded.",
+    "analysis_failed": "Analysis could not be started.",
+    "confirm_failed": "Template confirmation failed."
+  }
+}

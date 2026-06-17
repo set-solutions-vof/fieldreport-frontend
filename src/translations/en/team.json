@@ -1,0 +1,13 @@
+{
+  "navigation_label": "Your team",
+  "title": "Your team",
+  "description": "Invite colleagues as administrator or inspector.",
+  "members_title": "Team members",
+  "members_empty": "There are no team members yet.",
+  "pending_title": "Pending invitations",
+  "empty": "No invitations have been sent yet.",
+  "errors": {
+    "load_failed_title": "Failed to load team",
+    "load_failed": "Team members could not be loaded."
+  }
+}

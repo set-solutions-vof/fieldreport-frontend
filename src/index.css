@@ -1,1 +1,57 @@
 @import 'tailwindcss';
+
+html,
+body {
+  background: var(--fr-background);
+}
+
+#fr-root,
+#root {
+  min-height: 100dvh;
+}
+
+@keyframes frTemplateShimmer {
+  0% {
+    background-position: 100% 0;
+  }
+
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+@keyframes frTemplateFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(var(--fr-space-2));
+  }
+
+  99% {
+    opacity: 1;
+    transform: translateY(var(--fr-space-0));
+  }
+
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes frTemplateDots {
+  0% {
+    width: var(--fr-space-0);
+  }
+
+  25% {
+    width: 1ch;
+  }
+
+  50% {
+    width: 2ch;
+  }
+
+  75%,
+  100% {
+    width: 3ch;
+  }
+}

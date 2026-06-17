@@ -3,7 +3,7 @@ import { updateSection } from '@/lib/api/reports'
 import type {
   ReportSection as ReportSectionModel,
   ReportSectionUpdateResponse,
-} from '@/types/report'
+} from '@/typing/report'
 import {
   initialDraftContent,
   mergeUpdatedSection,
@@ -13,7 +13,7 @@ import type {
   SaveAllStatus,
   UseReportDraftAutosaveParameters,
   UseReportDraftAutosaveResult,
-} from '@/types/reportDetailView'
+} from '@/typing/reportDetailView'
 
 export function useReportDraftAutosave({
   reportId,

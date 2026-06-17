@@ -1,23 +1,18 @@
 import { useState } from 'react'
 import { createInspection } from '@/lib/api/inspections'
-import { isAuthenticationExpiredError } from '@/lib/api/authenticatedFetch'
+import { AuthenticationExpiredError } from '@/lib/api/authenticatedFetch'
 import { translations } from '@/lib/translations'
 import type {
-  ClientType,
-  InvestigationType,
   NewReportFormErrors,
   NewReportFormState,
   NewReportTextField,
   UseNewReportParameters,
   UseNewReportResult,
-} from '@/types/newReport'
+} from '@/typing/newReport'
+import type { MetadataField } from '@/typing/template'
 
 const emptyForm: NewReportFormState = {
-  address: '',
-  inspectionDate: '',
-  investigationType: '',
-  clientType: '',
-  referenceNumber: '',
+  metadata: {},
   audioFiles: [],
   photoFiles: [],
   extraContext: '',
@@ -30,38 +25,23 @@ export function useNewReport({
   const [form, setForm] = useState<NewReportFormState>(emptyForm)
   const [errors, setErrors] = useState<NewReportFormErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [showMetadataErrors, setShowMetadataErrors] = useState(false)
 
-  function clearErrorForField(field: NewReportTextField): void {
+  function clearSubmitError(): void {
     setErrors((currentErrors) => ({
       ...currentErrors,
-      address: field === 'address' ? undefined : currentErrors.address,
-      inspectionDate:
-        field === 'inspectionDate' ? undefined : currentErrors.inspectionDate,
-      investigationType:
-        field === 'investigationType'
-          ? undefined
-          : currentErrors.investigationType,
-      clientType: field === 'clientType' ? undefined : currentErrors.clientType,
       submit: undefined,
     }))
   }
 
   function updateField(field: NewReportTextField, value: string): void {
-    clearErrorForField(field)
-    setForm((currentForm) => {
-      if (field === 'investigationType') {
-        return {
-          ...currentForm,
-          investigationType: value as InvestigationType | '',
-        }
-      }
+    clearSubmitError()
+    setForm((currentForm) => ({ ...currentForm, [field]: value }))
+  }
 
-      if (field === 'clientType') {
-        return { ...currentForm, clientType: value as ClientType | '' }
-      }
-
-      return { ...currentForm, [field]: value }
-    })
+  function updateMetadata(metadata: Record<string, string | null>): void {
+    setErrors((currentErrors) => ({ ...currentErrors, submit: undefined }))
+    setForm((currentForm) => ({ ...currentForm, metadata }))
   }
 
   function addAudioFiles(files: File[]): void {
@@ -98,22 +78,31 @@ export function useNewReport({
     }))
   }
 
-  async function submit(): Promise<void> {
+  async function submit(metadataFields: MetadataField[]): Promise<void> {
     const validationErrors = validateForm(form)
+    const hasMissingMetadata = hasMissingRequiredMetadata(
+      metadataFields,
+      form.metadata,
+    )
 
-    if (Object.keys(validationErrors).length > 0) {
+    if (hasMissingMetadata) {
+      setShowMetadataErrors(true)
+    }
+
+    if (Object.keys(validationErrors).length > 0 || hasMissingMetadata) {
       setErrors(validationErrors)
       return
     }
 
     setIsSubmitting(true)
     setErrors({})
+    setShowMetadataErrors(false)
 
     try {
       const response = await createInspection(form)
       onSuccess(response.report_id)
     } catch (error) {
-      if (isAuthenticationExpiredError(error)) {
+      if (error instanceof AuthenticationExpiredError) {
         onAuthenticationExpired()
         return
       }
@@ -130,6 +119,8 @@ export function useNewReport({
     form,
     errors,
     isSubmitting,
+    showMetadataErrors,
+    updateMetadata,
     updateField,
     addAudioFiles,
     removeAudioFile,
@@ -142,28 +133,18 @@ export function useNewReport({
 function validateForm(form: NewReportFormState): NewReportFormErrors {
   const validationErrors: NewReportFormErrors = {}
 
-  if (!form.address.trim()) {
-    validationErrors.address = translations.new_report.errors.address_required
-  }
-
-  if (!form.inspectionDate) {
-    validationErrors.inspectionDate =
-      translations.new_report.errors.date_required
-  }
-
-  if (!form.investigationType) {
-    validationErrors.investigationType =
-      translations.new_report.errors.investigation_type_required
-  }
-
-  if (!form.clientType) {
-    validationErrors.clientType =
-      translations.new_report.errors.client_type_required
-  }
-
   if (form.audioFiles.length === 0) {
     validationErrors.audioFiles = translations.new_report.errors.audio_required
   }
 
   return validationErrors
+}
+
+function hasMissingRequiredMetadata(
+  metadataFields: MetadataField[],
+  metadataValue: Record<string, string | null>,
+): boolean {
+  return metadataFields.some(
+    (field) => field.required && !metadataValue[field.key]?.trim(),
+  )
 }

@@ -1,13 +1,12 @@
 import type { ChangeEvent, DragEvent, KeyboardEvent } from 'react'
-import { Card, CardHeader, CardTitle } from '@/design-system'
+import { Card, CardHeader, CardTitle } from '@set-solutions-vof/design-system'
 import { translations } from '@/lib/translations'
 import type {
   NewReportFilesCardProps,
   NewReportUploadZoneHandlers,
-} from '@/types/newReportView'
+} from '@/typing/newReportView'
 import { NewReportAudioUploadZone } from './NewReportAudioUploadZone'
 import { NewReportPhotosUploadZone } from './NewReportPhotosUploadZone'
-import './NewReportFilesCard.css'
 
 export function NewReportFilesCard({
   audioFiles,
@@ -62,10 +61,10 @@ export function NewReportFilesCard({
   }
 
   return (
-    <Card padding="lg" className="fr-new-report-card">
+    <Card padding="lg" className="flex flex-col [gap:var(--fr-space-4)]">
       <input
         ref={audioInputRef}
-        className="fr-new-report-file-input"
+        className="absolute [width:var(--fr-space-0)] [height:var(--fr-space-0)] overflow-hidden [opacity:0] pointer-events-none"
         type="file"
         multiple
         accept=".mp3,.m4a,.wav"
@@ -73,19 +72,22 @@ export function NewReportFilesCard({
       />
       <input
         ref={photosInputRef}
-        className="fr-new-report-file-input"
+        className="absolute [width:var(--fr-space-0)] [height:var(--fr-space-0)] overflow-hidden [opacity:0] pointer-events-none"
         type="file"
         multiple
         accept=".jpg,.jpeg,.png,.heic"
         onChange={handlePhotosInputChange}
       />
       <CardHeader>
-        <CardTitle className="fr-new-report-section-title">
-          <span className="fr-new-report-section-bar" aria-hidden="true" />
+        <CardTitle className="flex items-center [gap:var(--fr-space-2)]">
+          <span
+            className="inline-block [width:calc(var(--fr-space-1)_-_var(--fr-border-width-sm))] [height:calc(var(--fr-space-4)_-_var(--fr-space-1)_/_2)] [border-radius:var(--fr-radius-sm)] [background:var(--fr-accent)] shrink-0"
+            aria-hidden="true"
+          />
           {translations.new_report.sections.files}
         </CardTitle>
       </CardHeader>
-      <div className="fr-new-report-files">
+      <div className="flex flex-col [gap:var(--fr-space-4)]">
         <NewReportAudioUploadZone
           files={audioFiles}
           error={audioError}

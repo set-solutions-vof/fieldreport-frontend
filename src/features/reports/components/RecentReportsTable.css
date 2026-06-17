@@ -1,9 +1,0 @@
-.fr-dashboard-link {
-  padding: var(--fr-space-0);
-  font: inherit;
-  font-weight: var(--fr-weight-medium);
-  color: var(--fr-accent);
-  cursor: pointer;
-  background: transparent;
-  border: 0;
-}

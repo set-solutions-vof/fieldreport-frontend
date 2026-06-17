@@ -6,15 +6,8 @@
     "context": "Extra context"
   },
   "fields": {
-    "address_label": "Adres",
-    "address_placeholder": "Bijv. Keizersgracht 123, Amsterdam",
-    "date_label": "Datum inspectie",
-    "investigation_type_label": "Type onderzoek",
-    "investigation_type_placeholder": "Selecteer type",
-    "client_type_label": "Type klant",
-    "client_type_placeholder": "Selecteer type",
-    "reference_label": "Referentienummer",
-    "reference_placeholder": "Optioneel",
+    "inspector_label": "Inspecteur",
+    "select_placeholder": "Selecteer een optie",
     "audio_label": "Audio-opname(s)",
     "audio_help": "Sleep bestanden hierheen of klik om te uploaden. Minimaal één bestand vereist.",
     "audio_formats": "MP3, M4A of WAV",
@@ -25,24 +18,14 @@
     "context_placeholder": "Beschrijf kort:\n• Wat was de opdracht?\n• Wat heb je gevonden?\n• Wat is de conclusie?\n• Zijn er bijzonderheden die de AI moet weten?",
     "context_help": "Optioneel — hoe meer context, hoe beter het rapport."
   },
-  "investigation_types": {
-    "lekdetectie": "Lekdetectie",
-    "bouwkundig": "Bouwkundig onderzoek",
-    "droogtechniek": "Droogtechniek"
-  },
-  "client_types": {
-    "particulier": "Particulier",
-    "verzekeraar": "Verzekeraar",
-    "juridisch": "Juridisch",
-    "aannemer": "Aannemer"
+  "states": {
+    "template_loading": "Templatestructuur laden"
   },
   "submit_button": "Genereer rapport",
   "cancel_button": "Annuleren",
   "errors": {
-    "address_required": "Adres is verplicht",
-    "date_required": "Datum is verplicht",
-    "investigation_type_required": "Type onderzoek is verplicht",
-    "client_type_required": "Type klant is verplicht",
+    "required_metadata_field": "Dit veld is verplicht",
+    "template_load_failed": "De templatestructuur kon niet worden geladen. Probeer het opnieuw.",
     "audio_required": "Voeg minimaal één audiobestand toe",
     "submit_failed": "Er ging iets mis bij het aanmaken van het rapport. Probeer het opnieuw."
   }

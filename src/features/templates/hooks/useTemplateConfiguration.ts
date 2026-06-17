@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { confirmTemplate, startTemplateAnalysis } from '@/lib/api/templates'
 import { translations } from '@/lib/translations'
 import type {
   TemplateSectionGroup,
   TemplateSectionType,
-} from '@/types/template'
+} from '@/typing/template'
 import { pageStateFromTemplateStatus } from '../lib/pageStateFromTemplateStatus'
 import {
   deletePreviewSection,
@@ -15,12 +15,12 @@ import {
   updatePreviewSectionRenderType,
 } from '../lib/templatePreviewState'
 import type {
-  TemplatePreviewPageState,
+  TemplateEditablePageState,
+  TemplatePageState,
   TemplateUploadingPageState,
   UseTemplateConfigurationParameters,
   UseTemplateConfigurationResult,
-} from '@/types/templateConfiguration'
-import { useTemplateAutoSave } from './useTemplateAutoSave'
+} from '@/typing/templateConfiguration'
 import { useTemplateStatusState } from './useTemplateStatusState'
 
 export function useTemplateConfiguration({
@@ -37,7 +37,12 @@ export function useTemplateConfiguration({
     showAuthenticationOrError,
   } = useTemplateStatusState({ onAuthenticationExpired })
   const [isConfirming, setIsConfirming] = useState(false)
-  const saveStatus = useTemplateAutoSave(pageState)
+  const approvedSnapshotRef = useRef<Extract<
+    TemplatePageState,
+    { kind: 'approved' }
+  > | null>(null)
+  const [hasEditedApprovedTemplate, setHasEditedApprovedTemplate] =
+    useState(false)
 
   function addFiles(files: File[]): void {
     setActionErrorMessage(null)
@@ -68,7 +73,7 @@ export function useTemplateConfiguration({
     setPageState({ kind: 'empty' })
   }
 
-  async function startAnalysis(): Promise<void> {
+  async function startAnalysis(): Promise<boolean> {
     const uploadingState = pageState as TemplateUploadingPageState
     setActionErrorMessage(null)
 
@@ -77,15 +82,18 @@ export function useTemplateConfiguration({
       setPageState(
         pageStateFromTemplateStatus(templateStatus, uploadingState.files),
       )
+      return true
     } catch (error) {
       showAuthenticationOrError(
         error,
         translations.template.errors.analysis_failed,
       )
+      return false
     }
   }
 
   function updateSectionLabel(sectionId: string, label: string): void {
+    markTemplateChanged()
     setPageState((currentState) =>
       updatePreviewSectionLabel(currentState, sectionId, label),
     )
@@ -95,12 +103,14 @@ export function useTemplateConfiguration({
     sectionId: string,
     renderType: TemplateSectionType,
   ): void {
+    markTemplateChanged()
     setPageState((currentState) =>
       updatePreviewSectionRenderType(currentState, sectionId, renderType),
     )
   }
 
   function updateSectionFields(sectionId: string, fields: string[]): void {
+    markTemplateChanged()
     setPageState((currentState) =>
       updatePreviewSectionFields(currentState, sectionId, fields),
     )
@@ -110,21 +120,30 @@ export function useTemplateConfiguration({
     sectionId: string,
     groups: TemplateSectionGroup[],
   ): void {
+    markTemplateChanged()
     setPageState((currentState) =>
       updatePreviewSectionGroups(currentState, sectionId, groups),
     )
   }
 
   function deleteSection(sectionId: string): void {
+    markTemplateChanged()
     setPageState((currentState) =>
       deletePreviewSection(currentState, sectionId),
     )
   }
 
   function reorderSections(fromIndex: number, toIndex: number): void {
+    markTemplateChanged()
     setPageState((currentState) =>
       reorderPreviewSections(currentState, fromIndex, toIndex),
     )
+  }
+
+  function markTemplateChanged(): void {
+    if (pageState.kind === 'editing') {
+      setHasEditedApprovedTemplate(true)
+    }
   }
 
   function resetAfterFailure(): void {
@@ -132,21 +151,58 @@ export function useTemplateConfiguration({
     setPageState({ kind: 'empty' })
   }
 
-  async function confirmCurrentTemplate(): Promise<void> {
-    const previewState = pageState as TemplatePreviewPageState
+  function startEditingTemplate(): void {
+    if (pageState.kind !== 'approved') {
+      return
+    }
+
+    approvedSnapshotRef.current = pageState
+    setHasEditedApprovedTemplate(false)
+    setActionErrorMessage(null)
+    setPageState({
+      kind: 'editing',
+      metadataFields: pageState.metadataFields,
+      sections: pageState.sections,
+      reportsCount: pageState.reportsCount,
+    })
+  }
+
+  function cancelEditing(): void {
+    const approvedSnapshot = approvedSnapshotRef.current
+    if (pageState.kind !== 'editing' || approvedSnapshot === null) {
+      return
+    }
+
+    setActionErrorMessage(null)
+    setPageState(approvedSnapshot)
+    approvedSnapshotRef.current = null
+    setHasEditedApprovedTemplate(false)
+  }
+
+  async function confirmCurrentTemplate(): Promise<boolean> {
+    if (pageState.kind !== 'preview' && pageState.kind !== 'editing') {
+      return false
+    }
+
+    const editableState = pageState as TemplateEditablePageState
     setActionErrorMessage(null)
     setIsConfirming(true)
 
     try {
       const templateStatus = await confirmTemplate({
-        sections: previewState.sections,
+        metadata_fields: editableState.metadataFields,
+        sections: editableState.sections,
       })
+      approvedSnapshotRef.current = null
+      setHasEditedApprovedTemplate(false)
       setPageState(pageStateFromTemplateStatus(templateStatus))
+      return true
     } catch (error) {
       showAuthenticationOrError(
         error,
         translations.template.errors.confirm_failed,
       )
+      return false
     } finally {
       setIsConfirming(false)
     }
@@ -159,7 +215,9 @@ export function useTemplateConfiguration({
     errorMessage,
     actionErrorMessage,
     isConfirming,
-    saveStatus,
+    hasUnsavedChanges:
+      pageState.kind === 'preview' ||
+      (pageState.kind === 'editing' && hasEditedApprovedTemplate),
     retry,
     addFiles,
     removeFile,
@@ -172,6 +230,8 @@ export function useTemplateConfiguration({
     deleteSection,
     reorderSections,
     confirmCurrentTemplate,
+    startEditingTemplate,
+    cancelEditing,
     resetAfterFailure,
   }
 }

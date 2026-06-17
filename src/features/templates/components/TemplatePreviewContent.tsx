@@ -1,35 +1,30 @@
-import type {
-  TemplateKeyValuePreviewProps,
-  TemplateSectionGroupListProps,
-  TemplateSectionGroupProps,
-  TemplateGroupedTablePreviewProps,
-  TemplatePreviewContentProps,
-} from '@/types/templatePreviewView'
+import type { TemplatePreviewContentProps } from '@/typing/templatePreviewView'
 import { TemplateIcon } from './icons/TemplateIcon'
-import './TemplatePreviewContent.css'
+import {
+  GroupedTablePreview,
+  KeyValuePreview,
+} from './TemplatePreviewSectionContent'
 
-const placeholderRows = ['first', 'second', 'third']
 const photoPreviewIndexes = Array.from(
   { length: 4 },
   (_, photoPreviewIndex) => photoPreviewIndex,
 )
-const groupedTablePlaceholderRows = ['first', 'second', 'third']
 
 export function TemplatePreviewContent({
   section,
 }: TemplatePreviewContentProps) {
   if (section.render_type === 'text_block') {
     return (
-      <div className="fr-template-preview-panel__text-lines">
-        <span className="fr-template-preview-panel__placeholder-line" />
-        <span className="fr-template-preview-panel__placeholder-line fr-template-preview-panel__placeholder-line--wide" />
-        <span className="fr-template-preview-panel__placeholder-line fr-template-preview-panel__placeholder-line--short" />
+      <div className="flex flex-col [gap:var(--fr-space-2)]">
+        <span className="block w-full [height:calc(var(--fr-space-3)_-_var(--fr-space-1)_/_2)] [background:var(--fr-color-neutral-100)] [border-radius:var(--fr-radius-md)]" />
+        <span className="block w-full [height:calc(var(--fr-space-3)_-_var(--fr-space-1)_/_2)] [background:var(--fr-color-neutral-100)] [border-radius:var(--fr-radius-md)] [width:95%]" />
+        <span className="block w-full [height:calc(var(--fr-space-3)_-_var(--fr-space-1)_/_2)] [background:var(--fr-color-neutral-100)] [border-radius:var(--fr-radius-md)] [width:60%]" />
       </div>
     )
   }
 
   if (section.render_type === 'key_value_table') {
-    return <KeyValuePreview fields={section.fields} />
+    return <KeyValuePreview section={section} />
   }
 
   if (section.render_type === 'measurement_table') {
@@ -37,154 +32,22 @@ export function TemplatePreviewContent({
   }
 
   return (
-    <div className="fr-template-preview-panel__photo-grid">
+    <div className="grid [grid-template-columns:repeat(2,_minmax(var(--fr-space-0),_1fr))] [gap:var(--fr-space-4)]">
       {photoPreviewIndexes.map((photoPreviewIndex) => (
         <figure
-          className="fr-template-preview-panel__photo-preview"
+          className="flex [min-width:var(--fr-space-0)] flex-col [gap:var(--fr-space-2)] [margin:var(--fr-space-0)] [&_figcaption]:flex [&_figcaption]:flex-col [&_figcaption]:[gap:var(--fr-space-1)]"
           key={photoPreviewIndex}
         >
-          <div className="fr-template-preview-panel__photo-tile">
+          <div className="flex items-center justify-center [background:var(--fr-color-neutral-100)] [border-radius:var(--fr-radius-md)] [aspect-ratio:3_/_2]">
             <TemplateIcon
               name="photo"
-              className="fr-template-preview-panel__photo-icon"
+              className="[width:var(--fr-space-5)] [height:var(--fr-space-5)] [color:var(--fr-text-tertiary)] [stroke-width:1.4]"
             />
           </div>
           <figcaption aria-label="Voorbeeld bijschrift">
-            <span className="fr-template-preview-panel__photo-caption-line" />
+            <span className="block [width:86%] [height:calc(var(--fr-space-2)_-_var(--fr-space-1)_/_2)] [background:var(--fr-color-neutral-100)] [border-radius:var(--fr-radius-md)]" />
           </figcaption>
         </figure>
-      ))}
-    </div>
-  )
-}
-
-function KeyValuePreview({ fields }: TemplateKeyValuePreviewProps) {
-  const visibleFields = fields!.slice(0, 8)
-  const remainingFieldsCount = fields!.length - visibleFields.length
-
-  if (visibleFields.length === 0) {
-    return (
-      <table className="fr-template-preview-panel__table fr-template-preview-panel__table--key-value">
-        <tbody>
-          {placeholderRows.map((placeholderRow) => (
-            <tr key={placeholderRow}>
-              <td>
-                <span className="fr-template-preview-panel__placeholder-line fr-template-preview-panel__placeholder-line--label" />
-              </td>
-              <td>
-                <span className="fr-template-preview-panel__placeholder-line" />
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    )
-  }
-
-  return (
-    <table className="fr-template-preview-panel__table fr-template-preview-panel__table--key-value">
-      <tbody>
-        {visibleFields.map((field) => (
-          <tr key={field}>
-            <th scope="row">{field}</th>
-            <td>
-              <span className="fr-template-preview-panel__placeholder-line" />
-            </td>
-          </tr>
-        ))}
-        {remainingFieldsCount > 0 && (
-          <tr>
-            <th scope="row">+ {remainingFieldsCount} meer</th>
-            <td>
-              <span className="fr-template-preview-panel__placeholder-line fr-template-preview-panel__placeholder-line--short" />
-            </td>
-          </tr>
-        )}
-      </tbody>
-    </table>
-  )
-}
-
-function GroupedTablePreview({ section }: TemplateGroupedTablePreviewProps) {
-  if (section.groups && section.groups.length > 0) {
-    return <SectionGroupList groups={section.groups} />
-  }
-
-  if (section.fields!.length === 0) {
-    return (
-      <div className="fr-template-preview-panel__grouped-table">
-        <SectionGroupPlaceholder />
-      </div>
-    )
-  }
-
-  return (
-    <SectionGroupList
-      groups={[
-        {
-          id: section.id,
-          label: section.label,
-          fields: section.fields!,
-        },
-      ]}
-    />
-  )
-}
-
-function SectionGroupList({ groups }: TemplateSectionGroupListProps) {
-  return (
-    <div className="fr-template-preview-panel__grouped-table">
-      {groups.map((group, groupIndex) => (
-        <SectionGroupPreview
-          title={group.label}
-          rows={group.fields}
-          key={`${group.id}-${groupIndex}`}
-        />
-      ))}
-    </div>
-  )
-}
-
-function SectionGroupPreview({ title, rows }: TemplateSectionGroupProps) {
-  return (
-    <div className="fr-template-preview-panel__section-group">
-      <div className="fr-template-preview-panel__section-group-title">
-        {title}
-      </div>
-      {rows.map((row, rowIndex) => (
-        <div
-          className="fr-template-preview-panel__section-group-row"
-          key={`${row}-${rowIndex}`}
-        >
-          <span className="fr-template-preview-panel__section-group-label">
-            {row}
-          </span>
-          <span className="fr-template-preview-panel__section-group-copy">
-            <span className="fr-template-preview-panel__placeholder-line" />
-            <span className="fr-template-preview-panel__placeholder-line fr-template-preview-panel__placeholder-line--wide" />
-          </span>
-        </div>
-      ))}
-    </div>
-  )
-}
-
-function SectionGroupPlaceholder() {
-  return (
-    <div className="fr-template-preview-panel__section-group">
-      <div className="fr-template-preview-panel__section-group-title fr-template-preview-panel__section-group-title--placeholder">
-        <span className="fr-template-preview-panel__placeholder-line fr-template-preview-panel__placeholder-line--short" />
-      </div>
-      {groupedTablePlaceholderRows.map((row) => (
-        <div className="fr-template-preview-panel__section-group-row" key={row}>
-          <span className="fr-template-preview-panel__section-group-label">
-            <span className="fr-template-preview-panel__placeholder-line fr-template-preview-panel__placeholder-line--label" />
-          </span>
-          <span className="fr-template-preview-panel__section-group-copy">
-            <span className="fr-template-preview-panel__placeholder-line" />
-            <span className="fr-template-preview-panel__placeholder-line fr-template-preview-panel__placeholder-line--wide" />
-          </span>
-        </div>
       ))}
     </div>
   )

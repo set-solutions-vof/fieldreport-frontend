@@ -1,48 +1,71 @@
 {
   "navigation_label": "Template",
   "empty": {
-    "title": "Set up your report template",
-    "description": "Upload a few of your existing reports and the FieldReport engine will extract your template structure automatically.",
-    "upload_button": "Upload reports",
-    "extract_label": "What we extract"
+    "title": "Upload je bestaande rapporten",
+    "description": "Upload een paar van je bestaande inspectierapporten. De FieldReport-engine haalt automatisch je templatestructuur eruit.",
+    "upload_button": "Rapporten uploaden",
+    "extract_label": "Wat we herkennen"
   },
   "uploading": {
-    "dropzone_label": "Drop more files or click to add",
-    "remove_file_label": "Remove",
-    "cancel_button": "Cancel",
-    "start_button": "Start analysis"
+    "title": "Bestaande rapporten",
+    "description": "Voeg gerust meer rapporten toe. Hoe meer voorbeelden, hoe nauwkeuriger je template.",
+    "dropzone_label": "Sleep meer rapporten hierheen of",
+    "dropzone_browse_label": "blader",
+    "dropzone_helper": "PDF · max 25 MB per bestand",
+    "ready_badge": "Gereed",
+    "files_ready_singular": "{{count}} rapport geüpload · klaar om te analyseren",
+    "files_ready_plural": "{{count}} rapporten geüpload · klaar om te analyseren",
+    "remove_file_label": "Verwijder",
+    "cancel_button": "Annuleren",
+    "start_button": "Analyse starten"
+  },
+  "processing": {
+    "label": "Je rapporten worden geanalyseerd"
   },
   "review": {
-    "title": "Review the structure below",
-    "hint": "Edit section labels if needed, then confirm.",
-    "sections_stat": "Sections",
-    "fields_stat": "Fields",
-    "reports_stat": "Reports",
-    "delete_section_label": "Delete section",
-    "change_render_type_label": "Change render type",
-    "field_input_label": "Field name",
-    "field_input_placeholder": "New field",
-    "add_field_label": "Add field",
-    "remove_field_label": "Remove field",
+    "section_structure_title": "Sectieopbouw",
+    "breadcrumb_label": "Sjabloon · Standaard inspectierapport",
+    "title": "Controleer de structuur hieronder",
+    "hint": "Pas sectielabels aan waar nodig en bevestig daarna het template.",
+    "sections_heading": "Secties",
+    "section_label": "Sectie",
+    "fields_heading": "Velden",
+    "text_block_hint": "Deze sectie bevat vrije tekst zonder aparte velden.",
+    "sections_stat": "Secties",
+    "fields_stat": "Velden",
+    "fields_count_singular": "{{count}} veld",
+    "fields_count_plural": "{{count}} velden",
+    "active_status": "Actief voor alle nieuwe rapporten",
+    "preview_button": "Voorbeeld",
+    "save_changes_button": "Wijzigingen opslaan",
+    "reports_stat": "Rapporten",
+    "delete_section_label": "Sectie verwijderen",
+    "change_render_type_label": "Weergavetype wijzigen",
+    "field_input_label": "Veldnaam",
+    "field_input_placeholder": "Nieuw veld",
+    "add_field_label": "Veld toevoegen",
+    "remove_field_label": "Veld verwijderen",
     "collapse_fields": "Inklappen ↑",
     "expand_fields": "Uitklappen ↓",
-    "saved_label": "Opgeslagen",
-    "confirm_button": "Confirm template"
+    "unsaved_changes_label": "Niet-opgeslagen wijzigingen",
+    "confirm_button": "Template bevestigen"
   },
   "approved": {
-    "title": "Your template is active",
-    "hint": "All new inspections will follow this structure.",
-    "edit_button": "Edit template",
-    "edit_tooltip": "Editing coming soon"
+    "title": "Je template is actief",
+    "hint": "Alle nieuwe inspecties gebruiken deze structuur.",
+    "editing_hint": "Pas secties en velden aan en sla je wijzigingen op.",
+    "edit_button": "Template bewerken",
+    "save_button": "Publiceer wijzigingen",
+    "cancel_button": "Annuleren"
   },
   "failed": {
     "title": "Analyse mislukt",
     "try_again_button": "Opnieuw uploaden"
   },
   "errors": {
-    "load_failed_title": "Sjabloon laden is mislukt",
-    "load_failed": "Sjabloon kon niet worden geladen.",
+    "load_failed_title": "Template laden is mislukt",
+    "load_failed": "Template kon niet worden geladen.",
     "analysis_failed": "Analyse kon niet worden gestart.",
-    "confirm_failed": "Sjabloon bevestigen is mislukt."
+    "confirm_failed": "Template bevestigen is mislukt."
   }
 }

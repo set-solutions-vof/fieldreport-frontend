@@ -5,15 +5,10 @@ import type {
   ReportSummary,
   ReportSectionUpdateResponse,
   ReportSectionUpdatePayload,
-} from '@/types/report'
+} from '@/typing/report'
 
 export async function getReports(): Promise<ReportSummary[]> {
   const response = await authenticatedFetch(`${apiBaseUrl}/api/v1/reports`)
-
-  if (!response.ok) {
-    throw new Error('Reports request failed')
-  }
-
   return (await response.json()) as ReportSummary[]
 }
 
@@ -21,11 +16,6 @@ export async function getReport(reportId: string): Promise<ReportDetail> {
   const response = await authenticatedFetch(
     `${apiBaseUrl}/api/v1/reports/${reportId}`,
   )
-
-  if (!response.ok) {
-    throw new Error('Report request failed')
-  }
-
   return (await response.json()) as ReportDetail
 }
 
@@ -44,10 +34,5 @@ export async function updateSection(
       body: JSON.stringify(payload),
     },
   )
-
-  if (!response.ok) {
-    throw new Error('Report section update failed')
-  }
-
   return (await response.json()) as ReportSectionUpdateResponse
 }

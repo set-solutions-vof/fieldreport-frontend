@@ -1,0 +1,78 @@
+{
+  "stepper": {
+    "aria_label": "Installatiestappen",
+    "optional_badge": "Optioneel",
+    "steps": {
+      "company_profile": "Bedrijfsprofiel",
+      "upload_reports": "Rapporten uploaden",
+      "review_template": "Template bekijken",
+      "invite_team": "Team uitnodigen"
+    }
+  },
+  "footer": {
+    "skip": "Sla over, doe dit later",
+    "back": "Terug",
+    "next": "Volgende",
+    "analyze": "Analyseren",
+    "confirm_template": "Template bevestigen",
+    "go_to_dashboard": "Ga naar dashboard",
+    "upload_required": "Upload minimaal één rapport om door te gaan"
+  },
+  "states": {
+    "load_failed_title": "Installatie kon niet worden geladen",
+    "load_failed_description": "Controleer je verbinding en probeer opnieuw.",
+    "retry": "Opnieuw proberen",
+    "completion_failed": "Installatie kon niet worden afgerond."
+  },
+  "company_profile": {
+    "optional_badge": "Optioneel",
+    "title": "Bedrijfsprofiel",
+    "description": "Jouw logo en kleur verschijnen op elk rapport. Je kunt dit nu instellen of later aanpassen in je instellingen.",
+    "company_name_label": "Bedrijfsnaam",
+    "company_name_helper": "Automatisch overgenomen uit je account. Neem contact op met support om dit te wijzigen.",
+    "logo_label": "Logo",
+    "logo_alt": "Bedrijfslogo",
+    "logo_drop_label": "Sleep je logo hierheen of",
+    "logo_browse_label": "blader",
+    "logo_helper": "PNG, JPG of SVG · transparante achtergrond aanbevolen",
+    "primary_color_label": "Primaire kleur",
+    "primary_color_aria": "Gebruik kleur {{color}}",
+    "primary_color_helper": "Gebruikt voor accenten en koppen in je gegenereerde PDF-rapporten.",
+    "color_save_failed": "De kleur kon niet worden opgeslagen.",
+    "logo_save_failed": "Het logo kon niet worden opgeslagen."
+  },
+  "preview": {
+    "label": "Voorbeeld",
+    "dossier": "Dossier",
+    "inspection": "Inspectie",
+    "report_title": "Inspectierapport",
+    "project_details": "Projectgegevens",
+    "helper": "Live voorbeeld, verandert mee met je keuzes."
+  },
+  "template_review": {
+    "missing_reports": "Upload en analyseer eerst rapporten."
+  },
+  "invites": {
+    "step_label": "Stap 4",
+    "title": "Je bent klaar om te starten",
+    "description": "Nodig collega's uit zodat zij direct rapporten kunnen valideren of beheren.",
+    "email_label": "E-mailadres",
+    "role_label": "Rol",
+    "roles": {
+      "admin": "Beheerder",
+      "inspector": "Inspecteur"
+    },
+    "invited_badge": "Uitgenodigd",
+    "delete_label": "Verwijder uitnodiging voor {{email}}",
+    "send_button": "Uitnodigen",
+    "counter": "{{count}} uitnodiging(en) verstuurd · je kunt er altijd meer toevoegen",
+    "load_failed": "Uitnodigingen konden niet worden geladen.",
+    "send_failed": "De uitnodiging kon niet worden verstuurd.",
+    "delete_failed": "De uitnodiging kon niet worden verwijderd."
+  },
+  "welcome": {
+    "title": "Welkom bij FieldReport",
+    "subtitle": "Je werkruimte is klaar. Je gaat nu naar het dashboard waar je je eerste rapport kunt maken.",
+    "button": "Ga naar dashboard"
+  }
+}

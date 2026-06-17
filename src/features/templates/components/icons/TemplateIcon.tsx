@@ -1,4 +1,4 @@
-import type { TemplateIconProps } from '@/types/templateIcon'
+import type { TemplateIconProps } from '@/typing/templateIcon'
 
 export function TemplateIcon({ name, className }: TemplateIconProps) {
   if (name === 'upload') {
@@ -59,6 +59,14 @@ export function TemplateIcon({ name, className }: TemplateIconProps) {
     return (
       <svg className={className} viewBox="0 0 24 24" aria-hidden="true">
         <path {...strokeProps} d="M6 9l6 6 6-6" />
+      </svg>
+    )
+  }
+
+  if (name === 'chevronRight') {
+    return (
+      <svg className={className} viewBox="0 0 24 24" aria-hidden="true">
+        <path {...strokeProps} d="M9 6l6 6-6 6" />
       </svg>
     )
   }

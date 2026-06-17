@@ -1,8 +1,6 @@
 import { useCallback, useMemo, useRef, useState } from 'react'
 import { getReport } from '@/lib/api/reports'
-import { translations } from '@/lib/translations'
-import type { ReportStatus, ReportSectionUpdateResponse } from '@/types/report'
-import { AppShell } from '@/app/AppShell'
+import type { ReportStatus, ReportSectionUpdateResponse } from '@/typing/report'
 import { ReportActionBar } from './ReportActionBar'
 import { ReportDetailHeaderBlock } from './ReportDetailHeaderBlock'
 import { ReportDetailMainView } from './ReportDetailMainView'
@@ -14,33 +12,31 @@ import {
   allSectionsApproved,
   buildEvidenceRailItems,
   mergeUpdatedSection,
+  sourceMomentRailItems,
+  transcriptSegments,
 } from '../lib/reportDetailView'
 import type {
   ReportDetailTab,
   ReportDetailWorkspaceProps,
   EvidenceActivationOrigin,
   EvidenceRailFilter,
-} from '@/types/reportDetailView'
+} from '@/typing/reportDetailView'
 
-export function ReportDetailWorkspace({
-  report,
-  currentUser,
-  totalReportsCount,
-  source,
-  onOpenDashboard,
-  onOpenReports,
-}: ReportDetailWorkspaceProps) {
+export function ReportDetailWorkspace({ report }: ReportDetailWorkspaceProps) {
   const [activeTab, setActiveTab] = useState<ReportDetailTab>('report')
   const [activeSectionId, setActiveSectionId] = useState<string | null>(null)
-  const [activeEvidenceItemId, setActiveEvidenceItemId] = useState<string | null>(
+  const [activeEvidenceItemId, setActiveEvidenceItemId] = useState<
+    string | null
+  >(null)
+  const evidenceActivationOriginRef = useRef<EvidenceActivationOrigin | null>(
     null,
   )
-  const evidenceActivationOriginRef = useRef<EvidenceActivationOrigin | null>(null)
   const [reportStatus, setReportStatus] = useState<ReportStatus>(report.status)
   const [reportUpdatedAt, setReportUpdatedAt] = useState<string | null>(
     report.updated_at,
   )
-  const [evidenceFilter, setEvidenceFilter] = useState<EvidenceRailFilter>('all')
+  const [evidenceFilter, setEvidenceFilter] =
+    useState<EvidenceRailFilter>('all')
   const {
     dirtyCount,
     draftContent,
@@ -58,6 +54,10 @@ export function ReportDetailWorkspace({
   const evidenceRailItems = useMemo(
     () => buildEvidenceRailItems(sections, report.evidence_items),
     [report.evidence_items, sections],
+  )
+  const sourceMoments = useMemo(
+    () => sourceMomentRailItems(evidenceRailItems),
+    [evidenceRailItems],
   )
   useReportDetailScrolling({
     activeSectionId,
@@ -80,10 +80,12 @@ export function ReportDetailWorkspace({
         return
       }
 
-      void getReport(report.id).then((fetchedReport) => {
-        setReportStatus(fetchedReport.status)
-        setReportUpdatedAt(fetchedReport.updated_at)
-      })
+      void getReport(report.id)
+        .then((fetchedReport) => {
+          setReportStatus(fetchedReport.status)
+          setReportUpdatedAt(fetchedReport.updated_at)
+        })
+        .catch(() => {})
     },
     [applySectionUpdated, report.id, sections],
   )
@@ -114,63 +116,46 @@ export function ReportDetailWorkspace({
   )
 
   return (
-    <AppShell
-      currentUser={currentUser}
-      activeNavigationItem={source === 'dashboard' ? 'dashboard' : 'reports'}
-      breadcrumbItems={[
-        {
-          label:
-            source === 'dashboard'
-              ? translations.dashboard.navigation.dashboard
-              : translations.dashboard.navigation.all_reports,
-          onClick: source === 'dashboard' ? onOpenDashboard : onOpenReports,
-        },
-        { label: translations.report_detail.tabs.report },
-        { label: report.address },
-      ]}
-      totalReportsCount={totalReportsCount}
-      onOpenDashboard={onOpenDashboard}
-      onOpenReports={onOpenReports}
-    >
-      <div className="fr-report-detail-page">
-        <ReportDetailHeaderBlock report={report} reportStatus={reportStatus} />
+    <div className="flex flex-col [min-width:var(--fr-space-0)] [margin:calc(var(--fr-space-7)_*_-1)] [padding-bottom:var(--fr-space-10)]">
+      <ReportDetailHeaderBlock report={report} reportStatus={reportStatus} />
 
-        <div className="fr-report-detail-timeline-wrap">
-          <div id="report-timeline-strip">
-            <TimelineStrip
-              items={evidenceRailItems}
-              sections={sections}
-              activeEvidenceItemId={activeEvidenceItemId}
-              onActiveEvidenceItemChange={handleTimelineEvidenceActivation}
-            />
-          </div>
+      <div className="[padding:var(--fr-space-0)_var(--fr-space-7)_var(--fr-space-4)]">
+        <div id="report-timeline-strip">
+          <TimelineStrip
+            items={sourceMoments}
+            sections={sections}
+            activeEvidenceItemId={activeEvidenceItemId}
+            onActiveEvidenceItemChange={handleTimelineEvidenceActivation}
+          />
         </div>
-
-        <ReportDetailTabs
-          activeTab={activeTab}
-          reportCount={sections.length}
-          evidenceCount={evidenceRailItems.length}
-          onActiveTabChange={setActiveTab}
-        />
-
-        <ReportDetailMainView
-          activeSectionId={activeSectionId}
-          activeEvidenceItemId={activeEvidenceItemId}
-          activeTab={activeTab}
-          draftContent={draftContent}
-          filter={evidenceFilter}
-          report={report}
-          reportUpdatedAt={reportUpdatedAt}
-          sections={sections}
-          evidenceRailItems={evidenceRailItems}
-          onActiveSectionChange={handleSectionActivation}
-          onContentChange={handleContentChange}
-          onFilterChange={setEvidenceFilter}
-          onSectionUpdated={handleSectionUpdated}
-          onEvidenceRailActivation={handleEvidenceRailActivation}
-        />
-        <ReportActionBar dirtyCount={dirtyCount} saveStatus={saveStatus} />
       </div>
-    </AppShell>
+
+      <ReportDetailTabs
+        activeTab={activeTab}
+        reportCount={sections.length}
+        transcriptCount={transcriptSegments(report.evidence_items).length}
+        evidenceCount={evidenceRailItems.length}
+        onActiveTabChange={setActiveTab}
+      />
+
+      <ReportDetailMainView
+        activeSectionId={activeSectionId}
+        activeEvidenceItemId={activeEvidenceItemId}
+        activeTab={activeTab}
+        draftContent={draftContent}
+        filter={evidenceFilter}
+        report={report}
+        reportUpdatedAt={reportUpdatedAt}
+        sections={sections}
+        evidenceRailItems={evidenceRailItems}
+        sourceMomentRailItems={sourceMoments}
+        onActiveSectionChange={handleSectionActivation}
+        onContentChange={handleContentChange}
+        onFilterChange={setEvidenceFilter}
+        onSectionUpdated={handleSectionUpdated}
+        onEvidenceRailActivation={handleEvidenceRailActivation}
+      />
+      <ReportActionBar dirtyCount={dirtyCount} saveStatus={saveStatus} />
+    </div>
   )
 }

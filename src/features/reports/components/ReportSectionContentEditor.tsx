@@ -1,12 +1,8 @@
 import { translations } from '@/lib/translations'
-import type { SectionContentEditorProps } from '@/types/reportSectionView'
+import type { SectionContentEditorProps } from '@/typing/reportSectionView'
 import { AutoSizedTextarea } from './AutoSizedTextarea'
 import { PhotoGridSectionEditor } from './ReportSectionPhotoGrid'
-import {
-  KeyValueSectionEditor,
-  GroupedFieldsSectionEditor,
-} from './ReportSectionStructuredEditors'
-import './ReportSectionContent.css'
+import { GroupedFieldsSectionEditor } from './ReportSectionStructuredEditors'
 
 export function SectionContentEditor({
   section,
@@ -17,8 +13,10 @@ export function SectionContentEditor({
 }: SectionContentEditorProps) {
   if (section.render_type === 'key_value_table') {
     return (
-      <KeyValueSectionEditor
+      <GroupedFieldsSectionEditor
+        sectionLabel={section.label}
         fields={section.fields!}
+        groups={section.groups ?? null}
         content={content}
         onContentChange={onStructuredChange}
       />
@@ -30,7 +28,7 @@ export function SectionContentEditor({
       <GroupedFieldsSectionEditor
         sectionLabel={section.label}
         fields={section.fields!}
-        groups={section.groups!}
+        groups={section.groups ?? null}
         content={content}
         onContentChange={onStructuredChange}
       />
@@ -51,8 +49,8 @@ export function SectionContentEditor({
   return (
     <AutoSizedTextarea
       aria-label={`${section.label} ${translations.report_detail.section.inspector_text_suffix}`}
-      className="fr-report-section-textarea"
-      fieldClassName="fr-report-section-field"
+      className="[min-height:var(--fr-control-height-lg)] [padding:var(--fr-space-3)] overflow-hidden [font-size:var(--fr-text-md)] [line-height:var(--fr-leading-relaxed)] bg-transparent [border-color:transparent] [resize:none]"
+      fieldClassName="[gap:var(--fr-space-0)]"
       value={content}
       onChange={onTextChange}
     />

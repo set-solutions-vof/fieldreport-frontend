@@ -55,6 +55,7 @@
   "section": {
     "approve_button": "Goedkeuren",
     "approved_button": "Goedgekeurd",
+    "approve_failed": "Goedkeuren is mislukt. Probeer het opnieuw.",
     "inspector_text_suffix": "inspecteurstekst",
     "sources_for_prefix": "Bronnen voor",
     "image_label": "Foto",
@@ -69,8 +70,10 @@
     "one_unsaved_change": "1 wijziging niet opgeslagen",
     "many_unsaved_changes_suffix": "wijzigingen niet opgeslagen"
   },
-  "stubs": {
-    "transcript": "Transcript komt binnenkort.",
-    "evidence": "Bewijsmateriaal komt binnenkort."
+  "transcript": {
+    "empty": "Er is nog geen transcript beschikbaar voor dit rapport."
+  },
+  "evidence": {
+    "empty": "Er is nog geen bewijsmateriaal gekoppeld aan dit rapport."
   }
 }

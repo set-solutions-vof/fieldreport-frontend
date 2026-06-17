@@ -1,0 +1,47 @@
+{
+  "navigation": {
+    "workspace_label": "Workspace",
+    "dashboard": "Overview",
+    "all_reports": "All reports",
+    "settings_label": "Settings",
+    "template": "Template",
+    "team": "Your team",
+    "profile": "Profile"
+  },
+  "states": {
+    "reports_load_failed_title": "Failed to load reports",
+    "retry_button": "Try again"
+  },
+  "actions": {
+    "new_report": "+ New report"
+  },
+  "queue": {
+    "title": "Open reports",
+    "empty": "There are no open reports."
+  },
+  "reports_table": {
+    "address_header": "Address",
+    "date_header": "Date",
+    "edited_header": "Edited",
+    "status_header": "Status",
+    "action_header": "Action",
+    "unknown_address": "Address unknown",
+    "open_button": "Open"
+  },
+  "stats": {
+    "aria_label": "Dashboard statistics",
+    "reports_this_month": "Reports this month",
+    "writing_time_saved": "Writing time saved",
+    "ai_accuracy": "AI accuracy",
+    "approved_last_seven_days": "Approved · 7d"
+  },
+  "recent_reports": {
+    "title": "Recent reports",
+    "all_reports_button": "All reports",
+    "empty": "There are no recent reports."
+  },
+  "all_reports": {
+    "title": "All reports",
+    "empty": "There are no reports."
+  }
+}

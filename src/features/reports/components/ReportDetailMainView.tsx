@@ -1,9 +1,10 @@
-import { translations } from '@/lib/translations'
-import type { ReportDetailMainViewProps } from '@/types/reportDetailView'
+import type { ReportDetailMainViewProps } from '@/typing/reportDetailView'
+import { reportDetailViewClassName } from '../lib/reportDetailClassNames'
+import { transcriptSegments } from '../lib/reportDetailView'
 import { ReportDocument } from './ReportDocument'
 import { ReportEvidenceRail } from './ReportEvidenceRail'
-import { ReportStubView } from './ReportStubView'
-import { reportDetailViewClassName } from '../lib/reportDetailClassNames'
+import { ReportEvidenceView } from './ReportEvidenceView'
+import { ReportTranscriptView } from './ReportTranscriptView'
 
 export function ReportDetailMainView({
   activeSectionId,
@@ -15,6 +16,7 @@ export function ReportDetailMainView({
   reportUpdatedAt,
   sections,
   evidenceRailItems,
+  sourceMomentRailItems,
   onActiveSectionChange,
   onContentChange,
   onFilterChange,
@@ -28,11 +30,11 @@ export function ReportDetailMainView({
         id="view-report"
         role="tabpanel"
       >
-        <div className="fr-report-detail-report-body">
+        <div className="grid [grid-template-columns:280px_minmax(var(--fr-space-0),_1fr)] [align-items:start] [gap:var(--fr-space-6)] [padding:var(--fr-space-6)_var(--fr-space-7)_var(--fr-space-10)]">
           <ReportEvidenceRail
             activeEvidenceItemId={activeEvidenceItemId}
             filter={filter}
-            items={evidenceRailItems}
+            items={sourceMomentRailItems}
             onActiveEvidenceItemChange={onEvidenceRailActivation}
             onFilterChange={onFilterChange}
           />
@@ -49,12 +51,13 @@ export function ReportDetailMainView({
           />
         </div>
       </div>
-      <ReportStubView activeTab={activeTab} tab="transcript">
-        {translations.report_detail.stubs.transcript}
-      </ReportStubView>
-      <ReportStubView activeTab={activeTab} tab="evidence">
-        {translations.report_detail.stubs.evidence}
-      </ReportStubView>
+      <ReportTranscriptView
+        activeTab={activeTab}
+        inspectorName={report.inspector_name}
+        segments={transcriptSegments(report.evidence_items)}
+        evidenceRailItems={sourceMomentRailItems}
+      />
+      <ReportEvidenceView activeTab={activeTab} items={evidenceRailItems} />
     </>
   )
 }

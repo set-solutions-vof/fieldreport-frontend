@@ -1,0 +1,32 @@
+{
+  "page_title": "New report",
+  "sections": {
+    "project_details": "Project details",
+    "files": "Files",
+    "context": "Additional context"
+  },
+  "fields": {
+    "inspector_label": "Inspector",
+    "select_placeholder": "Select an option",
+    "audio_label": "Audio recording(s)",
+    "audio_help": "Drag files here or click to upload. At least one file required.",
+    "audio_formats": "MP3, M4A or WAV",
+    "photos_label": "Photos",
+    "photos_help": "Drag files here or click to upload.",
+    "photos_formats": "JPG, PNG or HEIC",
+    "context_label": "Additional context for the AI",
+    "context_placeholder": "Briefly describe:\n• What was the assignment?\n• What did you find?\n• What is the conclusion?\n• Are there any details the AI should know?",
+    "context_help": "Optional — the more context, the better the report."
+  },
+  "states": {
+    "template_loading": "Loading template structure"
+  },
+  "submit_button": "Generate report",
+  "cancel_button": "Cancel",
+  "errors": {
+    "required_metadata_field": "This field is required",
+    "template_load_failed": "The template structure could not be loaded. Please try again.",
+    "audio_required": "Add at least one audio file",
+    "submit_failed": "Something went wrong while creating the report. Please try again."
+  }
+}

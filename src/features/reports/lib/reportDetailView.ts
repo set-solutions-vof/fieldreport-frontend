@@ -4,9 +4,9 @@ import type {
   ReportSection as ReportSectionModel,
   ReportEvidenceItem,
   ReportSectionUpdateResponse,
-} from '@/types/report'
-import type { SaveAllStatus, EvidenceRailItem } from '@/types/reportDetailView'
-import { formatSeconds } from './formatSeconds'
+} from '@/typing/report'
+import type { SaveAllStatus, EvidenceRailItem } from '@/typing/reportDetailView'
+import { formatDuration } from './formatDuration'
 
 export function allSectionsApproved(sections: ReportSectionModel[]): boolean {
   return sections.length > 0 && sections.every((section) => section.approved)
@@ -64,21 +64,51 @@ export function buildEvidenceRailItems(
     })
     .sort(
       (firstItem, secondItem) =>
-        firstItem.evidenceItem.timeline_seconds -
-        secondItem.evidenceItem.timeline_seconds,
+        (firstItem.evidenceItem.timeline_seconds ?? Number.POSITIVE_INFINITY) -
+        (secondItem.evidenceItem.timeline_seconds ?? Number.POSITIVE_INFINITY),
     )
 }
 
-export function evidenceTimeLabel(evidenceRailItem: EvidenceRailItem): string {
-  return formatSeconds(evidenceRailItem.evidenceItem.timeline_seconds)
+export function sourceMomentRailItems(
+  items: EvidenceRailItem[],
+): EvidenceRailItem[] {
+  return items.filter(
+    (item) => item.evidenceItem.evidence_type === 'transcription_segment',
+  )
 }
 
-export function truncateSummary(contentSummary: string): string {
-  if (contentSummary.length <= 40) {
+export function evidenceTimeLabel(evidenceRailItem: EvidenceRailItem): string {
+  const timelineSeconds = evidenceRailItem.evidenceItem.timeline_seconds
+
+  if (timelineSeconds === null) {
+    return ''
+  }
+
+  return formatDuration(timelineSeconds)
+}
+
+export function truncateSummary(
+  contentSummary: string,
+  maxLength = 40,
+): string {
+  if (contentSummary.length <= maxLength) {
     return contentSummary
   }
 
-  return `${contentSummary.slice(0, 40)}...`
+  return `${contentSummary.slice(0, maxLength)}...`
+}
+
+export function transcriptSegments(
+  evidenceItems: ReportEvidenceItem[],
+): ReportEvidenceItem[] {
+  return evidenceItems
+    .filter(
+      (evidenceItem) => evidenceItem.evidence_type === 'transcription_segment',
+    )
+    .sort(
+      (firstItem, secondItem) =>
+        (firstItem.timeline_seconds ?? 0) - (secondItem.timeline_seconds ?? 0),
+    )
 }
 
 export function averageConfidenceLabel(sections: ReportSectionModel[]): string {
@@ -156,9 +186,14 @@ export function sectionEvidenceChipLabels(
     }
 
     if (evidenceItem.evidence_type === 'transcription_segment') {
-      return `[${formatSeconds(
-        evidenceItem.start_seconds ?? evidenceItem.timeline_seconds,
-      )}]`
+      const startSeconds =
+        evidenceItem.start_seconds ?? evidenceItem.timeline_seconds
+
+      if (startSeconds === null) {
+        return []
+      }
+
+      return `[${formatDuration(startSeconds)}]`
     }
 
     imageCount += 1

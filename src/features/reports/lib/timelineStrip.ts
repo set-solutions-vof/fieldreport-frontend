@@ -1,9 +1,9 @@
-import { formatSeconds } from './formatSeconds'
+import { formatDuration } from './formatDuration'
 import type {
   TimelineStripEvent,
   TimelineStripProps,
   TimelineTick,
-} from '@/types/reportDetailView'
+} from '@/typing/reportDetailView'
 
 const minuteMs = 60 * 1000
 const majorTickMinuteSteps = [1, 2, 5, 10, 15, 30, 60]
@@ -13,13 +13,18 @@ export function timelineEvents(
   items: TimelineStripProps['items'],
 ): TimelineStripEvent[] {
   return items
+    .filter(
+      (item) =>
+        item.evidenceItem.evidence_type === 'transcription_segment' &&
+        item.evidenceItem.timeline_seconds !== null,
+    )
     .map((item) => ({
       id: item.id,
       primarySectionId: item.primarySectionId,
       sectionIds: item.sectionIds,
       sectionLabels: item.sectionLabels,
       allSectionsApproved: item.allSectionsApproved,
-      timelineSeconds: item.evidenceItem.timeline_seconds,
+      timelineSeconds: item.evidenceItem.timeline_seconds!,
       evidenceType: item.evidenceItem.evidence_type,
     }))
     .sort(
@@ -28,23 +33,63 @@ export function timelineEvents(
     )
 }
 
+export function timelineAudioDurationSeconds(
+  items: TimelineStripProps['items'],
+): number {
+  return items.reduce((maxDuration, item) => {
+    if (item.evidenceItem.evidence_type !== 'transcription_segment') {
+      return maxDuration
+    }
+
+    return Math.max(
+      maxDuration,
+      transcriptionSegmentAbsoluteEndSeconds(item.evidenceItem),
+    )
+  }, 0)
+}
+
+function transcriptionSegmentAbsoluteEndSeconds(
+  evidenceItem: TimelineStripProps['items'][number]['evidenceItem'],
+): number {
+  const { timeline_seconds, start_seconds, end_seconds } = evidenceItem
+
+  if (timeline_seconds === null) {
+    return 0
+  }
+
+  if (end_seconds !== null && start_seconds !== null) {
+    return timeline_seconds + (end_seconds - start_seconds)
+  }
+
+  if (end_seconds !== null) {
+    return end_seconds
+  }
+
+  return timeline_seconds
+}
+
 export function timelineStartTimestampMs(): number {
   return 0
 }
 
-export function timelineEndTimestampMs(events: TimelineStripEvent[]): number {
-  return Math.max(
-    ...events.map(
-      (timelineEvent) => timelineEvent.timelineSeconds * 1000,
-    ),
+export function timelineEndTimestampMs(
+  events: TimelineStripEvent[],
+  audioDurationSeconds: number,
+): number {
+  const maxEventSeconds = events.reduce(
+    (maxSeconds, timelineEvent) =>
+      Math.max(maxSeconds, timelineEvent.timelineSeconds),
+    0,
   )
+
+  return Math.max(maxEventSeconds, audioDurationSeconds) * 1000
 }
 
 export function timelineDurationMs(
   startTimestampMs: number,
   endTimestampMs: number,
 ): number {
-  return Math.max(endTimestampMs - startTimestampMs, minuteMs)
+  return Math.max(endTimestampMs - startTimestampMs, 1000)
 }
 
 export function timelineEventPosition(
@@ -53,8 +98,7 @@ export function timelineEventPosition(
   durationMs: number,
 ): number {
   return (
-    ((timelineEvent.timelineSeconds * 1000 - startTimestampMs) /
-      durationMs) *
+    ((timelineEvent.timelineSeconds * 1000 - startTimestampMs) / durationMs) *
     100
   )
 }
@@ -75,7 +119,7 @@ export function timelineTicks(
 
     ticks.push({
       id: String(timestampMs),
-      label: formatSeconds((timestampMs - startTimestampMs) / 1000),
+      label: formatDuration((timestampMs - startTimestampMs) / 1000),
       position: ((minuteOffset * minuteMs) / durationMs) * 100,
       major,
     })
@@ -84,7 +128,7 @@ export function timelineTicks(
   if (!ticks.some((tick) => tick.major)) {
     ticks.push({
       id: String(startTimestampMs),
-      label: formatSeconds(0),
+      label: formatDuration(0),
       position: 0,
       major: true,
     })

@@ -1,4 +1,4 @@
-import type { ReportDetailTabIconProps } from '@/types/reportIconView'
+import type { ReportDetailTabIconProps } from '@/typing/reportIconView'
 
 export function ReportDetailTabIcon({ tab }: ReportDetailTabIconProps) {
   if (tab === 'report') {
