@@ -21,12 +21,12 @@ jobs:
           registry-url: https://npm.pkg.github.com
           scope: '@set-solutions-vof'
           always-auth: true
-          token: ${{ github.token }}
+          token: ${{ secrets.NODE_AUTH_TOKEN }}
 
       - name: Install dependencies
         run: npm ci
         env:
-          NODE_AUTH_TOKEN: ${{ github.token }}
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
 
       - run: npm run typecheck
       - run: npm run lint
