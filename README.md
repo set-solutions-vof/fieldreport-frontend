@@ -24,10 +24,8 @@ npm run dev
 
 ## CI
 
-CI installs the private design system from GitHub Packages. Add a repository secret:
+CI authenticates to GitHub Packages with the workflow `GITHUB_TOKEN` (see `.github/workflows/ci.yml`).
 
-| Secret | Value |
-|--------|--------|
-| `NODE_AUTH_TOKEN` | GitHub classic PAT with `read:packages` |
+If `npm ci` fails with **403 read_package**, grant this repository access on the design-system package: **Package settings → Manage Actions access → add `fieldreport-frontend`**.
 
-Alternatively, grant this repository access under the design-system package settings (**Package settings → Manage Actions access**). If that is configured, you can switch the workflow back to `secrets.GITHUB_TOKEN`.
+For local development, set `NODE_AUTH_TOKEN` in `.env.local` to a classic PAT with `read:packages` (see `.env.example`).
