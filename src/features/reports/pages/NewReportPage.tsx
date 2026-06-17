@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import type { FormEvent } from 'react'
 import { Button, Spinner } from '@set-solutions-vof/design-system'
 import { AppShell } from '@/app/AppShell'
+import { PageHeader } from '@/components/PageHeader'
 import { useCurrentUser } from '@/features/auth/useCurrentUser'
 import { translations } from '@/lib/translations'
 import type { NewReportPageProps } from '@/types/newReportView'
@@ -63,7 +64,7 @@ export function NewReportPage({
   if (isCurrentUserLoading) {
     return (
       <main className="flex min-h-[100dvh] box-border [padding:var(--fr-space-7)] [background:var(--fr-background)]">
-        <div className="[&_h1]:[margin:var(--fr-space-0)] [&_h1]:[font-size:var(--fr-text-xl)] [&_h1]:[font-weight:var(--fr-weight-semibold)] [&_h1]:[line-height:var(--fr-leading-snug)] [&_h1]:[color:var(--fr-text-primary)] flex [max-width:calc(var(--fr-space-16)_+_var(--fr-space-15))] flex-col items-start [gap:var(--fr-space-4)] [&_p]:[margin:var(--fr-space-0)] [&_p]:[font-size:var(--fr-text-base)] [&_p]:[line-height:var(--fr-leading-normal)] [&_p]:[color:var(--fr-text-secondary)]">
+        <div className="flex [max-width:calc(var(--fr-space-16)_+_var(--fr-space-15))] flex-col items-start">
           <Spinner size="lg" />
         </div>
       </main>
@@ -73,9 +74,11 @@ export function NewReportPage({
   if (isCurrentUserError) {
     return (
       <main className="flex min-h-[100dvh] box-border [padding:var(--fr-space-7)] [background:var(--fr-background)]">
-        <div className="[&_h1]:[margin:var(--fr-space-0)] [&_h1]:[font-size:var(--fr-text-xl)] [&_h1]:[font-weight:var(--fr-weight-semibold)] [&_h1]:[line-height:var(--fr-leading-snug)] [&_h1]:[color:var(--fr-text-primary)] flex [max-width:calc(var(--fr-space-16)_+_var(--fr-space-15))] flex-col items-start [gap:var(--fr-space-4)] [&_p]:[margin:var(--fr-space-0)] [&_p]:[font-size:var(--fr-text-base)] [&_p]:[line-height:var(--fr-leading-normal)] [&_p]:[color:var(--fr-text-secondary)]">
-          <h1>{translations.dashboard.states.reports_load_failed_title}</h1>
-          <p>{currentUserErrorMessage}</p>
+        <div className="flex [max-width:calc(var(--fr-space-16)_+_var(--fr-space-15))] flex-col items-start">
+          <PageHeader
+            title={translations.dashboard.states.reports_load_failed_title}
+            metadata={currentUserErrorMessage}
+          />
           <Button type="button" variant="primary" onClick={retryCurrentUser}>
             {translations.dashboard.states.retry_button}
           </Button>
@@ -102,7 +105,11 @@ export function NewReportPage({
       onOpenProfile={onOpenProfile}
       onLogout={onLogout}
     >
-      <form className="flex [width:min(100%,_calc(var(--fr-space-16)_*_4))] flex-col [gap:var(--fr-space-5)]" noValidate onSubmit={handleSubmit}>
+      <form
+        className="flex [width:min(100%,_calc(var(--fr-space-16)_*_4))] flex-col [gap:var(--fr-space-5)]"
+        noValidate
+        onSubmit={handleSubmit}
+      >
         <NewReportCompletionProgress
           metadataFields={template?.metadata_fields ?? []}
           metadataValue={form.metadata}
@@ -138,7 +145,10 @@ export function NewReportPage({
           }
         />
         {errors.submit && (
-          <p className="[margin:var(--fr-space-0)] [color:var(--fr-destructive)] [font-size:var(--fr-text-sm)] [line-height:var(--fr-leading-snug)]" role="alert">
+          <p
+            className="[margin:var(--fr-space-0)] [color:var(--fr-destructive)] [font-size:var(--fr-text-sm)] [line-height:var(--fr-leading-snug)]"
+            role="alert"
+          >
             {errors.submit}
           </p>
         )}

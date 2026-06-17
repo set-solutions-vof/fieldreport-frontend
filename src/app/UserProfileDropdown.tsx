@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { getUserInitials } from '@/features/reports/lib/getUserInitials'
+import { translations } from '@/lib/translations'
 import type { CurrentUser } from '@/types/auth'
 
 type UserProfileDropdownProps = {
@@ -48,7 +49,7 @@ export function UserProfileDropdown({
             role="menuitem"
             onClick={handleOpenProfile}
           >
-            Mijn account
+            {translations.profile.my_account}
           </button>
           <button
             className="flex [min-height:var(--fr-control-height-md)] items-center [padding:var(--fr-space-0)_var(--fr-space-2)] [font:inherit] [font-size:var(--fr-text-sm)] [font-weight:var(--fr-weight-medium)] [color:var(--fr-text-primary)] text-left cursor-pointer bg-transparent border-0 [border-radius:var(--fr-radius-lg)] hover:[background:var(--fr-surface-hover)] focus-visible:[background:var(--fr-surface-hover)] focus-visible:outline-none focus-visible:[box-shadow:var(--fr-shadow-focus)]"
@@ -56,7 +57,7 @@ export function UserProfileDropdown({
             role="menuitem"
             onClick={handleLogout}
           >
-            Uitloggen
+            {translations.auth.logout_button}
           </button>
         </div>
       )}

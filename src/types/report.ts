@@ -21,12 +21,13 @@ export type ReportSummary = {
 export type ReportEvidenceItem = {
   id: string
   evidence_type: EvidenceItemType
-  timeline_seconds: number
+  timeline_seconds: number | null
   start_seconds: number | null
   end_seconds: number | null
   captured_at: string | null
   content_summary: string
   storage_key: string | null
+  transcription_id: string | null
 }
 
 export type ReportEvidenceSource = {

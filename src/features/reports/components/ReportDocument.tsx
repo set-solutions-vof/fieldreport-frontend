@@ -98,7 +98,7 @@ function DocumentStatusCell({
       <span>{label}</span>
       <strong>{value}</strong>
       {progress !== null && (
-        <div className="[width:120px] [height:var(--fr-space-1)] [margin-top:var(--fr-space-2)] overflow-hidden [border-radius:var(--fr-radius-full)] [background:var(--fr-surface-active)] [&_i]:block [&_i]:h-full [&_i]:[border-radius:inherit] [&_i]:[background:var(--fr-text-primary)]">
+        <div className="[width:120px] [height:var(--fr-space-1)] [margin-top:var(--fr-space-2)] overflow-hidden [border-radius:var(--fr-radius-full)] [background:var(--fr-surface-active)] [&_i]:block [&_i]:h-full [&_i]:[border-radius:inherit] [&_i]:[background:var(--fr-accent)]">
           <i style={{ width: `${progress}%` }} />
         </div>
       )}

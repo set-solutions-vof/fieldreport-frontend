@@ -1,0 +1,79 @@
+{
+  "states": {
+    "load_failed_title": "Failed to load report",
+    "generating_breadcrumb": "Generating report",
+    "generating_title": "Generating report",
+    "retry_button": "Try again"
+  },
+  "header": {
+    "draft_pill": "Draft",
+    "draft_title_suffix": "draft report",
+    "approved_pill": "Approved",
+    "approved_title_suffix": "approved report",
+    "legend_aria_label": "Legend",
+    "legend_event": "Event",
+    "legend_review": "Review",
+    "legend_low_confidence": "Low confidence",
+    "legend_open": "Open",
+    "legend_approved": "Approved"
+  },
+  "tabs": {
+    "report": "Report",
+    "transcript": "Transcript",
+    "evidence": "Evidence"
+  },
+  "timeline": {
+    "label": "Timeline",
+    "empty": "No source moments linked",
+    "track_aria_label": "Source moments",
+    "moments_suffix": "moments",
+    "sections_suffix": "sections",
+    "approved": "Approved",
+    "review": "Review",
+    "open": "open"
+  },
+  "evidence_rail": {
+    "aria_label": "Source moments",
+    "title": "Source moments",
+    "filter_aria_label": "Filter sources",
+    "all_filter": "All",
+    "open_filter": "Open",
+    "approved_filter": "Approved",
+    "fallback_source_title": "Source",
+    "sections_label": "Sections"
+  },
+  "document": {
+    "approval_progress": "Approval progress",
+    "approval_progress_separator": "of",
+    "average_confidence": "Average AI confidence",
+    "open_issues": "Open issues",
+    "last_updated": "Last updated",
+    "sections_suffix": "sections",
+    "empty": "This report does not contain any sections yet.",
+    "today": "today"
+  },
+  "section": {
+    "approve_button": "Approve",
+    "approved_button": "Approved",
+    "approve_failed": "Approval failed. Please try again.",
+    "inspector_text_suffix": "inspector text",
+    "sources_for_prefix": "Sources for",
+    "image_label": "Photo",
+    "audio_label": "Audio"
+  },
+  "action_bar": {
+    "pdf_button": "Preview PDF",
+    "coming_soon": "Coming soon",
+    "saving": "Saving...",
+    "save_failed": "Save failed",
+    "saved": "Saved",
+    "one_unsaved_change": "1 unsaved change",
+    "many_unsaved_changes_suffix": "unsaved changes"
+  },
+  "transcript": {
+    "empty": "No transcript is available for this report yet."
+  },
+  "evidence": {
+    "empty": "No evidence has been linked to this report yet."
+  }
+}

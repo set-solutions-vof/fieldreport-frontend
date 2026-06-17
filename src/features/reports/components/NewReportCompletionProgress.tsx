@@ -1,3 +1,4 @@
+import { PageHeader } from '@/components/PageHeader'
 import { translations } from '@/lib/translations'
 import type { NewReportCompletionProgressProps } from '@/types/newReportView'
 
@@ -12,10 +13,8 @@ export function NewReportCompletionProgress({
   const requiredCount = requiredFieldStates.length
 
   return (
-    <div className="flex items-center justify-between [margin-bottom:var(--fr-space-5)]">
-      <h1 className="[font-size:var(--fr-text-xl)] [font-weight:var(--fr-weight-medium)] [color:var(--fr-text-primary)] [margin:var(--fr-space-0)]">
-        {translations.new_report.page_title}
-      </h1>
+    <div className="flex items-start justify-between [gap:var(--fr-space-4)]">
+      <PageHeader title={translations.new_report.page_title} />
       {requiredCount > 0 && (
         <div
           className="flex items-center [gap:var(--fr-space-2)] [font-size:var(--fr-text-sm)] [color:var(--fr-text-secondary)]"
@@ -26,8 +25,10 @@ export function NewReportCompletionProgress({
               <span
                 key={index}
                 className={[
-                  '[width:calc(var(--fr-space-2)_-_var(--fr-space-1)_/_2)] [height:calc(var(--fr-space-2)_-_var(--fr-space-1)_/_2)] [border-radius:var(--fr-radius-full)] [background:var(--fr-border)]',
-                  filled && '[background:var(--fr-accent)]',
+                  '[width:calc(var(--fr-space-2)_-_var(--fr-space-1)_/_2)] [height:calc(var(--fr-space-2)_-_var(--fr-space-1)_/_2)] [border-radius:var(--fr-radius-full)]',
+                  filled
+                    ? '[background:var(--fr-accent)]'
+                    : '[background:var(--fr-border)]',
                 ]
                   .filter(Boolean)
                   .join(' ')}

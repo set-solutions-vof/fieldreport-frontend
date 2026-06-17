@@ -13,13 +13,18 @@ export function timelineEvents(
   items: TimelineStripProps['items'],
 ): TimelineStripEvent[] {
   return items
+    .filter(
+      (item) =>
+        item.evidenceItem.evidence_type === 'transcription_segment' &&
+        item.evidenceItem.timeline_seconds !== null,
+    )
     .map((item) => ({
       id: item.id,
       primarySectionId: item.primarySectionId,
       sectionIds: item.sectionIds,
       sectionLabels: item.sectionLabels,
       allSectionsApproved: item.allSectionsApproved,
-      timelineSeconds: item.evidenceItem.timeline_seconds,
+      timelineSeconds: item.evidenceItem.timeline_seconds!,
       evidenceType: item.evidenceItem.evidence_type,
     }))
     .sort(
@@ -36,14 +41,31 @@ export function timelineAudioDurationSeconds(
       return maxDuration
     }
 
-    const endSeconds = item.evidenceItem.end_seconds
-
-    if (endSeconds === null) {
-      return maxDuration
-    }
-
-    return Math.max(maxDuration, endSeconds)
+    return Math.max(
+      maxDuration,
+      transcriptionSegmentAbsoluteEndSeconds(item.evidenceItem),
+    )
   }, 0)
+}
+
+function transcriptionSegmentAbsoluteEndSeconds(
+  evidenceItem: TimelineStripProps['items'][number]['evidenceItem'],
+): number {
+  const { timeline_seconds, start_seconds, end_seconds } = evidenceItem
+
+  if (timeline_seconds === null) {
+    return 0
+  }
+
+  if (end_seconds !== null && start_seconds !== null) {
+    return timeline_seconds + (end_seconds - start_seconds)
+  }
+
+  if (end_seconds !== null) {
+    return end_seconds
+  }
+
+  return timeline_seconds
 }
 
 export function timelineStartTimestampMs(): number {

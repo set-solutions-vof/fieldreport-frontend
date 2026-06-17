@@ -58,47 +58,61 @@ export function ReportEvidenceRail({
         />
       </div>
       <div className="relative flex flex-col [padding-left:var(--fr-space-5)] [&::before]:[content:''] [&::before]:absolute [&::before]:[top:var(--fr-space-2)] [&::before]:[bottom:var(--fr-space-2)] [&::before]:[left:5px] [&::before]:[width:1px] [&::before]:[background:var(--fr-border)]">
-        {filteredItems.map((evidenceRailItem) => (
-          <button
-            id={`evidence-item-${evidenceRailItem.id}`}
-            type="button"
-            className={[
-              'relative flex flex-col items-stretch [gap:var(--fr-space-1)] [margin-bottom:var(--fr-space-1)] [padding:var(--fr-space-2)_var(--fr-space-3)_var(--fr-space-3)] [border:1px_solid_transparent] [border-radius:var(--fr-space-2)] [color:var(--fr-text-primary)] text-left bg-transparent cursor-pointer hover:[border-color:var(--fr-border)] hover:[background:var(--fr-surface)]',
-              activeEvidenceItemId === evidenceRailItem.id &&
-                '[border-color:var(--fr-border)] [background:var(--fr-surface)] [border-color:var(--fr-border-strong)] [box-shadow:var(--fr-shadow-sm)]',
-            ]
-              .filter(Boolean)
-              .join(' ')}
-            key={evidenceRailItem.id}
-            onClick={() => onActiveEvidenceItemChange(evidenceRailItem.id)}
-          >
-            <span className="absolute [top:var(--fr-space-4)] [left:-17px] [width:9px] [height:9px] [border:1.5px_solid_var(--fr-text-tertiary)] [border-radius:var(--fr-radius-full)] [background:var(--fr-surface)] [border-color:var(--fr-text-primary)] [background:var(--fr-text-primary)]" />
-            <span className="flex items-center justify-between [gap:var(--fr-space-2)]">
-              <span className="[font-family:var(--fr-font-mono)] [font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-medium)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-secondary)]">
-                {evidenceTimeLabel(evidenceRailItem)}
+        {filteredItems.map((evidenceRailItem) => {
+          const active = activeEvidenceItemId === evidenceRailItem.id
+
+          return (
+            <button
+              id={`evidence-item-${evidenceRailItem.id}`}
+              type="button"
+              className={[
+                'relative flex flex-col items-stretch [gap:var(--fr-space-1)] [margin-bottom:var(--fr-space-1)] [padding:var(--fr-space-2)_var(--fr-space-3)_var(--fr-space-3)] [border:1px_solid_transparent] [border-radius:var(--fr-space-2)] [color:var(--fr-text-primary)] text-left bg-transparent cursor-pointer hover:[border-color:var(--fr-border)] hover:[background:var(--fr-surface)]',
+                active &&
+                  '[border-color:var(--fr-border-strong)] [background:var(--fr-surface)] [box-shadow:var(--fr-shadow-sm)]',
+              ]
+                .filter(Boolean)
+                .join(' ')}
+              key={evidenceRailItem.id}
+              onClick={() => onActiveEvidenceItemChange(evidenceRailItem.id)}
+            >
+              <span
+                className={[
+                  'absolute [top:var(--fr-space-4)] [left:-17px] [width:9px] [height:9px] [border:1.5px_solid_var(--fr-text-tertiary)] [border-radius:var(--fr-radius-full)] [background:var(--fr-surface)]',
+                  active
+                    ? '[border-color:var(--fr-accent)] [background:var(--fr-accent)]'
+                    : evidenceRailItem.allSectionsApproved &&
+                        '[border-color:var(--fr-status-approved-border)] [background:var(--fr-status-approved-bg)]',
+                ]
+                  .filter(Boolean)
+                  .join(' ')}
+              />
+              <span className="flex items-center justify-between [gap:var(--fr-space-2)]">
+                <span className="[font-family:var(--fr-font-mono)] [font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-medium)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-secondary)]">
+                  {evidenceTimeLabel(evidenceRailItem)}
+                </span>
+                <span className="inline-flex items-center [font-size:11px] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-tertiary)]">
+                  <EvidenceTypeIcon
+                    type={evidenceTypeIconType(
+                      evidenceRailItem.evidenceItem.evidence_type,
+                    )}
+                    size={11}
+                  />
+                </span>
               </span>
-              <span className="inline-flex items-center [font-size:11px] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-tertiary)]">
-                <EvidenceTypeIcon
-                  type={evidenceTypeIconType(
-                    evidenceRailItem.evidenceItem.evidence_type,
-                  )}
-                  size={11}
-                />
+              <span className="overflow-hidden [font-size:var(--fr-text-sm)] [font-weight:var(--fr-weight-medium)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-primary)] text-ellipsis whitespace-nowrap">
+                {truncateSummary(
+                  evidenceRailItem.evidenceItem.content_summary ||
+                    translations.report_detail.evidence_rail
+                      .fallback_source_title,
+                )}
               </span>
-            </span>
-            <span className="overflow-hidden [font-size:var(--fr-text-sm)] [font-weight:var(--fr-weight-medium)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-primary)] text-ellipsis whitespace-nowrap">
-              {truncateSummary(
-                evidenceRailItem.evidenceItem.content_summary ||
-                  translations.report_detail.evidence_rail
-                    .fallback_source_title,
-              )}
-            </span>
-            <span className="[font-size:var(--fr-text-xs)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-tertiary)] [&_strong]:[font-weight:var(--fr-weight-medium)] [&_strong]:[color:var(--fr-text-secondary)]">
-              {translations.report_detail.evidence_rail.sections_label} ·{' '}
-              <strong>{evidenceRailItem.sectionLabels.join(', ')}</strong>
-            </span>
-          </button>
-        ))}
+              <span className="[font-size:var(--fr-text-xs)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-tertiary)] [&_strong]:[font-weight:var(--fr-weight-medium)] [&_strong]:[color:var(--fr-text-secondary)]">
+                {translations.report_detail.evidence_rail.sections_label} ·{' '}
+                <strong>{evidenceRailItem.sectionLabels.join(', ')}</strong>
+              </span>
+            </button>
+          )
+        })}
       </div>
     </aside>
   )
@@ -114,7 +128,8 @@ function EvidenceFilterChip({
       type="button"
       className={[
         '[padding:var(--fr-space-1)_var(--fr-space-2)] [border:1px_solid_var(--fr-border)] [border-radius:var(--fr-radius-full)] [font:inherit] [font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-medium)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-secondary)] [background:var(--fr-surface)] cursor-pointer',
-        active && '[color:var(--fr-text-on-accent)] [background:var(--fr-text-primary)] [border-color:var(--fr-text-primary)]',
+        active &&
+          '[color:var(--fr-text-on-accent)] [background:var(--fr-accent)] [border-color:var(--fr-accent)]',
       ]
         .filter(Boolean)
         .join(' ')}

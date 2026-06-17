@@ -1,0 +1,78 @@
+{
+  "stepper": {
+    "aria_label": "Setup steps",
+    "optional_badge": "Optional",
+    "steps": {
+      "company_profile": "Company profile",
+      "upload_reports": "Upload reports",
+      "review_template": "Review template",
+      "invite_team": "Invite team"
+    }
+  },
+  "footer": {
+    "skip": "Skip, do this later",
+    "back": "Back",
+    "next": "Next",
+    "analyze": "Analyze",
+    "confirm_template": "Confirm template",
+    "go_to_dashboard": "Go to dashboard",
+    "upload_required": "Upload at least one report to continue"
+  },
+  "states": {
+    "load_failed_title": "Setup could not be loaded",
+    "load_failed_description": "Check your connection and try again.",
+    "retry": "Try again",
+    "completion_failed": "Setup could not be completed."
+  },
+  "company_profile": {
+    "optional_badge": "Optional",
+    "title": "Company profile",
+    "description": "Your logo and color appear on every report. You can set this now or change it later in settings.",
+    "company_name_label": "Company name",
+    "company_name_helper": "Automatically taken from your account. Contact support to change this.",
+    "logo_label": "Logo",
+    "logo_alt": "Company logo",
+    "logo_drop_label": "Drag your logo here or",
+    "logo_browse_label": "browse",
+    "logo_helper": "PNG, JPG or SVG · transparent background recommended",
+    "primary_color_label": "Primary color",
+    "primary_color_aria": "Use color {{color}}",
+    "primary_color_helper": "Used for accents and headings in your generated PDF reports.",
+    "color_save_failed": "The color could not be saved.",
+    "logo_save_failed": "The logo could not be saved."
+  },
+  "preview": {
+    "label": "Preview",
+    "dossier": "Dossier",
+    "inspection": "Inspection",
+    "report_title": "Inspection report",
+    "project_details": "Project details",
+    "helper": "Live preview, updates as you make changes."
+  },
+  "template_review": {
+    "missing_reports": "Upload and analyze reports first."
+  },
+  "invites": {
+    "step_label": "Step 4",
+    "title": "You are ready to get started",
+    "description": "Invite colleagues so they can validate or manage reports right away.",
+    "email_label": "Email address",
+    "role_label": "Role",
+    "roles": {
+      "admin": "Administrator",
+      "inspector": "Inspector"
+    },
+    "invited_badge": "Invited",
+    "delete_label": "Delete invitation for {{email}}",
+    "send_button": "Invite",
+    "counter": "{{count}} invitation(s) sent · you can always add more",
+    "load_failed": "Invitations could not be loaded.",
+    "send_failed": "The invitation could not be sent.",
+    "delete_failed": "The invitation could not be deleted."
+  },
+  "welcome": {
+    "title": "Welcome to FieldReport",
+    "subtitle": "Your workspace is ready. You will now go to the dashboard where you can create your first report.",
+    "button": "Go to dashboard"
+  }
+}

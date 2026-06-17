@@ -1,6 +1,7 @@
 import type { ChangeEvent, FormEvent } from 'react'
 import { useState } from 'react'
 import { Button, Input, Logo } from '@set-solutions-vof/design-system'
+import { PageHeader } from '@/components/PageHeader'
 import { requestPasswordReset } from '@/lib/api/auth'
 import { translations } from '@/lib/translations'
 import type { ForgotPasswordPageProps } from '@/types/authView'
@@ -37,14 +38,11 @@ export function ForgotPasswordPage({ onBack }: ForgotPasswordPageProps) {
         <div className="flex">
           <Logo variant="accent" />
         </div>
-        <div className="flex flex-col [gap:var(--fr-space-2)]">
-          <h1 className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-xl)] [font-weight:var(--fr-weight-semibold)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-primary)]" id="forgot-password-title">
-            {translations.auth.forgot_password.title}
-          </h1>
-          <p className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-base)] [line-height:var(--fr-leading-normal)] [color:var(--fr-text-secondary)]">
-            {translations.auth.forgot_password.subtitle}
-          </p>
-        </div>
+        <PageHeader
+          title={translations.auth.forgot_password.title}
+          metadata={translations.auth.forgot_password.subtitle}
+          titleId="forgot-password-title"
+        />
         <form
           className="flex flex-col [gap:var(--fr-space-4)]"
           onSubmit={(event) => void handleSubmit(event)}
@@ -59,7 +57,10 @@ export function ForgotPasswordPage({ onBack }: ForgotPasswordPageProps) {
             required
           />
           {isSubmitted && (
-            <p className="[margin:var(--fr-space-0)] [padding:var(--fr-space-3)] [border:var(--fr-border-width-sm)_solid_var(--fr-border)] [border-radius:var(--fr-radius-md)] [background:var(--fr-surface-sunken)] [color:var(--fr-text-secondary)] [font-size:var(--fr-text-sm)] [line-height:var(--fr-leading-normal)]" role="status">
+            <p
+              className="[margin:var(--fr-space-0)] [padding:var(--fr-space-3)] [border:var(--fr-border-width-sm)_solid_var(--fr-border)] [border-radius:var(--fr-radius-md)] [background:var(--fr-surface-sunken)] [color:var(--fr-text-secondary)] [font-size:var(--fr-text-sm)] [line-height:var(--fr-leading-normal)]"
+              role="status"
+            >
               {translations.auth.forgot_password.success}
             </p>
           )}
@@ -71,7 +72,11 @@ export function ForgotPasswordPage({ onBack }: ForgotPasswordPageProps) {
           >
             {translations.auth.forgot_password.submit}
           </Button>
-          <button className="[border:var(--fr-border-width-sm)_solid_transparent] [padding:var(--fr-space-0)] bg-transparent [color:var(--fr-accent)] [font:inherit] [font-size:var(--fr-text-sm)] [line-height:var(--fr-leading-normal)] cursor-pointer hover:[color:var(--fr-accent-hover)] focus-visible:[outline:var(--fr-border-width-sm)_solid_var(--fr-focus-ring)] focus-visible:[outline-offset:var(--fr-space-1)]" type="button" onClick={onBack}>
+          <button
+            className="[border:var(--fr-border-width-sm)_solid_transparent] [padding:var(--fr-space-0)] bg-transparent [color:var(--fr-accent)] [font:inherit] [font-size:var(--fr-text-sm)] [line-height:var(--fr-leading-normal)] cursor-pointer hover:[color:var(--fr-accent-hover)] focus-visible:[outline:var(--fr-border-width-sm)_solid_var(--fr-focus-ring)] focus-visible:[outline-offset:var(--fr-space-1)]"
+            type="button"
+            onClick={onBack}
+          >
             {translations.auth.forgot_password.back_to_login}
           </button>
         </form>

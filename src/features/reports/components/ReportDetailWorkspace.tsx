@@ -14,6 +14,7 @@ import {
   allSectionsApproved,
   buildEvidenceRailItems,
   mergeUpdatedSection,
+  sourceMomentRailItems,
   transcriptSegments,
 } from '../lib/reportDetailView'
 import type {
@@ -64,6 +65,10 @@ export function ReportDetailWorkspace({
   const evidenceRailItems = useMemo(
     () => buildEvidenceRailItems(sections, report.evidence_items),
     [report.evidence_items, sections],
+  )
+  const sourceMoments = useMemo(
+    () => sourceMomentRailItems(evidenceRailItems),
+    [evidenceRailItems],
   )
   useReportDetailScrolling({
     activeSectionId,
@@ -152,7 +157,7 @@ export function ReportDetailWorkspace({
         <div className="[padding:var(--fr-space-0)_var(--fr-space-7)_var(--fr-space-4)]">
           <div id="report-timeline-strip">
             <TimelineStrip
-              items={evidenceRailItems}
+              items={sourceMoments}
               sections={sections}
               activeEvidenceItemId={activeEvidenceItemId}
               onActiveEvidenceItemChange={handleTimelineEvidenceActivation}
@@ -178,6 +183,7 @@ export function ReportDetailWorkspace({
           reportUpdatedAt={reportUpdatedAt}
           sections={sections}
           evidenceRailItems={evidenceRailItems}
+          sourceMomentRailItems={sourceMoments}
           onActiveSectionChange={handleSectionActivation}
           onContentChange={handleContentChange}
           onFilterChange={setEvidenceFilter}

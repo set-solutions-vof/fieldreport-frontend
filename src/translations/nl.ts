@@ -6,6 +6,7 @@ import template from './nl/template.json'
 import team from './nl/team.json'
 import reports from './nl/reports.json'
 import reportDetail from './nl/report_detail.json'
+import profile from './nl/profile.json'
 
 export default {
   auth,
@@ -16,4 +17,5 @@ export default {
   team,
   reports,
   report_detail: reportDetail,
+  profile,
 }

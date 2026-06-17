@@ -46,7 +46,7 @@ export function CompanyLogoUpload({
       />
       <button
         type="button"
-        className="flex items-center justify-start w-full [min-height:var(--fr-space-10)] [padding:var(--fr-space-4)] [font:inherit] [color:var(--fr-text-secondary)] cursor-pointer bg-transparent [border:var(--fr-border-width-sm)_dashed_var(--fr-border-strong)] [border-radius:var(--fr-radius-paper)] hover:[border-color:var(--fr-border-focus)] hover:outline-none focus-visible:[border-color:var(--fr-border-focus)] focus-visible:outline-none focus-visible:[box-shadow:var(--fr-shadow-focus)] [&_img]:[max-width:var(--fr-space-12)] [&_img]:[max-height:var(--fr-space-9)] [&_img]:[object-fit:contain]"
+        className="flex items-center justify-start w-full [min-height:var(--fr-space-10)] [padding:var(--fr-space-4)] [font:inherit] [color:var(--fr-text-secondary)] cursor-pointer bg-transparent [border:var(--fr-border-width-sm)_dashed_var(--fr-border-strong)] [border-radius:var(--fr-radius-paper)] hover:[border-color:var(--fr-border-focus)] hover:outline-none focus-visible:[border-color:var(--fr-border-focus)] focus-visible:outline-none focus-visible:[box-shadow:var(--fr-shadow-focus)]"
         onClick={openFilePicker}
         onDrop={handleDrop}
         onDragOver={handleDragOver}
@@ -55,6 +55,7 @@ export function CompanyLogoUpload({
           <Spinner size="md" />
         ) : logoUrl !== null ? (
           <img
+            className="block [width:var(--fr-space-12)] [height:var(--fr-space-9)] [object-fit:contain] [object-position:center]"
             src={logoUrl}
             alt={translations.onboarding.company_profile.logo_alt}
           />

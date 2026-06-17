@@ -1,6 +1,7 @@
 import { Button, Spinner } from '@set-solutions-vof/design-system'
 import { useCurrentUser } from '@/features/auth/useCurrentUser'
 import { AppShell } from '@/app/AppShell'
+import { PageHeader } from '@/components/PageHeader'
 import { TemplateSkeletonGrid } from '@/features/templates/components/TemplateSkeletonGrid'
 import { translations } from '@/lib/translations'
 import { ReportDetailWorkspace } from '../components/ReportDetailWorkspace'
@@ -40,7 +41,7 @@ export function ReportDetailPage({
   if (isLoading || isCurrentUserLoading || isReportsLoading) {
     return (
       <main className="flex min-h-[100dvh] box-border [padding:var(--fr-space-8)] [background:var(--fr-background)]">
-        <div className="flex [max-width:calc(var(--fr-space-16)_+_var(--fr-space-15))] flex-col items-start [gap:var(--fr-space-4)] [&_h1]:[margin:var(--fr-space-0)] [&_h1]:[font-size:var(--fr-text-xl)] [&_h1]:[font-weight:var(--fr-weight-semibold)] [&_h1]:[line-height:var(--fr-leading-snug)] [&_h1]:[color:var(--fr-text-primary)] [&_p]:[margin:var(--fr-space-0)] [&_p]:[font-size:var(--fr-text-base)] [&_p]:[line-height:var(--fr-leading-normal)] [&_p]:[color:var(--fr-text-secondary)]">
+        <div className="flex [max-width:calc(var(--fr-space-16)_+_var(--fr-space-15))] flex-col items-start">
           <Spinner size="lg" />
         </div>
       </main>
@@ -56,11 +57,13 @@ export function ReportDetailPage({
   ) {
     return (
       <main className="flex min-h-[100dvh] box-border [padding:var(--fr-space-8)] [background:var(--fr-background)]">
-        <div className="flex [max-width:calc(var(--fr-space-16)_+_var(--fr-space-15))] flex-col items-start [gap:var(--fr-space-4)] [&_h1]:[margin:var(--fr-space-0)] [&_h1]:[font-size:var(--fr-text-xl)] [&_h1]:[font-weight:var(--fr-weight-semibold)] [&_h1]:[line-height:var(--fr-leading-snug)] [&_h1]:[color:var(--fr-text-primary)] [&_p]:[margin:var(--fr-space-0)] [&_p]:[font-size:var(--fr-text-base)] [&_p]:[line-height:var(--fr-leading-normal)] [&_p]:[color:var(--fr-text-secondary)]">
-          <h1>{translations.report_detail.states.load_failed_title}</h1>
-          <p>
-            {errorMessage ?? currentUserErrorMessage ?? reportsErrorMessage}
-          </p>
+        <div className="flex [max-width:calc(var(--fr-space-16)_+_var(--fr-space-15))] flex-col items-start">
+          <PageHeader
+            title={translations.report_detail.states.load_failed_title}
+            metadata={
+              errorMessage ?? currentUserErrorMessage ?? reportsErrorMessage
+            }
+          />
           <Button
             type="button"
             variant="primary"

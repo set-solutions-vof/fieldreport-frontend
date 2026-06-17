@@ -1,0 +1,29 @@
+{
+  "title": "Account profiel",
+  "my_account": "Mijn account",
+  "name_label": "Naam",
+  "email_label": "E-mailadres",
+  "language_section_title": "Taal",
+  "language_label": "Weergavetaal",
+  "language_options": {
+    "nl": "Nederlands",
+    "en": "English"
+  },
+  "password_section_title": "Wachtwoord wijzigen",
+  "current_password_label": "Huidig wachtwoord",
+  "new_password_label": "Nieuw wachtwoord",
+  "confirm_password_label": "Bevestig nieuw wachtwoord",
+  "cancel_button": "Annuleren",
+  "save_button": "Opslaan",
+  "success_toast": "Profiel opgeslagen",
+  "errors": {
+    "name_required": "Naam is verplicht",
+    "save_failed": "Profiel kon niet worden opgeslagen",
+    "current_password_incorrect": "Huidig wachtwoord is onjuist",
+    "password_too_short": "Nieuw wachtwoord moet minimaal 8 tekens zijn",
+    "current_password_required": "Huidig wachtwoord is verplicht",
+    "new_password_required": "Nieuw wachtwoord is verplicht",
+    "confirm_password_required": "Bevestig je nieuwe wachtwoord",
+    "passwords_mismatch": "Wachtwoorden komen niet overeen"
+  }
+}

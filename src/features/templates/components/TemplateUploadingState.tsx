@@ -1,4 +1,5 @@
 import { Button } from '@set-solutions-vof/design-system'
+import { PageHeader } from '@/components/PageHeader'
 import { translations } from '@/lib/translations'
 import { formatFileSize } from '../lib/templateFormatters'
 import type { TemplateUploadingStateProps } from '@/types/templateView'
@@ -20,16 +21,19 @@ export function TemplateUploadingState({
 
   return (
     <section className="flex [width:min(_calc(var(--fr-space-15)_*_3_+_var(--fr-space-8)),_calc(100%_-_var(--fr-space-12))_)] flex-1 flex-col justify-center [gap:var(--fr-space-5)] [margin:var(--fr-space-0)_auto] [padding:var(--fr-space-6)]">
-      <header className="flex flex-col [gap:var(--fr-space-2)] [&_h1]:[margin:var(--fr-space-0)] [&_p]:[margin:var(--fr-space-0)] [&_h1]:[font-size:var(--fr-text-xl)] [&_h1]:[font-weight:var(--fr-weight-semibold)] [&_h1]:[line-height:var(--fr-leading-snug)] [&_h1]:[color:var(--fr-text-primary)] [&_p]:[font-size:var(--fr-text-base)] [&_p]:[line-height:var(--fr-leading-relaxed)] [&_p]:[color:var(--fr-text-secondary)]">
-        <h1>{translations.template.uploading.title}</h1>
-        <p>{translations.template.uploading.description}</p>
-      </header>
+      <PageHeader
+        title={translations.template.uploading.title}
+        metadata={translations.template.uploading.description}
+      />
       <button
         type="button"
         className="flex flex-row items-center [gap:var(--fr-space-3)] [padding:var(--fr-space-4)] [font:inherit] [color:var(--fr-text-secondary)] text-left cursor-pointer [background:var(--fr-surface)] [border:var(--fr-border-width-sm)_dashed_var(--fr-border-strong)] [border-radius:var(--fr-radius-lg)] hover:[border-color:var(--fr-border-focus)] hover:outline-none focus-visible:[border-color:var(--fr-border-focus)] focus-visible:outline-none focus-visible:[box-shadow:var(--fr-shadow-focus)]"
         onClick={onAddFiles}
       >
-        <TemplateIcon name="upload" className="[width:var(--fr-space-7)] [height:var(--fr-space-7)] [padding:var(--fr-space-2)] box-border shrink-0 [color:var(--fr-text-tertiary)] [stroke-width:1.4] [background:var(--fr-surface)] [border:var(--fr-border-width-sm)_solid_var(--fr-border)] [border-radius:var(--fr-radius-md)]" />
+        <TemplateIcon
+          name="upload"
+          className="[width:var(--fr-space-7)] [height:var(--fr-space-7)] [padding:var(--fr-space-2)] box-border shrink-0 [color:var(--fr-text-tertiary)] [stroke-width:1.4] [background:var(--fr-surface)] [border:var(--fr-border-width-sm)_solid_var(--fr-border)] [border-radius:var(--fr-radius-md)]"
+        />
         <span className="flex flex-col [gap:var(--fr-space-1)] [&_strong]:[font-size:var(--fr-text-sm)] [&_strong]:[font-weight:var(--fr-weight-semibold)] [&_strong]:[line-height:var(--fr-leading-snug)] [&_strong]:[color:var(--fr-text-primary)] [&_small]:[font-size:var(--fr-text-xs)] [&_small]:[line-height:var(--fr-leading-snug)] [&_small]:[color:var(--fr-text-secondary)]">
           <strong>
             {translations.template.uploading.dropzone_label}{' '}
@@ -40,10 +44,18 @@ export function TemplateUploadingState({
       </button>
       <div className="grid [grid-template-columns:1fr] [gap:var(--fr-space-2)]">
         {files.map((file) => (
-          <div className="flex [min-width:var(--fr-space-0)] items-center [gap:var(--fr-space-3)] [padding:var(--fr-space-3)_var(--fr-space-4)] [background:var(--fr-surface)] [border:var(--fr-border-width-sm)_solid_var(--fr-border)] [border-radius:var(--fr-radius-lg)]" key={`${file.name}-${file.size}`}>
-            <TemplateIcon name="document" className="[width:var(--fr-space-7)] [height:var(--fr-space-7)] [padding:var(--fr-space-2)] box-border shrink-0 [color:var(--fr-destructive)] [stroke-width:1.4] [background:var(--fr-status-failed-bg)] [border-radius:var(--fr-radius-md)]" />
+          <div
+            className="flex [min-width:var(--fr-space-0)] items-center [gap:var(--fr-space-3)] [padding:var(--fr-space-3)_var(--fr-space-4)] [background:var(--fr-surface)] [border:var(--fr-border-width-sm)_solid_var(--fr-border)] [border-radius:var(--fr-radius-lg)]"
+            key={`${file.name}-${file.size}`}
+          >
+            <TemplateIcon
+              name="document"
+              className="[width:var(--fr-space-7)] [height:var(--fr-space-7)] [padding:var(--fr-space-2)] box-border shrink-0 [color:var(--fr-destructive)] [stroke-width:1.4] [background:var(--fr-status-failed-bg)] [border-radius:var(--fr-radius-md)]"
+            />
             <span className="flex [min-width:var(--fr-space-0)] flex-1 flex-col [gap:var(--fr-space-1)]">
-              <span className="[min-width:var(--fr-space-0)] overflow-hidden [font-size:var(--fr-text-sm)] [font-weight:var(--fr-weight-medium)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-primary)] text-ellipsis whitespace-nowrap">{file.name}</span>
+              <span className="[min-width:var(--fr-space-0)] overflow-hidden [font-size:var(--fr-text-sm)] [font-weight:var(--fr-weight-medium)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-primary)] text-ellipsis whitespace-nowrap">
+                {file.name}
+              </span>
               <span className="[font-variant-numeric:tabular-nums] shrink-0 [font-size:var(--fr-text-sm)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-tertiary)]">
                 {formatFileSize(file)} · PDF
               </span>
@@ -70,7 +82,9 @@ export function TemplateUploadingState({
         ))}
       </div>
       {actionErrorMessage !== null && (
-        <p className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-sm)] [line-height:var(--fr-leading-snug)] [color:var(--fr-destructive)]">{actionErrorMessage}</p>
+        <p className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-sm)] [line-height:var(--fr-leading-snug)] [color:var(--fr-destructive)]">
+          {actionErrorMessage}
+        </p>
       )}
       <footer className="[&>span]:[font-variant-numeric:tabular-nums] flex items-center justify-between [gap:var(--fr-space-4)] [&>span]:[font-size:var(--fr-text-xs)] [&>span]:[line-height:var(--fr-leading-snug)] [&>span]:[color:var(--fr-text-tertiary)] [&>div]:flex [&>div]:[gap:var(--fr-space-2)]">
         <span className="inline-flex items-center [gap:var(--fr-space-2)]">

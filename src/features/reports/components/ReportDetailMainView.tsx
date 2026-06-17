@@ -16,6 +16,7 @@ export function ReportDetailMainView({
   reportUpdatedAt,
   sections,
   evidenceRailItems,
+  sourceMomentRailItems,
   onActiveSectionChange,
   onContentChange,
   onFilterChange,
@@ -33,7 +34,7 @@ export function ReportDetailMainView({
           <ReportEvidenceRail
             activeEvidenceItemId={activeEvidenceItemId}
             filter={filter}
-            items={evidenceRailItems}
+            items={sourceMomentRailItems}
             onActiveEvidenceItemChange={onEvidenceRailActivation}
             onFilterChange={onFilterChange}
           />
@@ -54,7 +55,7 @@ export function ReportDetailMainView({
         activeTab={activeTab}
         inspectorName={report.inspector_name}
         segments={transcriptSegments(report.evidence_items)}
-        evidenceRailItems={evidenceRailItems}
+        evidenceRailItems={sourceMomentRailItems}
       />
       <ReportEvidenceView activeTab={activeTab} items={evidenceRailItems} />
     </>

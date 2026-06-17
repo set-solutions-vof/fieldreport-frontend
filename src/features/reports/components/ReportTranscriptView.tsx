@@ -52,7 +52,7 @@ export function ReportTranscriptView({
 }
 
 function segmentTimestamp(segment: ReportEvidenceItem): string {
-  const startSeconds = segment.start_seconds ?? segment.timeline_seconds
+  const startSeconds = segment.start_seconds ?? segment.timeline_seconds ?? 0
   const endSeconds = segment.end_seconds
 
   if (endSeconds === null) {

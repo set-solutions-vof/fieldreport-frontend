@@ -1,4 +1,5 @@
 import { Button, Logo } from '@set-solutions-vof/design-system'
+import { PageHeader } from '@/components/PageHeader'
 import { translations } from '@/lib/translations'
 import type { OnboardingWizardShellProps } from '@/types/onboardingView'
 import { OnboardingFooter } from './OnboardingFooter'
@@ -44,7 +45,9 @@ export function OnboardingWizardShell({
           {translations.auth.logout_button}
         </Button>
       </header>
-      <div className="flex justify-center [min-width:var(--fr-space-0)] [min-height:var(--fr-space-0)] [overflow:auto]">{children}</div>
+      <div className="flex justify-center [min-width:var(--fr-space-0)] [min-height:var(--fr-space-0)] [overflow:auto]">
+        {children}
+      </div>
       <OnboardingFooter {...footer} />
       {showWelcomeOverlay && (
         <div
@@ -62,12 +65,12 @@ export function OnboardingWizardShell({
                 className="[width:var(--fr-space-5)] [height:var(--fr-space-5)] [stroke-width:2.25] block [width:var(--fr-space-4)] [height:var(--fr-space-4)] shrink-0 [width:var(--fr-space-5)] [height:var(--fr-space-5)]"
               />
             </span>
-            <span className="[font-size:var(--fr-text-xl)] [font-weight:var(--fr-weight-semibold)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-primary)]">
-              {translations.onboarding.welcome.title}
-            </span>
-            <span className="[max-width:calc(var(--fr-space-16)_+_var(--fr-space-10))] [margin-bottom:var(--fr-space-3)] [line-height:var(--fr-leading-relaxed)] [color:var(--fr-text-secondary)]">
-              {translations.onboarding.welcome.subtitle}
-            </span>
+            <div className="[max-width:calc(var(--fr-space-16)_+_var(--fr-space-10))]">
+              <PageHeader
+                title={translations.onboarding.welcome.title}
+                metadata={translations.onboarding.welcome.subtitle}
+              />
+            </div>
             <Button
               type="button"
               variant="secondary"

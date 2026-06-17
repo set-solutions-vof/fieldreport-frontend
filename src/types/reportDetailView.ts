@@ -123,6 +123,7 @@ export type ReportDetailMainViewProps = {
   reportUpdatedAt: string | null
   sections: ReportSectionModel[]
   evidenceRailItems: EvidenceRailItem[]
+  sourceMomentRailItems: EvidenceRailItem[]
   onActiveSectionChange: (sectionId: string) => void
   onContentChange: (sectionId: string, content: string) => void
   onFilterChange: (filter: EvidenceRailFilter) => void

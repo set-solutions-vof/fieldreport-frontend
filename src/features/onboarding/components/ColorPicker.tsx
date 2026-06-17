@@ -51,7 +51,7 @@ export function ColorPicker({
           value={value.toUpperCase()}
           error={errorMessage}
           onChange={handleInputChange}
-          fieldClassName="relative [width:var(--fr-space-13)] [&::before]:absolute [&::before]:[top:50%] [&::before]:[left:var(--fr-space-3)] [&::before]:[z-index:1] [&::before]:[width:var(--fr-space-4)] [&::before]:[height:var(--fr-space-4)] [&::before]:[border-radius:var(--fr-radius-md)] [&::before]:[background:var(--fr-onboarding-company-color,_var(--fr-accent))] [&::before]:[transform:translateY(-50%)] [&::before]:pointer-events-none [&::before]:[content:'']"
+          fieldClassName="relative [width:var(--fr-space-13)] [&::before]:absolute [&::before]:[top:50%] [&::before]:[left:var(--fr-space-3)] [&::before]:[z-index:1] [&::before]:[width:var(--fr-space-4)] [&::before]:[height:var(--fr-space-4)] [&::before]:[border-radius:var(--fr-radius-md)] [&::before]:[background:var(--fr-onboarding-company-color,_var(--fr-accent))] [&::before]:[transform:translateY(-50%)] [&::before]:pointer-events-none [&::before]:[content:''] [&_.fr-input]:[min-height:var(--fr-space-8)] [&_.fr-input]:[padding-left:calc(var(--fr-space-8)_+_var(--fr-space-1))] [&_.fr-input]:[font-size:var(--fr-text-base)] [&_.fr-input]:[font-weight:var(--fr-weight-semibold)] [&_.fr-input]:[background:var(--fr-surface)]"
         />
       </div>
       <span>

@@ -1,6 +1,7 @@
 import type { ChangeEvent, FormEvent } from 'react'
 import { useState } from 'react'
 import { Button, Input, Logo } from '@set-solutions-vof/design-system'
+import { PageHeader } from '@/components/PageHeader'
 import { confirmPasswordReset } from '@/lib/api/auth'
 import { translations } from '@/lib/translations'
 import type { ResetPasswordPageProps } from '@/types/authView'
@@ -69,14 +70,11 @@ export function ResetPasswordPage({ onSuccess }: ResetPasswordPageProps) {
         <div className="flex">
           <Logo variant="accent" />
         </div>
-        <div className="flex flex-col [gap:var(--fr-space-2)]">
-          <h1 className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-xl)] [font-weight:var(--fr-weight-semibold)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-primary)]" id="reset-password-title">
-            {translations.auth.reset_password.title}
-          </h1>
-          <p className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-base)] [line-height:var(--fr-leading-normal)] [color:var(--fr-text-secondary)]">
-            {translations.auth.reset_password.subtitle}
-          </p>
-        </div>
+        <PageHeader
+          title={translations.auth.reset_password.title}
+          metadata={translations.auth.reset_password.subtitle}
+          titleId="reset-password-title"
+        />
         <form
           className="flex flex-col [gap:var(--fr-space-4)]"
           onSubmit={(event) => void handleSubmit(event)}
@@ -101,7 +99,10 @@ export function ResetPasswordPage({ onSuccess }: ResetPasswordPageProps) {
             required
           />
           {message !== null && (
-            <p className="[margin:var(--fr-space-0)] [padding:var(--fr-space-3)] [border:var(--fr-border-width-sm)_solid_var(--fr-border)] [border-radius:var(--fr-radius-md)] [background:var(--fr-surface-sunken)] [color:var(--fr-text-secondary)] [font-size:var(--fr-text-sm)] [line-height:var(--fr-leading-normal)]" role="status">
+            <p
+              className="[margin:var(--fr-space-0)] [padding:var(--fr-space-3)] [border:var(--fr-border-width-sm)_solid_var(--fr-border)] [border-radius:var(--fr-radius-md)] [background:var(--fr-surface-sunken)] [color:var(--fr-text-secondary)] [font-size:var(--fr-text-sm)] [line-height:var(--fr-leading-normal)]"
+              role="status"
+            >
               {message}
             </p>
           )}

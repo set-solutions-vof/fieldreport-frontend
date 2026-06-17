@@ -55,9 +55,12 @@ export function ReportEvidenceView({
                     evidenceRailItem.evidenceItem.evidence_type,
                   )}
                 </span>
-                <span className="[font-size:var(--fr-text-xs)] [font-variant-numeric:tabular-nums] [color:var(--fr-text-tertiary)]">
-                  {evidenceTimeRange(evidenceRailItem)}
-                </span>
+                {evidenceRailItem.evidenceItem.evidence_type ===
+                  'transcription_segment' && (
+                  <span className="[font-size:var(--fr-text-xs)] [font-variant-numeric:tabular-nums] [color:var(--fr-text-tertiary)]">
+                    {evidenceTimeRange(evidenceRailItem)}
+                  </span>
+                )}
               </div>
 
               {evidenceRailItem.evidenceItem.storage_key && (
@@ -92,17 +95,17 @@ export function ReportEvidenceView({
 function evidenceTimeRange(evidenceRailItem: EvidenceRailItem): string {
   const evidenceItem = evidenceRailItem.evidenceItem
 
-  if (evidenceItem.evidence_type === 'transcription_segment') {
-    const startSeconds =
-      evidenceItem.start_seconds ?? evidenceItem.timeline_seconds
-    const endSeconds = evidenceItem.end_seconds
-
-    if (endSeconds === null) {
-      return formatDuration(startSeconds)
-    }
-
-    return `${formatDuration(startSeconds)} – ${formatDuration(endSeconds)}`
+  if (evidenceItem.evidence_type !== 'transcription_segment') {
+    return ''
   }
 
-  return formatDuration(evidenceItem.timeline_seconds)
+  const startSeconds =
+    evidenceItem.start_seconds ?? evidenceItem.timeline_seconds ?? 0
+  const endSeconds = evidenceItem.end_seconds
+
+  if (endSeconds === null) {
+    return formatDuration(startSeconds)
+  }
+
+  return `${formatDuration(startSeconds)} – ${formatDuration(endSeconds)}`
 }

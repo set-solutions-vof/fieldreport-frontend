@@ -3,6 +3,7 @@ import type { ChangeEvent, DragEvent } from 'react'
 import { Button, Spinner } from '@set-solutions-vof/design-system'
 import { useCurrentUser } from '@/features/auth/useCurrentUser'
 import { AppShell } from '@/app/AppShell'
+import { PageHeader } from '@/components/PageHeader'
 import { translations } from '@/lib/translations'
 import { TemplateEmptyState } from '../components/TemplateEmptyState'
 import { TemplateFailedState } from '../components/TemplateFailedState'
@@ -73,7 +74,7 @@ export function TemplateConfigurationPage({
   if (isLoading || isCurrentUserLoading) {
     return (
       <main className="flex min-h-[100dvh] box-border [padding:var(--fr-space-7)] [background:var(--fr-background)]">
-        <div className="[&_h1]:[margin:var(--fr-space-0)] [&_h1]:[font-size:var(--fr-text-xl)] [&_h1]:[font-weight:var(--fr-weight-semibold)] [&_h1]:[line-height:var(--fr-leading-snug)] [&_h1]:[color:var(--fr-text-primary)] flex [max-width:calc(var(--fr-space-16)_+_var(--fr-space-15))] flex-col items-start [gap:var(--fr-space-4)] [&_p]:[margin:var(--fr-space-0)] [&_p]:[font-size:var(--fr-text-base)] [&_p]:[line-height:var(--fr-leading-normal)] [&_p]:[color:var(--fr-text-secondary)]">
+        <div className="flex [max-width:calc(var(--fr-space-16)_+_var(--fr-space-15))] flex-col items-start">
           <Spinner size="lg" />
         </div>
       </main>
@@ -83,9 +84,11 @@ export function TemplateConfigurationPage({
   if (isError || isCurrentUserError || currentUser === null) {
     return (
       <main className="flex min-h-[100dvh] box-border [padding:var(--fr-space-7)] [background:var(--fr-background)]">
-        <div className="[&_h1]:[margin:var(--fr-space-0)] [&_h1]:[font-size:var(--fr-text-xl)] [&_h1]:[font-weight:var(--fr-weight-semibold)] [&_h1]:[line-height:var(--fr-leading-snug)] [&_h1]:[color:var(--fr-text-primary)] flex [max-width:calc(var(--fr-space-16)_+_var(--fr-space-15))] flex-col items-start [gap:var(--fr-space-4)] [&_p]:[margin:var(--fr-space-0)] [&_p]:[font-size:var(--fr-text-base)] [&_p]:[line-height:var(--fr-leading-normal)] [&_p]:[color:var(--fr-text-secondary)]">
-          <h1>{translations.template.errors.load_failed_title}</h1>
-          <p>{errorMessage ?? currentUserErrorMessage}</p>
+        <div className="flex [max-width:calc(var(--fr-space-16)_+_var(--fr-space-15))] flex-col items-start">
+          <PageHeader
+            title={translations.template.errors.load_failed_title}
+            metadata={errorMessage ?? currentUserErrorMessage}
+          />
           <Button
             type="button"
             variant="primary"

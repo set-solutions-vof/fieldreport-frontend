@@ -19,19 +19,28 @@ export function LoginPage({
 
   return (
     <main className="flex items-center justify-center min-h-[100dvh] box-border [padding:var(--fr-space-6)] [background:var(--fr-background)]">
-      <section className="flex flex-col [width:min(100%,_calc(var(--fr-space-16)_+_var(--fr-space-15)))] [gap:var(--fr-space-5)] [padding:var(--fr-space-6)] [background:var(--fr-surface)] [border:var(--fr-border-width-sm)_solid_var(--fr-border)] [border-radius:var(--fr-radius-lg)] [box-shadow:var(--fr-shadow-sm)]" aria-labelledby="login-title">
+      <section
+        className="flex flex-col [width:min(100%,_calc(var(--fr-space-16)_+_var(--fr-space-15)))] [gap:var(--fr-space-5)] [padding:var(--fr-space-6)] [background:var(--fr-surface)] [border:var(--fr-border-width-sm)_solid_var(--fr-border)] [border-radius:var(--fr-radius-lg)] [box-shadow:var(--fr-shadow-sm)]"
+        aria-labelledby="login-title"
+      >
         <div className="flex">
           <Logo variant="accent" />
         </div>
         <div className="flex flex-col [gap:var(--fr-space-2)]">
-          <h1 className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-xl)] [font-weight:var(--fr-weight-semibold)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-primary)]" id="login-title">
+          <h1
+            className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-xl)] [font-weight:var(--fr-weight-semibold)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-primary)]"
+            id="login-title"
+          >
             {translations.auth.login.title}
           </h1>
           <p className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-base)] [line-height:var(--fr-leading-normal)] [color:var(--fr-text-secondary)]">
             {translations.auth.login.subtitle}
           </p>
         </div>
-        <form className="flex flex-col [gap:var(--fr-space-4)]" onSubmit={handleSubmit}>
+        <form
+          className="flex flex-col [gap:var(--fr-space-4)]"
+          onSubmit={handleSubmit}
+        >
           <Input
             label={translations.auth.login.email_label}
             type="email"

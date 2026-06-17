@@ -19,8 +19,24 @@ export function ReportPreviewMini({
       <Card className="relative w-full overflow-hidden [justify-self:stretch] [border-radius:var(--fr-radius-paper)] [box-shadow:var(--fr-shadow-paper)]" padding="lg">
         <div className="absolute [top:var(--fr-space-0)] [right:var(--fr-space-0)] [left:var(--fr-space-0)] [height:var(--fr-space-1)] [background:var(--fr-onboarding-company-color,_var(--fr-accent))]" />
         <div className="flex items-start justify-between [gap:var(--fr-space-5)] [&_div]:flex [&_div]:flex-col [&_div]:items-end [&_div]:[gap:var(--fr-space-1)]">
-          <span className="inline-flex items-center justify-center [width:var(--fr-space-9)] [height:var(--fr-space-9)] shrink-0 [border-radius:var(--fr-radius-lg)] [font-size:var(--fr-text-lg)] [font-weight:var(--fr-weight-bold)] [color:var(--fr-text-on-accent)] [background:var(--fr-onboarding-company-color,_var(--fr-accent))] [&_img]:[max-width:var(--fr-space-7)] [&_img]:[max-height:var(--fr-space-7)] [&_img]:[object-fit:contain]">
-            {logoUrl !== null ? <img src={logoUrl} alt="" /> : initials}
+          <span
+            className={[
+              'inline-flex items-center justify-center [width:var(--fr-space-9)] [height:var(--fr-space-9)] shrink-0 overflow-hidden [border-radius:var(--fr-radius-lg)] [font-size:var(--fr-text-lg)] [font-weight:var(--fr-weight-bold)]',
+              logoUrl === null &&
+                '[color:var(--fr-text-on-accent)] [background:var(--fr-onboarding-company-color,_var(--fr-accent))]',
+            ]
+              .filter(Boolean)
+              .join(' ')}
+          >
+            {logoUrl !== null ? (
+              <img
+                className="[width:calc(100%_-_var(--fr-space-4))] [height:calc(100%_-_var(--fr-space-4))] [object-fit:contain] [object-position:center]"
+                src={logoUrl}
+                alt=""
+              />
+            ) : (
+              initials
+            )}
           </span>
           <div>
             <span>{translations.onboarding.preview.dossier}</span>

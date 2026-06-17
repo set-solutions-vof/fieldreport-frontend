@@ -10,7 +10,7 @@ export function ValidationReportsSection({
 }: ValidationReportsSectionProps) {
   return (
     <section className="flex flex-col [gap:var(--fr-space-4)]">
-      <div className="flex items-center justify-between [gap:var(--fr-space-4)] [&_h2]:[margin:var(--fr-space-0)] [&_h2]:[font-size:var(--fr-text-xl)] [&_h2]:[font-weight:var(--fr-weight-semibold)] [&_h2]:[line-height:var(--fr-leading-snug)] [&_h2]:[color:var(--fr-text-primary)]">
+      <div className="flex items-center justify-between [gap:var(--fr-space-4)] [&_h2]:[margin:var(--fr-space-0)] [&_h2]:[font-size:var(--fr-text-lg)] [&_h2]:[font-weight:var(--fr-weight-bold)] [&_h2]:[letter-spacing:var(--fr-tracking-section)] [&_h2]:[line-height:var(--fr-leading-snug)] [&_h2]:[color:var(--fr-text-primary)]">
         <h2>{translations.dashboard.queue.title}</h2>
         <Button type="button" variant="primary" onClick={onOpenNewReport}>
           {translations.dashboard.actions.new_report}

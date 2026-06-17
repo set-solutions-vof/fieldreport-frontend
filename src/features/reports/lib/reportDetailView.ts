@@ -64,13 +64,27 @@ export function buildEvidenceRailItems(
     })
     .sort(
       (firstItem, secondItem) =>
-        firstItem.evidenceItem.timeline_seconds -
-        secondItem.evidenceItem.timeline_seconds,
+        (firstItem.evidenceItem.timeline_seconds ?? Number.POSITIVE_INFINITY) -
+        (secondItem.evidenceItem.timeline_seconds ?? Number.POSITIVE_INFINITY),
     )
 }
 
+export function sourceMomentRailItems(
+  items: EvidenceRailItem[],
+): EvidenceRailItem[] {
+  return items.filter(
+    (item) => item.evidenceItem.evidence_type === 'transcription_segment',
+  )
+}
+
 export function evidenceTimeLabel(evidenceRailItem: EvidenceRailItem): string {
-  return formatDuration(evidenceRailItem.evidenceItem.timeline_seconds)
+  const timelineSeconds = evidenceRailItem.evidenceItem.timeline_seconds
+
+  if (timelineSeconds === null) {
+    return ''
+  }
+
+  return formatDuration(timelineSeconds)
 }
 
 export function truncateSummary(
@@ -93,8 +107,7 @@ export function transcriptSegments(
     )
     .sort(
       (firstItem, secondItem) =>
-        (firstItem.start_seconds ?? firstItem.timeline_seconds) -
-        (secondItem.start_seconds ?? secondItem.timeline_seconds),
+        (firstItem.timeline_seconds ?? 0) - (secondItem.timeline_seconds ?? 0),
     )
 }
 
@@ -173,9 +186,14 @@ export function sectionEvidenceChipLabels(
     }
 
     if (evidenceItem.evidence_type === 'transcription_segment') {
-      return `[${formatDuration(
-        evidenceItem.start_seconds ?? evidenceItem.timeline_seconds,
-      )}]`
+      const startSeconds =
+        evidenceItem.start_seconds ?? evidenceItem.timeline_seconds
+
+      if (startSeconds === null) {
+        return []
+      }
+
+      return `[${formatDuration(startSeconds)}]`
     }
 
     imageCount += 1
