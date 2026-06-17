@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button } from '@/design-system'
+import { Button } from '@set-solutions-vof/design-system'
 import type { TemplateSectionGroup } from '@/types/template'
 import type { TemplateSectionGroupsProps } from '@/types/templateView'
 import { TemplateSectionGroupEditor } from './TemplateSectionGroupEditor'
@@ -98,7 +98,7 @@ export function TemplateSectionGroups({
   }
 
   return (
-    <div className="fr-template-section-groups">
+    <div className="flex flex-col [gap:var(--fr-space-3)]">
       {sectionGroups.map((group) => {
         const isGroupCollapsed = collapsedGroupIds.includes(group.id)
 
@@ -124,7 +124,7 @@ export function TemplateSectionGroups({
           leadingIcon={
             <TemplateIcon
               name="plus"
-              className="fr-template-section-card__button-icon"
+              className="block [width:var(--fr-space-4)] [height:var(--fr-space-4)] [stroke-width:1.6]"
             />
           }
           onClick={addGroup}

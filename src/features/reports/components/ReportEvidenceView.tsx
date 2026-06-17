@@ -1,4 +1,4 @@
-import { Card } from '@/design-system'
+import { Card } from '@set-solutions-vof/design-system'
 import { translations } from '@/lib/translations'
 import type {
   EvidenceRailItem,
@@ -29,10 +29,10 @@ export function ReportEvidenceView({
       id="view-evidence"
       role="tabpanel"
     >
-      <div className="fr-report-evidence-view">
+      <div className="grid [gap:var(--fr-space-4)] [padding:var(--fr-space-6)_var(--fr-space-7)_var(--fr-space-10)] [grid-template-columns:repeat(auto-fill,_minmax(280px,_1fr))]">
         {items.length === 0 ? (
           <Card padding="md">
-            <p className="fr-report-detail-empty">
+            <p className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-base)] [line-height:var(--fr-leading-normal)] [color:var(--fr-text-secondary)]">
               {translations.report_detail.evidence.empty}
             </p>
           </Card>
@@ -41,10 +41,10 @@ export function ReportEvidenceView({
             <Card
               key={evidenceRailItem.id}
               padding="md"
-              className="fr-report-evidence-card"
+              className="grid [gap:var(--fr-space-3)]"
             >
-              <div className="fr-report-evidence-card-head">
-                <span className="fr-report-evidence-card-type">
+              <div className="flex items-center justify-between [gap:var(--fr-space-3)]">
+                <span className="inline-flex items-center [gap:var(--fr-space-2)] [font-size:var(--fr-text-sm)] [font-weight:var(--fr-weight-medium)] [color:var(--fr-text-primary)]">
                   <EvidenceTypeIcon
                     type={evidenceTypeIconType(
                       evidenceRailItem.evidenceItem.evidence_type,
@@ -55,7 +55,7 @@ export function ReportEvidenceView({
                     evidenceRailItem.evidenceItem.evidence_type,
                   )}
                 </span>
-                <span className="fr-report-evidence-card-time">
+                <span className="[font-size:var(--fr-text-xs)] [font-variant-numeric:tabular-nums] [color:var(--fr-text-tertiary)]">
                   {evidenceTimeRange(evidenceRailItem)}
                 </span>
               </div>
@@ -64,11 +64,11 @@ export function ReportEvidenceView({
                 <InspectionPhoto
                   storageKey={evidenceRailItem.evidenceItem.storage_key}
                   alt={evidenceRailItem.evidenceItem.content_summary}
-                  className="fr-report-evidence-card-image"
+                  className="w-full [border-radius:var(--fr-radius-md)] object-cover [aspect-ratio:4_/_3] [background:var(--fr-surface-active)]"
                 />
               )}
 
-              <p className="fr-report-evidence-card-summary">
+              <p className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-sm)] [line-height:var(--fr-leading-normal)] [color:var(--fr-text-secondary)]">
                 {truncateSummary(
                   evidenceRailItem.evidenceItem.content_summary ||
                     translations.report_detail.evidence_rail
@@ -77,7 +77,7 @@ export function ReportEvidenceView({
                 )}
               </p>
 
-              <p className="fr-report-evidence-card-sections">
+              <p className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-xs)] [line-height:var(--fr-leading-normal)] [color:var(--fr-text-tertiary)]">
                 {translations.report_detail.evidence_rail.sections_label}:{' '}
                 <strong>{evidenceRailItem.sectionLabels.join(', ')}</strong>
               </p>

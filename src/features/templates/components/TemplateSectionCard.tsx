@@ -1,4 +1,4 @@
-import { Button, Card } from '@/design-system'
+import { Button, Card } from '@set-solutions-vof/design-system'
 import { translations } from '@/lib/translations'
 import { useTemplateSectionDrag } from '../hooks/useTemplateSectionDrag'
 import { formatTemplateOrder } from '../lib/templateFormatters'
@@ -49,12 +49,14 @@ export function TemplateSectionCard({
       padding="md"
       draggable={draggable}
       className={[
-        'fr-template-section-card',
-        feature && 'fr-template-section-card--feature',
-        draggable && 'fr-template-section-card--draggable',
-        isDragging && 'fr-template-section-card--dragging',
-        dropIndicator === 'before' && 'fr-template-section-card--drop-before',
-        dropIndicator === 'after' && 'fr-template-section-card--drop-after',
+        'relative flex items-start [gap:var(--fr-space-3)] [animation:frTemplateFadeUp_250ms_var(--fr-ease-out)_forwards]',
+        feature && '[grid-column:span_2]',
+        draggable && 'cursor-grab',
+        isDragging && 'cursor-grabbing [opacity:0.65]',
+        dropIndicator === 'before' &&
+          "[&::before]:absolute [&::before]:[right:var(--fr-space-3)] [&::before]:[left:var(--fr-space-3)] [&::before]:[height:var(--fr-border-width-sm)] [&::before]:[background:var(--fr-accent)] [&::before]:[border-radius:var(--fr-radius-full)] [&::before]:[content:''] [&::before]:[top:calc(var(--fr-space-2)_*_-1)]",
+        dropIndicator === 'after' &&
+          "[&::after]:absolute [&::after]:[right:var(--fr-space-3)] [&::after]:[left:var(--fr-space-3)] [&::after]:[height:var(--fr-border-width-sm)] [&::after]:[background:var(--fr-accent)] [&::after]:[border-radius:var(--fr-radius-full)] [&::after]:[content:''] [&::after]:[bottom:calc(var(--fr-space-2)_*_-1)]",
       ]
         .filter(Boolean)
         .join(' ')}
@@ -67,15 +69,15 @@ export function TemplateSectionCard({
       <TemplateIcon
         name="grip"
         className={[
-          'fr-template-section-card__grip',
-          readonly && 'fr-template-section-card__grip--readonly',
-          !readonly && 'fr-template-section-card__grip--draggable',
-          isDragging && 'fr-template-section-card__grip--dragging',
+          '[width:var(--fr-space-4)] [height:var(--fr-space-4)] shrink-0 [margin-top:calc(var(--fr-space-1)_/_2)] [color:var(--fr-text-tertiary)]',
+          readonly && '[color:transparent]',
+          !readonly && 'cursor-grab',
+          isDragging && 'cursor-grabbing',
         ]
           .filter(Boolean)
           .join(' ')}
       />
-      <div className="fr-template-section-card__body">
+      <div className="flex [min-width:var(--fr-space-0)] flex-1 flex-col [gap:var(--fr-space-3)]">
         <TemplateSectionLabelEditor
           sectionId={section.id}
           label={section.label}
@@ -109,12 +111,12 @@ export function TemplateSectionCard({
         <Button
           size="sm"
           variant="ghost"
-          className="fr-template-section-card__icon-button fr-template-section-card__delete"
+          className="[width:var(--fr-control-height-sm)] [gap:var(--fr-space-0)] [padding:var(--fr-space-0)] [color:var(--fr-text-tertiary)] hover:[color:var(--fr-destructive)] focus-visible:[color:var(--fr-destructive)]"
           aria-label={`${translations.template.review.delete_section_label}: ${section.label}`}
           leadingIcon={
             <TemplateIcon
               name="trash"
-              className="fr-template-section-card__button-icon"
+              className="block [width:var(--fr-space-4)] [height:var(--fr-space-4)] [stroke-width:1.6]"
             />
           }
           onClick={() => onDelete?.(section.id)}
@@ -122,7 +124,7 @@ export function TemplateSectionCard({
           {translations.template.review.delete_section_label}
         </Button>
       )}
-      <span className="fr-template-section-card__order">
+      <span className="shrink-0 [font-size:var(--fr-text-sm)] [font-weight:var(--fr-weight-medium)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-tertiary)] [font-variant-numeric:tabular-nums]">
         {formatTemplateOrder(index)}
       </span>
     </Card>

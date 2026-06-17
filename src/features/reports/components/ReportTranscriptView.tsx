@@ -1,4 +1,4 @@
-import { Card, TranscriptBlock } from '@/design-system'
+import { Card, TranscriptBlock } from '@set-solutions-vof/design-system'
 import { translations } from '@/lib/translations'
 import type { ReportEvidenceItem } from '@/types/report'
 import type {
@@ -27,10 +27,10 @@ export function ReportTranscriptView({
       id="view-transcript"
       role="tabpanel"
     >
-      <div className="fr-report-transcript-view">
+      <div className="grid [gap:var(--fr-space-4)] [padding:var(--fr-space-6)_var(--fr-space-7)_var(--fr-space-10)]">
         {segments.length === 0 ? (
           <Card padding="md">
-            <p className="fr-report-detail-empty">
+            <p className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-base)] [line-height:var(--fr-leading-normal)] [color:var(--fr-text-secondary)]">
               {translations.report_detail.transcript.empty}
             </p>
           </Card>

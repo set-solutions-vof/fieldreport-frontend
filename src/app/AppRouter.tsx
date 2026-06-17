@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Spinner } from '@/design-system'
+import { Spinner } from '@set-solutions-vof/design-system'
 import { AcceptInvitePage } from '@/features/auth/AcceptInvitePage'
 import { ForgotPasswordPage } from '@/features/auth/ForgotPasswordPage'
 import { LoginPage } from '@/features/auth/LoginPage'
@@ -70,8 +70,8 @@ export function AppRouter() {
 
   if (isRestoringSession) {
     return (
-      <main className="fr-dashboard-loading-page">
-        <div className="fr-dashboard-state">
+      <main className="flex min-h-[100dvh] box-border [padding:var(--fr-space-7)] [background:var(--fr-background)]">
+        <div className="[&_h1]:[margin:var(--fr-space-0)] [&_h1]:[font-size:var(--fr-text-xl)] [&_h1]:[font-weight:var(--fr-weight-semibold)] [&_h1]:[line-height:var(--fr-leading-snug)] [&_h1]:[color:var(--fr-text-primary)] flex [max-width:calc(var(--fr-space-16)_+_var(--fr-space-15))] flex-col items-start [gap:var(--fr-space-4)] [&_p]:[margin:var(--fr-space-0)] [&_p]:[font-size:var(--fr-text-base)] [&_p]:[line-height:var(--fr-leading-normal)] [&_p]:[color:var(--fr-text-secondary)]">
           <Spinner size="lg" />
         </div>
       </main>

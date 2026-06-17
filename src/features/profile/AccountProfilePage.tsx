@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import type { FormEvent } from 'react'
 import { AppShell } from '@/app/AppShell'
-import { Button, Divider, Input, Spinner } from '@/design-system'
+import { Button, Divider, Input, Spinner } from '@set-solutions-vof/design-system'
 import { useCurrentUser } from '@/features/auth/useCurrentUser'
 import { getUserInitials } from '@/features/reports/lib/getUserInitials'
 import {
@@ -11,7 +11,6 @@ import {
 import { changePassword, updateProfile } from '@/lib/api/user'
 import { translations } from '@/lib/translations'
 import type { CurrentUser } from '@/types/auth'
-import './AccountProfilePage.css'
 
 type AccountProfilePageProps = {
   onAuthenticationExpired: () => void
@@ -35,8 +34,8 @@ export function AccountProfilePage({
 
   if (isLoading || currentUser === null) {
     return (
-      <main className="fr-dashboard-loading-page">
-        <div className="fr-dashboard-state">
+      <main className="flex min-h-[100dvh] box-border [padding:var(--fr-space-7)] [background:var(--fr-background)]">
+        <div className="[&_h1]:[margin:var(--fr-space-0)] [&_h1]:[font-size:var(--fr-text-xl)] [&_h1]:[font-weight:var(--fr-weight-semibold)] [&_h1]:[line-height:var(--fr-leading-snug)] [&_h1]:[color:var(--fr-text-primary)] flex [max-width:calc(var(--fr-space-16)_+_var(--fr-space-15))] flex-col items-start [gap:var(--fr-space-4)] [&_p]:[margin:var(--fr-space-0)] [&_p]:[font-size:var(--fr-text-base)] [&_p]:[line-height:var(--fr-leading-normal)] [&_p]:[color:var(--fr-text-secondary)]">
           <Spinner size="lg" />
         </div>
       </main>
@@ -45,8 +44,8 @@ export function AccountProfilePage({
 
   if (isError) {
     return (
-      <main className="fr-dashboard-loading-page">
-        <div className="fr-dashboard-state">
+      <main className="flex min-h-[100dvh] box-border [padding:var(--fr-space-7)] [background:var(--fr-background)]">
+        <div className="[&_h1]:[margin:var(--fr-space-0)] [&_h1]:[font-size:var(--fr-text-xl)] [&_h1]:[font-weight:var(--fr-weight-semibold)] [&_h1]:[line-height:var(--fr-leading-snug)] [&_h1]:[color:var(--fr-text-primary)] flex [max-width:calc(var(--fr-space-16)_+_var(--fr-space-15))] flex-col items-start [gap:var(--fr-space-4)] [&_p]:[margin:var(--fr-space-0)] [&_p]:[font-size:var(--fr-text-base)] [&_p]:[line-height:var(--fr-leading-normal)] [&_p]:[color:var(--fr-text-secondary)]">
           <h1>{translations.dashboard.states.reports_load_failed_title}</h1>
           <p>{errorMessage}</p>
           <Button type="button" variant="primary" onClick={retry}>
@@ -191,34 +190,34 @@ function AccountProfileContent({
       onOpenProfile={onOpenProfile}
       onLogout={onLogout}
     >
-      <main className="fr-account-profile-page">
+      <main className="relative flex flex-col [gap:var(--fr-space-5)]">
         {showSuccessToast && (
-          <div className="fr-account-profile-toast" role="status">
+          <div className="fixed [top:var(--fr-space-5)] [right:var(--fr-space-5)] [z-index:2] [padding:var(--fr-space-3)_var(--fr-space-4)] [color:var(--fr-status-approved-fg)] [background:var(--fr-status-approved-bg)] [border:var(--fr-border-width-sm)_solid_var(--fr-status-approved-border)] [border-radius:var(--fr-radius-lg)] [font-size:var(--fr-text-sm)] [font-weight:var(--fr-weight-medium)]" role="status">
             Profiel opgeslagen
           </div>
         )}
-        <header className="fr-account-profile-page__header">
+        <header className="[&_h1]:[margin:var(--fr-space-0)] [&_h1]:[font-size:var(--fr-text-xl)] [&_h1]:[font-weight:var(--fr-weight-semibold)] [&_h1]:[line-height:var(--fr-leading-snug)] [&_h1]:[color:var(--fr-text-primary)]">
           <h1>Account profiel</h1>
         </header>
         <form
-          className="fr-account-profile-form"
+          className="flex [width:min(100%,_calc(var(--fr-space-16)_*_3))] flex-col [gap:var(--fr-space-5)] [padding:var(--fr-space-5)] [background:var(--fr-surface)] [border:var(--fr-border-width-sm)_solid_var(--fr-border)] [border-radius:var(--fr-radius-lg)]"
           noValidate
           onSubmit={(event) => void handleSubmit(event)}
         >
-          <section className="fr-account-profile-form__identity">
-            <span className="fr-account-profile-avatar">
+          <section className="grid [grid-template-columns:var(--fr-space-10)_minmax(var(--fr-space-0),_1fr)] [gap:var(--fr-space-5)] items-start">
+            <span className="inline-flex [width:var(--fr-space-10)] [height:var(--fr-space-10)] items-center justify-center [border-radius:var(--fr-radius-full)] [color:var(--fr-text-on-accent)] [background:var(--fr-accent)] [font-size:var(--fr-text-xl)] [font-weight:var(--fr-weight-semibold)]">
               {getUserInitials(profileUser.name)}
             </span>
-            <div className="fr-account-profile-form__grid">
+            <div className="grid [grid-template-columns:repeat(2,_minmax(var(--fr-space-0),_1fr))] [gap:var(--fr-space-4)]">
               <Input
-                fieldClassName="fr-account-profile-form__full-width"
+                fieldClassName="[grid-column:1_/_-1]"
                 label="Naam"
                 value={name}
                 onChange={(event) => setName(event.currentTarget.value)}
               />
               <Input
-                className="fr-account-profile-form__readonly-input"
-                fieldClassName="fr-account-profile-form__full-width"
+                className="[color:var(--fr-text-disabled)] cursor-not-allowed [background:var(--fr-surface-sunken)]"
+                fieldClassName="[grid-column:1_/_-1]"
                 label="E-mailadres"
                 value={profileUser.email}
                 readOnly
@@ -228,9 +227,9 @@ function AccountProfileContent({
 
           <Divider spacing="lg" />
 
-          <section className="fr-account-profile-form__section">
+          <section className="flex flex-col [gap:var(--fr-space-4)] [&_h2]:[margin:var(--fr-space-0)] [&_h2]:[font-size:var(--fr-text-md)] [&_h2]:[font-weight:var(--fr-weight-semibold)] [&_h2]:[line-height:var(--fr-leading-snug)] [&_h2]:[color:var(--fr-text-primary)]">
             <h2>Wachtwoord wijzigen</h2>
-            <div className="fr-account-profile-form__grid">
+            <div className="grid [grid-template-columns:repeat(2,_minmax(var(--fr-space-0),_1fr))] [gap:var(--fr-space-4)]">
               <Input
                 label="Huidig wachtwoord"
                 type="password"
@@ -263,12 +262,12 @@ function AccountProfileContent({
           </section>
 
           {formError !== null && (
-            <p className="fr-account-profile-form__error" role="alert">
+            <p className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-sm)] [color:var(--fr-destructive)]" role="alert">
               {formError}
             </p>
           )}
 
-          <footer className="fr-account-profile-form__actions">
+          <footer className="flex justify-end [gap:var(--fr-space-2)]">
             <Button
               type="button"
               variant="ghost"

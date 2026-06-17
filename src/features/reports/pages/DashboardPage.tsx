@@ -1,4 +1,4 @@
-import { Button, Spinner } from '@/design-system'
+import { Button, Spinner } from '@set-solutions-vof/design-system'
 import { useCurrentUser } from '@/features/auth/useCurrentUser'
 import { translations } from '@/lib/translations'
 import { AppShell } from '@/app/AppShell'
@@ -7,7 +7,6 @@ import { RecentReportsTable } from '../components/RecentReportsTable'
 import { ValidationReportsSection } from '../components/ValidationReportsSection'
 import { useReportList } from '../hooks/useReportList'
 import type { DashboardPageProps } from '@/types/reportView'
-import './DashboardPage.css'
 
 export function DashboardPage({
   onOpenReport,
@@ -35,8 +34,8 @@ export function DashboardPage({
 
   if (isLoading || isCurrentUserLoading) {
     return (
-      <main className="fr-dashboard-loading-page">
-        <div className="fr-dashboard-state">
+      <main className="flex min-h-[100dvh] box-border [padding:var(--fr-space-7)] [background:var(--fr-background)]">
+        <div className="[&_h1]:[margin:var(--fr-space-0)] [&_h1]:[font-size:var(--fr-text-xl)] [&_h1]:[font-weight:var(--fr-weight-semibold)] [&_h1]:[line-height:var(--fr-leading-snug)] [&_h1]:[color:var(--fr-text-primary)] flex [max-width:calc(var(--fr-space-16)_+_var(--fr-space-15))] flex-col items-start [gap:var(--fr-space-4)] [&_p]:[margin:var(--fr-space-0)] [&_p]:[font-size:var(--fr-text-base)] [&_p]:[line-height:var(--fr-leading-normal)] [&_p]:[color:var(--fr-text-secondary)]">
           <Spinner size="lg" />
         </div>
       </main>
@@ -45,8 +44,8 @@ export function DashboardPage({
 
   if (isError || isCurrentUserError || currentUser === null) {
     return (
-      <main className="fr-dashboard-loading-page">
-        <div className="fr-dashboard-state">
+      <main className="flex min-h-[100dvh] box-border [padding:var(--fr-space-7)] [background:var(--fr-background)]">
+        <div className="[&_h1]:[margin:var(--fr-space-0)] [&_h1]:[font-size:var(--fr-text-xl)] [&_h1]:[font-weight:var(--fr-weight-semibold)] [&_h1]:[line-height:var(--fr-leading-snug)] [&_h1]:[color:var(--fr-text-primary)] flex [max-width:calc(var(--fr-space-16)_+_var(--fr-space-15))] flex-col items-start [gap:var(--fr-space-4)] [&_p]:[margin:var(--fr-space-0)] [&_p]:[font-size:var(--fr-text-base)] [&_p]:[line-height:var(--fr-leading-normal)] [&_p]:[color:var(--fr-text-secondary)]">
           <h1>{translations.dashboard.states.reports_load_failed_title}</h1>
           <p>{errorMessage ?? currentUserErrorMessage}</p>
           <Button

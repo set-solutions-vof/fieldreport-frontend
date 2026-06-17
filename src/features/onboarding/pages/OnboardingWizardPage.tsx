@@ -7,11 +7,6 @@ import { Step2UploadReports } from '../steps/Step2UploadReports'
 import { Step3ReviewTemplate } from '../steps/Step3ReviewTemplate'
 import { Step4InviteTeam } from '../steps/Step4InviteTeam'
 import type { OnboardingWizardPageProps } from '@/types/onboarding'
-import '@/features/templates/pages/TemplateConfigurationPage.css'
-import '@/features/templates/pages/TemplateTypeSelector.css'
-import '@/features/templates/pages/TemplateSectionCard.css'
-import '@/features/templates/pages/TemplateFieldControls.css'
-import './OnboardingWizardPage.css'
 
 export function OnboardingWizardPage({
   currentUser,

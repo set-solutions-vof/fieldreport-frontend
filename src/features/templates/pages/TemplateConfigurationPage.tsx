@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import type { ChangeEvent, DragEvent } from 'react'
-import { Button, Spinner } from '@/design-system'
+import { Button, Spinner } from '@set-solutions-vof/design-system'
 import { useCurrentUser } from '@/features/auth/useCurrentUser'
 import { AppShell } from '@/app/AppShell'
 import { translations } from '@/lib/translations'
@@ -11,10 +11,6 @@ import { TemplateSkeletonGrid } from '../components/TemplateSkeletonGrid'
 import { TemplateUploadingState } from '../components/TemplateUploadingState'
 import { useTemplateConfiguration } from '../hooks/useTemplateConfiguration'
 import type { TemplateConfigurationPageProps } from '@/types/templateView'
-import './TemplateConfigurationPage.css'
-import './TemplateTypeSelector.css'
-import './TemplateSectionCard.css'
-import './TemplateFieldControls.css'
 
 export function TemplateConfigurationPage({
   onOpenTemplate,
@@ -76,8 +72,8 @@ export function TemplateConfigurationPage({
 
   if (isLoading || isCurrentUserLoading) {
     return (
-      <main className="fr-dashboard-loading-page">
-        <div className="fr-dashboard-state">
+      <main className="flex min-h-[100dvh] box-border [padding:var(--fr-space-7)] [background:var(--fr-background)]">
+        <div className="[&_h1]:[margin:var(--fr-space-0)] [&_h1]:[font-size:var(--fr-text-xl)] [&_h1]:[font-weight:var(--fr-weight-semibold)] [&_h1]:[line-height:var(--fr-leading-snug)] [&_h1]:[color:var(--fr-text-primary)] flex [max-width:calc(var(--fr-space-16)_+_var(--fr-space-15))] flex-col items-start [gap:var(--fr-space-4)] [&_p]:[margin:var(--fr-space-0)] [&_p]:[font-size:var(--fr-text-base)] [&_p]:[line-height:var(--fr-leading-normal)] [&_p]:[color:var(--fr-text-secondary)]">
           <Spinner size="lg" />
         </div>
       </main>
@@ -86,8 +82,8 @@ export function TemplateConfigurationPage({
 
   if (isError || isCurrentUserError || currentUser === null) {
     return (
-      <main className="fr-dashboard-loading-page">
-        <div className="fr-dashboard-state">
+      <main className="flex min-h-[100dvh] box-border [padding:var(--fr-space-7)] [background:var(--fr-background)]">
+        <div className="[&_h1]:[margin:var(--fr-space-0)] [&_h1]:[font-size:var(--fr-text-xl)] [&_h1]:[font-weight:var(--fr-weight-semibold)] [&_h1]:[line-height:var(--fr-leading-snug)] [&_h1]:[color:var(--fr-text-primary)] flex [max-width:calc(var(--fr-space-16)_+_var(--fr-space-15))] flex-col items-start [gap:var(--fr-space-4)] [&_p]:[margin:var(--fr-space-0)] [&_p]:[font-size:var(--fr-text-base)] [&_p]:[line-height:var(--fr-leading-normal)] [&_p]:[color:var(--fr-text-secondary)]">
           <h1>{translations.template.errors.load_failed_title}</h1>
           <p>{errorMessage ?? currentUserErrorMessage}</p>
           <Button
@@ -110,20 +106,20 @@ export function TemplateConfigurationPage({
       currentUser={currentUser}
       activeNavigationItem="template"
       breadcrumbItems={[{ label: translations.template.navigation_label }]}
-      contentClassName="fr-dashboard-content--template"
+      contentClassName="[gap:var(--fr-space-0)] [padding:var(--fr-space-0)]"
       onOpenTemplate={onOpenTemplate}
       onOpenTeam={onOpenTeam}
       onOpenProfile={onOpenProfile}
       onLogout={onLogout}
     >
       <main
-        className="fr-template-page"
+        className="flex [min-height:calc(100dvh_-_var(--fr-space-10))] flex-col [background:var(--fr-background)]"
         onDrop={handleDrop}
         onDragOver={handleDragOver}
       >
         <input
           ref={fileInputRef}
-          className="fr-template-file-input"
+          className="absolute [width:var(--fr-space-0)] [height:var(--fr-space-0)] overflow-hidden [opacity:0] pointer-events-none"
           type="file"
           multiple
           accept="application/pdf"

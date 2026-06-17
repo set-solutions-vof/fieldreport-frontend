@@ -1,4 +1,4 @@
-import { Button } from '@/design-system'
+import { Button } from '@set-solutions-vof/design-system'
 import { translations } from '@/lib/translations'
 import { saveStatusLabel } from '../lib/reportDetailView'
 import type { ReportActionBarProps } from '@/types/reportDetailView'
@@ -8,11 +8,11 @@ export function ReportActionBar({
   saveStatus,
 }: ReportActionBarProps) {
   return (
-    <div className="fr-report-action-bar">
-      <div className="fr-report-action-bar-status">
+    <div className="sticky [bottom:var(--fr-space-0)] [z-index:5] flex items-center justify-between [gap:var(--fr-space-4)] [padding:var(--fr-space-3)_var(--fr-space-7)] [border-top:1px_solid_var(--fr-border)] [background:color-mix(in_oklch,_var(--fr-background)_85%,_transparent)] [backdrop-filter:blur(8px)]">
+      <div className="flex items-center [gap:var(--fr-space-4)] [font-size:var(--fr-text-sm)] [line-height:var(--fr-leading-normal)] [color:var(--fr-text-secondary)]">
         <span>{saveStatusLabel(saveStatus, dirtyCount)}</span>
       </div>
-      <div className="fr-report-action-bar-actions">
+      <div className="flex items-center [gap:var(--fr-space-2)]">
         <Button
           type="button"
           variant="primary"

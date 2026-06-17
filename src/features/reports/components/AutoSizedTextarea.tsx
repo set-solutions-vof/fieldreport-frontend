@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef } from 'react'
-import { Textarea } from '@/design-system'
+import { Textarea } from '@set-solutions-vof/design-system'
 import type { AutoSizedTextareaProps } from '@/types/reportSectionView'
 
 export function AutoSizedTextarea({

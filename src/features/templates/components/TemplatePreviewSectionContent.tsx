@@ -47,7 +47,7 @@ export function GroupedTablePreview({
 
   if (section.fields!.length === 0) {
     return (
-      <div className="fr-template-preview-panel__grouped-table">
+      <div className="flex flex-col [gap:var(--fr-space-4)]">
         <SectionGroupPlaceholder />
       </div>
     )
@@ -74,8 +74,8 @@ function SectionGroupList({
     <div
       className={
         compact
-          ? 'fr-template-preview-panel__grouped-table fr-template-preview-panel__grouped-table--compact'
-          : 'fr-template-preview-panel__grouped-table'
+          ? 'flex flex-col [gap:var(--fr-space-4)] grid [grid-template-columns:repeat(2,_minmax(var(--fr-space-0),_1fr))] [column-gap:var(--fr-space-8)] [row-gap:var(--fr-space-5)]'
+          : 'flex flex-col [gap:var(--fr-space-4)]'
       }
     >
       {groups.map((group, groupIndex) => (
@@ -99,24 +99,24 @@ function SectionGroupPreview({
     <div
       className={
         compact
-          ? 'fr-template-preview-panel__section-group fr-template-preview-panel__section-group--compact'
-          : 'fr-template-preview-panel__section-group'
+          ? 'flex flex-col [gap:var(--fr-space-3)] [gap:var(--fr-space-2)]'
+          : 'flex flex-col [gap:var(--fr-space-3)]'
       }
     >
-      <div className="fr-template-preview-panel__section-group-title">
+      <div className="[padding:var(--fr-space-2)_var(--fr-space-3)] [color:var(--fr-text-primary)] [background:var(--fr-color-neutral-100)] [font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-bold)] [line-height:var(--fr-leading-snug)] [padding:var(--fr-space-0)] [color:var(--fr-accent)] bg-transparent [font-size:var(--fr-text-sm)]">
         {title}
       </div>
       {rows.map((row, rowIndex) => (
         <div
-          className="fr-template-preview-panel__section-group-row"
+          className="grid [grid-template-columns:minmax(var(--fr-space-12),_0.34fr)_minmax(_var(--fr-space-0),_1fr_)] [gap:var(--fr-space-4)] [align-items:start] [grid-template-columns:minmax(var(--fr-space-11),_0.45fr)_minmax(_var(--fr-space-0),_1fr_)] [gap:var(--fr-space-3)]"
           key={`${row}-${rowIndex}`}
         >
-          <span className="fr-template-preview-panel__section-group-label">
+          <span className="[min-width:var(--fr-space-0)] [color:var(--fr-text-primary)] [font-size:var(--fr-text-xs)] [font-style:italic] [line-height:var(--fr-leading-snug)] [color:var(--fr-accent)] [font-style:normal] [font-weight:var(--fr-weight-medium)] uppercase">
             {row}
           </span>
-          <span className="fr-template-preview-panel__section-group-copy">
-            <span className="fr-template-preview-panel__placeholder-line" />
-            <span className="fr-template-preview-panel__placeholder-line fr-template-preview-panel__placeholder-line--wide" />
+          <span className="flex [min-width:var(--fr-space-0)] flex-col [gap:var(--fr-space-2)]">
+            <span className="block w-full [height:calc(var(--fr-space-3)_-_var(--fr-space-1)_/_2)] [background:var(--fr-color-neutral-100)] [border-radius:var(--fr-radius-md)]" />
+            <span className="block w-full [height:calc(var(--fr-space-3)_-_var(--fr-space-1)_/_2)] [background:var(--fr-color-neutral-100)] [border-radius:var(--fr-radius-md)] [width:95%]" />
           </span>
         </div>
       ))}
@@ -129,21 +129,21 @@ function SectionGroupPlaceholder({ compact = false }: { compact?: boolean }) {
     <div
       className={
         compact
-          ? 'fr-template-preview-panel__section-group fr-template-preview-panel__section-group--compact'
-          : 'fr-template-preview-panel__section-group'
+          ? 'flex flex-col [gap:var(--fr-space-3)] [gap:var(--fr-space-2)]'
+          : 'flex flex-col [gap:var(--fr-space-3)]'
       }
     >
-      <div className="fr-template-preview-panel__section-group-title fr-template-preview-panel__section-group-title--placeholder">
-        <span className="fr-template-preview-panel__placeholder-line fr-template-preview-panel__placeholder-line--short" />
+      <div className="[padding:var(--fr-space-2)_var(--fr-space-3)] [color:var(--fr-text-primary)] [background:var(--fr-color-neutral-100)] [font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-bold)] [line-height:var(--fr-leading-snug)] [padding:var(--fr-space-0)] [color:var(--fr-accent)] bg-transparent [font-size:var(--fr-text-sm)] flex items-center">
+        <span className="block w-full [height:calc(var(--fr-space-3)_-_var(--fr-space-1)_/_2)] [background:var(--fr-color-neutral-100)] [border-radius:var(--fr-radius-md)] [width:60%]" />
       </div>
       {groupedTablePlaceholderRows.map((row) => (
-        <div className="fr-template-preview-panel__section-group-row" key={row}>
-          <span className="fr-template-preview-panel__section-group-label">
-            <span className="fr-template-preview-panel__placeholder-line fr-template-preview-panel__placeholder-line--label" />
+        <div className="grid [grid-template-columns:minmax(var(--fr-space-12),_0.34fr)_minmax(_var(--fr-space-0),_1fr_)] [gap:var(--fr-space-4)] [align-items:start] [grid-template-columns:minmax(var(--fr-space-11),_0.45fr)_minmax(_var(--fr-space-0),_1fr_)] [gap:var(--fr-space-3)]" key={row}>
+          <span className="[min-width:var(--fr-space-0)] [color:var(--fr-text-primary)] [font-size:var(--fr-text-xs)] [font-style:italic] [line-height:var(--fr-leading-snug)] [color:var(--fr-accent)] [font-style:normal] [font-weight:var(--fr-weight-medium)] uppercase">
+            <span className="block w-full [height:calc(var(--fr-space-3)_-_var(--fr-space-1)_/_2)] [background:var(--fr-color-neutral-100)] [border-radius:var(--fr-radius-md)] [width:75%]" />
           </span>
-          <span className="fr-template-preview-panel__section-group-copy">
-            <span className="fr-template-preview-panel__placeholder-line" />
-            <span className="fr-template-preview-panel__placeholder-line fr-template-preview-panel__placeholder-line--wide" />
+          <span className="flex [min-width:var(--fr-space-0)] flex-col [gap:var(--fr-space-2)]">
+            <span className="block w-full [height:calc(var(--fr-space-3)_-_var(--fr-space-1)_/_2)] [background:var(--fr-color-neutral-100)] [border-radius:var(--fr-radius-md)]" />
+            <span className="block w-full [height:calc(var(--fr-space-3)_-_var(--fr-space-1)_/_2)] [background:var(--fr-color-neutral-100)] [border-radius:var(--fr-radius-md)] [width:95%]" />
           </span>
         </div>
       ))}

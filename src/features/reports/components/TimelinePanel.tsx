@@ -13,7 +13,6 @@ import type { TimelineStripProps } from '@/types/reportDetailView'
 import { TimelineStripMeta } from './TimelineStripMeta'
 import { TimelineStripStats } from './TimelineStripStats'
 import { TimelineStripTrack } from './TimelineStripTrack'
-import './TimelinePanel.css'
 
 export function TimelineStrip({
   items,
@@ -29,12 +28,12 @@ export function TimelineStrip({
 
   if (events.length === 0) {
     return (
-      <div className="fr-timeline-strip-card">
+      <div className="grid [grid-template-columns:180px_minmax(var(--fr-space-0),_1fr)_220px] items-center [gap:var(--fr-space-5)] [padding:var(--fr-space-4)_var(--fr-space-5)] [border:1px_solid_var(--fr-border)] [border-radius:10px] [background:var(--fr-surface)]">
         <TimelineStripMeta
           range="–"
           summary={translations.report_detail.timeline.empty}
         />
-        <div className="fr-timeline-strip-track" />
+        <div className="relative [height:46px]" />
         <TimelineStripStats
           approvedCount={approvedCount}
           openCount={openCount}
@@ -52,7 +51,7 @@ export function TimelineStrip({
   const ticks = timelineTicks(startTimestampMs, endTimestampMs, trackWidth)
 
   return (
-    <div className="fr-timeline-strip-card">
+    <div className="grid [grid-template-columns:180px_minmax(var(--fr-space-0),_1fr)_220px] items-center [gap:var(--fr-space-5)] [padding:var(--fr-space-4)_var(--fr-space-5)] [border:1px_solid_var(--fr-border)] [border-radius:10px] [background:var(--fr-surface)]">
       <TimelineStripMeta
         range={`${formatDuration(0)} → ${formatDuration(durationSeconds)}`}
         summary={`${events.length} ${

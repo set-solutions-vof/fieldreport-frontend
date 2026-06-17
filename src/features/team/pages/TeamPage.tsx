@@ -1,4 +1,4 @@
-import { Button, Spinner } from '@/design-system'
+import { Button, Spinner } from '@set-solutions-vof/design-system'
 import { AppShell } from '@/app/AppShell'
 import { useCurrentUser } from '@/features/auth/useCurrentUser'
 import { InviteRow } from '@/features/onboarding/components/InviteRow'
@@ -7,7 +7,6 @@ import { translations } from '@/lib/translations'
 import type { TeamPageProps } from '@/types/teamView'
 import { TeamMemberRow } from '../components/TeamMemberRow'
 import { useTeamMembers } from '../hooks/useTeamMembers'
-import './TeamPage.css'
 
 export function TeamPage({
   onOpenTemplate,
@@ -43,8 +42,8 @@ export function TeamPage({
 
   if (isCurrentUserLoading || currentUser === null) {
     return (
-      <main className="fr-dashboard-loading-page">
-        <div className="fr-dashboard-state">
+      <main className="flex min-h-[100dvh] box-border [padding:var(--fr-space-7)] [background:var(--fr-background)]">
+        <div className="[&_h1]:[margin:var(--fr-space-0)] [&_h1]:[font-size:var(--fr-text-xl)] [&_h1]:[font-weight:var(--fr-weight-semibold)] [&_h1]:[line-height:var(--fr-leading-snug)] [&_h1]:[color:var(--fr-text-primary)] flex [max-width:calc(var(--fr-space-16)_+_var(--fr-space-15))] flex-col items-start [gap:var(--fr-space-4)] [&_p]:[margin:var(--fr-space-0)] [&_p]:[font-size:var(--fr-text-base)] [&_p]:[line-height:var(--fr-leading-normal)] [&_p]:[color:var(--fr-text-secondary)]">
           <Spinner size="lg" />
         </div>
       </main>
@@ -53,8 +52,8 @@ export function TeamPage({
 
   if (isCurrentUserError) {
     return (
-      <main className="fr-dashboard-loading-page">
-        <div className="fr-dashboard-state">
+      <main className="flex min-h-[100dvh] box-border [padding:var(--fr-space-7)] [background:var(--fr-background)]">
+        <div className="[&_h1]:[margin:var(--fr-space-0)] [&_h1]:[font-size:var(--fr-text-xl)] [&_h1]:[font-weight:var(--fr-weight-semibold)] [&_h1]:[line-height:var(--fr-leading-snug)] [&_h1]:[color:var(--fr-text-primary)] flex [max-width:calc(var(--fr-space-16)_+_var(--fr-space-15))] flex-col items-start [gap:var(--fr-space-4)] [&_p]:[margin:var(--fr-space-0)] [&_p]:[font-size:var(--fr-text-base)] [&_p]:[line-height:var(--fr-leading-normal)] [&_p]:[color:var(--fr-text-secondary)]">
           <h1>{translations.team.errors.load_failed_title}</h1>
           <p>{currentUserErrorMessage}</p>
           <Button type="button" variant="primary" onClick={retryCurrentUser}>
@@ -75,33 +74,33 @@ export function TeamPage({
       onOpenProfile={onOpenProfile}
       onLogout={onLogout}
     >
-      <main className="fr-team-page">
-        <header className="fr-team-page__header">
+      <main className="flex flex-1 flex-col [gap:var(--fr-space-8)] [padding:var(--fr-space-8)]">
+        <header className="[&_h1]:[margin:var(--fr-space-0)] [&_h1]:[font-size:var(--fr-text-lg)] [&_h1]:[font-weight:var(--fr-weight-semibold)] [&_h1]:[line-height:var(--fr-leading-snug)] [&_h1]:[color:var(--fr-text-primary)] [&_p]:[margin:var(--fr-space-2)_var(--fr-space-0)_var(--fr-space-0)] [&_p]:[font-size:var(--fr-text-sm)] [&_p]:[line-height:var(--fr-leading-snug)] [&_p]:[color:var(--fr-text-secondary)]">
           <h1>{translations.team.title}</h1>
           <p>{translations.team.description}</p>
         </header>
 
-        <section className="fr-team-page__section">
-          <div className="fr-team-page__section-header">
+        <section className="flex flex-col [gap:var(--fr-space-4)]">
+          <div className="[&_h2]:[margin:var(--fr-space-0)] [&_h2]:[font-size:var(--fr-text-md)] [&_h2]:[font-weight:var(--fr-weight-semibold)] [&_h2]:[color:var(--fr-text-primary)]">
             <h2>{translations.team.members_title}</h2>
           </div>
           {isMembersLoading ? (
-            <div className="fr-onboarding-state">
+            <div className="flex items-center justify-center flex-col [gap:var(--fr-space-4)] [color:var(--fr-text-secondary)] [&_h1]:[margin:var(--fr-space-0)] [&_p]:[margin:var(--fr-space-0)] [&_h1]:[font-size:var(--fr-text-xl)] [&_h1]:[line-height:var(--fr-leading-snug)] [&_h1]:[color:var(--fr-text-primary)]">
               <Spinner size="md" />
             </div>
           ) : membersErrorMessage !== null ? (
-            <div className="fr-onboarding-inline-error">
+            <div className="flex items-center [gap:var(--fr-space-3)] [color:var(--fr-destructive)] [&_p]:[margin:var(--fr-space-0)]">
               <p>{membersErrorMessage}</p>
               <Button type="button" variant="ghost" onClick={retryMembers}>
                 {translations.onboarding.states.retry}
               </Button>
             </div>
           ) : members.length === 0 ? (
-            <p className="fr-team-page__empty">
+            <p className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-sm)] [color:var(--fr-text-secondary)]">
               {translations.team.members_empty}
             </p>
           ) : (
-            <div className="fr-team-page__list">
+            <div className="flex [width:min(100%,_calc(var(--fr-space-16)_*_3))] flex-col [gap:var(--fr-space-2)]">
               {members.map((member) => (
                 <TeamMemberRow key={member.id} member={member} />
               ))}
@@ -109,19 +108,19 @@ export function TeamPage({
           )}
         </section>
 
-        <section className="fr-team-page__section">
-          <div className="fr-team-page__section-header">
+        <section className="flex flex-col [gap:var(--fr-space-4)]">
+          <div className="[&_h2]:[margin:var(--fr-space-0)] [&_h2]:[font-size:var(--fr-text-md)] [&_h2]:[font-weight:var(--fr-weight-semibold)] [&_h2]:[color:var(--fr-text-primary)]">
             <h2>{translations.team.pending_title}</h2>
           </div>
-          <div className="fr-onboarding-invite-list">
+          <div className="flex [width:min(100%,_calc(var(--fr-space-16)_*_3))] flex-col [gap:var(--fr-space-2)]">
             {isInvitesLoading ? (
-              <div className="fr-onboarding-state">
+              <div className="flex items-center justify-center flex-col [gap:var(--fr-space-4)] [color:var(--fr-text-secondary)] [&_h1]:[margin:var(--fr-space-0)] [&_p]:[margin:var(--fr-space-0)] [&_h1]:[font-size:var(--fr-text-xl)] [&_h1]:[line-height:var(--fr-leading-snug)] [&_h1]:[color:var(--fr-text-primary)]">
                 <Spinner size="md" />
               </div>
             ) : (
               <>
                 {pendingInvites.length === 0 && (
-                  <p className="fr-team-page__empty">
+                  <p className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-sm)] [color:var(--fr-text-secondary)]">
                     {translations.team.empty}
                   </p>
                 )}
@@ -142,14 +141,14 @@ export function TeamPage({
             )}
           </div>
           {invitesErrorMessage !== null && (
-            <div className="fr-onboarding-inline-error">
+            <div className="flex items-center [gap:var(--fr-space-3)] [color:var(--fr-destructive)] [&_p]:[margin:var(--fr-space-0)]">
               <p>{invitesErrorMessage}</p>
               <Button type="button" variant="ghost" onClick={retryInvites}>
                 {translations.onboarding.states.retry}
               </Button>
             </div>
           )}
-          <p className="fr-onboarding-invite-counter">
+          <p className="[margin:var(--fr-space-0)] [color:var(--fr-text-secondary)]">
             {translations.onboarding.invites.counter.replace(
               '{{count}}',
               String(pendingInvites.length),

@@ -1,4 +1,4 @@
-import { Input } from '@/design-system'
+import { Input } from '@set-solutions-vof/design-system'
 import { translations } from '@/lib/translations'
 import type { MetadataField } from '@/types/template'
 import type { DynamicMetadataFormProps } from '@/types/newReportView'
@@ -22,7 +22,7 @@ export function DynamicMetadataForm({
   }
 
   return (
-    <div className="fr-new-report-grid">
+    <div className="grid [grid-template-columns:repeat(2,_minmax(var(--fr-space-0),_1fr))] [gap:var(--fr-space-4)]">
       {fields.map((field) => {
         const error = fieldError(field)
         const fieldValue = value[field.key] ?? ''
@@ -67,21 +67,27 @@ export function DynamicMetadataForm({
 
         if (field.type === 'select') {
           return (
-            <div className="fr-field" key={field.key}>
+            <div
+              className="flex flex-col [gap:var(--fr-space-2)] min-w-0"
+              key={field.key}
+            >
               <label
-                className="fr-field__label"
+                className="[font-size:var(--fr-text-sm)] [font-weight:var(--fr-weight-semibold)] [grid-row:1] [grid-column:1]"
                 htmlFor={`metadata-${field.key}`}
               >
                 {field.label}
                 {field.required && (
-                  <span className="fr-field__required" aria-hidden="true">
+                  <span
+                    className="[color:var(--fr-destructive)] [margin-left:var(--fr-space-1)]"
+                    aria-hidden="true"
+                  >
                     *
                   </span>
                 )}
               </label>
               <select
                 id={`metadata-${field.key}`}
-                className="fr-select"
+                className="[height:var(--fr-control-height-md)] w-full [padding:var(--fr-space-0)_var(--fr-space-3)] [color:var(--fr-text-primary)] [background:var(--fr-surface)] [border:var(--fr-border-width-sm)_solid_var(--fr-border)] [border-radius:var(--fr-radius-md)] [font-family:var(--fr-font-sans)] [font-size:var(--fr-text-base)] [line-height:var(--fr-leading-normal)] [transition:var(--fr-transition-base)] focus:[border-color:var(--fr-border-focus)] focus:[box-shadow:var(--fr-shadow-focus)] focus:outline-none [&[aria-invalid='true']]:[border-color:var(--fr-destructive)] disabled:[color:var(--fr-text-disabled)] disabled:cursor-not-allowed disabled:[background:var(--fr-surface-sunken)]"
                 value={fieldValue}
                 required={field.required}
                 aria-invalid={error ? true : undefined}
@@ -104,7 +110,7 @@ export function DynamicMetadataForm({
               {error && (
                 <div
                   id={`metadata-${field.key}-error`}
-                  className="fr-field__error"
+                  className="[font-family:var(--fr-font-sans)] [font-size:var(--fr-text-xs)] [color:var(--fr-destructive)] [line-height:var(--fr-leading-snug)] flex items-start [gap:var(--fr-space-1)]"
                   role="alert"
                 >
                   {error}
@@ -115,8 +121,11 @@ export function DynamicMetadataForm({
         }
 
         return (
-          <div className="fr-field" key={field.key}>
-            <label className="fr-new-report-checkbox">
+          <div
+            className="flex flex-col [gap:var(--fr-space-2)] min-w-0"
+            key={field.key}
+          >
+            <label className="flex [min-height:var(--fr-control-height-md)] items-center [gap:var(--fr-space-2)] [color:var(--fr-text-primary)] [font-size:var(--fr-text-sm)] [font-weight:var(--fr-weight-medium)] [line-height:var(--fr-leading-snug)] [&_input]:[width:var(--fr-space-4)] [&_input]:[height:var(--fr-space-4)] [&_input]:[accent-color:var(--fr-accent)]">
               <input
                 type="checkbox"
                 checked={fieldValue === 'true'}
@@ -132,7 +141,10 @@ export function DynamicMetadataForm({
               <span>
                 {field.label}
                 {field.required && (
-                  <span className="fr-field__required" aria-hidden="true">
+                  <span
+                    className="[color:var(--fr-destructive)] [margin-left:var(--fr-space-1)]"
+                    aria-hidden="true"
+                  >
                     *
                   </span>
                 )}
@@ -141,7 +153,7 @@ export function DynamicMetadataForm({
             {error && (
               <div
                 id={`metadata-${field.key}-error`}
-                className="fr-field__error"
+                className="[font-family:var(--fr-font-sans)] [font-size:var(--fr-text-xs)] [color:var(--fr-destructive)] [line-height:var(--fr-leading-snug)] flex items-start [gap:var(--fr-space-1)]"
                 role="alert"
               >
                 {error}

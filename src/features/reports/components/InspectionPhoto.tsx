@@ -46,7 +46,7 @@ export function InspectionPhoto({
 
   if (!objectUrl) {
     return (
-      <div className="fr-report-section-photo-placeholder">
+      <div className="w-full [border-radius:var(--fr-radius-md)] [aspect-ratio:4_/_3] grid place-items-center [color:var(--fr-text-tertiary)] [background:var(--fr-color-neutral-100)] [font-size:var(--fr-text-sm)] [font-weight:var(--fr-weight-medium)]">
         {translations.report_detail.section.image_label}
       </div>
     )

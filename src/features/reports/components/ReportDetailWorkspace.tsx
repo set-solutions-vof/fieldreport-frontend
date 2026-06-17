@@ -146,10 +146,10 @@ export function ReportDetailWorkspace({
       onOpenProfile={onOpenProfile}
       onLogout={onLogout}
     >
-      <div className="fr-report-detail-page">
+      <div className="flex flex-col [min-width:var(--fr-space-0)] [margin:calc(var(--fr-space-7)_*_-1)] [padding-bottom:var(--fr-space-10)]">
         <ReportDetailHeaderBlock report={report} reportStatus={reportStatus} />
 
-        <div className="fr-report-detail-timeline-wrap">
+        <div className="[padding:var(--fr-space-0)_var(--fr-space-7)_var(--fr-space-4)]">
           <div id="report-timeline-strip">
             <TimelineStrip
               items={evidenceRailItems}

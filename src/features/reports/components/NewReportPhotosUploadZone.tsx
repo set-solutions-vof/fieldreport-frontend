@@ -9,7 +9,7 @@ export function NewReportPhotosUploadZone({
 }: NewReportPhotosUploadZoneProps) {
   return (
     <div
-      className="fr-new-report-upload-zone fr-new-report-upload-zone--photos"
+      className="[padding:var(--fr-space-5)] text-center cursor-pointer [border:calc(var(--fr-border-width-sm)_+_var(--fr-border-width-sm)_/_2)_dashed_var(--fr-border-strong)] [border-radius:var(--fr-radius-lg)] [transition:var(--fr-transition-base)] hover:[background:var(--fr-accent-subtle)] hover:[border-color:var(--fr-color-accent-300)] hover:outline-none focus-visible:[background:var(--fr-accent-subtle)] focus-visible:[border-color:var(--fr-color-accent-300)] focus-visible:outline-none [padding:var(--fr-space-3)_var(--fr-space-4)]"
       onDrop={handlers.onDrop}
       onDragOver={handlers.onDragOver}
       onClick={handlers.onOpenPicker}
@@ -18,9 +18,9 @@ export function NewReportPhotosUploadZone({
       tabIndex={0}
       aria-label={translations.new_report.fields.photos_label}
     >
-      <div className="fr-new-report-photos-row">
+      <div className="flex items-center [gap:var(--fr-space-3)] text-left">
         <svg
-          className="fr-new-report-photos-icon"
+          className="shrink-0 [width:calc(var(--fr-space-5)_-_var(--fr-space-1))] [height:calc(var(--fr-space-5)_-_var(--fr-space-1))] [color:var(--fr-text-tertiary)]"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -34,20 +34,20 @@ export function NewReportPhotosUploadZone({
           />
         </svg>
         <div>
-          <p className="fr-new-report-upload-label">
+          <p className="[color:var(--fr-accent)] [margin:var(--fr-space-0)_var(--fr-space-0)_var(--fr-space-1)] [color:var(--fr-text-primary)] [font-size:var(--fr-text-base)] [font-weight:var(--fr-weight-medium)]">
             {translations.new_report.fields.photos_label}
           </p>
-          <p className="fr-new-report-upload-formats">
+          <p className="inline-block [margin:var(--fr-space-0)] [padding:calc(var(--fr-space-1)_/_2)_var(--fr-space-3)] [color:var(--fr-text-tertiary)] [background:var(--fr-surface)] [border-radius:var(--fr-radius-full)] [font-size:var(--fr-text-xs)]">
             {translations.new_report.fields.photos_formats}
           </p>
         </div>
         {files.length > 0 && (
-          <div className="fr-new-report-chips-inline">
+          <div className="flex flex-wrap [gap:var(--fr-space-1)] justify-end [margin-left:auto]">
             {files.slice(0, 3).map((file) => (
               <FileChip key={file.name} file={file} onRemove={onRemoveFile} />
             ))}
             {files.length > 3 && (
-              <span className="fr-new-report-chip-overflow">
+              <span className="inline-flex items-center [padding:calc(var(--fr-space-1)_/_2)_var(--fr-space-2)] [color:var(--fr-accent)] [background:var(--fr-accent-soft)] [border:var(--fr-border-width-sm)_solid_var(--fr-color-accent-200)] [border-radius:var(--fr-radius-full)] [font-size:var(--fr-text-xs)]">
                 +{files.length - 3}
               </span>
             )}

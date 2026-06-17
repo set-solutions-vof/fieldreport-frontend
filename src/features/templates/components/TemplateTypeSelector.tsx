@@ -70,7 +70,7 @@ export function TemplateTypeSelector({
       if (
         selectorRef.current?.contains(target) ||
         (event.target instanceof Element &&
-          event.target.closest('.fr-template-type-selector__menu') !== null)
+          event.target.closest('.fixed [z-index:100] flex [width:calc(var(--fr-space-15)_*_2)] flex-col [gap:var(--fr-space-1)] [padding:var(--fr-space-2)] [background:var(--fr-surface)] [border:var(--fr-border-width-sm)_solid_var(--fr-border)] [border-radius:var(--fr-radius-lg)] [box-shadow:var(--fr-shadow-lg)] [transform:translateY(var(--fr-space-2))]') !== null)
       ) {
         return
       }
@@ -105,7 +105,7 @@ export function TemplateTypeSelector({
     isOpen && menuPosition !== null
       ? createPortal(
           <div
-            className="fr-template-type-selector__menu"
+            className="fixed [z-index:100] flex [width:calc(var(--fr-space-15)_*_2)] flex-col [gap:var(--fr-space-1)] [padding:var(--fr-space-2)] [background:var(--fr-surface)] [border:var(--fr-border-width-sm)_solid_var(--fr-border)] [border-radius:var(--fr-radius-lg)] [box-shadow:var(--fr-shadow-lg)] [transform:translateY(var(--fr-space-2))]"
             role="listbox"
             style={{
               top: menuPosition.top,
@@ -123,8 +123,8 @@ export function TemplateTypeSelector({
                   role="option"
                   aria-selected={isSelected}
                   className={[
-                    'fr-template-type-selector__option',
-                    isSelected && 'fr-template-type-selector__option--selected',
+                    'flex items-start [gap:var(--fr-space-3)] [padding:var(--fr-space-3)] [color:var(--fr-text-secondary)] text-left cursor-pointer bg-transparent border-0 [border-radius:var(--fr-radius-md)] hover:[color:var(--fr-text-primary)] hover:[background:var(--fr-surface-hover)] hover:outline-none focus-visible:[color:var(--fr-text-primary)] focus-visible:[background:var(--fr-surface-hover)] focus-visible:outline-none',
+                    isSelected && '[color:var(--fr-text-primary)] [background:var(--fr-surface-hover)] outline-none [box-shadow:inset_0_0_0_var(--fr-border-width-sm)_var(--fr-border-strong)]',
                   ]
                     .filter(Boolean)
                     .join(' ')}
@@ -135,9 +135,9 @@ export function TemplateTypeSelector({
                 >
                   <TemplateIcon
                     name={meta.icon}
-                    className="fr-template-type-selector__option-icon"
+                    className="block [width:var(--fr-space-4)] [height:var(--fr-space-4)] [stroke-width:1.6] shrink-0 [margin-top:calc(var(--fr-space-1)_/_2)] [color:var(--fr-text-tertiary)]"
                   />
-                  <span className="fr-template-type-selector__option-copy">
+                  <span className="flex [min-width:var(--fr-space-0)] flex-col [gap:var(--fr-space-1)] [&_strong]:[font-size:var(--fr-text-sm)] [&_strong]:[font-weight:var(--fr-weight-semibold)] [&_strong]:[line-height:var(--fr-leading-snug)] [&_strong]:[color:var(--fr-text-primary)] [&_span]:[font-size:var(--fr-text-xs)] [&_span]:[line-height:var(--fr-leading-snug)] [&_span]:[color:var(--fr-text-tertiary)]">
                     <strong>{meta.label}</strong>
                     <span>{meta.description}</span>
                   </span>
@@ -150,11 +150,11 @@ export function TemplateTypeSelector({
       : null
 
   return (
-    <div className="fr-template-type-selector" ref={selectorRef}>
+    <div className="relative [width:fit-content]" ref={selectorRef}>
       <button
         ref={triggerRef}
         type="button"
-        className="fr-template-type-selector__trigger"
+        className="inline-flex items-center [gap:var(--fr-space-1)] [padding:var(--fr-space-0)] cursor-pointer bg-transparent border-0 [border-radius:var(--fr-radius-full)] hover:[&_*]:[color:var(--fr-text-primary)] hover:[&_*]:[background:var(--fr-surface-hover)] focus-visible:[&_*]:[color:var(--fr-text-primary)] focus-visible:[&_*]:[background:var(--fr-surface-hover)] focus-visible:outline-none focus-visible:[box-shadow:var(--fr-shadow-focus)]"
         aria-label={ariaLabel}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
@@ -163,7 +163,7 @@ export function TemplateTypeSelector({
         <TemplateTypePill type={type} />
         <TemplateIcon
           name="chevronDown"
-          className="fr-template-type-selector__chevron"
+          className="block [width:var(--fr-space-4)] [height:var(--fr-space-4)] [stroke-width:1.6] [width:var(--fr-space-3)] [height:var(--fr-space-3)] [color:var(--fr-text-tertiary)]"
         />
       </button>
       {menu}

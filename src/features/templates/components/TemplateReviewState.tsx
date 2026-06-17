@@ -1,11 +1,10 @@
-import { Button } from '@/design-system'
+import { Button } from '@set-solutions-vof/design-system'
 import { translations } from '@/lib/translations'
 import type { TemplateReviewStateProps } from '@/types/templateView'
 import { TemplateIcon } from './icons/TemplateIcon'
 import { TemplatePreviewPanel } from './TemplatePreviewPanel'
 import { TemplateSectionGrid } from './TemplateSectionGrid'
 import { TemplateSummaryHeader } from './TemplateSummaryHeader'
-import './TemplateReviewState.css'
 
 export function TemplateReviewState({
   sections,
@@ -45,10 +44,10 @@ export function TemplateReviewState({
       <TemplateSummaryHeader
         title={
           approved ? (
-            <span className="fr-template-approved-title">
+            <span className="inline-flex items-center [gap:var(--fr-space-3)]">
               <TemplateIcon
                 name="checkCircle"
-                className="fr-template-approved-title__icon"
+                className="[width:var(--fr-space-4)] [height:var(--fr-space-4)] [color:var(--fr-status-approved-fg)] [stroke-width:1.6]"
               />
               {translations.template.approved.title}
             </span>
@@ -71,7 +70,7 @@ export function TemplateReviewState({
               {translations.template.approved.edit_button}
             </Button>
           ) : editing ? (
-            <div className="fr-template-summary__actions">
+            <div className="flex items-center [gap:var(--fr-space-2)]">
               <Button variant="ghost" onClick={onCancel}>
                 {translations.template.approved.cancel_button}
               </Button>
@@ -94,9 +93,9 @@ export function TemplateReviewState({
           )
         }
       />
-      <section className="fr-template-review">
+      <section className="flex flex-1 flex-col items-center [gap:var(--fr-space-4)] overflow-y-auto [padding:var(--fr-space-6)_var(--fr-space-8)_var(--fr-space-8)]">
         {actionErrorMessage !== null && (
-          <p className="fr-template-action-error">{actionErrorMessage}</p>
+          <p className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-sm)] [line-height:var(--fr-leading-snug)] [color:var(--fr-destructive)]">{actionErrorMessage}</p>
         )}
         <TemplateSectionGrid
           sections={sections}
@@ -117,9 +116,9 @@ export function TemplateReviewState({
   }
 
   return (
-    <div className="fr-template-review-layout">
-      <div className="fr-template-review-layout__config">{content}</div>
-      <div className="fr-template-review-layout__preview">
+    <div className="[min-height:var(--fr-space-16)] flex flex-1 [min-height:var(--fr-space-0)] [gap:var(--fr-space-0)]">
+      <div className="flex [min-width:var(--fr-space-0)] flex-1 flex-col overflow-y-auto">{content}</div>
+      <div className="[height:auto] sticky [top:var(--fr-space-0)] box-border [width:calc(var(--fr-space-15)_*_2_+_var(--fr-space-12)_+_var(--fr-space-5))] [height:calc(100dvh_-_var(--fr-space-10))] shrink-0 overflow-y-auto [padding:var(--fr-space-5)] [background:var(--fr-surface-sunken)] [border-left:var(--fr-border-width-sm)_solid_var(--fr-border)]">
         <TemplatePreviewPanel sections={sections} />
       </div>
     </div>

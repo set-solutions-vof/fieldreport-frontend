@@ -3,7 +3,6 @@ import type { SectionContentEditorProps } from '@/types/reportSectionView'
 import { AutoSizedTextarea } from './AutoSizedTextarea'
 import { PhotoGridSectionEditor } from './ReportSectionPhotoGrid'
 import { GroupedFieldsSectionEditor } from './ReportSectionStructuredEditors'
-import './ReportSectionContent.css'
 
 export function SectionContentEditor({
   section,
@@ -50,8 +49,8 @@ export function SectionContentEditor({
   return (
     <AutoSizedTextarea
       aria-label={`${section.label} ${translations.report_detail.section.inspector_text_suffix}`}
-      className="fr-report-section-textarea"
-      fieldClassName="fr-report-section-field"
+      className="[min-height:var(--fr-control-height-lg)] [padding:var(--fr-space-3)] overflow-hidden [font-size:var(--fr-text-md)] [line-height:var(--fr-leading-relaxed)] bg-transparent [border-color:transparent] [resize:none]"
+      fieldClassName="[gap:var(--fr-space-0)]"
       value={content}
       onChange={onTextChange}
     />

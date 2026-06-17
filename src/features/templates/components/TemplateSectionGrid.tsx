@@ -54,7 +54,7 @@ export function TemplateSectionGrid({
   }
 
   return (
-    <div className="fr-template-section-grid">
+    <div className="grid [width:min(_calc(var(--fr-space-15)_*_4_+_var(--fr-space-9)),_calc(100%_-_var(--fr-space-12))_)] [grid-template-columns:repeat(2,_minmax(var(--fr-space-0),_1fr))] [align-content:start] [gap:var(--fr-space-3)]">
       {sections.map((section, index) => {
         const renderType = templateSectionRenderType(section)
         const dropIndicator =

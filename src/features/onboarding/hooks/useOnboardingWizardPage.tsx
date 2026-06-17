@@ -100,7 +100,7 @@ export function useOnboardingWizardPage({
     wizard.currentStep === 1 ? undefined : (
       <OnboardingIcon
         name="chevronLeft"
-        className="fr-onboarding-footer__icon fr-onboarding-icon"
+        className="[width:var(--fr-space-4)] [height:var(--fr-space-4)] [color:var(--fr-text-on-accent)] block [width:var(--fr-space-4)] [height:var(--fr-space-4)] shrink-0 [width:var(--fr-space-5)] [height:var(--fr-space-5)]"
       />
     )
 
@@ -120,12 +120,12 @@ export function useOnboardingWizardPage({
     wizard.currentStep === 3 ? (
       <OnboardingIcon
         name="check"
-        className="fr-onboarding-footer__icon fr-onboarding-icon"
+        className="[width:var(--fr-space-4)] [height:var(--fr-space-4)] [color:var(--fr-text-on-accent)] block [width:var(--fr-space-4)] [height:var(--fr-space-4)] shrink-0 [width:var(--fr-space-5)] [height:var(--fr-space-5)]"
       />
     ) : (
       <OnboardingIcon
         name="chevronRight"
-        className="fr-onboarding-footer__icon fr-onboarding-icon"
+        className="[width:var(--fr-space-4)] [height:var(--fr-space-4)] [color:var(--fr-text-on-accent)] block [width:var(--fr-space-4)] [height:var(--fr-space-4)] shrink-0 [width:var(--fr-space-5)] [height:var(--fr-space-5)]"
       />
     )
 

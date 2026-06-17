@@ -1,8 +1,7 @@
-import { Logo } from '@/design-system'
+import { Logo } from '@set-solutions-vof/design-system'
 import { translations } from '@/lib/translations'
 import type { AppShellNavigationItem, AppShellProps } from '@/types/appShell'
 import { UserProfileDropdown } from './UserProfileDropdown'
-import './AppShell.css'
 
 export type { AppShellProps } from '@/types/appShell'
 
@@ -21,18 +20,18 @@ export function AppShell({
   onLogout,
 }: AppShellProps) {
   return (
-    <div className="fr-dashboard-shell">
-      <aside className="fr-dashboard-sidebar">
-        <div className="fr-dashboard-brand">
+    <div className="grid [grid-template-columns:var(--fr-space-15)_minmax(var(--fr-space-0),_1fr)] min-h-[100dvh] [background:var(--fr-background)]">
+      <aside className="sticky [top:var(--fr-space-0)] flex flex-col h-[100dvh] min-h-[100dvh] overflow-hidden [border-right:1px_solid_var(--fr-border)] [background:var(--fr-surface)]">
+        <div className="flex items-center [height:var(--fr-space-10)] box-border [padding:var(--fr-space-0)_var(--fr-space-5)]">
           <Logo variant="accent" />
         </div>
         <nav
-          className="fr-dashboard-nav"
+          className="flex flex-1 flex-col [gap:var(--fr-space-2)] [min-height:var(--fr-space-0)] overflow-y-auto [padding:var(--fr-space-4)_var(--fr-space-3)]"
           aria-label={translations.dashboard.navigation.workspace_label}
         >
           {onOpenDashboard !== undefined && (
             <>
-              <span className="fr-dashboard-nav-label">
+              <span className="[margin-top:var(--fr-space-6)] [padding:var(--fr-space-0)_var(--fr-space-2)] [font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-semibold)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-tertiary)] uppercase first-child:[margin-top:var(--fr-space-0)]">
                 {translations.dashboard.navigation.workspace_label}
               </span>
               <button
@@ -61,12 +60,12 @@ export function AppShell({
               >
                 <span>{translations.dashboard.navigation.all_reports}</span>
                 {totalReportsCount > 0 && (
-                  <span className="fr-dashboard-nav-count">
+                  <span className="inline-flex items-center justify-center [min-width:var(--fr-space-4)] [height:var(--fr-space-4)] [border-radius:var(--fr-radius-full)] [font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-semibold)] [color:var(--fr-text-secondary)] [background:var(--fr-surface-sunken)]">
                     {totalReportsCount}
                   </span>
                 )}
               </button>
-              <span className="fr-dashboard-nav-label">
+              <span className="[margin-top:var(--fr-space-6)] [padding:var(--fr-space-0)_var(--fr-space-2)] [font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-semibold)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-tertiary)] uppercase first-child:[margin-top:var(--fr-space-0)]">
                 {translations.dashboard.navigation.settings_label}
               </span>
             </>
@@ -135,13 +134,13 @@ export function AppShell({
           onLogout={onLogout}
         />
       </aside>
-      <main className="fr-dashboard-page">
-        <header className="fr-dashboard-topbar">
-          <p className="fr-dashboard-breadcrumb">
+      <main className="flex [min-width:var(--fr-space-0)] flex-col [background:var(--fr-background)]">
+        <header className="flex items-center [height:var(--fr-space-10)] box-border [padding:var(--fr-space-0)_var(--fr-space-7)] [border-bottom:1px_solid_var(--fr-border)] [background:var(--fr-surface)]">
+          <p className="flex items-center [gap:var(--fr-space-2)] [margin:var(--fr-space-0)] [font-size:var(--fr-text-base)] [font-weight:var(--fr-weight-medium)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-tertiary)] [&_strong]:[color:var(--fr-text-primary)]">
             <span>{currentUser.company_name}</span>
             {breadcrumbItems.map((breadcrumbItem, breadcrumbItemIndex) => (
               <span
-                className="fr-dashboard-breadcrumb-item"
+                className="inline-flex items-center [gap:var(--fr-space-2)]"
                 key={`${breadcrumbItem.label}-${breadcrumbItemIndex}`}
               >
                 <span>/</span>
@@ -149,7 +148,7 @@ export function AppShell({
                   <strong>{breadcrumbItem.label}</strong>
                 ) : breadcrumbItem.onClick !== undefined ? (
                   <button
-                    className="fr-dashboard-breadcrumb-button"
+                    className="[padding:var(--fr-space-0)] [font:inherit] [color:inherit] cursor-pointer bg-transparent border-0 hover:[color:var(--fr-text-primary)]"
                     type="button"
                     onClick={breadcrumbItem.onClick}
                   >
@@ -163,7 +162,7 @@ export function AppShell({
           </p>
         </header>
         <div
-          className={['fr-dashboard-content', contentClassName]
+          className={['flex flex-col [gap:var(--fr-space-7)] [padding:var(--fr-space-7)]', contentClassName]
             .filter(Boolean)
             .join(' ')}
         >
@@ -179,8 +178,8 @@ function navigationItemClassName(
   navigationItem: AppShellNavigationItem,
 ): string {
   return [
-    'fr-dashboard-nav-item',
-    activeNavigationItem === navigationItem && 'fr-dashboard-nav-item--active',
+    'flex items-center justify-between [min-height:var(--fr-control-height-lg)] [padding:var(--fr-space-0)_var(--fr-space-2)] [font:inherit] [font-weight:var(--fr-weight-medium)] [color:var(--fr-text-secondary)] cursor-pointer bg-transparent border-0 [border-radius:var(--fr-radius-lg)] hover:[color:var(--fr-text-primary)] hover:[background:var(--fr-surface-hover)]',
+    activeNavigationItem === navigationItem && '[color:var(--fr-text-primary)] [background:var(--fr-surface-hover)]',
   ]
     .filter(Boolean)
     .join(' ')

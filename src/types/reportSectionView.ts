@@ -1,5 +1,5 @@
 import type { ChangeEvent } from 'react'
-import type { TextareaProps } from '@/design-system'
+import type { TextareaProps } from '@set-solutions-vof/design-system'
 import type { ReportEvidenceItem } from './report'
 import type { ReportSectionProps } from './reportDetailView'
 import type { TemplateSectionGroup } from './template'

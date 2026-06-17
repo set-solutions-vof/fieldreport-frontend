@@ -1,4 +1,4 @@
-import { Card } from '@/design-system'
+import { Card } from '@set-solutions-vof/design-system'
 import type { ReportStubViewProps } from '@/types/reportDetailView'
 import { reportDetailViewClassName } from '../lib/reportDetailClassNames'
 
@@ -13,7 +13,7 @@ export function ReportStubView({
       id={`view-${tab}`}
       role="tabpanel"
     >
-      <div className="fr-report-detail-stub">
+      <div>
         <Card padding="md">
           <p>{children}</p>
         </Card>

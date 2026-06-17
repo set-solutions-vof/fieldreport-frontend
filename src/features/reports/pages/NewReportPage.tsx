@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import type { FormEvent } from 'react'
-import { Button, Spinner } from '@/design-system'
+import { Button, Spinner } from '@set-solutions-vof/design-system'
 import { AppShell } from '@/app/AppShell'
 import { useCurrentUser } from '@/features/auth/useCurrentUser'
 import { translations } from '@/lib/translations'
@@ -11,7 +11,6 @@ import { NewReportFilesCard } from '../components/NewReportFilesCard'
 import { NewReportProjectDetailsCard } from '../components/NewReportProjectDetailsCard'
 import { useActiveTemplate } from '../hooks/useActiveTemplate'
 import { useNewReport } from '../hooks/useNewReport'
-import './NewReportPage.css'
 
 export function NewReportPage({
   onAuthenticationExpired,
@@ -63,8 +62,8 @@ export function NewReportPage({
 
   if (isCurrentUserLoading) {
     return (
-      <main className="fr-dashboard-loading-page">
-        <div className="fr-dashboard-state">
+      <main className="flex min-h-[100dvh] box-border [padding:var(--fr-space-7)] [background:var(--fr-background)]">
+        <div className="[&_h1]:[margin:var(--fr-space-0)] [&_h1]:[font-size:var(--fr-text-xl)] [&_h1]:[font-weight:var(--fr-weight-semibold)] [&_h1]:[line-height:var(--fr-leading-snug)] [&_h1]:[color:var(--fr-text-primary)] flex [max-width:calc(var(--fr-space-16)_+_var(--fr-space-15))] flex-col items-start [gap:var(--fr-space-4)] [&_p]:[margin:var(--fr-space-0)] [&_p]:[font-size:var(--fr-text-base)] [&_p]:[line-height:var(--fr-leading-normal)] [&_p]:[color:var(--fr-text-secondary)]">
           <Spinner size="lg" />
         </div>
       </main>
@@ -73,8 +72,8 @@ export function NewReportPage({
 
   if (isCurrentUserError) {
     return (
-      <main className="fr-dashboard-loading-page">
-        <div className="fr-dashboard-state">
+      <main className="flex min-h-[100dvh] box-border [padding:var(--fr-space-7)] [background:var(--fr-background)]">
+        <div className="[&_h1]:[margin:var(--fr-space-0)] [&_h1]:[font-size:var(--fr-text-xl)] [&_h1]:[font-weight:var(--fr-weight-semibold)] [&_h1]:[line-height:var(--fr-leading-snug)] [&_h1]:[color:var(--fr-text-primary)] flex [max-width:calc(var(--fr-space-16)_+_var(--fr-space-15))] flex-col items-start [gap:var(--fr-space-4)] [&_p]:[margin:var(--fr-space-0)] [&_p]:[font-size:var(--fr-text-base)] [&_p]:[line-height:var(--fr-leading-normal)] [&_p]:[color:var(--fr-text-secondary)]">
           <h1>{translations.dashboard.states.reports_load_failed_title}</h1>
           <p>{currentUserErrorMessage}</p>
           <Button type="button" variant="primary" onClick={retryCurrentUser}>
@@ -96,14 +95,14 @@ export function NewReportPage({
         },
         { label: translations.new_report.page_title },
       ]}
-      contentClassName="fr-dashboard-content--new-report"
+      contentClassName="[gap:var(--fr-space-0)]"
       totalReportsCount={totalReportsCount}
       onOpenDashboard={onOpenDashboard}
       onOpenReports={onOpenReports}
       onOpenProfile={onOpenProfile}
       onLogout={onLogout}
     >
-      <form className="fr-new-report-page" noValidate onSubmit={handleSubmit}>
+      <form className="flex [width:min(100%,_calc(var(--fr-space-16)_*_4))] flex-col [gap:var(--fr-space-5)]" noValidate onSubmit={handleSubmit}>
         <NewReportCompletionProgress
           metadataFields={template?.metadata_fields ?? []}
           metadataValue={form.metadata}
@@ -139,11 +138,11 @@ export function NewReportPage({
           }
         />
         {errors.submit && (
-          <p className="fr-new-report-submit-error" role="alert">
+          <p className="[margin:var(--fr-space-0)] [color:var(--fr-destructive)] [font-size:var(--fr-text-sm)] [line-height:var(--fr-leading-snug)]" role="alert">
             {errors.submit}
           </p>
         )}
-        <footer className="fr-new-report-submit-row">
+        <footer className="flex items-center justify-end [gap:var(--fr-space-3)]">
           <Button
             type="button"
             variant="ghost"

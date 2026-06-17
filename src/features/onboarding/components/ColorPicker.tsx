@@ -1,9 +1,8 @@
 import type { ChangeEvent } from 'react'
-import { Input } from '@/design-system'
+import { Input } from '@set-solutions-vof/design-system'
 import { translations } from '@/lib/translations'
 import type { ColorPickerProps } from '@/types/onboardingView'
 import { OnboardingIcon } from './icons/OnboardingIcon'
-import './ColorPicker.css'
 
 export function ColorPicker({
   value,
@@ -15,19 +14,19 @@ export function ColorPicker({
   }
 
   return (
-    <div className="fr-onboarding-color-picker">
+    <div className="flex flex-col [gap:var(--fr-space-2)] [&>strong]:[font-size:var(--fr-text-sm)] [&>strong]:[font-weight:var(--fr-weight-semibold)] [&>strong]:[color:var(--fr-text-primary)] [&>span]:[font-size:var(--fr-text-sm)] [&>span]:[line-height:var(--fr-leading-snug)] [&>span]:[color:var(--fr-text-secondary)]">
       <strong>
         {translations.onboarding.company_profile.primary_color_label}
       </strong>
-      <div className="fr-onboarding-color-picker__row">
-        <div className="fr-onboarding-color-picker__swatches">
+      <div className="flex items-start [gap:var(--fr-space-3)]">
+        <div className="flex flex-wrap [gap:var(--fr-space-2)]">
           {presetColors.map((presetColor) => (
             <button
               type="button"
               className={[
-                'fr-onboarding-color-picker__swatch',
+                'inline-flex items-center justify-center [width:var(--fr-space-7)] [height:var(--fr-space-7)] [padding:var(--fr-space-0)] [color:var(--fr-text-on-accent)] cursor-pointer [border:var(--fr-border-width-sm)_solid_var(--fr-border)] [border-radius:var(--fr-radius-lg)] focus-visible:outline-none focus-visible:[box-shadow:var(--fr-shadow-focus)]',
                 presetColor.toLowerCase() === value.toLowerCase() &&
-                  'fr-onboarding-color-picker__swatch--selected',
+                  'outline-none [box-shadow:var(--fr-shadow-focus)]',
               ]
                 .filter(Boolean)
                 .join(' ')}
@@ -42,7 +41,7 @@ export function ColorPicker({
               {presetColor.toLowerCase() === value.toLowerCase() && (
                 <OnboardingIcon
                   name="check"
-                  className="fr-onboarding-color-picker__check fr-onboarding-icon"
+                  className="[width:var(--fr-space-4)] [height:var(--fr-space-4)] [stroke-width:2.25] block [width:var(--fr-space-4)] [height:var(--fr-space-4)] shrink-0 [width:var(--fr-space-5)] [height:var(--fr-space-5)]"
                 />
               )}
             </button>
@@ -52,7 +51,7 @@ export function ColorPicker({
           value={value.toUpperCase()}
           error={errorMessage}
           onChange={handleInputChange}
-          fieldClassName="fr-onboarding-color-picker__input"
+          fieldClassName="relative [width:var(--fr-space-13)] [&::before]:absolute [&::before]:[top:50%] [&::before]:[left:var(--fr-space-3)] [&::before]:[z-index:1] [&::before]:[width:var(--fr-space-4)] [&::before]:[height:var(--fr-space-4)] [&::before]:[border-radius:var(--fr-radius-md)] [&::before]:[background:var(--fr-onboarding-company-color,_var(--fr-accent))] [&::before]:[transform:translateY(-50%)] [&::before]:pointer-events-none [&::before]:[content:'']"
         />
       </div>
       <span>

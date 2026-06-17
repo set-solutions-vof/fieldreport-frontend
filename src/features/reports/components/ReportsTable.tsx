@@ -1,4 +1,4 @@
-import { Badge, Button, Card } from '@/design-system'
+import { Badge, Button, Card } from '@set-solutions-vof/design-system'
 import { translations } from '@/lib/translations'
 import type { ReportsTableProps } from '@/types/reportView'
 import { formatDutchShortDate } from '../lib/formatReportDate'
@@ -6,7 +6,6 @@ import {
   reportStatusBadgeVariant,
   reportStatusLabel,
 } from '../lib/reportLabels'
-import './ReportsTable.css'
 
 export function ReportsTable({
   reports,
@@ -17,9 +16,9 @@ export function ReportsTable({
   return (
     <Card padding="none">
       {reports.length === 0 ? (
-        <p className="fr-dashboard-reports-empty">{emptyMessage}</p>
+        <p className="[margin:var(--fr-space-0)] [padding:var(--fr-space-5)] [font-size:var(--fr-text-base)] [line-height:var(--fr-leading-normal)] [color:var(--fr-text-secondary)]">{emptyMessage}</p>
       ) : (
-        <table className="fr-dashboard-table">
+        <table className="w-full [border-collapse:collapse] [&_th]:[padding:var(--fr-space-4)] [&_th]:[border-bottom:1px_solid_var(--fr-border)] [&_th]:text-left [&_th]:[vertical-align:middle] [&_td]:[padding:var(--fr-space-4)] [&_td]:[border-bottom:1px_solid_var(--fr-border)] [&_td]:text-left [&_td]:[vertical-align:middle] [&_th]:[font-size:var(--fr-text-sm)] [&_th]:[font-weight:var(--fr-weight-semibold)] [&_th]:[color:var(--fr-text-secondary)] [&_th]:uppercase [&_td]:[font-size:var(--fr-text-base)] [&_td]:[font-weight:var(--fr-weight-medium)] [&_td]:[color:var(--fr-text-primary)]">
           <thead>
             <tr>
               <th>{translations.dashboard.reports_table.address_header}</th>

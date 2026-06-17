@@ -1,4 +1,4 @@
-import type { BadgeVariant } from '@/design-system'
+import type { BadgeVariant } from '@set-solutions-vof/design-system'
 import { translations } from '@/lib/translations'
 import type { ReportStatus } from '@/types/report'
 

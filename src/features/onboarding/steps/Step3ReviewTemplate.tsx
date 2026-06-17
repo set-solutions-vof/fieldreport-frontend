@@ -23,7 +23,7 @@ export function Step3ReviewTemplate({
 
   if (pageState.kind === 'failed') {
     return (
-      <section className="fr-onboarding-step fr-onboarding-step--review">
+      <section className="flex [min-height:100%] [width:min(100%,_calc(var(--fr-space-16)_*_5))] box-border flex-col [gap:var(--fr-space-6)] [padding:var(--fr-space-8)_var(--fr-space-7)] w-full [padding:var(--fr-space-0)]">
         <TemplateFailedState
           errorMessage={pageState.errorMessage}
           onTryAgain={resetAfterFailure}
@@ -34,7 +34,7 @@ export function Step3ReviewTemplate({
 
   if (pageState.kind !== 'preview' && pageState.kind !== 'approved') {
     return (
-      <section className="fr-onboarding-step fr-onboarding-step--review">
+      <section className="flex [min-height:100%] [width:min(100%,_calc(var(--fr-space-16)_*_5))] box-border flex-col [gap:var(--fr-space-6)] [padding:var(--fr-space-8)_var(--fr-space-7)] w-full [padding:var(--fr-space-0)]">
         <TemplateFailedState
           errorMessage={translations.onboarding.template_review.missing_reports}
           onTryAgain={resetAfterFailure}
@@ -44,7 +44,7 @@ export function Step3ReviewTemplate({
   }
 
   return (
-    <section className="fr-onboarding-step fr-onboarding-step--review">
+    <section className="flex [min-height:100%] [width:min(100%,_calc(var(--fr-space-16)_*_5))] box-border flex-col [gap:var(--fr-space-6)] [padding:var(--fr-space-8)_var(--fr-space-7)] w-full [padding:var(--fr-space-0)]">
       <TemplateReviewState
         showPreview
         approved={pageState.kind === 'approved'}

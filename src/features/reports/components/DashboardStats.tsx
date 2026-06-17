@@ -1,7 +1,6 @@
-import { Card } from '@/design-system'
+import { Card } from '@set-solutions-vof/design-system'
 import { translations } from '@/lib/translations'
 import type { DashboardStatsProps, StatCardProps } from '@/types/reportView'
-import './DashboardStats.css'
 
 export function DashboardStats({ reports }: DashboardStatsProps) {
   const today = new Date()
@@ -25,7 +24,7 @@ export function DashboardStats({ reports }: DashboardStatsProps) {
 
   return (
     <Card
-      className="fr-dashboard-stats"
+      className="grid [grid-template-columns:repeat(4,_minmax(var(--fr-space-0),_1fr))] overflow-hidden"
       padding="none"
       aria-label={translations.dashboard.stats.aria_label}
     >
@@ -48,7 +47,7 @@ export function DashboardStats({ reports }: DashboardStatsProps) {
 
 function StatCard({ title, value }: StatCardProps) {
   return (
-    <div className="fr-dashboard-stat">
+    <div className="flex flex-col [gap:var(--fr-space-3)] [padding:var(--fr-space-5)] [border-left:1px_solid_var(--fr-border)] first-child:[border-left:0] [&_h2]:[margin:var(--fr-space-0)] [&_h2]:[font-size:var(--fr-text-base)] [&_h2]:[font-weight:var(--fr-weight-medium)] [&_h2]:[line-height:var(--fr-leading-snug)] [&_h2]:[color:var(--fr-text-secondary)] [&_strong]:[font-size:var(--fr-text-xl)] [&_strong]:[font-weight:var(--fr-weight-bold)] [&_strong]:[line-height:var(--fr-leading-tight)] [&_strong]:[color:var(--fr-text-primary)]">
       <h2>{title}</h2>
       <strong>{value}</strong>
     </div>

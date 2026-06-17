@@ -1,4 +1,4 @@
-import { Button, Spinner } from '@/design-system'
+import { Button, Spinner } from '@set-solutions-vof/design-system'
 import { useCurrentUser } from '@/features/auth/useCurrentUser'
 import { AppShell } from '@/app/AppShell'
 import { TemplateSkeletonGrid } from '@/features/templates/components/TemplateSkeletonGrid'
@@ -8,7 +8,6 @@ import { useReportDetail } from '../hooks/useReportDetail'
 import { useReportList } from '../hooks/useReportList'
 import { isReportGenerating } from '../lib/reportLabels'
 import type { ReportDetailPageProps } from '@/types/reportView'
-import './ReportDetailPage.css'
 
 export function ReportDetailPage({
   reportId,
@@ -40,8 +39,8 @@ export function ReportDetailPage({
 
   if (isLoading || isCurrentUserLoading || isReportsLoading) {
     return (
-      <main className="fr-report-detail-loading-page">
-        <div className="fr-report-detail-state">
+      <main className="flex min-h-[100dvh] box-border [padding:var(--fr-space-8)] [background:var(--fr-background)]">
+        <div className="flex [max-width:calc(var(--fr-space-16)_+_var(--fr-space-15))] flex-col items-start [gap:var(--fr-space-4)] [&_h1]:[margin:var(--fr-space-0)] [&_h1]:[font-size:var(--fr-text-xl)] [&_h1]:[font-weight:var(--fr-weight-semibold)] [&_h1]:[line-height:var(--fr-leading-snug)] [&_h1]:[color:var(--fr-text-primary)] [&_p]:[margin:var(--fr-space-0)] [&_p]:[font-size:var(--fr-text-base)] [&_p]:[line-height:var(--fr-leading-normal)] [&_p]:[color:var(--fr-text-secondary)]">
           <Spinner size="lg" />
         </div>
       </main>
@@ -56,8 +55,8 @@ export function ReportDetailPage({
     currentUser === null
   ) {
     return (
-      <main className="fr-report-detail-loading-page">
-        <div className="fr-report-detail-state">
+      <main className="flex min-h-[100dvh] box-border [padding:var(--fr-space-8)] [background:var(--fr-background)]">
+        <div className="flex [max-width:calc(var(--fr-space-16)_+_var(--fr-space-15))] flex-col items-start [gap:var(--fr-space-4)] [&_h1]:[margin:var(--fr-space-0)] [&_h1]:[font-size:var(--fr-text-xl)] [&_h1]:[font-weight:var(--fr-weight-semibold)] [&_h1]:[line-height:var(--fr-leading-snug)] [&_h1]:[color:var(--fr-text-primary)] [&_p]:[margin:var(--fr-space-0)] [&_p]:[font-size:var(--fr-text-base)] [&_p]:[line-height:var(--fr-leading-normal)] [&_p]:[color:var(--fr-text-secondary)]">
           <h1>{translations.report_detail.states.load_failed_title}</h1>
           <p>
             {errorMessage ?? currentUserErrorMessage ?? reportsErrorMessage}
@@ -93,14 +92,14 @@ export function ReportDetailPage({
           },
           { label: translations.report_detail.states.generating_breadcrumb },
         ]}
-        contentClassName="fr-dashboard-content--template"
+        contentClassName="[gap:var(--fr-space-0)] [padding:var(--fr-space-0)]"
         totalReportsCount={reports.length}
         onOpenDashboard={onOpenDashboard}
         onOpenReports={onOpenReports}
         onOpenProfile={onOpenProfile}
         onLogout={onLogout}
       >
-        <main className="fr-report-generating-page">
+        <main className="flex [min-height:calc(100dvh_-_var(--fr-space-14))] flex-col">
           <TemplateSkeletonGrid
             label={translations.report_detail.states.generating_title}
           />

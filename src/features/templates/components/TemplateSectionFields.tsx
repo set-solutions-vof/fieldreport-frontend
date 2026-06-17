@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Input } from '@/design-system'
+import { Button, Input } from '@set-solutions-vof/design-system'
 import { translations } from '@/lib/translations'
 import type { TemplateSectionFieldsProps } from '@/types/templateView'
 import { TemplateFieldChip } from './TemplateFieldChip'
@@ -61,7 +61,7 @@ export function TemplateSectionFields({
 
   return (
     <>
-      <div className="fr-template-section-card__fields">
+      <div className="flex flex-wrap [gap:var(--fr-space-1)] [margin-top:calc(var(--fr-space-1)_/_2)]">
         {visibleFields.map((field, fieldIndex) => (
           <TemplateFieldChip
             key={`${field}-${fieldIndex}`}
@@ -80,7 +80,7 @@ export function TemplateSectionFields({
       {shouldShowCollapseToggle && (
         <button
           type="button"
-          className="fr-template-section-card__collapse"
+          className="self-end [padding:var(--fr-space-0)] [font:inherit] [font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-medium)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-tertiary)] cursor-pointer bg-transparent border-0 hover:[color:var(--fr-text-primary)] hover:outline-none focus-visible:[color:var(--fr-text-primary)] focus-visible:outline-none"
           onClick={() =>
             setIsCollapsed((currentIsCollapsed) => !currentIsCollapsed)
           }
@@ -91,13 +91,13 @@ export function TemplateSectionFields({
         </button>
       )}
       {!readonly && !isCollapsed && (
-        <div className="fr-template-section-card__field-row">
+        <div className="flex [max-width:calc(var(--fr-space-15)_*_2)] items-center [gap:var(--fr-space-2)]">
           <Input
             inputSize="sm"
             value={draftField}
             aria-label={translations.template.review.field_input_label}
             placeholder={translations.template.review.field_input_placeholder}
-            fieldClassName="fr-template-section-card__new-field"
+            fieldClassName="flex-1"
             onChange={(event) => setDraftField(event.target.value)}
             onKeyDown={(event) => {
               if (event.key === 'Enter') {
@@ -108,13 +108,13 @@ export function TemplateSectionFields({
           <Button
             size="sm"
             variant="secondary"
-            className="fr-template-section-card__icon-button"
+            className="[width:var(--fr-control-height-sm)] [gap:var(--fr-space-0)] [padding:var(--fr-space-0)]"
             aria-label={translations.template.review.add_field_label}
             disabled={draftField.trim() === ''}
             leadingIcon={
               <TemplateIcon
                 name="plus"
-                className="fr-template-section-card__button-icon"
+                className="block [width:var(--fr-space-4)] [height:var(--fr-space-4)] [stroke-width:1.6]"
               />
             }
             onClick={addField}
