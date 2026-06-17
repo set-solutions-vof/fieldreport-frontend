@@ -2,8 +2,8 @@ import { useCallback, useEffect, useState } from 'react'
 import { listTeamMembers } from '@/lib/api/team'
 import { AuthenticationExpiredError } from '@/lib/api/authenticatedFetch'
 import { translations } from '@/lib/translations'
-import type { TeamMember } from '@/types/team'
-import type { UseTeamMembersParameters } from '@/types/teamView'
+import type { TeamMember } from '@/typing/team'
+import type { UseTeamMembersParameters } from '@/typing/teamView'
 
 export function useTeamMembers({
   onAuthenticationExpired,

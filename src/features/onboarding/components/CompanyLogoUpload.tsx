@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import type { ChangeEvent, DragEvent } from 'react'
 import { Spinner } from '@set-solutions-vof/design-system'
 import { translations } from '@/lib/translations'
-import type { CompanyLogoUploadProps } from '@/types/onboardingView'
+import type { CompanyLogoUploadProps } from '@/typing/onboardingView'
 import { OnboardingIcon } from './icons/OnboardingIcon'
 
 export function CompanyLogoUpload({

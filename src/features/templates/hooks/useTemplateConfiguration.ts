@@ -4,7 +4,7 @@ import { translations } from '@/lib/translations'
 import type {
   TemplateSectionGroup,
   TemplateSectionType,
-} from '@/types/template'
+} from '@/typing/template'
 import { pageStateFromTemplateStatus } from '../lib/pageStateFromTemplateStatus'
 import {
   deletePreviewSection,
@@ -20,7 +20,7 @@ import type {
   TemplateUploadingPageState,
   UseTemplateConfigurationParameters,
   UseTemplateConfigurationResult,
-} from '@/types/templateConfiguration'
+} from '@/typing/templateConfiguration'
 import { useTemplateStatusState } from './useTemplateStatusState'
 
 export function useTemplateConfiguration({

@@ -1,4 +1,4 @@
-import type { OnboardingIconProps } from '@/types/onboardingIcon'
+import type { OnboardingIconProps } from '@/typing/onboardingIcon'
 
 export function OnboardingIcon({ name, className }: OnboardingIconProps) {
   if (name === 'buildingProfile') {

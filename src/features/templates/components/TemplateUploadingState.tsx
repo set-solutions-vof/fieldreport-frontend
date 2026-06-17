@@ -2,7 +2,7 @@ import { Button } from '@set-solutions-vof/design-system'
 import { PageHeader } from '@/components/PageHeader'
 import { translations } from '@/lib/translations'
 import { formatFileSize } from '../lib/templateFormatters'
-import type { TemplateUploadingStateProps } from '@/types/templateView'
+import type { TemplateUploadingStateProps } from '@/typing/templateView'
 import { TemplateIcon } from './icons/TemplateIcon'
 
 export function TemplateUploadingState({

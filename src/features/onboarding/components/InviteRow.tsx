@@ -3,11 +3,11 @@ import type { ChangeEvent } from 'react'
 import { Button, Input } from '@set-solutions-vof/design-system'
 import { inviteRoleLabel } from '@/lib/inviteRole'
 import { translations } from '@/lib/translations'
-import type { InviteRole } from '@/types/onboarding'
+import type { InviteRole } from '@/typing/onboarding'
 import type {
   ActiveInviteRowProps,
   InviteRowProps,
-} from '@/types/onboardingView'
+} from '@/typing/onboardingView'
 import { OnboardingIcon } from './icons/OnboardingIcon'
 
 export function InviteRow(props: InviteRowProps) {

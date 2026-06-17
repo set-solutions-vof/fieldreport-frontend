@@ -4,7 +4,7 @@ import { translations } from '@/lib/translations'
 import type {
   NewReportFilesCardProps,
   NewReportUploadZoneHandlers,
-} from '@/types/newReportView'
+} from '@/typing/newReportView'
 import { NewReportAudioUploadZone } from './NewReportAudioUploadZone'
 import { NewReportPhotosUploadZone } from './NewReportPhotosUploadZone'
 

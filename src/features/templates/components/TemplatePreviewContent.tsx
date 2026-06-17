@@ -1,4 +1,4 @@
-import type { TemplatePreviewContentProps } from '@/types/templatePreviewView'
+import type { TemplatePreviewContentProps } from '@/typing/templatePreviewView'
 import { TemplateIcon } from './icons/TemplateIcon'
 import {
   GroupedTablePreview,

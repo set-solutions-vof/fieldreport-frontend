@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import type { TemplateSectionGridProps } from '@/types/templateView'
+import type { TemplateSectionGridProps } from '@/typing/templateView'
 import { templateSectionRenderType } from '../lib/templateSection'
 import { TemplateSectionCard } from './TemplateSectionCard'
 

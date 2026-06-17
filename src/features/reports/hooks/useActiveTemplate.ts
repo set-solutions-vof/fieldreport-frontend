@@ -2,11 +2,11 @@ import { useCallback, useEffect, useState } from 'react'
 import { AuthenticationExpiredError } from '@/lib/api/authenticatedFetch'
 import { getTemplateStatus } from '@/lib/api/templates'
 import { translations } from '@/lib/translations'
-import type { ActiveTemplate } from '@/types/template'
+import type { ActiveTemplate } from '@/typing/template'
 import type {
   UseActiveTemplateParameters,
   UseActiveTemplateResult,
-} from '@/types/newReport'
+} from '@/typing/newReport'
 
 type ActiveTemplateStatus = 'loading' | 'success' | 'error'
 

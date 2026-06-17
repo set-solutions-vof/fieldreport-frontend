@@ -4,8 +4,8 @@ import type {
   ReportSection as ReportSectionModel,
   ReportEvidenceItem,
   ReportSectionUpdateResponse,
-} from '@/types/report'
-import type { SaveAllStatus, EvidenceRailItem } from '@/types/reportDetailView'
+} from '@/typing/report'
+import type { SaveAllStatus, EvidenceRailItem } from '@/typing/reportDetailView'
 import { formatDuration } from './formatDuration'
 
 export function allSectionsApproved(sections: ReportSectionModel[]): boolean {

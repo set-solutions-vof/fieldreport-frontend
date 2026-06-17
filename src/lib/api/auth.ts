@@ -4,7 +4,7 @@ import type {
   LoginResponse,
   RefreshTokenRequest,
   RefreshTokenResponse,
-} from '@/types/auth'
+} from '@/typing/auth'
 
 export class TokenRefreshError extends Error {
   constructor() {

@@ -2,8 +2,8 @@ import { useCallback, useEffect, useState } from 'react'
 import { onboardingRoute } from '@/app/routes'
 import { getOnboardingCompany } from '@/lib/api/onboarding'
 import { AuthenticationExpiredError } from '@/lib/api/authenticatedFetch'
-import type { OnboardingCompany } from '@/types/onboarding'
-import type { UseAdminOnboardingGateParameters } from '@/types/onboardingView'
+import type { OnboardingCompany } from '@/typing/onboarding'
+import type { UseAdminOnboardingGateParameters } from '@/typing/onboardingView'
 
 type AdminOnboardingGateStatus = 'loading' | 'ready' | 'error'
 

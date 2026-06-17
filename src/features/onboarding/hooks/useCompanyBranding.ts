@@ -5,7 +5,7 @@ import {
 } from '@/lib/api/onboarding'
 import { AuthenticationExpiredError } from '@/lib/api/authenticatedFetch'
 import { translations } from '@/lib/translations'
-import type { UseCompanyBrandingParameters } from '@/types/onboardingView'
+import type { UseCompanyBrandingParameters } from '@/typing/onboardingView'
 
 export function useCompanyBranding({
   initialCompany,

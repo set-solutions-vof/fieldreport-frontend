@@ -9,7 +9,7 @@ import {
   timelineTicks,
 } from '../lib/timelineStrip'
 import { useElementWidth } from '../hooks/useElementWidth'
-import type { TimelineStripProps } from '@/types/reportDetailView'
+import type { TimelineStripProps } from '@/typing/reportDetailView'
 import { TimelineStripMeta } from './TimelineStripMeta'
 import { TimelineStripStats } from './TimelineStripStats'
 import { TimelineStripTrack } from './TimelineStripTrack'

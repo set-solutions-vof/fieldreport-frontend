@@ -3,7 +3,7 @@ import { apiBaseUrl } from '@/lib/config'
 import type {
   CreateInspectionResponse,
   NewReportFormState,
-} from '@/types/newReport'
+} from '@/typing/newReport'
 
 const inspectionsEndpoint = `${apiBaseUrl}/api/v1/inspections`
 

@@ -1,12 +1,12 @@
 import type { ChangeEvent, DragEvent, ReactNode, RefObject } from 'react'
-import type { CurrentUser } from '@/types/auth'
+import type { CurrentUser } from '@/typing/auth'
 import type {
   InviteResponse,
   InviteRole,
   OnboardingCompany,
   OnboardingStep,
-} from '@/types/onboarding'
-import type { UseTemplateConfigurationResult } from '@/types/templateConfiguration'
+} from '@/typing/onboarding'
+import type { UseTemplateConfigurationResult } from '@/typing/templateConfiguration'
 
 export type OnboardingFooterProps = {
   leftLabel: string

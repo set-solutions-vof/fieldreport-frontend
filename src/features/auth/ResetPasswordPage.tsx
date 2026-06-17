@@ -4,7 +4,7 @@ import { Button, Input, Logo } from '@set-solutions-vof/design-system'
 import { PageHeader } from '@/components/PageHeader'
 import { confirmPasswordReset } from '@/lib/api/auth'
 import { translations } from '@/lib/translations'
-import type { ResetPasswordPageProps } from '@/types/authView'
+import type { ResetPasswordPageProps } from '@/typing/authView'
 
 type PasswordResetError = {
   detail: string

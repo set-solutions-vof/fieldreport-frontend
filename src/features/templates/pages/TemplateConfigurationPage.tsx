@@ -1,24 +1,20 @@
 import { useRef } from 'react'
 import type { ChangeEvent, DragEvent } from 'react'
-import { Button, Spinner } from '@set-solutions-vof/design-system'
-import { useCurrentUser } from '@/features/auth/useCurrentUser'
-import { AppShell } from '@/app/AppShell'
-import { PageHeader } from '@/components/PageHeader'
 import { translations } from '@/lib/translations'
+import {
+  ShellContentError,
+  ShellContentLoader,
+} from '@/components/ShellContentState'
 import { TemplateEmptyState } from '../components/TemplateEmptyState'
 import { TemplateFailedState } from '../components/TemplateFailedState'
 import { TemplateReviewState } from '../components/TemplateReviewState'
 import { TemplateSkeletonGrid } from '../components/TemplateSkeletonGrid'
 import { TemplateUploadingState } from '../components/TemplateUploadingState'
 import { useTemplateConfiguration } from '../hooks/useTemplateConfiguration'
-import type { TemplateConfigurationPageProps } from '@/types/templateView'
+import type { TemplateConfigurationPageProps } from '@/typing/templateView'
 
 export function TemplateConfigurationPage({
-  onOpenTemplate,
-  onOpenTeam,
-  onOpenProfile,
   onAuthenticationExpired,
-  onLogout,
 }: TemplateConfigurationPageProps) {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const {
@@ -45,13 +41,6 @@ export function TemplateConfigurationPage({
     cancelEditing,
     resetAfterFailure,
   } = useTemplateConfiguration({ onAuthenticationExpired })
-  const {
-    currentUser,
-    isLoading: isCurrentUserLoading,
-    isError: isCurrentUserError,
-    errorMessage: currentUserErrorMessage,
-    retry: retryCurrentUser,
-  } = useCurrentUser({ onAuthenticationExpired })
 
   function openFilePicker(): void {
     fileInputRef.current?.click()
@@ -71,134 +60,104 @@ export function TemplateConfigurationPage({
     event.preventDefault()
   }
 
-  if (isLoading || isCurrentUserLoading) {
-    return (
-      <main className="flex min-h-[100dvh] box-border [padding:var(--fr-space-7)] [background:var(--fr-background)]">
-        <div className="flex [max-width:calc(var(--fr-space-16)_+_var(--fr-space-15))] flex-col items-start">
-          <Spinner size="lg" />
-        </div>
-      </main>
-    )
+  if (isLoading) {
+    return <ShellContentLoader />
   }
 
-  if (isError || isCurrentUserError || currentUser === null) {
+  if (isError) {
     return (
-      <main className="flex min-h-[100dvh] box-border [padding:var(--fr-space-7)] [background:var(--fr-background)]">
-        <div className="flex [max-width:calc(var(--fr-space-16)_+_var(--fr-space-15))] flex-col items-start">
-          <PageHeader
-            title={translations.template.errors.load_failed_title}
-            metadata={errorMessage ?? currentUserErrorMessage}
-          />
-          <Button
-            type="button"
-            variant="primary"
-            onClick={() => {
-              retry()
-              retryCurrentUser()
-            }}
-          >
-            {translations.dashboard.states.retry_button}
-          </Button>
-        </div>
-      </main>
+      <ShellContentError
+        title={translations.template.errors.load_failed_title}
+        message={errorMessage}
+        onRetry={retry}
+      />
     )
   }
 
   return (
-    <AppShell
-      currentUser={currentUser}
-      activeNavigationItem="template"
-      breadcrumbItems={[{ label: translations.template.navigation_label }]}
-      contentClassName="[gap:var(--fr-space-0)] [padding:var(--fr-space-0)]"
-      onOpenTemplate={onOpenTemplate}
-      onOpenTeam={onOpenTeam}
-      onOpenProfile={onOpenProfile}
-      onLogout={onLogout}
+    <main
+      className="flex [min-height:calc(100dvh_-_var(--fr-space-10))] flex-col [background:var(--fr-background)]"
+      onDrop={handleDrop}
+      onDragOver={handleDragOver}
     >
-      <main
-        className="flex [min-height:calc(100dvh_-_var(--fr-space-10))] flex-col [background:var(--fr-background)]"
-        onDrop={handleDrop}
-        onDragOver={handleDragOver}
-      >
-        <input
-          ref={fileInputRef}
-          className="absolute [width:var(--fr-space-0)] [height:var(--fr-space-0)] overflow-hidden [opacity:0] pointer-events-none"
-          type="file"
-          multiple
-          accept="application/pdf"
-          onChange={handleFileInputChange}
+      <input
+        ref={fileInputRef}
+        className="absolute [width:var(--fr-space-0)] [height:var(--fr-space-0)] overflow-hidden [opacity:0] pointer-events-none"
+        type="file"
+        multiple
+        accept="application/pdf"
+        onChange={handleFileInputChange}
+      />
+      {pageState.kind === 'empty' && (
+        <TemplateEmptyState onUploadReports={openFilePicker} />
+      )}
+      {pageState.kind === 'uploading' && (
+        <TemplateUploadingState
+          files={pageState.files}
+          actionErrorMessage={actionErrorMessage}
+          onAddFiles={openFilePicker}
+          onRemoveFile={removeFile}
+          onCancel={cancelUpload}
+          onStartAnalysis={() => void startAnalysis()}
         />
-        {pageState.kind === 'empty' && (
-          <TemplateEmptyState onUploadReports={openFilePicker} />
-        )}
-        {pageState.kind === 'uploading' && (
-          <TemplateUploadingState
-            files={pageState.files}
-            actionErrorMessage={actionErrorMessage}
-            onAddFiles={openFilePicker}
-            onRemoveFile={removeFile}
-            onCancel={cancelUpload}
-            onStartAnalysis={() => void startAnalysis()}
-          />
-        )}
-        {pageState.kind === 'processing' && <TemplateSkeletonGrid />}
-        {pageState.kind === 'failed' && (
-          <TemplateFailedState
-            errorMessage={pageState.errorMessage}
-            onTryAgain={resetAfterFailure}
-          />
-        )}
-        {pageState.kind === 'preview' && (
-          <TemplateReviewState
-            showPreview
-            sections={pageState.sections}
-            actionErrorMessage={actionErrorMessage}
-            isConfirming={isConfirming}
-            hasUnsavedChanges={hasUnsavedChanges}
-            onLabelChange={updateSectionLabel}
-            onDelete={deleteSection}
-            onRenderTypeChange={updateSectionRenderType}
-            onFieldsChange={updateSectionFields}
-            onGroupsChange={updateSectionGroups}
-            onReorder={reorderSections}
-            onConfirm={() => void confirmCurrentTemplate()}
-          />
-        )}
-        {pageState.kind === 'editing' && (
-          <TemplateReviewState
-            editing
-            showPreview
-            sections={pageState.sections}
-            actionErrorMessage={actionErrorMessage}
-            isConfirming={isConfirming}
-            hasUnsavedChanges={hasUnsavedChanges}
-            onLabelChange={updateSectionLabel}
-            onDelete={deleteSection}
-            onRenderTypeChange={updateSectionRenderType}
-            onFieldsChange={updateSectionFields}
-            onGroupsChange={updateSectionGroups}
-            onReorder={reorderSections}
-            onConfirm={() => void confirmCurrentTemplate()}
-            onCancel={cancelEditing}
-          />
-        )}
-        {pageState.kind === 'approved' && (
-          <TemplateReviewState
-            approved
-            sections={pageState.sections}
-            actionErrorMessage={actionErrorMessage}
-            isConfirming={isConfirming}
-            onLabelChange={updateSectionLabel}
-            onDelete={deleteSection}
-            onRenderTypeChange={updateSectionRenderType}
-            onFieldsChange={updateSectionFields}
-            onGroupsChange={updateSectionGroups}
-            onReorder={reorderSections}
-            onConfirm={() => void confirmCurrentTemplate()}
-            onEdit={startEditingTemplate}
-          />
-        )}
-      </main>
-    </AppShell>
+      )}
+      {pageState.kind === 'processing' && <TemplateSkeletonGrid />}
+      {pageState.kind === 'failed' && (
+        <TemplateFailedState
+          errorMessage={pageState.errorMessage}
+          onTryAgain={resetAfterFailure}
+        />
+      )}
+      {pageState.kind === 'preview' && (
+        <TemplateReviewState
+          showPreview
+          sections={pageState.sections}
+          actionErrorMessage={actionErrorMessage}
+          isConfirming={isConfirming}
+          hasUnsavedChanges={hasUnsavedChanges}
+          onLabelChange={updateSectionLabel}
+          onDelete={deleteSection}
+          onRenderTypeChange={updateSectionRenderType}
+          onFieldsChange={updateSectionFields}
+          onGroupsChange={updateSectionGroups}
+          onReorder={reorderSections}
+          onConfirm={() => void confirmCurrentTemplate()}
+        />
+      )}
+      {pageState.kind === 'editing' && (
+        <TemplateReviewState
+          editing
+          showPreview
+          sections={pageState.sections}
+          actionErrorMessage={actionErrorMessage}
+          isConfirming={isConfirming}
+          hasUnsavedChanges={hasUnsavedChanges}
+          onLabelChange={updateSectionLabel}
+          onDelete={deleteSection}
+          onRenderTypeChange={updateSectionRenderType}
+          onFieldsChange={updateSectionFields}
+          onGroupsChange={updateSectionGroups}
+          onReorder={reorderSections}
+          onConfirm={() => void confirmCurrentTemplate()}
+          onCancel={cancelEditing}
+        />
+      )}
+      {pageState.kind === 'approved' && (
+        <TemplateReviewState
+          approved
+          sections={pageState.sections}
+          actionErrorMessage={actionErrorMessage}
+          isConfirming={isConfirming}
+          onLabelChange={updateSectionLabel}
+          onDelete={deleteSection}
+          onRenderTypeChange={updateSectionRenderType}
+          onFieldsChange={updateSectionFields}
+          onGroupsChange={updateSectionGroups}
+          onReorder={reorderSections}
+          onConfirm={() => void confirmCurrentTemplate()}
+          onEdit={startEditingTemplate}
+        />
+      )}
+    </main>
   )
 }

@@ -1,6 +1,6 @@
 import { Input } from '@set-solutions-vof/design-system'
 import { translations } from '@/lib/translations'
-import type { Step1CompanyProfileProps } from '@/types/onboardingView'
+import type { Step1CompanyProfileProps } from '@/typing/onboardingView'
 import { ColorPicker } from '../components/ColorPicker'
 import { CompanyLogoUpload } from '../components/CompanyLogoUpload'
 import { OnboardingIcon } from '../components/icons/OnboardingIcon'

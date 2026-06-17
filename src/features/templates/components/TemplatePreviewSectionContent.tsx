@@ -3,7 +3,7 @@ import type {
   TemplateGroupedTablePreviewProps,
   TemplateSectionGroupListProps,
   TemplateSectionGroupProps,
-} from '@/types/templatePreviewView'
+} from '@/typing/templatePreviewView'
 
 const groupedTablePlaceholderRows = ['first', 'second', 'third']
 

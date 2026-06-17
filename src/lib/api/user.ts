@@ -1,7 +1,7 @@
 import { authenticatedFetch } from '@/lib/api/authenticatedFetch'
 import { apiBaseUrl } from '@/lib/config'
-import type { CurrentUser } from '@/types/auth'
-import type { ChangePasswordRequest, UpdateProfileRequest } from '@/types/user'
+import type { CurrentUser } from '@/typing/auth'
+import type { ChangePasswordRequest, UpdateProfileRequest } from '@/typing/user'
 
 const userEndpoint = `${apiBaseUrl}/api/v1/users/me`
 

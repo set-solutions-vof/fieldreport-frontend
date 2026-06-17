@@ -2,12 +2,12 @@ import { useCallback, useEffect, useState } from 'react'
 import { AuthenticationExpiredError } from '@/lib/api/authenticatedFetch'
 import { getReports } from '@/lib/api/reports'
 import { translations } from '@/lib/translations'
-import type { ReportSummary } from '@/types/report'
+import type { ReportSummary } from '@/typing/report'
 import type {
   ReportListStatus,
   UseReportListParameters,
   UseReportListResult,
-} from '@/types/reportList'
+} from '@/typing/reportList'
 
 export function useReportList({
   onAuthenticationExpired,

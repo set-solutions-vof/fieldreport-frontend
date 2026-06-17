@@ -1,11 +1,11 @@
 import type {
   TemplateSectionGroup,
   TemplateSectionType,
-} from '@/types/template'
+} from '@/typing/template'
 import type {
   TemplateEditablePageState,
   TemplatePageState,
-} from '@/types/templateConfiguration'
+} from '@/typing/templateConfiguration'
 
 function isEditableTemplateState(
   state: TemplatePageState,

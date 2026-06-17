@@ -1,6 +1,6 @@
 import { Card, CardHeader, CardTitle, Textarea } from '@set-solutions-vof/design-system'
 import { translations } from '@/lib/translations'
-import type { NewReportContextCardProps } from '@/types/newReportView'
+import type { NewReportContextCardProps } from '@/typing/newReportView'
 
 export function NewReportContextCard({
   extraContext,

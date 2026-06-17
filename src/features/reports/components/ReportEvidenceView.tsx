@@ -3,7 +3,7 @@ import { translations } from '@/lib/translations'
 import type {
   EvidenceRailItem,
   ReportDetailTab,
-} from '@/types/reportDetailView'
+} from '@/typing/reportDetailView'
 import { formatDuration } from '../lib/formatDuration'
 import {
   evidenceTypeLabel,

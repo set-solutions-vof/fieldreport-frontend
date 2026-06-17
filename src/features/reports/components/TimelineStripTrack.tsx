@@ -2,7 +2,7 @@ import { translations } from '@/lib/translations'
 import { formatDuration } from '../lib/formatDuration'
 import { evidenceTypeLabel } from '../lib/reportDetailView'
 import { timelineEventPosition } from '../lib/timelineStrip'
-import type { TimelineStripTrackProps } from '@/types/reportDetailView'
+import type { TimelineStripTrackProps } from '@/typing/reportDetailView'
 
 export function TimelineStripTrack({
   activeEvidenceItemId,

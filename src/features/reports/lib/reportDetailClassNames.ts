@@ -1,4 +1,4 @@
-import type { ReportDetailTab } from '@/types/reportDetailView'
+import type { ReportDetailTab } from '@/typing/reportDetailView'
 
 export function reportDetailViewClassName(
   activeTab: ReportDetailTab,

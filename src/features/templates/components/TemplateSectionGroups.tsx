@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Button } from '@set-solutions-vof/design-system'
-import type { TemplateSectionGroup } from '@/types/template'
-import type { TemplateSectionGroupsProps } from '@/types/templateView'
+import type { TemplateSectionGroup } from '@/typing/template'
+import type { TemplateSectionGroupsProps } from '@/typing/templateView'
 import { TemplateSectionGroupEditor } from './TemplateSectionGroupEditor'
 import { TemplateIcon } from './icons/TemplateIcon'
 

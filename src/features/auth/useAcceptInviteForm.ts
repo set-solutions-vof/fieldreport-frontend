@@ -4,8 +4,8 @@ import { acceptInvite, getInvitePreview } from '@/lib/api/invites'
 import { getCurrentUser } from '@/lib/api/currentUser'
 import { storeAuthTokens } from '@/lib/auth/tokenStore'
 import { translations } from '@/lib/translations'
-import type { InvitePreview } from '@/types/auth'
-import type { UseAcceptInviteFormParameters } from '@/types/authView'
+import type { InvitePreview } from '@/typing/auth'
+import type { UseAcceptInviteFormParameters } from '@/typing/authView'
 
 export function useAcceptInviteForm({
   token,

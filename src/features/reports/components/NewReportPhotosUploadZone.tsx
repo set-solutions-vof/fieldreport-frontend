@@ -1,5 +1,5 @@
 import { translations } from '@/lib/translations'
-import type { NewReportPhotosUploadZoneProps } from '@/types/newReportView'
+import type { NewReportPhotosUploadZoneProps } from '@/typing/newReportView'
 import { FileChip } from './NewReportFileChip'
 
 export function NewReportPhotosUploadZone({

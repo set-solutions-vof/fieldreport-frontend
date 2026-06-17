@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { login } from '@/lib/api/auth'
 import { getCurrentUser } from '@/lib/api/currentUser'
 import { translations } from '@/lib/translations'
-import type { UseLoginFormParameters } from '@/types/authView'
+import type { UseLoginFormParameters } from '@/typing/authView'
 import { storeAuthTokens } from '@/lib/auth/tokenStore'
 
 export function useLoginForm({ onLoginSuccess }: UseLoginFormParameters) {

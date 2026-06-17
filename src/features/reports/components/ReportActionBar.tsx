@@ -1,7 +1,7 @@
 import { Button } from '@set-solutions-vof/design-system'
 import { translations } from '@/lib/translations'
 import { saveStatusLabel } from '../lib/reportDetailView'
-import type { ReportActionBarProps } from '@/types/reportDetailView'
+import type { ReportActionBarProps } from '@/typing/reportDetailView'
 
 export function ReportActionBar({
   dirtyCount,

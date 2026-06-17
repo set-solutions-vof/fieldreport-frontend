@@ -4,7 +4,7 @@ import { useCompanyBranding } from './useCompanyBranding'
 import { useOnboardingWizard } from './useOnboardingWizard'
 import { useTemplateConfiguration } from '@/features/templates/hooks/useTemplateConfiguration'
 import { translations } from '@/lib/translations'
-import type { UseOnboardingWizardPageParameters } from '@/types/onboardingView'
+import type { UseOnboardingWizardPageParameters } from '@/typing/onboardingView'
 
 export function useOnboardingWizardPage({
   initialCompany,

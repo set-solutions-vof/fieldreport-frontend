@@ -1,7 +1,7 @@
 import { Input } from '@set-solutions-vof/design-system'
 import { translations } from '@/lib/translations'
-import type { MetadataField } from '@/types/template'
-import type { DynamicMetadataFormProps } from '@/types/newReportView'
+import type { MetadataField } from '@/typing/template'
+import type { DynamicMetadataFormProps } from '@/typing/newReportView'
 
 export function DynamicMetadataForm({
   fields,

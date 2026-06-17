@@ -4,7 +4,7 @@ import { Button, Input, Logo } from '@set-solutions-vof/design-system'
 import { PageHeader } from '@/components/PageHeader'
 import { requestPasswordReset } from '@/lib/api/auth'
 import { translations } from '@/lib/translations'
-import type { ForgotPasswordPageProps } from '@/types/authView'
+import type { ForgotPasswordPageProps } from '@/typing/authView'
 
 export function ForgotPasswordPage({ onBack }: ForgotPasswordPageProps) {
   const [email, setEmail] = useState('')

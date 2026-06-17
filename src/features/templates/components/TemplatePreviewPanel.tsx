@@ -1,4 +1,4 @@
-import type { TemplatePreviewPanelProps } from '@/types/templatePreviewView'
+import type { TemplatePreviewPanelProps } from '@/typing/templatePreviewView'
 import { TemplatePreviewContent } from './TemplatePreviewContent'
 
 export function TemplatePreviewPanel({ sections }: TemplatePreviewPanelProps) {

@@ -3,12 +3,12 @@ import { AuthenticationExpiredError } from '@/lib/api/authenticatedFetch'
 import { getReport } from '@/lib/api/reports'
 import { translations } from '@/lib/translations'
 import { isReportGenerating } from '../lib/reportLabels'
-import type { ReportDetail } from '@/types/report'
+import type { ReportDetail } from '@/typing/report'
 import type {
   ReportDetailLoadStatus,
   UseReportDetailParameters,
   UseReportDetailResult,
-} from '@/types/reportDetail'
+} from '@/typing/reportDetail'
 
 export function useReportDetail({
   reportId,

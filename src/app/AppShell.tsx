@@ -1,9 +1,9 @@
 import { Logo } from '@set-solutions-vof/design-system'
 import { translations } from '@/lib/translations'
-import type { AppShellNavigationItem, AppShellProps } from '@/types/appShell'
+import type { AppShellNavigationItem, AppShellProps } from '@/typing/appShell'
 import { UserProfileDropdown } from './UserProfileDropdown'
 
-export type { AppShellProps } from '@/types/appShell'
+export type { AppShellProps } from '@/typing/appShell'
 
 export function AppShell({
   children,
@@ -65,12 +65,36 @@ export function AppShell({
                   </span>
                 )}
               </button>
-              <span className="[margin-top:var(--fr-space-6)] [padding:var(--fr-space-0)_var(--fr-space-2)] [font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-semibold)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-tertiary)] [letter-spacing:var(--fr-tracking-label)] uppercase first-child:[margin-top:var(--fr-space-0)]">
-                {translations.dashboard.navigation.settings_label}
-              </span>
             </>
           )}
-          {onOpenTemplate !== undefined && (
+          {onOpenDashboard === undefined && onOpenTemplate !== undefined && (
+            <>
+              <span className="[margin-top:var(--fr-space-6)] [padding:var(--fr-space-0)_var(--fr-space-2)] [font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-semibold)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-tertiary)] [letter-spacing:var(--fr-tracking-label)] uppercase first-child:[margin-top:var(--fr-space-0)]">
+                {translations.dashboard.navigation.workspace_label}
+              </span>
+              <button
+                className={navigationItemClassName(
+                  activeNavigationItem,
+                  'template',
+                )}
+                type="button"
+                onClick={onOpenTemplate}
+                aria-current={
+                  activeNavigationItem === 'template' ? 'page' : undefined
+                }
+              >
+                {translations.dashboard.navigation.template}
+              </button>
+            </>
+          )}
+          {(onOpenTemplate !== undefined && onOpenDashboard !== undefined) ||
+          onOpenTeam !== undefined ||
+          onOpenProfile !== undefined ? (
+            <span className="[margin-top:var(--fr-space-6)] [padding:var(--fr-space-0)_var(--fr-space-2)] [font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-semibold)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-tertiary)] [letter-spacing:var(--fr-tracking-label)] uppercase first-child:[margin-top:var(--fr-space-0)]">
+              {translations.dashboard.navigation.settings_label}
+            </span>
+          ) : null}
+          {onOpenTemplate !== undefined && onOpenDashboard !== undefined && (
             <button
               className={navigationItemClassName(
                 activeNavigationItem,
@@ -97,36 +121,19 @@ export function AppShell({
               {translations.dashboard.navigation.team}
             </button>
           )}
-          {onOpenDashboard !== undefined && (
-            <button
-              className={navigationItemClassName(
-                activeNavigationItem,
-                'profile',
-              )}
-              type="button"
-              onClick={onOpenProfile}
-              aria-current={
-                activeNavigationItem === 'profile' ? 'page' : undefined
-              }
-            >
-              {translations.dashboard.navigation.profile}
-            </button>
-          )}
-          {onOpenDashboard === undefined && (
-            <button
-              className={navigationItemClassName(
-                activeNavigationItem,
-                'profile',
-              )}
-              type="button"
-              onClick={onOpenProfile}
-              aria-current={
-                activeNavigationItem === 'profile' ? 'page' : undefined
-              }
-            >
-              {translations.dashboard.navigation.profile}
-            </button>
-          )}
+          <button
+            className={navigationItemClassName(
+              activeNavigationItem,
+              'profile',
+            )}
+            type="button"
+            onClick={onOpenProfile}
+            aria-current={
+              activeNavigationItem === 'profile' ? 'page' : undefined
+            }
+          >
+            {translations.dashboard.navigation.profile}
+          </button>
         </nav>
         <UserProfileDropdown
           currentUser={currentUser}

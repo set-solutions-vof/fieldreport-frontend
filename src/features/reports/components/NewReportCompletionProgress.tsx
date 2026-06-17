@@ -1,6 +1,6 @@
 import { PageHeader } from '@/components/PageHeader'
 import { translations } from '@/lib/translations'
-import type { NewReportCompletionProgressProps } from '@/types/newReportView'
+import type { NewReportCompletionProgressProps } from '@/typing/newReportView'
 
 export function NewReportCompletionProgress({
   metadataFields,

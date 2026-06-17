@@ -1,8 +1,8 @@
-import type { OnboardingStep, OnboardingStepStatus } from '@/types/onboarding'
+import type { OnboardingStep, OnboardingStepStatus } from '@/typing/onboarding'
 import type {
   OnboardingStepDefinition,
   OnboardingStepperProps,
-} from '@/types/onboardingView'
+} from '@/typing/onboardingView'
 import { translations } from '@/lib/translations'
 import { OnboardingIcon } from './icons/OnboardingIcon'
 

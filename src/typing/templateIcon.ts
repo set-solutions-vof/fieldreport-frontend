@@ -6,6 +6,7 @@ export type TemplateIconName =
   | 'plus'
   | 'trash'
   | 'chevronDown'
+  | 'chevronRight'
   | 'grip'
   | 'paragraph'
   | 'gridKV'

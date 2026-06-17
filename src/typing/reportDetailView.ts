@@ -1,12 +1,10 @@
-import type { CurrentUser } from '@/types/auth'
 import type { RefObject } from 'react'
 import type {
   ReportDetail,
   ReportSection as ReportSectionModel,
   ReportEvidenceItem,
   ReportSectionUpdateResponse,
-} from '@/types/report'
-import type { ReportRouteSource } from '@/types/routes'
+} from '@/typing/report'
 
 export type ReportDetailTab = 'report' | 'transcript' | 'evidence'
 export type EvidenceRailFilter = 'all' | 'open' | 'approved'
@@ -25,13 +23,6 @@ export type EvidenceRailItem = {
 
 export type ReportDetailWorkspaceProps = {
   report: ReportDetail
-  currentUser: CurrentUser
-  totalReportsCount: number
-  source: ReportRouteSource
-  onOpenDashboard: () => void
-  onOpenReports: () => void
-  onOpenProfile: () => void
-  onLogout: () => void
 }
 
 export type UseReportDraftAutosaveParameters = {

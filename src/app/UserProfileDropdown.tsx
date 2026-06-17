@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { getUserInitials } from '@/features/reports/lib/getUserInitials'
 import { translations } from '@/lib/translations'
-import type { CurrentUser } from '@/types/auth'
+import type { CurrentUser } from '@/typing/auth'
 
 type UserProfileDropdownProps = {
   currentUser: CurrentUser

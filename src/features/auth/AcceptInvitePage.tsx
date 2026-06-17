@@ -1,7 +1,7 @@
 import { Button, Input, Logo, Spinner } from '@set-solutions-vof/design-system'
 import { PageHeader } from '@/components/PageHeader'
 import { translations } from '@/lib/translations'
-import type { AcceptInvitePageProps } from '@/types/authView'
+import type { AcceptInvitePageProps } from '@/typing/authView'
 import { useAcceptInviteForm } from './useAcceptInviteForm'
 
 export function AcceptInvitePage({

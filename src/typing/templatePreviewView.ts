@@ -1,4 +1,4 @@
-import type { TemplateSectionGroup, TemplateSection } from '@/types/template'
+import type { TemplateSectionGroup, TemplateSection } from '@/typing/template'
 
 export type TemplatePreviewPanelProps = {
   sections: TemplateSection[]

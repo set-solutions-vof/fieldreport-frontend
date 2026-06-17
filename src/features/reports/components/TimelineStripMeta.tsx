@@ -1,5 +1,5 @@
 import { translations } from '@/lib/translations'
-import type { TimelineStripMetaProps } from '@/types/reportDetailView'
+import type { TimelineStripMetaProps } from '@/typing/reportDetailView'
 
 export function TimelineStripMeta({ range, summary }: TimelineStripMetaProps) {
   return (

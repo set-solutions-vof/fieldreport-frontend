@@ -3,7 +3,7 @@ import type {
   TimelineStripEvent,
   TimelineStripProps,
   TimelineTick,
-} from '@/types/reportDetailView'
+} from '@/typing/reportDetailView'
 
 const minuteMs = 60 * 1000
 const majorTickMinuteSteps = [1, 2, 5, 10, 15, 30, 60]

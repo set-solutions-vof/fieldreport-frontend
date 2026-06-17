@@ -1,8 +1,6 @@
 import { useCallback, useMemo, useRef, useState } from 'react'
 import { getReport } from '@/lib/api/reports'
-import { translations } from '@/lib/translations'
-import type { ReportStatus, ReportSectionUpdateResponse } from '@/types/report'
-import { AppShell } from '@/app/AppShell'
+import type { ReportStatus, ReportSectionUpdateResponse } from '@/typing/report'
 import { ReportActionBar } from './ReportActionBar'
 import { ReportDetailHeaderBlock } from './ReportDetailHeaderBlock'
 import { ReportDetailMainView } from './ReportDetailMainView'
@@ -22,17 +20,10 @@ import type {
   ReportDetailWorkspaceProps,
   EvidenceActivationOrigin,
   EvidenceRailFilter,
-} from '@/types/reportDetailView'
+} from '@/typing/reportDetailView'
 
 export function ReportDetailWorkspace({
   report,
-  currentUser,
-  totalReportsCount,
-  source,
-  onOpenDashboard,
-  onOpenReports,
-  onOpenProfile,
-  onLogout,
 }: ReportDetailWorkspaceProps) {
   const [activeTab, setActiveTab] = useState<ReportDetailTab>('report')
   const [activeSectionId, setActiveSectionId] = useState<string | null>(null)
@@ -127,31 +118,7 @@ export function ReportDetailWorkspace({
   )
 
   return (
-    <AppShell
-      currentUser={currentUser}
-      activeNavigationItem={source === 'dashboard' ? 'dashboard' : 'reports'}
-      breadcrumbItems={[
-        {
-          label:
-            source === 'dashboard'
-              ? translations.dashboard.navigation.dashboard
-              : translations.dashboard.navigation.all_reports,
-          onClick: source === 'dashboard' ? onOpenDashboard : onOpenReports,
-        },
-        { label: translations.report_detail.tabs.report },
-        {
-          label:
-            report.metadata.address ??
-            translations.dashboard.reports_table.unknown_address,
-        },
-      ]}
-      totalReportsCount={totalReportsCount}
-      onOpenDashboard={onOpenDashboard}
-      onOpenReports={onOpenReports}
-      onOpenProfile={onOpenProfile}
-      onLogout={onLogout}
-    >
-      <div className="flex flex-col [min-width:var(--fr-space-0)] [margin:calc(var(--fr-space-7)_*_-1)] [padding-bottom:var(--fr-space-10)]">
+    <div className="flex flex-col [min-width:var(--fr-space-0)] [margin:calc(var(--fr-space-7)_*_-1)] [padding-bottom:var(--fr-space-10)]">
         <ReportDetailHeaderBlock report={report} reportStatus={reportStatus} />
 
         <div className="[padding:var(--fr-space-0)_var(--fr-space-7)_var(--fr-space-4)]">
@@ -191,7 +158,6 @@ export function ReportDetailWorkspace({
           onEvidenceRailActivation={handleEvidenceRailActivation}
         />
         <ReportActionBar dirtyCount={dirtyCount} saveStatus={saveStatus} />
-      </div>
-    </AppShell>
+    </div>
   )
 }

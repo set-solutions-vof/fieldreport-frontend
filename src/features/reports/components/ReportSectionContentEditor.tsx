@@ -1,5 +1,5 @@
 import { translations } from '@/lib/translations'
-import type { SectionContentEditorProps } from '@/types/reportSectionView'
+import type { SectionContentEditorProps } from '@/typing/reportSectionView'
 import { AutoSizedTextarea } from './AutoSizedTextarea'
 import { PhotoGridSectionEditor } from './ReportSectionPhotoGrid'
 import { GroupedFieldsSectionEditor } from './ReportSectionStructuredEditors'

@@ -1,5 +1,5 @@
 import { Button } from '@set-solutions-vof/design-system'
-import type { OnboardingFooterProps } from '@/types/onboardingView'
+import type { OnboardingFooterProps } from '@/typing/onboardingView'
 
 export function OnboardingFooter({
   leftLabel,

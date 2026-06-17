@@ -1,5 +1,5 @@
 import { Card } from '@set-solutions-vof/design-system'
-import type { ReportStubViewProps } from '@/types/reportDetailView'
+import type { ReportStubViewProps } from '@/typing/reportDetailView'
 import { reportDetailViewClassName } from '../lib/reportDetailClassNames'
 
 export function ReportStubView({

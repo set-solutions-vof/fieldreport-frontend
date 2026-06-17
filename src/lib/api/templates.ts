@@ -6,7 +6,7 @@ import type {
   TemplateSectionType,
   TemplateSectionWire,
   TemplateStatusResponse,
-} from '@/types/template'
+} from '@/typing/template'
 
 const templateEndpoint = `${apiBaseUrl}/api/v1/template`
 

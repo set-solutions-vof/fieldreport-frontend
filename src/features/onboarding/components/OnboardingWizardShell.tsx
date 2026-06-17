@@ -1,7 +1,7 @@
 import { Button, Logo } from '@set-solutions-vof/design-system'
 import { PageHeader } from '@/components/PageHeader'
 import { translations } from '@/lib/translations'
-import type { OnboardingWizardShellProps } from '@/types/onboardingView'
+import type { OnboardingWizardShellProps } from '@/typing/onboardingView'
 import { OnboardingFooter } from './OnboardingFooter'
 import { OnboardingIcon } from './icons/OnboardingIcon'
 import { OnboardingStepper } from './OnboardingStepper'

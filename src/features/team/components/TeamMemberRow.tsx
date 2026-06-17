@@ -1,6 +1,6 @@
 import { getUserInitials } from '@/features/reports/lib/getUserInitials'
 import { inviteRoleLabel } from '@/lib/inviteRole'
-import type { TeamMemberRowProps } from '@/types/teamView'
+import type { TeamMemberRowProps } from '@/typing/teamView'
 
 export function TeamMemberRow({ member }: TeamMemberRowProps) {
   return (

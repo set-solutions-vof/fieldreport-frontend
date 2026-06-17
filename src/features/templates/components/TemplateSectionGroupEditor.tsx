@@ -1,5 +1,5 @@
-import { Button, Input } from '@set-solutions-vof/design-system'
-import type { TemplateSectionGroupEditorProps } from '@/types/templateView'
+import { Button, Card, Input } from '@set-solutions-vof/design-system'
+import type { TemplateSectionGroupEditorProps } from '@/typing/templateView'
 import { TemplateIcon } from './icons/TemplateIcon'
 
 export function TemplateSectionGroupEditor({
@@ -14,7 +14,7 @@ export function TemplateSectionGroupEditor({
   onUpdateRow,
 }: TemplateSectionGroupEditorProps) {
   return (
-    <div className="flex flex-col [gap:var(--fr-space-3)] [padding:var(--fr-space-3)] [background:var(--fr-color-neutral-50)] [border:var(--fr-border-width-sm)_solid_var(--fr-border)] [border-radius:var(--fr-radius-md)]">
+    <div className="flex flex-col [gap:var(--fr-space-3)]">
       <div className="flex items-end [gap:var(--fr-space-2)]">
         <Input
           inputSize="sm"
@@ -55,13 +55,14 @@ export function TemplateSectionGroupEditor({
         <>
           <div className="flex flex-col [gap:var(--fr-space-2)]">
             {group.fields.map((field, fieldIndex) => (
-              <div
-                className="flex items-center [gap:var(--fr-space-2)]"
+              <Card
                 key={`${group.id}-${fieldIndex}`}
+                padding="sm"
+                className="flex items-center [gap:var(--fr-space-3)] [box-shadow:var(--fr-shadow-sm)]"
               >
                 <TemplateIcon
                   name="grip"
-                  className="[width:var(--fr-space-3)] [height:var(--fr-space-3)] shrink-0 [color:var(--fr-text-tertiary)]"
+                  className="shrink-0 [width:var(--fr-space-4)] [height:var(--fr-space-4)] [color:var(--fr-text-tertiary)]"
                 />
                 <Input
                   inputSize="sm"
@@ -86,23 +87,21 @@ export function TemplateSectionGroupEditor({
                     />
                   </button>
                 )}
-              </div>
+              </Card>
             ))}
           </div>
           {!readonly && (
-            <Button
-              size="sm"
-              variant="secondary"
-              leadingIcon={
-                <TemplateIcon
-                  name="plus"
-                  className="block [width:var(--fr-space-4)] [height:var(--fr-space-4)] [stroke-width:1.6]"
-                />
-              }
+            <button
+              type="button"
+              className="flex [width:100%] items-center justify-center [gap:var(--fr-space-2)] [padding:var(--fr-space-4)] [color:var(--fr-text-tertiary)] [font:inherit] [font-size:var(--fr-text-sm)] [font-weight:var(--fr-weight-medium)] [line-height:var(--fr-leading-snug)] cursor-pointer bg-transparent [border:var(--fr-border-width-sm)_dashed_var(--fr-border)] [border-radius:var(--fr-radius-lg)] hover:[color:var(--fr-text-primary)] hover:[border-color:var(--fr-border-strong)] hover:outline-none focus-visible:[color:var(--fr-text-primary)] focus-visible:[border-color:var(--fr-border-strong)] focus-visible:outline-none"
               onClick={() => onAddRow(group.id)}
             >
-              Rij toevoegen
-            </Button>
+              <TemplateIcon
+                name="plus"
+                className="block [width:var(--fr-space-4)] [height:var(--fr-space-4)] [stroke-width:1.6]"
+              />
+              Veld toevoegen
+            </button>
           )}
         </>
       )}

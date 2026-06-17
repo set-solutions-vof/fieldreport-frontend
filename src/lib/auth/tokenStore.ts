@@ -1,4 +1,4 @@
-import type { LoginResponse } from '@/types/auth'
+import type { LoginResponse } from '@/typing/auth'
 
 const refreshTokenStorageKey = 'fieldreport_refresh_token'
 

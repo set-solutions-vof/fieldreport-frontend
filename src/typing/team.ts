@@ -1,4 +1,4 @@
-import type { InviteRole } from '@/types/onboarding'
+import type { InviteRole } from '@/typing/onboarding'
 
 export type TeamMember = {
   id: string

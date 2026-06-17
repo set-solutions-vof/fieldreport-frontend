@@ -1,15 +1,10 @@
 import type { ChangeEvent, DragEvent, KeyboardEvent, RefObject } from 'react'
 import type { MetadataField } from './template'
+import type { InspectorPageProps } from './routes'
 
-export type NewReportPageProps = {
-  onAuthenticationExpired: () => void
+export type NewReportPageProps = InspectorPageProps & {
   onReportCreated: (reportId: string) => void
   onCancel: () => void
-  onOpenDashboard: () => void
-  onOpenReports: () => void
-  onOpenProfile: () => void
-  onLogout: () => void
-  totalReportsCount: number
 }
 
 export type FileChipProps = {

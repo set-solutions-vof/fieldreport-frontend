@@ -1,10 +1,10 @@
 import { Card, TranscriptBlock } from '@set-solutions-vof/design-system'
 import { translations } from '@/lib/translations'
-import type { ReportEvidenceItem } from '@/types/report'
+import type { ReportEvidenceItem } from '@/typing/report'
 import type {
   EvidenceRailItem,
   ReportDetailTab,
-} from '@/types/reportDetailView'
+} from '@/typing/reportDetailView'
 import { formatDuration } from '../lib/formatDuration'
 import { reportDetailViewClassName } from '../lib/reportDetailClassNames'
 

@@ -4,7 +4,7 @@ import { translations } from '@/lib/translations'
 import type {
   UseReportSectionParameters,
   UseReportSectionResult,
-} from '@/types/reportDetail'
+} from '@/typing/reportDetail'
 
 export function useReportSection({
   reportId,

@@ -1,127 +1,93 @@
-import { Button, Spinner } from '@set-solutions-vof/design-system'
-import { useCurrentUser } from '@/features/auth/useCurrentUser'
-import { AppShell } from '@/app/AppShell'
-import { PageHeader } from '@/components/PageHeader'
-import { TemplateSkeletonGrid } from '@/features/templates/components/TemplateSkeletonGrid'
+import { useMemo } from 'react'
+import { useAppChrome } from '@/app/useAppChrome'
 import { translations } from '@/lib/translations'
+import {
+  ShellContentError,
+  ShellContentLoader,
+} from '@/components/ShellContentState'
+import { TemplateSkeletonGrid } from '@/features/templates/components/TemplateSkeletonGrid'
 import { ReportDetailWorkspace } from '../components/ReportDetailWorkspace'
 import { useReportDetail } from '../hooks/useReportDetail'
-import { useReportList } from '../hooks/useReportList'
 import { isReportGenerating } from '../lib/reportLabels'
-import type { ReportDetailPageProps } from '@/types/reportView'
+import type { ReportDetailPageProps } from '@/typing/reportView'
 
 export function ReportDetailPage({
   reportId,
   source,
+  reportList,
   onOpenDashboard,
   onOpenReports,
-  onOpenProfile,
   onAuthenticationExpired,
-  onLogout,
 }: ReportDetailPageProps) {
   const { report, isLoading, isError, errorMessage, retry } = useReportDetail({
     reportId,
     onAuthenticationExpired,
   })
-  const {
-    currentUser,
-    isLoading: isCurrentUserLoading,
-    isError: isCurrentUserError,
-    errorMessage: currentUserErrorMessage,
-    retry: retryCurrentUser,
-  } = useCurrentUser({ onAuthenticationExpired })
-  const {
-    reports,
-    isLoading: isReportsLoading,
-    isError: isReportsError,
-    errorMessage: reportsErrorMessage,
-    retry: retryReports,
-  } = useReportList({ onAuthenticationExpired })
+  const { isLoading: isReportsLoading, isError: isReportsError } = reportList
 
-  if (isLoading || isCurrentUserLoading || isReportsLoading) {
-    return (
-      <main className="flex min-h-[100dvh] box-border [padding:var(--fr-space-8)] [background:var(--fr-background)]">
-        <div className="flex [max-width:calc(var(--fr-space-16)_+_var(--fr-space-15))] flex-col items-start">
-          <Spinner size="lg" />
-        </div>
-      </main>
-    )
+  const reportBreadcrumbItems = useMemo(() => {
+    if (report === null) {
+      return undefined
+    }
+
+    if (isReportGenerating(report.status)) {
+      return [
+        {
+          label:
+            source === 'dashboard'
+              ? translations.dashboard.navigation.dashboard
+              : translations.dashboard.navigation.all_reports,
+          onClick: source === 'dashboard' ? onOpenDashboard : onOpenReports,
+        },
+        { label: translations.report_detail.states.generating_breadcrumb },
+      ]
+    }
+
+    return [
+      {
+        label:
+          source === 'dashboard'
+            ? translations.dashboard.navigation.dashboard
+            : translations.dashboard.navigation.all_reports,
+        onClick: source === 'dashboard' ? onOpenDashboard : onOpenReports,
+      },
+      { label: translations.report_detail.tabs.report },
+      {
+        label:
+          report.metadata.address ??
+          translations.dashboard.reports_table.unknown_address,
+      },
+    ]
+  }, [onOpenDashboard, onOpenReports, report, source])
+
+  useAppChrome({
+    activeNavigationItem: source === 'dashboard' ? 'dashboard' : 'reports',
+    breadcrumbItems: reportBreadcrumbItems,
+  })
+
+  if (isLoading || isReportsLoading) {
+    return <ShellContentLoader />
   }
 
-  if (
-    isError ||
-    isCurrentUserError ||
-    isReportsError ||
-    report === null ||
-    currentUser === null
-  ) {
+  if (isError || isReportsError || report === null) {
     return (
-      <main className="flex min-h-[100dvh] box-border [padding:var(--fr-space-8)] [background:var(--fr-background)]">
-        <div className="flex [max-width:calc(var(--fr-space-16)_+_var(--fr-space-15))] flex-col items-start">
-          <PageHeader
-            title={translations.report_detail.states.load_failed_title}
-            metadata={
-              errorMessage ?? currentUserErrorMessage ?? reportsErrorMessage
-            }
-          />
-          <Button
-            type="button"
-            variant="primary"
-            onClick={() => {
-              retry()
-              retryCurrentUser()
-              retryReports()
-            }}
-          >
-            {translations.report_detail.states.retry_button}
-          </Button>
-        </div>
-      </main>
+      <ShellContentError
+        title={translations.report_detail.states.load_failed_title}
+        message={errorMessage}
+        onRetry={retry}
+      />
     )
   }
 
   if (isReportGenerating(report.status)) {
     return (
-      <AppShell
-        currentUser={currentUser}
-        activeNavigationItem={source === 'dashboard' ? 'dashboard' : 'reports'}
-        breadcrumbItems={[
-          {
-            label:
-              source === 'dashboard'
-                ? translations.dashboard.navigation.dashboard
-                : translations.dashboard.navigation.all_reports,
-            onClick: source === 'dashboard' ? onOpenDashboard : onOpenReports,
-          },
-          { label: translations.report_detail.states.generating_breadcrumb },
-        ]}
-        contentClassName="[gap:var(--fr-space-0)] [padding:var(--fr-space-0)]"
-        totalReportsCount={reports.length}
-        onOpenDashboard={onOpenDashboard}
-        onOpenReports={onOpenReports}
-        onOpenProfile={onOpenProfile}
-        onLogout={onLogout}
-      >
-        <main className="flex [min-height:calc(100dvh_-_var(--fr-space-14))] flex-col">
-          <TemplateSkeletonGrid
-            label={translations.report_detail.states.generating_title}
-          />
-        </main>
-      </AppShell>
+      <main className="flex [min-height:calc(100dvh_-_var(--fr-space-14))] flex-col">
+        <TemplateSkeletonGrid
+          label={translations.report_detail.states.generating_title}
+        />
+      </main>
     )
   }
 
-  return (
-    <ReportDetailWorkspace
-      key={report.id}
-      report={report}
-      currentUser={currentUser}
-      totalReportsCount={reports.length}
-      source={source}
-      onOpenDashboard={onOpenDashboard}
-      onOpenReports={onOpenReports}
-      onOpenProfile={onOpenProfile}
-      onLogout={onLogout}
-    />
-  )
+  return <ReportDetailWorkspace key={report.id} report={report} />
 }

@@ -1,6 +1,6 @@
 import type { BadgeVariant } from '@set-solutions-vof/design-system'
 import { translations } from '@/lib/translations'
-import type { ReportStatus } from '@/types/report'
+import type { ReportStatus } from '@/typing/report'
 
 export function isReportGenerating(status: ReportStatus): boolean {
   return status === 'generating' || status === 'processing'

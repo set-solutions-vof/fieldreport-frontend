@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import type { UseReportDetailScrollingParameters } from '@/types/reportDetailView'
+import type { UseReportDetailScrollingParameters } from '@/typing/reportDetailView'
 
 export function useReportDetailScrolling({
   activeSectionId,

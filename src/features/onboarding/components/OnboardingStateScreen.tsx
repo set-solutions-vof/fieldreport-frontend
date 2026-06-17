@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import { Button, Spinner } from '@set-solutions-vof/design-system'
 import { PageHeader } from '@/components/PageHeader'
 import { translations } from '@/lib/translations'
-import type { OnboardingStateScreenProps } from '@/types/onboardingView'
+import type { OnboardingStateScreenProps } from '@/typing/onboardingView'
 
 export function OnboardingStateScreen(props: OnboardingStateScreenProps) {
   if (props.kind === 'loading') {

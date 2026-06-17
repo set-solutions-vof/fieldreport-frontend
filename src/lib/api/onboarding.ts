@@ -6,7 +6,7 @@ import type {
   InviteResponse,
   OnboardingCompany,
   UpdateOnboardingCompanyPayload,
-} from '@/types/onboarding'
+} from '@/typing/onboarding'
 
 const onboardingEndpoint = `${apiBaseUrl}/api/v1/onboarding`
 

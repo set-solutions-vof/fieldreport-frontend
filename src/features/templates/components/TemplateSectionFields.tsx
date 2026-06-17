@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Button, Input } from '@set-solutions-vof/design-system'
 import { translations } from '@/lib/translations'
-import type { TemplateSectionFieldsProps } from '@/types/templateView'
+import type { TemplateSectionFieldsProps } from '@/typing/templateView'
 import { TemplateFieldChip } from './TemplateFieldChip'
 import { TemplateSectionGroups } from './TemplateSectionGroups'
 import { TemplateIcon } from './icons/TemplateIcon'

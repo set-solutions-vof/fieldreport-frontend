@@ -1,6 +1,6 @@
 import type { ChangeEvent } from 'react'
 import { translations } from '@/lib/translations'
-import type { ReportSectionProps } from '@/types/reportDetailView'
+import type { ReportSectionProps } from '@/typing/reportDetailView'
 import { useReportSection } from '../hooks/useReportSection'
 import { sectionEvidenceChipLabels } from '../lib/reportDetailView'
 import { SectionContentEditor } from './ReportSectionContentEditor'

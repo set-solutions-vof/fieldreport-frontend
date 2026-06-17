@@ -2,13 +2,13 @@ import { useCallback, useEffect, useState } from 'react'
 import { getTemplateAnalysis, getTemplateStatus } from '@/lib/api/templates'
 import { AuthenticationExpiredError } from '@/lib/api/authenticatedFetch'
 import { translations } from '@/lib/translations'
-import type { TemplateStatusResponse } from '@/types/template'
+import type { TemplateStatusResponse } from '@/typing/template'
 import type {
   TemplateLoadStatus,
   TemplatePageState,
   UseTemplateStatusStateParameters,
   UseTemplateStatusStateResult,
-} from '@/types/templateConfiguration'
+} from '@/typing/templateConfiguration'
 import { pageStateFromTemplateStatus } from '../lib/pageStateFromTemplateStatus'
 
 export function useTemplateStatusState({

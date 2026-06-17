@@ -1,4 +1,4 @@
-import type { ReportDetailMainViewProps } from '@/types/reportDetailView'
+import type { ReportDetailMainViewProps } from '@/typing/reportDetailView'
 import { reportDetailViewClassName } from '../lib/reportDetailClassNames'
 import { transcriptSegments } from '../lib/reportDetailView'
 import { ReportDocument } from './ReportDocument'

@@ -8,7 +8,7 @@ import { EvidenceTypeIcon } from './icons/EvidenceTypeIcon'
 import type {
   ReportEvidenceRailProps,
   EvidenceFilterChipProps,
-} from '@/types/reportDetailView'
+} from '@/typing/reportDetailView'
 
 export function ReportEvidenceRail({
   activeEvidenceItemId,
@@ -126,13 +126,11 @@ function EvidenceFilterChip({
   return (
     <button
       type="button"
-      className={[
-        '[padding:var(--fr-space-1)_var(--fr-space-2)] [border:1px_solid_var(--fr-border)] [border-radius:var(--fr-radius-full)] [font:inherit] [font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-medium)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-secondary)] [background:var(--fr-surface)] cursor-pointer',
-        active &&
-          '[color:var(--fr-text-on-accent)] [background:var(--fr-accent)] [border-color:var(--fr-accent)]',
-      ]
-        .filter(Boolean)
-        .join(' ')}
+      className={
+        active
+          ? '[padding:var(--fr-space-1)_var(--fr-space-2)] [border:1px_solid] [border-radius:var(--fr-radius-full)] [font:inherit] [font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-medium)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-on-accent)] [background:var(--fr-accent)] [border-color:var(--fr-accent)] cursor-pointer'
+          : '[padding:var(--fr-space-1)_var(--fr-space-2)] [border:1px_solid] [border-radius:var(--fr-radius-full)] [font:inherit] [font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-medium)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-secondary)] [background:var(--fr-surface)] [border-color:var(--fr-border)] cursor-pointer hover:[border-color:var(--fr-border-strong)] hover:[background:var(--fr-surface-hover)]'
+      }
       aria-pressed={active}
       onClick={onClick}
     >

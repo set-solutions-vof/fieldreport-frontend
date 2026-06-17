@@ -1,4 +1,4 @@
-import type { ReportRouteMatch } from '@/types/routes'
+import type { ReportRouteMatch } from '@/typing/routes'
 
 export const dashboardRoute = '/dashboard'
 export const allReportsRoute = '/reports'

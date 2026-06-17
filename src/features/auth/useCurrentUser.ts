@@ -2,12 +2,12 @@ import { useCallback, useEffect, useState } from 'react'
 import { AuthenticationExpiredError } from '@/lib/api/authenticatedFetch'
 import { getCurrentUser } from '@/lib/api/currentUser'
 import { translations } from '@/lib/translations'
-import type { CurrentUser } from '@/types/auth'
+import type { CurrentUser } from '@/typing/auth'
 import type {
   CurrentUserStatus,
   UseCurrentUserParameters,
   UseCurrentUserResult,
-} from '@/types/authView'
+} from '@/typing/authView'
 
 export function useCurrentUser({
   onAuthenticationExpired,

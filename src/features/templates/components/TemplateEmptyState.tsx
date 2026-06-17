@@ -1,7 +1,7 @@
 import { Button } from '@set-solutions-vof/design-system'
 import { PageHeader } from '@/components/PageHeader'
 import { translations } from '@/lib/translations'
-import type { TemplateEmptyStateProps } from '@/types/templateView'
+import type { TemplateEmptyStateProps } from '@/typing/templateView'
 import { templateTypeMeta } from '../lib/templateMeta'
 import { TemplateIcon } from './icons/TemplateIcon'
 import { TemplateTypePill } from './TemplateTypePill'

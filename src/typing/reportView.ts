@@ -1,33 +1,18 @@
-import type { ReportSummary } from '@/types/report'
-import type { ReportRouteSource } from '@/types/routes'
+import type { ReportSummary } from '@/typing/report'
+import type { InspectorPageProps, ReportRouteSource } from '@/typing/routes'
 
-export type DashboardPageProps = {
+export type DashboardPageProps = InspectorPageProps & {
   onOpenReport: (reportId: string) => void
   onOpenNewReport: () => void
-  onOpenDashboard: () => void
-  onOpenReports: () => void
-  onOpenProfile: () => void
-  onAuthenticationExpired: () => void
-  onLogout: () => void
 }
 
-export type AllReportsPageProps = {
+export type AllReportsPageProps = InspectorPageProps & {
   onOpenReport: (reportId: string) => void
-  onOpenDashboard: () => void
-  onOpenReports: () => void
-  onOpenProfile: () => void
-  onAuthenticationExpired: () => void
-  onLogout: () => void
 }
 
-export type ReportDetailPageProps = {
+export type ReportDetailPageProps = InspectorPageProps & {
   reportId: string
   source: ReportRouteSource
-  onOpenDashboard: () => void
-  onOpenReports: () => void
-  onOpenProfile: () => void
-  onAuthenticationExpired: () => void
-  onLogout: () => void
 }
 
 export type DashboardStatsProps = {

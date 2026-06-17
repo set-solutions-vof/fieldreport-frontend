@@ -1,6 +1,6 @@
 import { Button } from '@set-solutions-vof/design-system'
 import { translations } from '@/lib/translations'
-import type { ValidationReportsSectionProps } from '@/types/reportView'
+import type { ValidationReportsSectionProps } from '@/typing/reportView'
 import { ReportsTable } from './ReportsTable'
 
 export function ValidationReportsSection({

@@ -1,14 +1,12 @@
 import { useState } from 'react'
 import type { ChangeEvent, FormEvent } from 'react'
-import { AppShell } from '@/app/AppShell'
+import { useAppChrome } from '@/app/useAppChrome'
 import { PageHeader } from '@/components/PageHeader'
 import {
   Button,
   Divider,
   Input,
-  Spinner,
 } from '@set-solutions-vof/design-system'
-import { useCurrentUser } from '@/features/auth/useCurrentUser'
 import { getUserInitials } from '@/features/reports/lib/getUserInitials'
 import {
   ApiError,
@@ -17,9 +15,10 @@ import {
 import { changePassword, updateProfile } from '@/lib/api/user'
 import { useLocale } from '@/lib/locale'
 import { translations, type Locale } from '@/lib/translations'
-import type { CurrentUser } from '@/types/auth'
+import type { CurrentUser } from '@/typing/auth'
 
 type AccountProfilePageProps = {
+  currentUser: CurrentUser
   onAuthenticationExpired: () => void
   onCancel: () => void
   onOpenDashboard?: () => void
@@ -31,61 +30,10 @@ type AccountProfilePageProps = {
 }
 
 export function AccountProfilePage({
-  onAuthenticationExpired,
-  ...pageProps
-}: AccountProfilePageProps) {
-  const { currentUser, isLoading, isError, errorMessage, retry } =
-    useCurrentUser({
-      onAuthenticationExpired,
-    })
-
-  if (isLoading || currentUser === null) {
-    return (
-      <main className="flex min-h-[100dvh] box-border [padding:var(--fr-space-7)] [background:var(--fr-background)]">
-        <div className="flex [max-width:calc(var(--fr-space-16)_+_var(--fr-space-15))] flex-col items-start">
-          <Spinner size="lg" />
-        </div>
-      </main>
-    )
-  }
-
-  if (isError) {
-    return (
-      <main className="flex min-h-[100dvh] box-border [padding:var(--fr-space-7)] [background:var(--fr-background)]">
-        <div className="flex [max-width:calc(var(--fr-space-16)_+_var(--fr-space-15))] flex-col items-start">
-          <PageHeader
-            title={translations.dashboard.states.reports_load_failed_title}
-            metadata={errorMessage}
-          />
-          <Button type="button" variant="primary" onClick={retry}>
-            {translations.dashboard.states.retry_button}
-          </Button>
-        </div>
-      </main>
-    )
-  }
-
-  return (
-    <AccountProfileContent
-      key={currentUser.id}
-      currentUser={currentUser}
-      onAuthenticationExpired={onAuthenticationExpired}
-      {...pageProps}
-    />
-  )
-}
-
-function AccountProfileContent({
   currentUser,
   onAuthenticationExpired,
   onCancel,
-  onOpenDashboard,
-  onOpenReports,
-  onOpenTemplate,
-  onOpenTeam,
-  onOpenProfile,
-  onLogout,
-}: AccountProfilePageProps & { currentUser: CurrentUser }) {
+}: AccountProfilePageProps) {
   const { locale, setLocale } = useLocale()
   const [profileUser, setProfileUser] = useState(currentUser)
   const [name, setName] = useState(currentUser.name)
@@ -102,6 +50,8 @@ function AccountProfileContent({
   >(null)
   const [formError, setFormError] = useState<string | null>(null)
   const [showSuccessToast, setShowSuccessToast] = useState(false)
+
+  useAppChrome({ currentUser: profileUser })
 
   function handleLocaleChange(event: ChangeEvent<HTMLSelectElement>): void {
     setLocale(event.currentTarget.value as Locale)
@@ -195,18 +145,7 @@ function AccountProfileContent({
   }
 
   return (
-    <AppShell
-      currentUser={profileUser}
-      activeNavigationItem="profile"
-      breadcrumbItems={[{ label: translations.dashboard.navigation.profile }]}
-      onOpenDashboard={onOpenDashboard}
-      onOpenReports={onOpenReports}
-      onOpenTemplate={onOpenTemplate}
-      onOpenTeam={onOpenTeam}
-      onOpenProfile={onOpenProfile}
-      onLogout={onLogout}
-    >
-      <main className="relative flex flex-col [gap:var(--fr-space-5)]">
+    <main className="relative flex flex-col [gap:var(--fr-space-5)]">
         {showSuccessToast && (
           <div
             className="fixed [top:var(--fr-space-5)] [right:var(--fr-space-5)] [z-index:2] [padding:var(--fr-space-3)_var(--fr-space-4)] [color:var(--fr-status-approved-fg)] [background:var(--fr-status-approved-bg)] [border:var(--fr-border-width-sm)_solid_var(--fr-status-approved-border)] [border-radius:var(--fr-radius-lg)] [font-size:var(--fr-text-sm)] [font-weight:var(--fr-weight-medium)]"
@@ -322,8 +261,7 @@ function AccountProfileContent({
             </Button>
           </footer>
         </form>
-      </main>
-    </AppShell>
+    </main>
   )
 }
 

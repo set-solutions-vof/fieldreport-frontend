@@ -4,7 +4,7 @@ import type {
   TemplateSectionGroup,
   TemplateSection,
   TemplateSectionType,
-} from '@/types/template'
+} from '@/typing/template'
 
 export type TemplatePageState =
   | { kind: 'empty' }

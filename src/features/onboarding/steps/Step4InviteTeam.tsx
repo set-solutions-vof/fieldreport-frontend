@@ -1,7 +1,7 @@
 import { Button, Spinner } from '@set-solutions-vof/design-system'
 import { PageHeader } from '@/components/PageHeader'
 import { translations } from '@/lib/translations'
-import type { Step4InviteTeamProps } from '@/types/onboardingView'
+import type { Step4InviteTeamProps } from '@/typing/onboardingView'
 import { InviteRow } from '../components/InviteRow'
 import { OnboardingIcon } from '../components/icons/OnboardingIcon'
 import { useInvites } from '../hooks/useInvites'

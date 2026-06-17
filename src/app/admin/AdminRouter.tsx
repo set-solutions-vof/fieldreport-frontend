@@ -1,11 +1,14 @@
 import { useCallback, useEffect, useState } from 'react'
+import { AppChromeProvider } from '@/app/AppChromeProvider'
 import { AccountProfilePage } from '@/features/profile/AccountProfilePage'
 import { TeamPage } from '@/features/team/pages/TeamPage'
 import { TemplateConfigurationPage } from '@/features/templates/pages/TemplateConfigurationPage'
-import type { AdminRouterProps } from '@/types/routes'
+import type { AdminRouterProps } from '@/typing/routes'
+import { adminShellChrome } from './adminShellChrome'
 import { adminTeamRoute, profileRoute, templateRoute } from '../routes'
 
 export function AdminRouter({
+  currentUser,
   onAuthenticationExpired,
   onLogout,
 }: AdminRouterProps) {
@@ -37,39 +40,56 @@ export function AdminRouter({
     return () => window.removeEventListener('popstate', handlePopState)
   }, [])
 
-  if (currentPath === adminTeamRoute) {
-    return (
-      <TeamPage
-        onOpenTemplate={() => navigate(templateRoute)}
-        onOpenTeam={() => navigate(adminTeamRoute)}
-        onOpenProfile={() => navigate(profileRoute)}
-        onAuthenticationExpired={onAuthenticationExpired}
-        onLogout={onLogout}
-      />
-    )
+  const onOpenTemplate = useCallback((): void => {
+    navigate(templateRoute)
+  }, [navigate])
+
+  const onOpenTeam = useCallback((): void => {
+    navigate(adminTeamRoute)
+  }, [navigate])
+
+  const onOpenProfile = useCallback((): void => {
+    navigate(profileRoute)
+  }, [navigate])
+
+  const sharedPageProps = {
+    currentUser,
+    onOpenTemplate,
+    onOpenTeam,
+    onOpenProfile,
+    onAuthenticationExpired,
+    onLogout,
   }
 
-  if (currentPath === profileRoute) {
-    return (
+  let content
+
+  if (currentPath === adminTeamRoute) {
+    content = <TeamPage {...sharedPageProps} />
+  } else if (currentPath === profileRoute) {
+    content = (
       <AccountProfilePage
-        onCancel={() => navigate(templateRoute)}
-        onOpenTemplate={() => navigate(templateRoute)}
-        onOpenTeam={() => navigate(adminTeamRoute)}
-        onOpenProfile={() => navigate(profileRoute)}
-        onAuthenticationExpired={onAuthenticationExpired}
-        onLogout={onLogout}
+        {...sharedPageProps}
+        onCancel={onOpenTemplate}
       />
     )
+  } else {
+    content = <TemplateConfigurationPage {...sharedPageProps} />
   }
 
   return (
-    <TemplateConfigurationPage
-      onOpenTemplate={() => navigate(templateRoute)}
-      onOpenTeam={() => navigate(adminTeamRoute)}
-      onOpenProfile={() => navigate(profileRoute)}
-      onAuthenticationExpired={onAuthenticationExpired}
-      onLogout={onLogout}
-    />
+    <AppChromeProvider
+      key={currentPath}
+      currentUser={currentUser}
+      defaultChrome={adminShellChrome(currentPath)}
+      navigation={{
+        onOpenTemplate,
+        onOpenTeam,
+        onOpenProfile,
+        onLogout,
+      }}
+    >
+      {content}
+    </AppChromeProvider>
   )
 }
 

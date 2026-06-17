@@ -2,7 +2,7 @@ import type { DragEvent } from 'react'
 import type {
   UseTemplateSectionDragParameters,
   UseTemplateSectionDragResult,
-} from '@/types/templateView'
+} from '@/typing/templateView'
 
 export function useTemplateSectionDrag({
   sectionId,

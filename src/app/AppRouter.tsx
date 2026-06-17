@@ -12,8 +12,8 @@ import {
   hasStoredRefreshToken,
   storeAccessToken,
 } from '@/lib/auth/tokenStore'
-import type { CurrentUser } from '@/types/auth'
-import type { AuthView } from '@/types/authView'
+import type { CurrentUser } from '@/typing/auth'
+import type { AuthView } from '@/typing/authView'
 import { inviteTokenFromPath } from './routes'
 import { AdminOnboardingGate } from './admin/AdminOnboardingGate'
 import { InspectorRouter } from './inspector/InspectorRouter'
@@ -116,6 +116,7 @@ export function AppRouter() {
 
   return (
     <InspectorRouter
+      currentUser={currentUser}
       onAuthenticationExpired={handleAuthenticationExpired}
       onLogout={handleLogout}
     />

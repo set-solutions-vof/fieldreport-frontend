@@ -1,5 +1,5 @@
 import type { ReactElement } from 'react'
-import type { FileChipProps } from '@/types/newReportView'
+import type { FileChipProps } from '@/typing/newReportView'
 
 export function FileChip({ file, onRemove }: FileChipProps): ReactElement {
   return (

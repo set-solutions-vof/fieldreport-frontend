@@ -1,6 +1,6 @@
 import { Button, Input, Logo } from '@set-solutions-vof/design-system'
 import { translations } from '@/lib/translations'
-import type { LoginPageProps } from '@/types/authView'
+import type { LoginPageProps } from '@/typing/authView'
 import { useLoginForm } from './useLoginForm'
 
 export function LoginPage({

@@ -3,8 +3,8 @@ import { dashboardRoute } from '@/app/routes'
 import { updateOnboardingCompany } from '@/lib/api/onboarding'
 import { AuthenticationExpiredError } from '@/lib/api/authenticatedFetch'
 import { translations } from '@/lib/translations'
-import type { OnboardingStep } from '@/types/onboarding'
-import type { UseOnboardingWizardParameters } from '@/types/onboardingView'
+import type { OnboardingStep } from '@/typing/onboarding'
+import type { UseOnboardingWizardParameters } from '@/typing/onboardingView'
 
 export function useOnboardingWizard({
   onCompleted,

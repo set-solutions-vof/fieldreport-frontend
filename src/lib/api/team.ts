@@ -1,6 +1,6 @@
 import { authenticatedFetch } from '@/lib/api/authenticatedFetch'
 import { apiBaseUrl } from '@/lib/config'
-import type { TeamMember } from '@/types/team'
+import type { TeamMember } from '@/typing/team'
 
 const teamEndpoint = `${apiBaseUrl}/api/v1/team`
 

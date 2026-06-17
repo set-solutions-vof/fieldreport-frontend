@@ -2,8 +2,8 @@ import { useCallback, useEffect, useState } from 'react'
 import { createInvite, deleteInvite, listInvites } from '@/lib/api/onboarding'
 import { AuthenticationExpiredError } from '@/lib/api/authenticatedFetch'
 import { translations } from '@/lib/translations'
-import type { CreateInvitePayload, InviteResponse } from '@/types/onboarding'
-import type { UseInvitesParameters } from '@/types/onboardingView'
+import type { CreateInvitePayload, InviteResponse } from '@/typing/onboarding'
+import type { UseInvitesParameters } from '@/typing/onboardingView'
 
 export function useInvites({ onAuthenticationExpired }: UseInvitesParameters) {
   const [invites, setInvites] = useState<InviteResponse[]>([])

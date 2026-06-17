@@ -3,7 +3,7 @@ import type {
   AcceptInviteRequest,
   InvitePreview,
   LoginResponse,
-} from '@/types/auth'
+} from '@/typing/auth'
 
 export async function getInvitePreview(token: string): Promise<InvitePreview> {
   const response = await fetch(`${apiBaseUrl}/api/v1/invites/${token}`)

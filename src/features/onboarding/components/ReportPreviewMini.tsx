@@ -1,6 +1,6 @@
 import { Card } from '@set-solutions-vof/design-system'
 import { translations } from '@/lib/translations'
-import type { ReportPreviewMiniProps } from '@/types/onboardingView'
+import type { ReportPreviewMiniProps } from '@/typing/onboardingView'
 
 export function ReportPreviewMini({
   companyName,

@@ -1,7 +1,7 @@
 import { TemplateFailedState } from '@/features/templates/components/TemplateFailedState'
 import { TemplateReviewState } from '@/features/templates/components/TemplateReviewState'
 import { translations } from '@/lib/translations'
-import type { Step3ReviewTemplateProps } from '@/types/onboardingView'
+import type { Step3ReviewTemplateProps } from '@/typing/onboardingView'
 
 export function Step3ReviewTemplate({
   templateConfiguration,

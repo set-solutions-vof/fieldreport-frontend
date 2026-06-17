@@ -10,7 +10,7 @@ import { getTemplateTypeMeta, templateTypeOptions } from '../lib/templateMeta'
 import type {
   TemplateTypeSelectorMenuPosition,
   TemplateTypeSelectorProps,
-} from '@/types/templateView'
+} from '@/typing/templateView'
 import { TemplateIcon } from './icons/TemplateIcon'
 import { TemplateTypePill } from './TemplateTypePill'
 

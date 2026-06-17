@@ -1,5 +1,5 @@
 import { translations } from '@/lib/translations'
-import type { RecentReportsTableProps } from '@/types/reportView'
+import type { RecentReportsTableProps } from '@/typing/reportView'
 import { ReportsTable } from './ReportsTable'
 
 export function RecentReportsTable({

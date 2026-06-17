@@ -1,6 +1,6 @@
 import { Card } from '@set-solutions-vof/design-system'
 import { translations } from '@/lib/translations'
-import type { DashboardStatsProps, StatCardProps } from '@/types/reportView'
+import type { DashboardStatsProps, StatCardProps } from '@/typing/reportView'
 
 export function DashboardStats({ reports }: DashboardStatsProps) {
   const today = new Date()

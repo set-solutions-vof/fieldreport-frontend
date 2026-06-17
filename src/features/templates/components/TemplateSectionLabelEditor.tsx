@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { Input } from '@set-solutions-vof/design-system'
-import type { TemplateSectionLabelEditorProps } from '@/types/templateView'
+import type { TemplateSectionLabelEditorProps } from '@/typing/templateView'
 import { TemplateIcon } from './icons/TemplateIcon'
 
 export function TemplateSectionLabelEditor({
   sectionId,
   label,
   readonly,
+  prominent = false,
   onLabelChange,
 }: TemplateSectionLabelEditorProps) {
   const [isEditing, setIsEditing] = useState(false)
@@ -53,7 +54,12 @@ export function TemplateSectionLabelEditor({
   return (
     <button
       type="button"
-      className="inline-flex items-center [gap:var(--fr-space-2)] self-start [padding:var(--fr-space-0)] [font:inherit] [font-size:var(--fr-text-base)] [font-weight:var(--fr-weight-medium)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-primary)] text-left cursor-pointer bg-transparent border-0 disabled:[cursor:default] focus-visible:outline-none focus-visible:[box-shadow:var(--fr-shadow-focus)]"
+      className={[
+        'inline-flex items-center [gap:var(--fr-space-2)] self-start [padding:var(--fr-space-0)] [font:inherit] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-primary)] text-left cursor-pointer bg-transparent border-0 disabled:[cursor:default] focus-visible:outline-none focus-visible:[box-shadow:var(--fr-shadow-focus)]',
+        prominent
+          ? '[font-size:var(--fr-text-xl)] [font-weight:var(--fr-weight-bold)] [letter-spacing:var(--fr-tracking-title)]'
+          : '[font-size:var(--fr-text-base)] [font-weight:var(--fr-weight-medium)]',
+      ].join(' ')}
       disabled={readonly}
       onClick={startEditing}
     >

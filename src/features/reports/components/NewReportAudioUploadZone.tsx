@@ -1,5 +1,5 @@
 import { translations } from '@/lib/translations'
-import type { NewReportAudioUploadZoneProps } from '@/types/newReportView'
+import type { NewReportAudioUploadZoneProps } from '@/typing/newReportView'
 import { FileChip } from './NewReportFileChip'
 
 export function NewReportAudioUploadZone({

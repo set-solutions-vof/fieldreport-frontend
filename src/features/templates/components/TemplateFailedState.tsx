@@ -1,7 +1,7 @@
 import { Button } from '@set-solutions-vof/design-system'
 import { PageHeader } from '@/components/PageHeader'
 import { translations } from '@/lib/translations'
-import type { TemplateFailedStateProps } from '@/types/templateView'
+import type { TemplateFailedStateProps } from '@/typing/templateView'
 import { TemplateIcon } from './icons/TemplateIcon'
 
 export function TemplateFailedState({

@@ -1,7 +1,7 @@
 import type { ChangeEvent } from 'react'
 import { Input } from '@set-solutions-vof/design-system'
 import { translations } from '@/lib/translations'
-import type { ColorPickerProps } from '@/types/onboardingView'
+import type { ColorPickerProps } from '@/typing/onboardingView'
 import { OnboardingIcon } from './icons/OnboardingIcon'
 
 export function ColorPicker({

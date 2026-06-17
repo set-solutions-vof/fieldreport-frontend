@@ -6,7 +6,7 @@ import { Step1CompanyProfile } from '../steps/Step1CompanyProfile'
 import { Step2UploadReports } from '../steps/Step2UploadReports'
 import { Step3ReviewTemplate } from '../steps/Step3ReviewTemplate'
 import { Step4InviteTeam } from '../steps/Step4InviteTeam'
-import type { OnboardingWizardPageProps } from '@/types/onboarding'
+import type { OnboardingWizardPageProps } from '@/typing/onboarding'
 
 export function OnboardingWizardPage({
   currentUser,

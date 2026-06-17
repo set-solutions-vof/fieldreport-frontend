@@ -3,7 +3,7 @@ import type {
   PhotoGridSectionEditorProps,
   PhotoGridTile,
   ReportSectionImageProps,
-} from '@/types/reportSectionView'
+} from '@/typing/reportSectionView'
 import { contentLines } from '../lib/reportSectionContent'
 import { AutoSizedTextarea } from './AutoSizedTextarea'
 import { InspectionPhoto } from './InspectionPhoto'

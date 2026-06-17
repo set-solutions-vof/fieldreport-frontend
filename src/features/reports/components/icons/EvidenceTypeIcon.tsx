@@ -1,4 +1,4 @@
-import type { EvidenceTypeIconProps } from '@/types/reportIconView'
+import type { EvidenceTypeIconProps } from '@/typing/reportIconView'
 
 export function EvidenceTypeIcon({ type, size }: EvidenceTypeIconProps) {
   if (type === 'audio') {

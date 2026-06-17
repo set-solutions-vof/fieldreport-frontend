@@ -1,4 +1,4 @@
-import type { TemplateSectionType, TemplateSectionWire } from '@/types/template'
+import type { TemplateSectionType, TemplateSectionWire } from '@/typing/template'
 
 export function templateSectionRenderType(
   section: TemplateSectionWire,

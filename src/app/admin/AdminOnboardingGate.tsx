@@ -1,7 +1,7 @@
 import { OnboardingStateScreen } from '@/features/onboarding/components/OnboardingStateScreen'
 import { OnboardingWizardPage } from '@/features/onboarding/pages/OnboardingWizardPage'
 import { useAdminOnboardingGate } from '@/features/onboarding/hooks/useAdminOnboardingGate'
-import type { AdminOnboardingGateProps } from '@/types/routes'
+import type { AdminOnboardingGateProps } from '@/typing/routes'
 import { AdminRouter } from './AdminRouter'
 
 export function AdminOnboardingGate({
@@ -37,6 +37,7 @@ export function AdminOnboardingGate({
 
   return (
     <AdminRouter
+      currentUser={currentUser}
       onAuthenticationExpired={onAuthenticationExpired}
       onLogout={onLogout}
     />

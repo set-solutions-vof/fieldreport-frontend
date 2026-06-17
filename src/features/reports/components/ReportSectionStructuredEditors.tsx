@@ -1,4 +1,4 @@
-import type { GroupedFieldsSectionEditorProps } from '@/types/reportSectionView'
+import type { GroupedFieldsSectionEditorProps } from '@/typing/reportSectionView'
 import {
   serializeStructuredFields,
   structuredFieldValues,

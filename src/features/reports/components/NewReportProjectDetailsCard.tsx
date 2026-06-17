@@ -1,6 +1,6 @@
 import { Button, Card, CardHeader, CardTitle, Input } from '@set-solutions-vof/design-system'
 import { translations } from '@/lib/translations'
-import type { NewReportProjectDetailsCardProps } from '@/types/newReportView'
+import type { NewReportProjectDetailsCardProps } from '@/typing/newReportView'
 import { DynamicMetadataForm } from './DynamicMetadataForm'
 
 export function NewReportProjectDetailsCard({

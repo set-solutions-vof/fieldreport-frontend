@@ -2,7 +2,7 @@ import { TemplateEmptyState } from '@/features/templates/components/TemplateEmpt
 import { TemplateFailedState } from '@/features/templates/components/TemplateFailedState'
 import { TemplateSkeletonGrid } from '@/features/templates/components/TemplateSkeletonGrid'
 import { TemplateUploadingState } from '@/features/templates/components/TemplateUploadingState'
-import type { Step2UploadReportsProps } from '@/types/onboardingView'
+import type { Step2UploadReportsProps } from '@/typing/onboardingView'
 
 export function Step2UploadReports({
   templateConfiguration,

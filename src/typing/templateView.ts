@@ -1,9 +1,10 @@
 import type { DragEvent, ReactNode } from 'react'
+import type { AdminPageProps } from '@/typing/routes'
 import type {
   TemplateSectionGroup,
   TemplateSection,
   TemplateSectionType,
-} from '@/types/template'
+} from '@/typing/template'
 
 export type TemplateEmptyStateProps = {
   onUploadReports: () => void
@@ -85,6 +86,51 @@ export type TemplateSectionGridProps = {
   onReorder?: (fromIndex: number, toIndex: number) => void
 }
 
+export type TemplateSectionEditorProps = TemplateSectionGridProps
+
+export type TemplateSectionSidebarProps = {
+  sections: TemplateSection[]
+  selectedSectionId: string
+  readonly?: boolean
+  draggingIndex: number | null
+  dropTarget: { index: number; position: 'before' | 'after' } | null
+  onSelectSection: (sectionId: string) => void
+  onDragStart?: (index: number) => void
+  onDragOver?: (index: number, position: 'before' | 'after') => void
+  onDrop?: () => void
+  onDragEnd?: () => void
+}
+
+export type TemplateSectionSidebarItemProps = {
+  sectionId: string
+  index: number
+  label: string
+  fieldCount: number
+  isSelected: boolean
+  readonly: boolean
+  isDragging: boolean
+  dropIndicator: 'before' | 'after' | null
+  onSelect: () => void
+  onDragStart?: (index: number) => void
+  onDragOver?: (index: number, position: 'before' | 'after') => void
+  onDrop?: () => void
+  onDragEnd?: () => void
+}
+
+export type TemplateSectionDetailProps = {
+  section: TemplateSection
+  index: number
+  readonly?: boolean
+  onLabelChange?: (sectionId: string, label: string) => void
+  onDelete?: (sectionId: string) => void
+  onRenderTypeChange?: (
+    sectionId: string,
+    renderType: TemplateSectionType,
+  ) => void
+  onFieldsChange?: (sectionId: string, fields: string[]) => void
+  onGroupsChange?: (sectionId: string, groups: TemplateSectionGroup[]) => void
+}
+
 export type TemplateSectionFieldsProps = {
   sectionId: string
   sectionLabel: string
@@ -125,8 +171,8 @@ export type TemplateSummaryStat = {
 
 export type TemplateSummaryHeaderProps = {
   title: ReactNode
-  hint: string
-  stats: TemplateSummaryStat[]
+  titleLeadingIcon?: ReactNode
+  metadata?: ReactNode
   action: ReactNode
   hasUnsavedChanges?: boolean
 }
@@ -151,6 +197,7 @@ export type TemplateSectionLabelEditorProps = {
   sectionId: string
   label: string
   readonly: boolean
+  prominent?: boolean
   onLabelChange?: (sectionId: string, label: string) => void
 }
 
@@ -180,10 +227,4 @@ export type TemplateUploadingStateProps = {
   onStartAnalysis: () => void
 }
 
-export type TemplateConfigurationPageProps = {
-  onOpenTemplate: () => void
-  onOpenTeam: () => void
-  onOpenProfile: () => void
-  onAuthenticationExpired: () => void
-  onLogout: () => void
-}
+export type TemplateConfigurationPageProps = AdminPageProps

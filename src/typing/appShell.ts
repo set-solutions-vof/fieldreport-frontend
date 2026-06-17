@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import type { CurrentUser } from '@/types/auth'
+import type { CurrentUser } from '@/typing/auth'
 
 export type AppShellNavigationItem =
   | 'dashboard'

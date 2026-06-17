@@ -5,7 +5,7 @@ import type {
   ReportSummary,
   ReportSectionUpdateResponse,
   ReportSectionUpdatePayload,
-} from '@/types/report'
+} from '@/typing/report'
 
 export async function getReports(): Promise<ReportSummary[]> {
   const response = await authenticatedFetch(`${apiBaseUrl}/api/v1/reports`)

@@ -8,8 +8,8 @@ import type {
   NewReportTextField,
   UseNewReportParameters,
   UseNewReportResult,
-} from '@/types/newReport'
-import type { MetadataField } from '@/types/template'
+} from '@/typing/newReport'
+import type { MetadataField } from '@/typing/template'
 
 const emptyForm: NewReportFormState = {
   metadata: {},

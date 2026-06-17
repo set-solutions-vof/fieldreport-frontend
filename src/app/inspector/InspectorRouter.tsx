@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useState } from 'react'
+import { AppChromeProvider } from '@/app/AppChromeProvider'
 import { AccountProfilePage } from '@/features/profile/AccountProfilePage'
 import { AllReportsPage } from '@/features/reports/pages/AllReportsPage'
 import { DashboardPage } from '@/features/reports/pages/DashboardPage'
 import { NewReportPage } from '@/features/reports/pages/NewReportPage'
 import { ReportDetailPage } from '@/features/reports/pages/ReportDetailPage'
-import type { InspectorRouterProps } from '@/types/routes'
+import { useReportList } from '@/features/reports/hooks/useReportList'
+import type { InspectorRouterProps } from '@/typing/routes'
 import {
   allReportsReportRoute,
   allReportsRoute,
@@ -16,8 +18,10 @@ import {
   profileRoute,
   reportRouteMatch,
 } from '../routes'
+import { inspectorShellChrome } from './inspectorShellChrome'
 
 export function InspectorRouter({
+  currentUser,
   onAuthenticationExpired,
   onLogout,
 }: InspectorRouterProps) {
@@ -29,6 +33,7 @@ export function InspectorRouter({
     }
     return path
   })
+  const reportList = useReportList({ onAuthenticationExpired })
 
   const navigate = useCallback((path: string): void => {
     window.history.pushState(null, '', path)
@@ -49,89 +54,102 @@ export function InspectorRouter({
     return () => window.removeEventListener('popstate', handlePopState)
   }, [])
 
-  if (currentPath === dashboardRoute) {
-    return (
-      <DashboardPage
-        onOpenReport={(reportId) => navigate(dashboardReportRoute(reportId))}
-        onOpenNewReport={() => navigate(newReportRoute)}
-        onOpenDashboard={() => navigate(dashboardRoute)}
-        onOpenReports={() => navigate(allReportsRoute)}
-        onOpenProfile={() => navigate(profileRoute)}
-        onAuthenticationExpired={onAuthenticationExpired}
-        onLogout={onLogout}
-      />
-    )
-  }
+  const onOpenDashboard = useCallback((): void => {
+    navigate(dashboardRoute)
+  }, [navigate])
 
-  if (currentPath === allReportsRoute) {
-    return (
-      <AllReportsPage
-        onOpenReport={(reportId) => navigate(allReportsReportRoute(reportId))}
-        onOpenDashboard={() => navigate(dashboardRoute)}
-        onOpenReports={() => navigate(allReportsRoute)}
-        onOpenProfile={() => navigate(profileRoute)}
-        onAuthenticationExpired={onAuthenticationExpired}
-        onLogout={onLogout}
-      />
-    )
-  }
+  const onOpenReports = useCallback((): void => {
+    navigate(allReportsRoute)
+  }, [navigate])
 
-  if (currentPath === newReportRoute) {
-    return (
-      <NewReportPage
-        onReportCreated={(reportId) =>
-          navigate(allReportsReportRoute(reportId))
-        }
-        onCancel={() => navigate(dashboardRoute)}
-        onOpenDashboard={() => navigate(dashboardRoute)}
-        onOpenReports={() => navigate(allReportsRoute)}
-        onOpenProfile={() => navigate(profileRoute)}
-        onAuthenticationExpired={onAuthenticationExpired}
-        onLogout={onLogout}
-        totalReportsCount={0}
-      />
-    )
-  }
-
-  if (currentPath === profileRoute) {
-    return (
-      <AccountProfilePage
-        onCancel={() => navigate(dashboardRoute)}
-        onOpenDashboard={() => navigate(dashboardRoute)}
-        onOpenReports={() => navigate(allReportsRoute)}
-        onOpenProfile={() => navigate(profileRoute)}
-        onAuthenticationExpired={onAuthenticationExpired}
-        onLogout={onLogout}
-      />
-    )
-  }
+  const onOpenProfile = useCallback((): void => {
+    navigate(profileRoute)
+  }, [navigate])
 
   const currentReportRoute = reportRouteMatch(currentPath)
+  const sharedPageProps = {
+    currentUser,
+    reportList,
+    onOpenDashboard,
+    onOpenReports,
+    onOpenProfile,
+    onAuthenticationExpired,
+    onLogout,
+  }
 
-  if (currentReportRoute !== null) {
-    return (
-      <ReportDetailPage
-        reportId={currentReportRoute.reportId}
-        source={currentReportRoute.source}
-        onOpenDashboard={() => navigate(dashboardRoute)}
-        onOpenReports={() => navigate(allReportsRoute)}
-        onOpenProfile={() => navigate(profileRoute)}
+  let content
+
+  if (currentPath === dashboardRoute) {
+    content = (
+      <DashboardPage
+        {...sharedPageProps}
+        onOpenReport={(reportId) => navigate(dashboardReportRoute(reportId))}
+        onOpenNewReport={() => navigate(newReportRoute)}
+      />
+    )
+  } else if (currentPath === allReportsRoute) {
+    content = (
+      <AllReportsPage
+        {...sharedPageProps}
+        onOpenReport={(reportId) => navigate(allReportsReportRoute(reportId))}
+      />
+    )
+  } else if (currentPath === newReportRoute) {
+    content = (
+      <NewReportPage
+        {...sharedPageProps}
+        onReportCreated={(reportId) => navigate(allReportsReportRoute(reportId))}
+        onCancel={onOpenDashboard}
+      />
+    )
+  } else if (currentPath === profileRoute) {
+    content = (
+      <AccountProfilePage
+        currentUser={currentUser}
+        onCancel={onOpenDashboard}
+        onOpenDashboard={onOpenDashboard}
+        onOpenReports={onOpenReports}
+        onOpenProfile={onOpenProfile}
         onAuthenticationExpired={onAuthenticationExpired}
         onLogout={onLogout}
+      />
+    )
+  } else if (currentReportRoute !== null) {
+    content = (
+      <ReportDetailPage
+        {...sharedPageProps}
+        reportId={currentReportRoute.reportId}
+        source={currentReportRoute.source}
+      />
+    )
+  } else {
+    content = (
+      <DashboardPage
+        {...sharedPageProps}
+        onOpenReport={(reportId) => navigate(dashboardReportRoute(reportId))}
+        onOpenNewReport={() => navigate(newReportRoute)}
       />
     )
   }
 
   return (
-    <DashboardPage
-      onOpenReport={(reportId) => navigate(dashboardReportRoute(reportId))}
-      onOpenNewReport={() => navigate(newReportRoute)}
-      onOpenDashboard={() => navigate(dashboardRoute)}
-      onOpenReports={() => navigate(allReportsRoute)}
-      onOpenProfile={() => navigate(profileRoute)}
-      onAuthenticationExpired={onAuthenticationExpired}
-      onLogout={onLogout}
-    />
+    <AppChromeProvider
+      key={currentPath}
+      currentUser={currentUser}
+      defaultChrome={inspectorShellChrome(currentPath, currentReportRoute, {
+        onOpenDashboard,
+        onOpenReports,
+      })}
+      navigation={{
+        totalReportsCount: reportList.reports.length,
+        onOpenDashboard,
+        onOpenReports,
+        onOpenProfile,
+        onLogout,
+      }}
+    >
+      {content}
+    </AppChromeProvider>
   )
 }
 
