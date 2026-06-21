@@ -1,4 +1,9 @@
-import { Button } from '@set-solutions-vof/design-system'
+import {
+  Button,
+  Card,
+  CardHeader,
+  CardTitle,
+} from '@set-solutions-vof/design-system'
 import { translations } from '@/lib/translations'
 import { formatTemplateOrder } from '../lib/templateFormatters'
 import { templateSectionRenderType } from '../lib/templateSection'
@@ -23,10 +28,13 @@ export function TemplateSectionDetail({
   const fields = section.fields ?? []
   const hasEditableFields =
     renderType === 'key_value_table' || renderType === 'measurement_table'
+  const renderTypeLabel = readonly
+    ? translations.template.review.render_type_label
+    : translations.template.review.change_render_type_label
 
   return (
-    <section className="flex [min-width:var(--fr-space-0)] flex-1 flex-col overflow-y-auto [padding:var(--fr-space-6)_var(--fr-space-8)]">
-      <header className="flex items-start justify-between [gap:var(--fr-space-4)] [margin-bottom:var(--fr-space-6)]">
+    <section className="flex [min-width:var(--fr-space-0)] flex-1 flex-col overflow-hidden [background:var(--fr-surface)]">
+      <header className="sticky [top:var(--fr-space-0)] z-10 flex shrink-0 items-start justify-between [gap:var(--fr-space-4)] [padding:var(--fr-space-5)] [background:var(--fr-surface)] [border-bottom:var(--fr-border-width-sm)_solid_var(--fr-border)]">
         <div className="flex flex-col [gap:var(--fr-space-2)]">
           <span className="[font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-semibold)] [line-height:var(--fr-leading-snug)] [letter-spacing:var(--fr-tracking-label)] [color:var(--fr-text-tertiary)] uppercase">
             {translations.template.review.section_label}{' '}
@@ -58,47 +66,64 @@ export function TemplateSectionDetail({
         )}
       </header>
 
-      <div className="flex flex-col [gap:var(--fr-space-5)]">
-        <div className="flex flex-col [gap:var(--fr-space-2)]">
-          <span className="[font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-semibold)] [line-height:var(--fr-leading-snug)] [letter-spacing:var(--fr-tracking-label)] [color:var(--fr-text-tertiary)] uppercase">
-            {translations.template.review.change_render_type_label}
-          </span>
-          <TemplateTypeSelector
-            type={renderType}
-            readonly={readonly}
-            ariaLabel={`${translations.template.review.change_render_type_label}: ${section.label}`}
-            onChange={(selectedRenderType) =>
-              onRenderTypeChange?.(section.id, selectedRenderType)
-            }
-          />
-        </div>
-
-        {hasEditableFields && (
-          <div className="flex flex-col [gap:var(--fr-space-3)]">
-            <span className="[font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-semibold)] [line-height:var(--fr-leading-snug)] [letter-spacing:var(--fr-tracking-label)] [color:var(--fr-text-tertiary)] uppercase">
-              {translations.template.review.fields_heading}
-            </span>
-            <TemplateSectionFields
-              sectionId={section.id}
-              sectionLabel={section.label}
-              renderType={renderType}
-              fields={fields}
-              groups={section.groups ?? null}
+      <div className="flex flex-1 flex-col overflow-y-auto [padding:var(--fr-space-5)]">
+        <div className="flex max-w-[880px] flex-col [gap:var(--fr-space-4)]">
+          <Card padding="md" className="flex flex-col [gap:var(--fr-space-3)]">
+            <label className="[font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-semibold)] [line-height:var(--fr-leading-snug)] [letter-spacing:var(--fr-tracking-label)] [color:var(--fr-text-tertiary)] uppercase">
+              {renderTypeLabel}
+            </label>
+            <TemplateTypeSelector
+              type={renderType}
               readonly={readonly}
-              visibleFieldsCount={fields.length}
-              onFieldsChange={onFieldsChange}
-              onGroupsChange={onGroupsChange}
+              ariaLabel={`${renderTypeLabel}: ${section.label}`}
+              onChange={(selectedRenderType) =>
+                onRenderTypeChange?.(section.id, selectedRenderType)
+              }
             />
-          </div>
-        )}
+          </Card>
 
-        {renderType === 'photo_grid' && <TemplateSectionPhotoHint />}
+          {hasEditableFields && (
+            <Card
+              padding="md"
+              className="flex flex-col [gap:var(--fr-space-4)]"
+            >
+              <CardHeader className="[padding:var(--fr-space-0)]">
+                <CardTitle className="flex items-center [gap:var(--fr-space-2)] [font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-semibold)] [letter-spacing:var(--fr-tracking-label)] [color:var(--fr-text-tertiary)] uppercase">
+                  <span
+                    className="inline-block [width:calc(var(--fr-space-1)_-_var(--fr-border-width-sm))] [height:var(--fr-space-3)] [border-radius:var(--fr-radius-sm)] [background:var(--fr-accent)] shrink-0"
+                    aria-hidden="true"
+                  />
+                  {translations.template.review.fields_heading}
+                </CardTitle>
+              </CardHeader>
+              <TemplateSectionFields
+                sectionId={section.id}
+                sectionLabel={section.label}
+                renderType={renderType}
+                fields={fields}
+                groups={section.groups ?? null}
+                readonly={readonly}
+                visibleFieldsCount={fields.length}
+                onFieldsChange={onFieldsChange}
+                onGroupsChange={onGroupsChange}
+              />
+            </Card>
+          )}
 
-        {renderType === 'text_block' && (
-          <p className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-sm)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-tertiary)]">
-            {translations.template.review.text_block_hint}
-          </p>
-        )}
+          {renderType === 'photo_grid' && (
+            <Card padding="md">
+              <TemplateSectionPhotoHint />
+            </Card>
+          )}
+
+          {renderType === 'text_block' && (
+            <Card padding="md">
+              <p className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-sm)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-secondary)]">
+                {translations.template.review.text_block_hint}
+              </p>
+            </Card>
+          )}
+        </div>
       </div>
     </section>
   )

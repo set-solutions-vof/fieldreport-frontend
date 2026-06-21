@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import type { ChangeEvent, FormEvent } from 'react'
 import { useAppChrome } from '@/app/useAppChrome'
-import { PageHeader } from '@/components/PageHeader'
-import { Button, Divider, Input } from '@set-solutions-vof/design-system'
+import { PageSummaryHeader } from '@/components/PageSummaryHeader'
+import { Button, Input } from '@set-solutions-vof/design-system'
 import { getUserInitials } from '@/features/reports/lib/getUserInitials'
 import {
   ApiError,
@@ -11,7 +11,7 @@ import {
 import { changePassword, updateProfile } from '@/lib/api/user'
 import { useLocale } from '@/lib/useLocale'
 import { translations, type Locale } from '@/lib/translations'
-import type { CurrentUser } from '@/typing/auth'
+import { currentUserDisplayName, type CurrentUser } from '@/typing/auth'
 
 type AccountProfilePageProps = {
   currentUser: CurrentUser
@@ -32,7 +32,8 @@ export function AccountProfilePage({
 }: AccountProfilePageProps) {
   const { locale, setLocale } = useLocale()
   const [profileUser, setProfileUser] = useState(currentUser)
-  const [name, setName] = useState(currentUser.name)
+  const [firstName, setFirstName] = useState(currentUser.first_name)
+  const [lastName, setLastName] = useState(currentUser.last_name)
   const [currentPassword, setCurrentPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [confirmedNewPassword, setConfirmedNewPassword] = useState('')
@@ -64,9 +65,10 @@ export function AccountProfilePage({
     setShowSuccessToast(false)
     setIsSaving(true)
 
-    const trimmedName = name.trim()
+    const trimmedFirstName = firstName.trim()
+    const trimmedLastName = lastName.trim()
 
-    if (!trimmedName) {
+    if (trimmedFirstName === '' || trimmedLastName === '') {
       setFormError(translations.profile.errors.name_required)
       setIsSaving(false)
       return
@@ -100,8 +102,13 @@ export function AccountProfilePage({
     const shouldChangePassword = wantsPasswordChange
 
     try {
-      const updatedUser = await updateProfile({ name: trimmedName })
+      const updatedUser = await updateProfile({
+        first_name: trimmedFirstName,
+        last_name: trimmedLastName,
+      })
       setProfileUser(updatedUser)
+      setFirstName(updatedUser.first_name)
+      setLastName(updatedUser.last_name)
 
       if (shouldChangePassword) {
         await changePassword({
@@ -141,7 +148,7 @@ export function AccountProfilePage({
   }
 
   return (
-    <main className="relative flex flex-col [gap:var(--fr-space-5)]">
+    <main className="flex-1 overflow-y-auto [padding:var(--fr-space-5)] [background:var(--fr-background)]">
       {showSuccessToast && (
         <div
           className="fixed [top:var(--fr-space-5)] [right:var(--fr-space-5)] [z-index:2] [padding:var(--fr-space-3)_var(--fr-space-4)] [color:var(--fr-status-approved-fg)] [background:var(--fr-status-approved-bg)] [border:var(--fr-border-width-sm)_solid_var(--fr-status-approved-border)] [border-radius:var(--fr-radius-lg)] [font-size:var(--fr-text-sm)] [font-weight:var(--fr-weight-medium)]"
@@ -150,36 +157,42 @@ export function AccountProfilePage({
           {translations.profile.success_toast}
         </div>
       )}
-      <PageHeader title={translations.profile.title} />
+
+      <PageSummaryHeader title={translations.profile.title} />
+
       <form
-        className="flex [width:min(100%,_calc(var(--fr-space-16)_*_3))] flex-col [gap:var(--fr-space-5)] [padding:var(--fr-space-5)] [background:var(--fr-surface)] [border:var(--fr-border-width-sm)_solid_var(--fr-border)] [border-radius:var(--fr-radius-lg)]"
+        className="mt-[var(--fr-space-4)] flex flex-col [gap:var(--fr-space-4)] [padding:var(--fr-space-5)] [background:var(--fr-surface)] [border:var(--fr-border-width-sm)_solid_var(--fr-border)] [border-radius:var(--fr-radius-lg)] [box-shadow:var(--fr-shadow-md)]"
         noValidate
         onSubmit={(event) => void handleSubmit(event)}
       >
-        <section className="grid [grid-template-columns:var(--fr-space-10)_minmax(var(--fr-space-0),_1fr)] [gap:var(--fr-space-5)] items-start">
+        <section className="grid [grid-template-columns:var(--fr-space-10)_minmax(var(--fr-space-0),_1fr)] [gap:var(--fr-space-4)] items-start">
           <span className="inline-flex [width:var(--fr-space-10)] [height:var(--fr-space-10)] items-center justify-center [border-radius:var(--fr-radius-full)] [color:var(--fr-text-on-accent)] [background:var(--fr-accent)] [font-size:var(--fr-text-xl)] [font-weight:var(--fr-weight-semibold)]">
-            {getUserInitials(profileUser.name)}
+            {getUserInitials(currentUserDisplayName(profileUser))}
           </span>
           <div className="grid [grid-template-columns:repeat(2,_minmax(var(--fr-space-0),_1fr))] [gap:var(--fr-space-4)]">
             <Input
-              fieldClassName="[grid-column:1_/_-1]"
-              label={translations.profile.name_label}
-              value={name}
-              onChange={(event) => setName(event.currentTarget.value)}
+              label={translations.profile.first_name_label}
+              value={firstName}
+              onChange={(event) => setFirstName(event.currentTarget.value)}
+            />
+            <Input
+              label={translations.profile.last_name_label}
+              value={lastName}
+              onChange={(event) => setLastName(event.currentTarget.value)}
             />
             <Input
               className="[color:var(--fr-text-disabled)] cursor-not-allowed [background:var(--fr-surface-sunken)]"
               fieldClassName="[grid-column:1_/_-1]"
               label={translations.profile.email_label}
+              helperText={translations.profile.email_helper}
               value={profileUser.email}
               readOnly
+              disabled
             />
           </div>
         </section>
 
-        <Divider spacing="lg" />
-
-        <section className="flex flex-col [gap:var(--fr-space-4)] [&_h2]:[margin:var(--fr-space-0)] [&_h2]:[font-size:var(--fr-text-lg)] [&_h2]:[font-weight:var(--fr-weight-bold)] [&_h2]:[letter-spacing:var(--fr-tracking-section)] [&_h2]:[line-height:var(--fr-leading-snug)] [&_h2]:[color:var(--fr-text-primary)]">
+        <section className="flex flex-col [gap:var(--fr-space-3)] [padding-top:var(--fr-space-4)] [border-top:var(--fr-border-width-sm)_solid_var(--fr-border)] [&_h2]:[margin:var(--fr-space-0)] [&_h2]:[font-size:var(--fr-text-lg)] [&_h2]:[font-weight:var(--fr-weight-bold)] [&_h2]:[letter-spacing:var(--fr-tracking-section)] [&_h2]:[line-height:var(--fr-leading-snug)] [&_h2]:[color:var(--fr-text-primary)]">
           <h2>{translations.profile.language_section_title}</h2>
           <label className="flex flex-col [gap:var(--fr-space-2)] [max-width:calc(var(--fr-space-16)_+_var(--fr-space-10))] [font-size:var(--fr-text-sm)] [font-weight:var(--fr-weight-medium)] [color:var(--fr-text-primary)]">
             <span>{translations.profile.language_label}</span>
@@ -198,9 +211,7 @@ export function AccountProfilePage({
           </label>
         </section>
 
-        <Divider spacing="lg" />
-
-        <section className="flex flex-col [gap:var(--fr-space-4)] [&_h2]:[margin:var(--fr-space-0)] [&_h2]:[font-size:var(--fr-text-lg)] [&_h2]:[font-weight:var(--fr-weight-bold)] [&_h2]:[letter-spacing:var(--fr-tracking-section)] [&_h2]:[line-height:var(--fr-leading-snug)] [&_h2]:[color:var(--fr-text-primary)]">
+        <section className="flex flex-col [gap:var(--fr-space-3)] [padding-top:var(--fr-space-4)] [border-top:var(--fr-border-width-sm)_solid_var(--fr-border)] [&_h2]:[margin:var(--fr-space-0)] [&_h2]:[font-size:var(--fr-text-lg)] [&_h2]:[font-weight:var(--fr-weight-bold)] [&_h2]:[letter-spacing:var(--fr-tracking-section)] [&_h2]:[line-height:var(--fr-leading-snug)] [&_h2]:[color:var(--fr-text-primary)]">
           <h2>{translations.profile.password_section_title}</h2>
           <div className="grid [grid-template-columns:repeat(2,_minmax(var(--fr-space-0),_1fr))] [gap:var(--fr-space-4)]">
             <Input
@@ -243,7 +254,7 @@ export function AccountProfilePage({
           </p>
         )}
 
-        <footer className="flex justify-end [gap:var(--fr-space-2)]">
+        <div className="flex items-center justify-end [gap:var(--fr-space-3)] [padding-top:var(--fr-space-3)] [border-top:var(--fr-border-width-sm)_solid_var(--fr-border)]">
           <Button
             type="button"
             variant="ghost"
@@ -255,7 +266,7 @@ export function AccountProfilePage({
           <Button type="submit" variant="primary" loading={isSaving}>
             {translations.profile.save_button}
           </Button>
-        </footer>
+        </div>
       </form>
     </main>
   )

@@ -1,8 +1,10 @@
 {
   "title": "Account profile",
   "my_account": "My account",
-  "name_label": "Name",
+  "first_name_label": "First name",
+  "last_name_label": "Last name",
   "email_label": "Email address",
+  "email_helper": "Email address cannot be changed.",
   "language_section_title": "Language",
   "language_label": "Display language",
   "language_options": {
@@ -17,7 +19,7 @@
   "save_button": "Save",
   "success_toast": "Profile saved",
   "errors": {
-    "name_required": "Name is required",
+    "name_required": "First name and last name are required",
     "save_failed": "Profile could not be saved",
     "current_password_incorrect": "Current password is incorrect",
     "password_too_short": "New password must be at least 8 characters",

@@ -1,0 +1,53 @@
+{
+  "navigation_label": "Home",
+  "title": "Home",
+  "greeting": "Hallo, {{name}}",
+  "summary": {
+    "team_members": "Teamleden",
+    "team_members_hint": "Actieve teamleden en openstaande uitnodigingen in je bedrijf.",
+    "total_reports": "Totaal rapporten",
+    "total_reports_hint": "Alle inspectierapporten die voor je bedrijf zijn aangemaakt."
+  },
+  "metrics": {
+    "reports_this_month": "Rapporten deze maand",
+    "awaiting_validation": "Wacht op validatie",
+    "approved": "Goedgekeurde rapporten",
+    "approval_rate": "Goedkeuringspercentage",
+    "on_context": "(OP {{date}})",
+    "average_context": "(GEMIDDELDE)"
+  },
+  "date_range": {
+    "label": "Datumbereik",
+    "custom_range": "Aangepast bereik",
+    "today": "Vandaag",
+    "yesterday": "Gisteren",
+    "last_7_days": "Afgelopen 7 dagen",
+    "last_30_days": "Afgelopen 30 dagen",
+    "month_to_date": "Deze maand tot nu toe",
+    "previous_month": "Vorige maand",
+    "next_month": "Volgende maand",
+    "weekdays": ["Z", "M", "D", "W", "D", "V", "Z"]
+  },
+  "user_filter": {
+    "aria_label": "Filter op teamlid",
+    "all_option": "Alle teamleden"
+  },
+  "performance": {
+    "overview_title": "Prestatie-overzicht",
+    "title": "Prestaties in de tijd",
+    "metric_label": "Toon",
+    "metrics": {
+      "reports": "Alle rapporten",
+      "approved": "Goedgekeurd",
+      "draft": "Wacht op validatie"
+    }
+  },
+  "tooltip": {
+    "count": "{{count}} rapporten",
+    "peak": "Piek: {{count}} op {{date}}"
+  },
+  "errors": {
+    "load_failed_title": "Home laden is mislukt",
+    "load_failed": "Dashboardstatistieken konden niet worden geladen."
+  }
+}

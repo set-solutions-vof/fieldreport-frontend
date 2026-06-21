@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Button } from '@set-solutions-vof/design-system'
+import { translations } from '@/lib/translations'
 import type { TemplateSectionGroup } from '@/typing/template'
 import type { TemplateSectionGroupsProps } from '@/typing/templateView'
 import { TemplateSectionGroupEditor } from './TemplateSectionGroupEditor'
@@ -129,7 +130,7 @@ export function TemplateSectionGroups({
           }
           onClick={addGroup}
         >
-          Groep toevoegen
+          {translations.template.review.add_group_label}
         </Button>
       )}
     </div>

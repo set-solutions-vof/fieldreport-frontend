@@ -32,6 +32,7 @@ export type InspectorPageProps = {
 
 export type AdminPageProps = {
   currentUser: CurrentUser
+  onOpenHome: () => void
   onOpenTemplate: () => void
   onOpenTeam: () => void
   onOpenProfile: () => void

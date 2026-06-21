@@ -47,12 +47,25 @@ export function ColorPicker({
             </button>
           ))}
         </div>
-        <Input
-          value={value.toUpperCase()}
-          error={errorMessage}
-          onChange={handleInputChange}
-          fieldClassName="relative [width:var(--fr-space-13)] [&::before]:absolute [&::before]:[top:50%] [&::before]:[left:var(--fr-space-3)] [&::before]:[z-index:1] [&::before]:[width:var(--fr-space-4)] [&::before]:[height:var(--fr-space-4)] [&::before]:[border-radius:var(--fr-radius-md)] [&::before]:[background:var(--fr-onboarding-company-color,_var(--fr-accent))] [&::before]:[transform:translateY(-50%)] [&::before]:pointer-events-none [&::before]:[content:''] [&_.fr-input]:[min-height:var(--fr-space-8)] [&_.fr-input]:[padding-left:calc(var(--fr-space-8)_+_var(--fr-space-1))] [&_.fr-input]:[font-size:var(--fr-text-base)] [&_.fr-input]:[font-weight:var(--fr-weight-semibold)] [&_.fr-input]:[background:var(--fr-surface)]"
-        />
+        <div className="relative shrink-0 [width:var(--fr-space-13)]">
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute [left:var(--fr-space-3)] [top:calc(var(--fr-space-8)_/_2)] [z-index:1] [width:var(--fr-space-4)] [height:var(--fr-space-4)] [border-radius:var(--fr-radius-md)] [transform:translateY(-50%)]"
+            style={{ backgroundColor: value }}
+          />
+          <Input
+            value={value.toUpperCase()}
+            error={errorMessage}
+            onChange={handleInputChange}
+            fieldClassName="[width:100%]"
+            style={{
+              minHeight: 'var(--fr-space-8)',
+              paddingLeft:
+                'calc(var(--fr-space-3) + var(--fr-space-4) + var(--fr-space-2))',
+              fontWeight: 'var(--fr-weight-semibold)',
+            }}
+          />
+        </div>
       </div>
       <span>
         {translations.onboarding.company_profile.primary_color_helper}

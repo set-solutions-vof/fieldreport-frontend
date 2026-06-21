@@ -30,7 +30,7 @@ export function ReportDetailMainView({
         id="view-report"
         role="tabpanel"
       >
-        <div className="grid [grid-template-columns:280px_minmax(var(--fr-space-0),_1fr)] [align-items:start] [gap:var(--fr-space-6)] [padding:var(--fr-space-6)_var(--fr-space-7)_var(--fr-space-10)]">
+        <div className="grid [grid-template-columns:280px_minmax(var(--fr-space-0),_1fr)] [align-items:start] [gap:var(--fr-space-6)] [padding:var(--fr-space-6)_var(--fr-space-5)_var(--fr-space-10)]">
           <ReportEvidenceRail
             activeEvidenceItemId={activeEvidenceItemId}
             filter={filter}

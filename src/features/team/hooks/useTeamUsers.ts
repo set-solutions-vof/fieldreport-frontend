@@ -1,21 +1,21 @@
 import { useCallback, useEffect, useState } from 'react'
-import { listTeamMembers } from '@/lib/api/team'
+import { listTeamUsers } from '@/lib/api/team'
 import { AuthenticationExpiredError } from '@/lib/api/authenticatedFetch'
 import { translations } from '@/lib/translations'
-import type { TeamMember } from '@/typing/team'
-import type { UseTeamMembersParameters } from '@/typing/teamView'
+import type { TeamUser } from '@/typing/team'
+import type { UseTeamUsersParameters } from '@/typing/teamView'
 
-export function useTeamMembers({
+export function useTeamUsers({
   onAuthenticationExpired,
-}: UseTeamMembersParameters) {
-  const [members, setMembers] = useState<TeamMember[]>([])
+}: UseTeamUsersParameters) {
+  const [users, setUsers] = useState<TeamUser[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
-  const fetchMembers = useCallback((): void => {
-    void listTeamMembers()
-      .then((loadedMembers) => {
-        setMembers(loadedMembers)
+  const fetchUsers = useCallback((): void => {
+    void listTeamUsers()
+      .then((loadedUsers) => {
+        setUsers(loadedUsers)
         setIsLoading(false)
       })
       .catch((error: unknown) => {
@@ -29,20 +29,21 @@ export function useTeamMembers({
       })
   }, [onAuthenticationExpired])
 
-  const retry = useCallback((): void => {
+  const loadUsers = useCallback((): void => {
     setIsLoading(true)
     setErrorMessage(null)
-    fetchMembers()
-  }, [fetchMembers])
+    fetchUsers()
+  }, [fetchUsers])
 
   useEffect(() => {
-    fetchMembers()
-  }, [fetchMembers])
+    fetchUsers()
+  }, [fetchUsers])
 
   return {
-    members,
+    users,
     isLoading,
     errorMessage,
-    retry,
+    retry: loadUsers,
+    refresh: loadUsers,
   }
 }

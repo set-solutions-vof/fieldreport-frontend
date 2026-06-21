@@ -12,7 +12,6 @@ export function useOnboardingWizardPage({
   onAuthenticationExpired,
 }: UseOnboardingWizardPageParameters) {
   const fileInputRef = useRef<HTMLInputElement>(null)
-  const shouldAdvanceAfterAnalysisRef = useRef(false)
 
   const templateConfiguration = useTemplateConfiguration({
     onAuthenticationExpired,
@@ -22,20 +21,20 @@ export function useOnboardingWizardPage({
     onAuthenticationExpired,
   })
   const wizard = useOnboardingWizard({ onCompleted, onAuthenticationExpired })
+  const { currentStep, goToNextStep } = wizard
 
   useEffect(() => {
-    if (
-      wizard.currentStep !== 2 ||
-      !shouldAdvanceAfterAnalysisRef.current ||
-      (templateConfiguration.pageState.kind !== 'preview' &&
-        templateConfiguration.pageState.kind !== 'approved')
-    ) {
+    if (currentStep !== 2) {
       return
     }
 
-    shouldAdvanceAfterAnalysisRef.current = false
-    wizard.goToNextStep()
-  }, [templateConfiguration.pageState.kind, wizard])
+    const pageKind = templateConfiguration.pageState.kind
+    if (pageKind !== 'preview' && pageKind !== 'approved') {
+      return
+    }
+
+    goToNextStep()
+  }, [currentStep, goToNextStep, templateConfiguration.pageState.kind])
 
   function openFilePicker(): void {
     fileInputRef.current?.click()
@@ -44,10 +43,7 @@ export function useOnboardingWizardPage({
   function handleSecondaryAction(): void {
     if (wizard.currentStep === 1) {
       wizard.skipToNextStep()
-      return
     }
-
-    wizard.goToPreviousStep()
   }
 
   async function handlePrimaryAction(): Promise<void> {
@@ -65,14 +61,21 @@ export function useOnboardingWizardPage({
         return
       }
 
-      const analysisStarted = await templateConfiguration.startAnalysis()
-      shouldAdvanceAfterAnalysisRef.current = analysisStarted
+      const analysisOutcome = await templateConfiguration.startAnalysis()
+      if (analysisOutcome === 'ready') {
+        wizard.goToNextStep()
+      }
       return
     }
 
     if (wizard.currentStep === 3) {
       if (templateConfiguration.pageState.kind === 'approved') {
         wizard.goToNextStep()
+        return
+      }
+
+      if (templateConfiguration.pageState.kind === 'editing') {
+        await templateConfiguration.confirmCurrentTemplate()
         return
       }
 
@@ -89,20 +92,13 @@ export function useOnboardingWizardPage({
 
   const templateReady =
     templateConfiguration.pageState.kind === 'preview' ||
-    templateConfiguration.pageState.kind === 'approved'
+    templateConfiguration.pageState.kind === 'approved' ||
+    templateConfiguration.pageState.kind === 'editing'
 
   const leftLabel =
-    wizard.currentStep === 1
-      ? translations.onboarding.footer.skip
-      : translations.onboarding.footer.back
+    wizard.currentStep === 1 ? translations.onboarding.footer.skip : null
 
-  const leftLeadingIcon =
-    wizard.currentStep === 1 ? undefined : (
-      <OnboardingIcon
-        name="chevronLeft"
-        className="[width:var(--fr-space-4)] [height:var(--fr-space-4)] [color:var(--fr-text-on-accent)] block [width:var(--fr-space-4)] [height:var(--fr-space-4)] shrink-0 [width:var(--fr-space-5)] [height:var(--fr-space-5)]"
-      />
-    )
+  const leftLeadingIcon = undefined
 
   const rightLabel = (() => {
     if (wizard.currentStep === 1) return translations.onboarding.footer.next
@@ -122,7 +118,7 @@ export function useOnboardingWizardPage({
         name="check"
         className="[width:var(--fr-space-4)] [height:var(--fr-space-4)] [color:var(--fr-text-on-accent)] block [width:var(--fr-space-4)] [height:var(--fr-space-4)] shrink-0 [width:var(--fr-space-5)] [height:var(--fr-space-5)]"
       />
-    ) : (
+    ) : wizard.currentStep === 4 ? undefined : (
       <OnboardingIcon
         name="chevronRight"
         className="[width:var(--fr-space-4)] [height:var(--fr-space-4)] [color:var(--fr-text-on-accent)] block [width:var(--fr-space-4)] [height:var(--fr-space-4)] shrink-0 [width:var(--fr-space-5)] [height:var(--fr-space-5)]"
@@ -158,6 +154,9 @@ export function useOnboardingWizardPage({
       ? wizard.completionErrorMessage
       : templateConfiguration.actionErrorMessage
 
+  const footerAlign: 'center' | 'end' =
+    wizard.currentStep === 4 ? 'center' : 'end'
+
   return {
     wizard,
     branding,
@@ -173,5 +172,6 @@ export function useOnboardingWizardPage({
     rightDisabled,
     footerHelperText,
     footerErrorMessage,
+    footerAlign,
   }
 }

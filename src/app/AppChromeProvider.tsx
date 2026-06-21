@@ -46,6 +46,7 @@ export function AppChromeProvider({
         totalReportsCount={navigation.totalReportsCount}
         onOpenDashboard={navigation.onOpenDashboard}
         onOpenReports={navigation.onOpenReports}
+        onOpenHome={navigation.onOpenHome}
         onOpenTemplate={navigation.onOpenTemplate}
         onOpenTeam={navigation.onOpenTeam}
         onOpenProfile={navigation.onOpenProfile}

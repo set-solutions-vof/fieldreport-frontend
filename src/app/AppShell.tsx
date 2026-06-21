@@ -14,6 +14,7 @@ export function AppShell({
   totalReportsCount = 0,
   onOpenDashboard,
   onOpenReports,
+  onOpenHome,
   onOpenTemplate,
   onOpenTeam,
   onOpenProfile,
@@ -29,6 +30,26 @@ export function AppShell({
           className="flex flex-1 flex-col [gap:var(--fr-space-2)] [min-height:var(--fr-space-0)] overflow-y-auto [padding:var(--fr-space-4)_var(--fr-space-3)]"
           aria-label={translations.dashboard.navigation.workspace_label}
         >
+          {onOpenHome !== undefined && (
+            <>
+              <span className="[margin-top:var(--fr-space-6)] [padding:var(--fr-space-0)_var(--fr-space-2)] [font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-semibold)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-tertiary)] [letter-spacing:var(--fr-tracking-label)] uppercase first-child:[margin-top:var(--fr-space-0)]">
+                {translations.dashboard.navigation.workspace_label}
+              </span>
+              <button
+                className={navigationItemClassName(
+                  activeNavigationItem,
+                  'dashboard',
+                )}
+                type="button"
+                onClick={onOpenHome}
+                aria-current={
+                  activeNavigationItem === 'dashboard' ? 'page' : undefined
+                }
+              >
+                {translations.admin_home.navigation_label}
+              </button>
+            </>
+          )}
           {onOpenDashboard !== undefined && (
             <>
               <span className="[margin-top:var(--fr-space-6)] [padding:var(--fr-space-0)_var(--fr-space-2)] [font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-semibold)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-tertiary)] [letter-spacing:var(--fr-tracking-label)] uppercase first-child:[margin-top:var(--fr-space-0)]">
@@ -67,11 +88,38 @@ export function AppShell({
               </button>
             </>
           )}
-          {onOpenDashboard === undefined && onOpenTemplate !== undefined && (
-            <>
-              <span className="[margin-top:var(--fr-space-6)] [padding:var(--fr-space-0)_var(--fr-space-2)] [font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-semibold)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-tertiary)] [letter-spacing:var(--fr-tracking-label)] uppercase first-child:[margin-top:var(--fr-space-0)]">
-                {translations.dashboard.navigation.workspace_label}
-              </span>
+          {onOpenDashboard === undefined &&
+            onOpenHome === undefined &&
+            onOpenTemplate !== undefined && (
+              <>
+                <span className="[margin-top:var(--fr-space-6)] [padding:var(--fr-space-0)_var(--fr-space-2)] [font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-semibold)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-tertiary)] [letter-spacing:var(--fr-tracking-label)] uppercase first-child:[margin-top:var(--fr-space-0)]">
+                  {translations.dashboard.navigation.workspace_label}
+                </span>
+                <button
+                  className={navigationItemClassName(
+                    activeNavigationItem,
+                    'template',
+                  )}
+                  type="button"
+                  onClick={onOpenTemplate}
+                  aria-current={
+                    activeNavigationItem === 'template' ? 'page' : undefined
+                  }
+                >
+                  {translations.dashboard.navigation.template}
+                </button>
+              </>
+            )}
+          {(onOpenTemplate !== undefined &&
+            (onOpenDashboard !== undefined || onOpenHome !== undefined)) ||
+          onOpenTeam !== undefined ||
+          onOpenProfile !== undefined ? (
+            <span className="[margin-top:var(--fr-space-6)] [padding:var(--fr-space-0)_var(--fr-space-2)] [font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-semibold)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-tertiary)] [letter-spacing:var(--fr-tracking-label)] uppercase first-child:[margin-top:var(--fr-space-0)]">
+              {translations.dashboard.navigation.settings_label}
+            </span>
+          ) : null}
+          {onOpenTemplate !== undefined &&
+            (onOpenDashboard !== undefined || onOpenHome !== undefined) && (
               <button
                 className={navigationItemClassName(
                   activeNavigationItem,
@@ -85,30 +133,7 @@ export function AppShell({
               >
                 {translations.dashboard.navigation.template}
               </button>
-            </>
-          )}
-          {(onOpenTemplate !== undefined && onOpenDashboard !== undefined) ||
-          onOpenTeam !== undefined ||
-          onOpenProfile !== undefined ? (
-            <span className="[margin-top:var(--fr-space-6)] [padding:var(--fr-space-0)_var(--fr-space-2)] [font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-semibold)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-tertiary)] [letter-spacing:var(--fr-tracking-label)] uppercase first-child:[margin-top:var(--fr-space-0)]">
-              {translations.dashboard.navigation.settings_label}
-            </span>
-          ) : null}
-          {onOpenTemplate !== undefined && onOpenDashboard !== undefined && (
-            <button
-              className={navigationItemClassName(
-                activeNavigationItem,
-                'template',
-              )}
-              type="button"
-              onClick={onOpenTemplate}
-              aria-current={
-                activeNavigationItem === 'template' ? 'page' : undefined
-              }
-            >
-              {translations.dashboard.navigation.template}
-            </button>
-          )}
+            )}
           {onOpenTeam !== undefined && (
             <button
               className={navigationItemClassName(activeNavigationItem, 'team')}
@@ -138,7 +163,7 @@ export function AppShell({
           onLogout={onLogout}
         />
       </aside>
-      <main className="flex [min-width:var(--fr-space-0)] flex-col [background:var(--fr-background)]">
+      <main className="flex [min-width:var(--fr-space-0)] min-h-[100dvh] flex-1 flex-col [background:var(--fr-background)]">
         <header className="flex items-center [height:var(--fr-space-10)] box-border [padding:var(--fr-space-0)_var(--fr-space-7)] [border-bottom:1px_solid_var(--fr-border)] [background:var(--fr-surface)]">
           <p className="flex items-center [gap:var(--fr-space-2)] [margin:var(--fr-space-0)] [font-size:var(--fr-text-base)] [font-weight:var(--fr-weight-medium)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-tertiary)] [&_strong]:[color:var(--fr-text-primary)]">
             <span>{currentUser.company_name}</span>
@@ -167,7 +192,7 @@ export function AppShell({
         </header>
         <div
           className={[
-            'flex flex-col [gap:var(--fr-space-7)] [padding:var(--fr-space-7)]',
+            'flex min-h-[var(--fr-space-0)] flex-1 flex-col [gap:var(--fr-space-5)] [padding:var(--fr-space-5)]',
             contentClassName,
           ]
             .filter(Boolean)

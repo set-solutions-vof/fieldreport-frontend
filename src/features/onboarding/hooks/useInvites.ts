@@ -45,16 +45,22 @@ export function useInvites({ onAuthenticationExpired }: UseInvitesParameters) {
     fetchInvites()
   }, [fetchInvites])
 
-  async function sendInvite(payload: CreateInvitePayload): Promise<void> {
+  async function sendInvite(payload: CreateInvitePayload): Promise<boolean> {
     setIsSending(true)
     setErrorMessage(null)
 
     try {
-      await createInvite(payload)
-      const loadedInvites = await listInvites()
-      setInvites(loadedInvites)
+      const createdInvite = await createInvite(payload)
+      setInvites((currentInvites) => [...currentInvites, createdInvite])
+      return true
     } catch (error) {
-      showInviteError(error, translations.onboarding.invites.send_failed)
+      if (error instanceof AuthenticationExpiredError) {
+        onAuthenticationExpired()
+        return false
+      }
+
+      setErrorMessage(translations.onboarding.invites.send_failed)
+      return false
     } finally {
       setIsSending(false)
     }

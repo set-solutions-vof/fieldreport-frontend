@@ -8,6 +8,7 @@ import { NewReportFilesCard } from '../components/NewReportFilesCard'
 import { NewReportProjectDetailsCard } from '../components/NewReportProjectDetailsCard'
 import { useActiveTemplate } from '../hooks/useActiveTemplate'
 import { useNewReport } from '../hooks/useNewReport'
+import { currentUserDisplayName } from '@/typing/auth'
 import type { NewReportPageProps } from '@/typing/newReportView'
 
 export function NewReportPage({
@@ -59,7 +60,7 @@ export function NewReportPage({
       />
       <NewReportProjectDetailsCard
         fields={template?.metadata_fields ?? []}
-        inspectorName={currentUser.name}
+        inspectorName={currentUserDisplayName(currentUser)}
         isSubmitting={isSubmitting}
         isTemplateError={isTemplateError}
         isTemplateLoading={isTemplateLoading}

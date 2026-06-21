@@ -1,11 +1,22 @@
 import { useCallback, useEffect, useState } from 'react'
 import { AppChromeProvider } from '@/app/AppChromeProvider'
+import { AdminHomePage } from '@/features/admin/pages/AdminHomePage'
 import { AccountProfilePage } from '@/features/profile/AccountProfilePage'
+import { TeamInvitePage } from '@/features/team/pages/TeamInvitePage'
 import { TeamPage } from '@/features/team/pages/TeamPage'
+import { TeamUserDetailPage } from '@/features/team/pages/TeamUserDetailPage'
 import { TemplateConfigurationPage } from '@/features/templates/pages/TemplateConfigurationPage'
 import type { AdminRouterProps } from '@/typing/routes'
 import { adminShellChrome } from './adminShellChrome'
-import { adminTeamRoute, profileRoute, templateRoute } from '../routes'
+import {
+  adminHomeRoute,
+  adminTeamInviteRoute,
+  adminTeamRoute,
+  adminTeamUserIdFromPath,
+  adminTeamUserRoute,
+  profileRoute,
+  templateRoute,
+} from '../routes'
 
 export function AdminRouter({
   currentUser,
@@ -40,6 +51,10 @@ export function AdminRouter({
     return () => window.removeEventListener('popstate', handlePopState)
   }, [])
 
+  const onOpenHome = useCallback((): void => {
+    navigate(adminHomeRoute)
+  }, [navigate])
+
   const onOpenTemplate = useCallback((): void => {
     navigate(templateRoute)
   }, [navigate])
@@ -54,6 +69,7 @@ export function AdminRouter({
 
   const sharedPageProps = {
     currentUser,
+    onOpenHome,
     onOpenTemplate,
     onOpenTeam,
     onOpenProfile,
@@ -63,22 +79,45 @@ export function AdminRouter({
 
   let content
 
-  if (currentPath === adminTeamRoute) {
-    content = <TeamPage {...sharedPageProps} />
-  } else if (currentPath === profileRoute) {
+  const teamUserId = adminTeamUserIdFromPath(currentPath)
+
+  if (teamUserId !== null) {
     content = (
-      <AccountProfilePage {...sharedPageProps} onCancel={onOpenTemplate} />
+      <TeamUserDetailPage
+        {...sharedPageProps}
+        userId={teamUserId}
+        onCancel={onOpenTeam}
+        onDeleted={onOpenTeam}
+      />
     )
-  } else {
+  } else if (currentPath === adminTeamRoute) {
+    content = (
+      <TeamPage
+        {...sharedPageProps}
+        onOpenTeamInvite={() => navigate(adminTeamInviteRoute)}
+        onOpenTeamUser={(userId) => navigate(adminTeamUserRoute(userId))}
+      />
+    )
+  } else if (currentPath === adminTeamInviteRoute) {
+    content = <TeamInvitePage {...sharedPageProps} onCancel={onOpenTeam} />
+  } else if (currentPath === profileRoute) {
+    content = <AccountProfilePage {...sharedPageProps} onCancel={onOpenHome} />
+  } else if (currentPath === templateRoute) {
     content = <TemplateConfigurationPage {...sharedPageProps} />
+  } else {
+    content = <AdminHomePage {...sharedPageProps} />
   }
 
   return (
     <AppChromeProvider
       key={currentPath}
       currentUser={currentUser}
-      defaultChrome={adminShellChrome(currentPath)}
+      defaultChrome={adminShellChrome(currentPath, {
+        onOpenHome,
+        onOpenTeam,
+      })}
       navigation={{
+        onOpenHome,
         onOpenTemplate,
         onOpenTeam,
         onOpenProfile,
@@ -91,6 +130,16 @@ export function AdminRouter({
 }
 
 function resolveAdminPath(path: string): string {
+  const teamUserId = adminTeamUserIdFromPath(path)
+
+  if (teamUserId !== null) {
+    return adminTeamUserRoute(teamUserId)
+  }
+
+  if (path === adminTeamInviteRoute) {
+    return adminTeamInviteRoute
+  }
+
   if (path === adminTeamRoute) {
     return adminTeamRoute
   }
@@ -99,5 +148,9 @@ function resolveAdminPath(path: string): string {
     return profileRoute
   }
 
-  return templateRoute
+  if (path === templateRoute) {
+    return templateRoute
+  }
+
+  return adminHomeRoute
 }

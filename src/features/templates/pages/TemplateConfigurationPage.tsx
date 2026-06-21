@@ -35,6 +35,7 @@ export function TemplateConfigurationPage({
     updateSectionFields,
     updateSectionGroups,
     deleteSection,
+    addSection,
     reorderSections,
     confirmCurrentTemplate,
     startEditingTemplate,
@@ -117,6 +118,7 @@ export function TemplateConfigurationPage({
           hasUnsavedChanges={hasUnsavedChanges}
           onLabelChange={updateSectionLabel}
           onDelete={deleteSection}
+          onAddSection={addSection}
           onRenderTypeChange={updateSectionRenderType}
           onFieldsChange={updateSectionFields}
           onGroupsChange={updateSectionGroups}
@@ -134,6 +136,7 @@ export function TemplateConfigurationPage({
           hasUnsavedChanges={hasUnsavedChanges}
           onLabelChange={updateSectionLabel}
           onDelete={deleteSection}
+          onAddSection={addSection}
           onRenderTypeChange={updateSectionRenderType}
           onFieldsChange={updateSectionFields}
           onGroupsChange={updateSectionGroups}
@@ -145,11 +148,15 @@ export function TemplateConfigurationPage({
       {pageState.kind === 'approved' && (
         <TemplateReviewState
           approved
+          showPreview
           sections={pageState.sections}
+          version={pageState.version}
+          updatedAt={pageState.updatedAt}
           actionErrorMessage={actionErrorMessage}
           isConfirming={isConfirming}
           onLabelChange={updateSectionLabel}
           onDelete={deleteSection}
+          onAddSection={addSection}
           onRenderTypeChange={updateSectionRenderType}
           onFieldsChange={updateSectionFields}
           onGroupsChange={updateSectionGroups}

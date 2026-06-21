@@ -17,6 +17,7 @@ export function TemplateEmptyState({
       />
       <div className="[max-width:calc(var(--fr-space-16)_+_var(--fr-space-12))]">
         <PageHeader
+          withBottomSpacing={false}
           title={translations.template.empty.title}
           metadata={translations.template.empty.description}
         />

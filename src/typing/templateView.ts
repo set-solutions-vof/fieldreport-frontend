@@ -31,11 +31,14 @@ export type TemplateReviewStateProps = {
   approved?: boolean
   editing?: boolean
   showPreview?: boolean
+  version?: number
+  updatedAt?: string
   actionErrorMessage: string | null
   isConfirming: boolean
   hasUnsavedChanges?: boolean
   onLabelChange: (sectionId: string, label: string) => void
   onDelete: (sectionId: string) => void
+  onAddSection?: () => string
   onRenderTypeChange: (
     sectionId: string,
     renderType: TemplateSectionType,
@@ -77,6 +80,7 @@ export type TemplateSectionGridProps = {
   isDuplicatePhotoGrid?: boolean
   onLabelChange?: (sectionId: string, label: string) => void
   onDelete?: (sectionId: string) => void
+  onAddSection?: () => string
   onRenderTypeChange?: (
     sectionId: string,
     renderType: TemplateSectionType,
@@ -95,6 +99,7 @@ export type TemplateSectionSidebarProps = {
   draggingIndex: number | null
   dropTarget: { index: number; position: 'before' | 'after' } | null
   onSelectSection: (sectionId: string) => void
+  onAddSection?: () => void
   onDragStart?: (index: number) => void
   onDragOver?: (index: number, position: 'before' | 'after') => void
   onDrop?: () => void
@@ -172,7 +177,12 @@ export type TemplateSummaryStat = {
 export type TemplateSummaryHeaderProps = {
   title: ReactNode
   titleLeadingIcon?: ReactNode
-  metadata?: ReactNode
+  sectionsCount: number
+  fieldsCount: number
+  version?: number
+  updatedAt?: string
+  hint?: string | null
+  statusLabel?: string | null
   action: ReactNode
   hasUnsavedChanges?: boolean
 }
@@ -191,6 +201,7 @@ export type TemplateTypeSelectorProps = {
 export type TemplateTypeSelectorMenuPosition = {
   top: number
   left: number
+  width: number
 }
 
 export type TemplateSectionLabelEditorProps = {

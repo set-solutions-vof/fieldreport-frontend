@@ -21,14 +21,25 @@ export type RefreshTokenResponse = {
 export type CurrentUser = {
   id: string
   name: string
+  first_name: string
+  last_name: string
   email: string
   role: 'admin' | 'inspector'
   company_id: string
   company_name: string
 }
 
+export function currentUserDisplayName(
+  user: Pick<CurrentUser, 'first_name' | 'last_name' | 'name'>,
+): string {
+  const displayName = `${user.first_name} ${user.last_name}`.trim()
+  return displayName || user.name
+}
+
 export type InvitePreview = {
   email: string
+  first_name: string
+  last_name: string
   role: 'admin' | 'inspector'
   company_name: string
 }

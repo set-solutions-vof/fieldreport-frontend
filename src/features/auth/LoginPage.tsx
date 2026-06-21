@@ -1,4 +1,5 @@
 import { Button, Input, Logo } from '@set-solutions-vof/design-system'
+import { pageTitleClassName } from '@/components/pageTitleClassName'
 import { translations } from '@/lib/translations'
 import type { LoginPageProps } from '@/typing/authView'
 import { useLoginForm } from './useLoginForm'
@@ -27,10 +28,7 @@ export function LoginPage({
           <Logo variant="accent" />
         </div>
         <div className="flex flex-col [gap:var(--fr-space-2)]">
-          <h1
-            className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-xl)] [font-weight:var(--fr-weight-semibold)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-primary)]"
-            id="login-title"
-          >
+          <h1 className={pageTitleClassName} id="login-title">
             {translations.auth.login.title}
           </h1>
           <p className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-base)] [line-height:var(--fr-leading-normal)] [color:var(--fr-text-secondary)]">

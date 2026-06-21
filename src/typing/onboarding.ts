@@ -25,7 +25,9 @@ export type InviteCreatedResponse = {
   id: string
   email: string
   role: InviteRole
+  is_accepted: boolean
   created_at: string
+  expires_at: string
 }
 
 export type InviteResponse = {

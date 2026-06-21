@@ -1,3 +1,4 @@
+import { Button } from '@set-solutions-vof/design-system'
 import { translations } from '@/lib/translations'
 import { formatTemplateOrder } from '../lib/templateFormatters'
 import { getTemplateSectionFieldCount } from '../lib/templateSectionFieldCount'
@@ -16,6 +17,7 @@ export function TemplateSectionSidebar({
   draggingIndex,
   dropTarget,
   onSelectSection,
+  onAddSection,
   onDragStart,
   onDragOver,
   onDrop,
@@ -23,14 +25,17 @@ export function TemplateSectionSidebar({
 }: TemplateSectionSidebarProps) {
   return (
     <aside
-      className={`flex shrink-0 flex-col [border-right:var(--fr-border-width-sm)_solid_var(--fr-border)] [background:var(--fr-surface)] ${templateSidebarWidthClass}`}
+      className={`flex shrink-0 flex-col [border-right:var(--fr-border-width-sm)_solid_var(--fr-border)] [background:var(--fr-surface-sunken)] ${templateSidebarWidthClass}`}
     >
-      <div className="flex items-center justify-between [padding:var(--fr-space-5)_var(--fr-space-5)_var(--fr-space-4)]">
+      <div className="flex items-center justify-between [padding:var(--fr-space-4)_var(--fr-space-5)_var(--fr-space-3)]">
         <span className="[font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-semibold)] [line-height:var(--fr-leading-snug)] [letter-spacing:var(--fr-tracking-label)] [color:var(--fr-text-tertiary)] uppercase">
           {translations.template.review.sections_heading}
         </span>
+        <span className="[font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-medium)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-tertiary)] [font-variant-numeric:tabular-nums]">
+          {sections.length}
+        </span>
       </div>
-      <ol className="flex flex-1 flex-col [gap:var(--fr-space-1)] overflow-y-auto [margin:var(--fr-space-0)] [padding:var(--fr-space-0)_var(--fr-space-3)_var(--fr-space-4)] [list-style:none]">
+      <ol className="flex flex-1 flex-col [gap:var(--fr-space-1)] overflow-y-auto [margin:var(--fr-space-0)] [padding:var(--fr-space-0)_var(--fr-space-3)_var(--fr-space-3)] [list-style:none]">
         {sections.map((section, index) => (
           <TemplateSectionSidebarItem
             key={section.id}
@@ -52,6 +57,24 @@ export function TemplateSectionSidebar({
           />
         ))}
       </ol>
+      {!readonly && onAddSection && (
+        <div className="shrink-0 [padding:var(--fr-space-0)_var(--fr-space-3)_var(--fr-space-3)]">
+          <Button
+            size="sm"
+            variant="secondary"
+            className="[width:100%]"
+            leadingIcon={
+              <TemplateIcon
+                name="plus"
+                className="block [width:var(--fr-space-4)] [height:var(--fr-space-4)] [stroke-width:1.6]"
+              />
+            }
+            onClick={onAddSection}
+          >
+            {translations.template.review.add_section_label}
+          </Button>
+        </div>
+      )}
     </aside>
   )
 }
@@ -110,10 +133,10 @@ function TemplateSectionSidebarItem({
         type="button"
         draggable={draggable}
         className={[
-          'flex [width:100%] items-center [gap:var(--fr-space-2)] [padding:var(--fr-space-3)] text-left cursor-pointer border-0 [border-radius:var(--fr-radius-md)] [font:inherit] [transition:var(--fr-transition-fast)]',
+          'flex [width:100%] items-start [gap:var(--fr-space-2)] [padding:var(--fr-space-2)_var(--fr-space-3)] text-left cursor-pointer border-0 [border-radius:var(--fr-radius-md)] [font:inherit] [transition:var(--fr-transition-fast)]',
           isSelected
-            ? '[background:var(--fr-accent-soft)] [color:var(--fr-text-primary)]'
-            : '[background:transparent] [color:var(--fr-text-secondary)] hover:[background:var(--fr-surface-hover)]',
+            ? '[background:var(--fr-surface)] [box-shadow:inset_3px_0_0_0_var(--fr-accent),var(--fr-shadow-sm)] [color:var(--fr-text-primary)]'
+            : '[background:transparent] [color:var(--fr-text-secondary)] hover:[background:color-mix(in_oklch,_var(--fr-surface)_72%,_transparent)]',
           draggable && 'cursor-grab',
           isDragging && 'cursor-grabbing [opacity:0.65]',
         ]
@@ -129,27 +152,25 @@ function TemplateSectionSidebarItem({
         <TemplateIcon
           name="grip"
           className={[
-            'shrink-0 [width:var(--fr-space-4)] [height:var(--fr-space-4)] [color:var(--fr-text-tertiary)]',
+            'shrink-0 [width:var(--fr-space-4)] [height:var(--fr-space-4)] [margin-top:calc(var(--fr-space-1)_/_4)] [color:var(--fr-text-tertiary)]',
             readonly && '[opacity:0]',
           ]
             .filter(Boolean)
             .join(' ')}
         />
-        <span className="shrink-0 [font-size:var(--fr-text-sm)] [font-weight:var(--fr-weight-medium)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-tertiary)] [font-variant-numeric:tabular-nums]">
+        <span className="shrink-0 [font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-semibold)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-tertiary)] [font-variant-numeric:tabular-nums]">
           {formatTemplateOrder(index)}
         </span>
-        <span className="[min-width:var(--fr-space-0)] flex-1 [font-size:var(--fr-text-sm)] [font-weight:var(--fr-weight-medium)] [line-height:var(--fr-leading-snug)]">
-          {label}
-        </span>
-        {fieldCount > 0 && (
-          <span className="shrink-0 [font-size:var(--fr-text-xs)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-tertiary)]">
-            {fieldCountLabel}
+        <span className="flex [min-width:var(--fr-space-0)] flex-1 flex-col [gap:calc(var(--fr-space-1)_/_2)]">
+          <span className="[font-size:var(--fr-text-sm)] [font-weight:var(--fr-weight-medium)] [line-height:var(--fr-leading-snug)]">
+            {label}
           </span>
-        )}
-        <TemplateIcon
-          name="chevronRight"
-          className="shrink-0 [width:var(--fr-space-3)] [height:var(--fr-space-3)] [color:var(--fr-text-tertiary)]"
-        />
+          {fieldCount > 0 ? (
+            <span className="[font-size:var(--fr-text-xs)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-tertiary)]">
+              {fieldCountLabel}
+            </span>
+          ) : null}
+        </span>
       </button>
     </li>
   )

@@ -13,7 +13,7 @@ export function ReportDetailTabs({
   onActiveTabChange,
 }: ReportDetailTabsProps) {
   return (
-    <div className="[padding:var(--fr-space-0)_var(--fr-space-7)] [border-bottom:1px_solid_var(--fr-border)] [background:var(--fr-background)]">
+    <div className="[padding:var(--fr-space-0)_var(--fr-space-5)] [border-bottom:1px_solid_var(--fr-border)] [background:var(--fr-background)]">
       <div className="flex items-end [gap:var(--fr-space-1)]" role="tablist">
         <TabButton
           active={activeTab === 'report'}

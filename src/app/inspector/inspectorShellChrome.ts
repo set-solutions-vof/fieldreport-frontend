@@ -52,6 +52,7 @@ export function inspectorShellChrome(
     return {
       activeNavigationItem: 'profile',
       breadcrumbItems: [{ label: translations.dashboard.navigation.profile }],
+      contentClassName: '[gap:var(--fr-space-0)] [padding:var(--fr-space-0)]',
     }
   }
 

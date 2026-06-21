@@ -7,6 +7,7 @@ import type {
 } from '@/typing/template'
 import { pageStateFromTemplateStatus } from '../lib/pageStateFromTemplateStatus'
 import {
+  addPreviewSection,
   deletePreviewSection,
   reorderPreviewSections,
   updatePreviewSectionFields,
@@ -73,22 +74,33 @@ export function useTemplateConfiguration({
     setPageState({ kind: 'empty' })
   }
 
-  async function startAnalysis(): Promise<boolean> {
+  async function startAnalysis(): Promise<'processing' | 'ready' | 'failed'> {
     const uploadingState = pageState as TemplateUploadingPageState
     setActionErrorMessage(null)
 
     try {
       const templateStatus = await startTemplateAnalysis(uploadingState.files)
-      setPageState(
-        pageStateFromTemplateStatus(templateStatus, uploadingState.files),
+      const nextState = pageStateFromTemplateStatus(
+        templateStatus,
+        uploadingState.files,
       )
-      return true
+      setPageState(nextState)
+
+      if (nextState.kind === 'preview' || nextState.kind === 'approved') {
+        return 'ready'
+      }
+
+      if (nextState.kind === 'processing') {
+        return 'processing'
+      }
+
+      return 'failed'
     } catch (error) {
       showAuthenticationOrError(
         error,
         translations.template.errors.analysis_failed,
       )
-      return false
+      return 'failed'
     }
   }
 
@@ -133,6 +145,19 @@ export function useTemplateConfiguration({
     )
   }
 
+  function addSection(): string {
+    const sectionId = crypto.randomUUID()
+    markTemplateChanged()
+    setPageState((currentState) =>
+      addPreviewSection(
+        currentState,
+        sectionId,
+        translations.template.review.new_section_label,
+      ),
+    )
+    return sectionId
+  }
+
   function reorderSections(fromIndex: number, toIndex: number): void {
     markTemplateChanged()
     setPageState((currentState) =>
@@ -164,6 +189,8 @@ export function useTemplateConfiguration({
       metadataFields: pageState.metadataFields,
       sections: pageState.sections,
       reportsCount: pageState.reportsCount,
+      version: pageState.version,
+      updatedAt: pageState.updatedAt,
     })
   }
 
@@ -228,6 +255,7 @@ export function useTemplateConfiguration({
     updateSectionFields,
     updateSectionGroups,
     deleteSection,
+    addSection,
     reorderSections,
     confirmCurrentTemplate,
     startEditingTemplate,

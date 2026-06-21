@@ -1,8 +1,10 @@
 {
   "title": "Account profiel",
   "my_account": "Mijn account",
-  "name_label": "Naam",
+  "first_name_label": "Voornaam",
+  "last_name_label": "Achternaam",
   "email_label": "E-mailadres",
+  "email_helper": "E-mailadres kan niet worden gewijzigd.",
   "language_section_title": "Taal",
   "language_label": "Weergavetaal",
   "language_options": {
@@ -17,7 +19,7 @@
   "save_button": "Opslaan",
   "success_toast": "Profiel opgeslagen",
   "errors": {
-    "name_required": "Naam is verplicht",
+    "name_required": "Voornaam en achternaam zijn verplicht",
     "save_failed": "Profiel kon niet worden opgeslagen",
     "current_password_incorrect": "Huidig wachtwoord is onjuist",
     "password_too_short": "Nieuw wachtwoord moet minimaal 8 tekens zijn",

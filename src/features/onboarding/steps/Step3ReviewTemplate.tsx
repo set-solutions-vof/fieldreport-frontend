@@ -18,48 +18,55 @@ export function Step3ReviewTemplate({
     deleteSection,
     reorderSections,
     confirmCurrentTemplate,
+    startEditingTemplate,
+    cancelEditing,
     resetAfterFailure,
   } = templateConfiguration
 
   if (pageState.kind === 'failed') {
     return (
-      <section className="flex [min-height:100%] [width:min(100%,_calc(var(--fr-space-16)_*_5))] box-border flex-col [gap:var(--fr-space-6)] [padding:var(--fr-space-8)_var(--fr-space-7)] w-full [padding:var(--fr-space-0)]">
+      <div className="flex flex-1 items-center justify-center [padding:var(--fr-space-6)]">
         <TemplateFailedState
           errorMessage={pageState.errorMessage}
           onTryAgain={resetAfterFailure}
         />
-      </section>
+      </div>
     )
   }
 
-  if (pageState.kind !== 'preview' && pageState.kind !== 'approved') {
+  if (
+    pageState.kind !== 'preview' &&
+    pageState.kind !== 'approved' &&
+    pageState.kind !== 'editing'
+  ) {
     return (
-      <section className="flex [min-height:100%] [width:min(100%,_calc(var(--fr-space-16)_*_5))] box-border flex-col [gap:var(--fr-space-6)] [padding:var(--fr-space-8)_var(--fr-space-7)] w-full [padding:var(--fr-space-0)]">
+      <div className="flex flex-1 items-center justify-center [padding:var(--fr-space-6)]">
         <TemplateFailedState
           errorMessage={translations.onboarding.template_review.missing_reports}
           onTryAgain={resetAfterFailure}
         />
-      </section>
+      </div>
     )
   }
 
   return (
-    <section className="flex [min-height:100%] [width:min(100%,_calc(var(--fr-space-16)_*_5))] box-border flex-col [gap:var(--fr-space-6)] [padding:var(--fr-space-8)_var(--fr-space-7)] w-full [padding:var(--fr-space-0)]">
-      <TemplateReviewState
-        showPreview
-        approved={pageState.kind === 'approved'}
-        sections={pageState.sections}
-        actionErrorMessage={actionErrorMessage}
-        isConfirming={isConfirming}
-        hasUnsavedChanges={hasUnsavedChanges}
-        onLabelChange={updateSectionLabel}
-        onDelete={deleteSection}
-        onRenderTypeChange={updateSectionRenderType}
-        onFieldsChange={updateSectionFields}
-        onGroupsChange={updateSectionGroups}
-        onReorder={reorderSections}
-        onConfirm={() => void confirmCurrentTemplate()}
-      />
-    </section>
+    <TemplateReviewState
+      showPreview
+      approved={pageState.kind === 'approved'}
+      editing={pageState.kind === 'editing'}
+      sections={pageState.sections}
+      actionErrorMessage={actionErrorMessage}
+      isConfirming={isConfirming}
+      hasUnsavedChanges={hasUnsavedChanges}
+      onLabelChange={updateSectionLabel}
+      onDelete={deleteSection}
+      onRenderTypeChange={updateSectionRenderType}
+      onFieldsChange={updateSectionFields}
+      onGroupsChange={updateSectionGroups}
+      onReorder={reorderSections}
+      onConfirm={() => void confirmCurrentTemplate()}
+      onEdit={startEditingTemplate}
+      onCancel={cancelEditing}
+    />
   )
 }

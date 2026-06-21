@@ -45,7 +45,7 @@ export function ReportSection({
     <section
       id={`sec-${section.id}`}
       className={[
-        '[padding:var(--fr-space-5)_var(--fr-space-0)] [border-bottom:1px_solid_var(--fr-border)] [scroll-margin-top:var(--fr-space-7)] last-child:[border-bottom:0]',
+        '[padding:var(--fr-space-5)_var(--fr-space-0)] [border-bottom:1px_solid_var(--fr-border)] [scroll-margin-top:var(--fr-space-5)] last-child:[border-bottom:0]',
         active &&
           '[background:linear-gradient(_90deg,_color-mix(in_oklch,_var(--fr-accent-subtle)_60%,_transparent),_transparent_28%_)]',
       ]

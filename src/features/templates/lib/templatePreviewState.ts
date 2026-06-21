@@ -86,6 +86,23 @@ export function deletePreviewSection(
   )
 }
 
+export function addPreviewSection(
+  currentState: TemplatePageState,
+  sectionId: string,
+  label: string,
+): TemplatePageState {
+  return updatePreviewSections(currentState, (sections) => [
+    ...sections,
+    {
+      id: sectionId,
+      label,
+      order: sections.length,
+      render_type: 'text_block',
+      fields: null,
+    },
+  ])
+}
+
 export function reorderPreviewSections(
   currentState: TemplatePageState,
   fromIndex: number,

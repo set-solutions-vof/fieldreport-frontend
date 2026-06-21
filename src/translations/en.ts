@@ -7,6 +7,7 @@ import team from './en/team.json'
 import reports from './en/reports.json'
 import reportDetail from './en/report_detail.json'
 import profile from './en/profile.json'
+import adminHome from './en/admin_home.json'
 
 export default {
   auth,
@@ -18,4 +19,5 @@ export default {
   reports,
   report_detail: reportDetail,
   profile,
+  admin_home: adminHome,
 }

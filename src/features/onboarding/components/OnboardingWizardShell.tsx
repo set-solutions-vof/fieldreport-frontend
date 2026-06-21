@@ -1,10 +1,13 @@
 import { Button, Logo } from '@set-solutions-vof/design-system'
-import { PageHeader } from '@/components/PageHeader'
+import { pageTitleClassName } from '@/components/pageTitleClassName'
 import { translations } from '@/lib/translations'
 import type { OnboardingWizardShellProps } from '@/typing/onboardingView'
 import { OnboardingFooter } from './OnboardingFooter'
 import { OnboardingIcon } from './icons/OnboardingIcon'
 import { OnboardingStepper } from './OnboardingStepper'
+
+const welcomeContentWidthClass =
+  '[width:min(100%,calc(var(--fr-space-16)_*_3))]'
 
 export function OnboardingWizardShell({
   currentStep,
@@ -20,7 +23,7 @@ export function OnboardingWizardShell({
 }: OnboardingWizardShellProps) {
   return (
     <main
-      className="min-h-[100dvh] [background:var(--fr-background)] grid [grid-template-rows:auto_minmax(var(--fr-space-0),_1fr)_auto]"
+      className="h-[100dvh] overflow-hidden [background:var(--fr-background)] grid [grid-template-rows:auto_minmax(var(--fr-space-0),_1fr)_auto]"
       onDrop={onDrop}
       onDragOver={onDragOver}
     >
@@ -45,43 +48,50 @@ export function OnboardingWizardShell({
           {translations.auth.logout_button}
         </Button>
       </header>
-      <div className="flex justify-center [min-width:var(--fr-space-0)] [min-height:var(--fr-space-0)] [overflow:auto]">
+      <div
+        className={[
+          'flex [min-width:var(--fr-space-0)] [min-height:var(--fr-space-0)] flex-1',
+          currentStep === 3
+            ? 'flex-col overflow-hidden'
+            : 'flex-col items-center justify-center overflow-auto',
+        ].join(' ')}
+      >
         {children}
       </div>
-      <OnboardingFooter {...footer} />
+      {!showWelcomeOverlay && <OnboardingFooter {...footer} />}
       {showWelcomeOverlay && (
         <div
-          className="fixed [inset:var(--fr-space-0)] flex items-center justify-center [padding:var(--fr-space-6)] [background:color-mix(in_oklch,_var(--fr-background)_64%,_transparent)] [backdrop-filter:blur(var(--fr-space-3))]"
-          onClick={onFinishWelcome}
-          role="presentation"
+          className="fixed [inset:var(--fr-space-0)] z-20 flex items-center justify-center [padding:var(--fr-space-7)] [background:color-mix(in_oklch,_var(--fr-background)_64%,_transparent)] [backdrop-filter:blur(var(--fr-space-3))]"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="onboarding-welcome-title"
         >
-          <span className="flex [width:min(100%,_calc(var(--fr-space-16)_+_var(--fr-space-12)))] flex-col items-center [gap:var(--fr-space-3)] [padding:var(--fr-space-0)] text-center">
+          <section
+            className={`box-border flex flex-col items-center [gap:var(--fr-space-6)] text-center ${welcomeContentWidthClass}`}
+          >
             <span
-              className="[color:var(--fr-status-approved-fg)] [background:var(--fr-status-approved-bg)] [border:var(--fr-border-width-sm)_solid_var(--fr-status-approved-border)] inline-flex items-center justify-center [width:var(--fr-space-8)] [height:var(--fr-space-8)] [margin-bottom:var(--fr-space-2)] [border-radius:var(--fr-radius-lg)] [color:var(--fr-text-on-accent)] [background:var(--fr-accent)] [border:var(--fr-border-width-sm)_solid_var(--fr-accent)] [box-shadow:var(--fr-shadow-lg)]"
+              className="inline-flex items-center justify-center [width:var(--fr-space-9)] [height:var(--fr-space-9)] [border-radius:var(--fr-radius-lg)] [color:var(--fr-status-approved-fg)] [background:var(--fr-status-approved-bg)] [border:var(--fr-border-width-sm)_solid_var(--fr-status-approved-border)]"
               aria-hidden="true"
             >
               <OnboardingIcon
                 name="check"
-                className="[width:var(--fr-space-5)] [height:var(--fr-space-5)] [stroke-width:2.25] block [width:var(--fr-space-4)] [height:var(--fr-space-4)] shrink-0 [width:var(--fr-space-5)] [height:var(--fr-space-5)]"
+                className="block [width:var(--fr-space-5)] [height:var(--fr-space-5)] [stroke-width:2.25]"
               />
             </span>
-            <div className="[max-width:calc(var(--fr-space-16)_+_var(--fr-space-10))]">
-              <PageHeader
-                title={translations.onboarding.welcome.title}
-                metadata={translations.onboarding.welcome.subtitle}
-              />
-            </div>
-            <Button
-              type="button"
-              variant="secondary"
-              onClick={(event) => {
-                event.stopPropagation()
-                onFinishWelcome()
-              }}
+            <div
+              className={`flex flex-col items-center [gap:var(--fr-space-3)] ${welcomeContentWidthClass}`}
             >
+              <h1 id="onboarding-welcome-title" className={pageTitleClassName}>
+                {translations.onboarding.welcome.title}
+              </h1>
+              <p className="[margin:var(--fr-space-0)] [max-width:calc(var(--fr-space-16)_+_var(--fr-space-12))] [font-size:var(--fr-text-sm)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-secondary)]">
+                {translations.onboarding.welcome.subtitle}
+              </p>
+            </div>
+            <Button type="button" variant="primary" onClick={onFinishWelcome}>
               {translations.onboarding.welcome.button}
             </Button>
-          </span>
+          </section>
         </div>
       )}
     </main>

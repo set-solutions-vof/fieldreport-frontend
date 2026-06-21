@@ -9,7 +9,7 @@ import type {
 import type { UseTemplateConfigurationResult } from '@/typing/templateConfiguration'
 
 export type OnboardingFooterProps = {
-  leftLabel: string
+  leftLabel?: string | null
   rightLabel: string
   leftLeadingIcon?: ReactNode
   rightTrailingIcon?: ReactNode
@@ -17,7 +17,8 @@ export type OnboardingFooterProps = {
   rightLoading?: boolean
   helperText?: string | null
   errorMessage?: string | null
-  onLeftClick: () => void
+  align?: 'end' | 'center'
+  onLeftClick?: () => void
   onRightClick: () => void
 }
 

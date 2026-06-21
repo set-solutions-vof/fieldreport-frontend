@@ -2,10 +2,52 @@
   "navigation_label": "Your team",
   "title": "Your team",
   "description": "Invite colleagues as administrator or inspector.",
-  "members_title": "Team members",
-  "members_empty": "There are no team members yet.",
-  "pending_title": "Pending invitations",
-  "empty": "No invitations have been sent yet.",
+  "members_stat": "team members",
+  "pending_stat": "pending invitations",
+  "empty": "There are no users yet.",
+  "never_signed_in": "Has never signed in",
+  "invite_button": "Invite user",
+  "search_placeholder": "Search by name or email",
+  "results_count": "{{count}} results",
+  "invite_page": {
+    "title": "Invite user",
+    "details_title": "User details",
+    "first_name_placeholder": "First name",
+    "last_name_placeholder": "Last name",
+    "email_placeholder": "Enter user email",
+    "role_title": "Role",
+    "role_description": "Select what this user can do in FieldReport.",
+    "roles": {
+      "inspector_description": "Can validate and approve assigned reports.",
+      "admin_description": "Can manage template, team, and company settings."
+    },
+    "submit_button": "Send invitation",
+    "cancel_button": "Cancel"
+  },
+  "user_detail": {
+    "title": "User",
+    "first_name_label": "First name",
+    "last_name_label": "Last name",
+    "save_button": "Save changes",
+    "delete_button": "Delete user",
+    "success_toast": "User updated",
+    "load_failed": "User could not be loaded.",
+    "save_failed": "Changes could not be saved.",
+    "delete_failed": "User could not be deleted.",
+    "cannot_delete_self": "You cannot delete your own account.",
+    "name_required": "First name and last name are required."
+  },
+  "table": {
+    "name": "Name",
+    "email": "Email",
+    "role": "Role",
+    "status": "Status",
+    "last_sign_in": "Last sign in"
+  },
+  "status": {
+    "active": "Active",
+    "invited": "Inactive"
+  },
   "errors": {
     "load_failed_title": "Failed to load team",
     "load_failed": "Team members could not be loaded."

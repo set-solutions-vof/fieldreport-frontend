@@ -35,19 +35,24 @@ export function OnboardingStepper({ currentStep }: OnboardingStepperProps) {
           >
             <span
               className={[
-                'static [width:var(--fr-space-11)] [height:var(--fr-border-width-sm)] shrink-0 [margin-top:var(--fr-space-3)] [background:var(--fr-border-strong)]',
+                'static [width:var(--fr-space-11)] [height:var(--fr-border-width-sm)] shrink-0 [margin-top:var(--fr-space-3)]',
                 stepItem.step === 1 && 'hidden',
-                hasCompletedConnector && '[background:var(--fr-accent)]',
+                hasCompletedConnector
+                  ? '[background:var(--fr-status-approved-fg)]'
+                  : '[background:var(--fr-border-strong)]',
               ]
                 .filter(Boolean)
                 .join(' ')}
             />
             <span
               className={[
-                'inline-flex items-center justify-center [width:var(--fr-space-6)] [height:var(--fr-space-6)] shrink-0 [border-radius:var(--fr-radius-full)] [font-size:var(--fr-text-sm)] [font-weight:var(--fr-weight-semibold)] [color:var(--fr-text-tertiary)] [background:var(--fr-surface-sunken)] [border:var(--fr-border-width-sm)_solid_var(--fr-border-strong)]',
-                status !== 'inactive' &&
-                  '[color:var(--fr-text-on-accent)] [background:var(--fr-accent)] [border-color:var(--fr-accent)]',
-                status === 'active' && '[box-shadow:var(--fr-shadow-focus)]',
+                'inline-flex items-center justify-center [width:var(--fr-space-6)] [height:var(--fr-space-6)] shrink-0 [border-radius:var(--fr-radius-full)] [font-size:var(--fr-text-sm)] [font-weight:var(--fr-weight-semibold)]',
+                status === 'inactive' &&
+                  '[color:var(--fr-text-tertiary)] [background:var(--fr-surface-sunken)] [border:var(--fr-border-width-sm)_solid_var(--fr-border-strong)]',
+                status === 'active' &&
+                  '[color:var(--fr-text-on-accent)] [background:var(--fr-accent)] [border:var(--fr-border-width-sm)_solid_var(--fr-accent)] [box-shadow:var(--fr-shadow-focus)]',
+                status === 'completed' &&
+                  '[color:var(--fr-status-approved-fg)] [background:var(--fr-status-approved-bg)] [border:var(--fr-border-width-sm)_solid_var(--fr-status-approved-border)]',
               ]
                 .filter(Boolean)
                 .join(' ')}
@@ -63,10 +68,13 @@ export function OnboardingStepper({ currentStep }: OnboardingStepperProps) {
             </span>
             <span
               className={[
-                'flex [min-width:var(--fr-space-0)] [min-height:var(--fr-space-6)] flex-col [gap:var(--fr-space-1)] justify-center [font-size:var(--fr-text-base)] [font-weight:var(--fr-weight-medium)] [line-height:var(--fr-leading-snug)] [color:var(--fr-text-tertiary)]',
+                'flex [min-width:var(--fr-space-0)] [min-height:var(--fr-space-6)] flex-col [gap:var(--fr-space-1)] justify-center [font-size:var(--fr-text-base)] [line-height:var(--fr-leading-snug)]',
+                status === 'inactive' &&
+                  '[font-weight:var(--fr-weight-medium)] [color:var(--fr-text-tertiary)]',
                 status === 'active' &&
                   '[font-weight:var(--fr-weight-semibold)] [color:var(--fr-text-primary)]',
-                status === 'completed' && '[color:var(--fr-text-secondary)]',
+                status === 'completed' &&
+                  '[font-weight:var(--fr-weight-medium)] [color:var(--fr-text-secondary)]',
               ]
                 .filter(Boolean)
                 .join(' ')}

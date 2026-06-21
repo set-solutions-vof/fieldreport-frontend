@@ -27,7 +27,7 @@ export function ReportTranscriptView({
       id="view-transcript"
       role="tabpanel"
     >
-      <div className="grid [gap:var(--fr-space-4)] [padding:var(--fr-space-6)_var(--fr-space-7)_var(--fr-space-10)]">
+      <div className="grid [gap:var(--fr-space-4)] [padding:var(--fr-space-6)_var(--fr-space-5)_var(--fr-space-10)]">
         {segments.length === 0 ? (
           <Card padding="md">
             <p className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-base)] [line-height:var(--fr-leading-normal)] [color:var(--fr-text-secondary)]">

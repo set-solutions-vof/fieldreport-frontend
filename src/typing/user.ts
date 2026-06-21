@@ -1,5 +1,6 @@
 export type UpdateProfileRequest = {
-  name: string
+  first_name: string
+  last_name: string
 }
 
 export type ChangePasswordRequest = {

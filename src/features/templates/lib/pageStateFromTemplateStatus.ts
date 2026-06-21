@@ -41,5 +41,7 @@ export function pageStateFromTemplateStatus(
     metadataFields: templateStatus.metadata_fields,
     sections: templateStatus.sections,
     reportsCount: templateStatus.source_reports_count,
+    version: templateStatus.version,
+    updatedAt: templateStatus.updated_at,
   }
 }

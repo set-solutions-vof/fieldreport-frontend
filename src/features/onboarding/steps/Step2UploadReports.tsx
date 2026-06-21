@@ -19,9 +19,7 @@ export function Step2UploadReports({
 
   return (
     <section className="flex [min-height:100%] [width:min(100%,_calc(var(--fr-space-16)_*_5))] box-border flex-col [gap:var(--fr-space-6)] [padding:var(--fr-space-8)_var(--fr-space-7)] w-full [max-width:none] [padding:var(--fr-space-0)]">
-      {(pageState.kind === 'empty' ||
-        pageState.kind === 'preview' ||
-        pageState.kind === 'approved') && (
+      {pageState.kind === 'empty' && (
         <TemplateEmptyState onUploadReports={onOpenFilePicker} />
       )}
       {pageState.kind === 'uploading' && (
@@ -35,6 +33,9 @@ export function Step2UploadReports({
         />
       )}
       {pageState.kind === 'processing' && <TemplateSkeletonGrid />}
+      {(pageState.kind === 'preview' || pageState.kind === 'approved') && (
+        <TemplateSkeletonGrid />
+      )}
       {pageState.kind === 'failed' && (
         <TemplateFailedState
           errorMessage={pageState.errorMessage}

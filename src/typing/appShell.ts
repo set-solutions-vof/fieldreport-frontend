@@ -22,6 +22,7 @@ export type AppShellProps = {
   totalReportsCount?: number
   onOpenDashboard?: () => void
   onOpenReports?: () => void
+  onOpenHome?: () => void
   onOpenTemplate?: () => void
   onOpenTeam?: () => void
   onOpenProfile: () => void

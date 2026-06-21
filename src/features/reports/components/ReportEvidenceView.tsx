@@ -29,7 +29,7 @@ export function ReportEvidenceView({
       id="view-evidence"
       role="tabpanel"
     >
-      <div className="grid [gap:var(--fr-space-4)] [padding:var(--fr-space-6)_var(--fr-space-7)_var(--fr-space-10)] [grid-template-columns:repeat(auto-fill,_minmax(280px,_1fr))]">
+      <div className="grid [gap:var(--fr-space-4)] [padding:var(--fr-space-6)_var(--fr-space-5)_var(--fr-space-10)] [grid-template-columns:repeat(auto-fill,_minmax(280px,_1fr))]">
         {items.length === 0 ? (
           <Card padding="md">
             <p className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-base)] [line-height:var(--fr-leading-normal)] [color:var(--fr-text-secondary)]">

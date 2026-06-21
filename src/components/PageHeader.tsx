@@ -1,13 +1,5 @@
-import type { ReactNode } from 'react'
-
-type PageHeaderProps = {
-  title: ReactNode
-  eyebrowLabel?: ReactNode
-  metadata?: ReactNode
-  titleLeadingIcon?: ReactNode
-  titleId?: string
-  className?: string
-}
+import type { PageHeaderProps } from '@/typing/pageHeaderView'
+import { pageTitleClassName } from './pageTitleClassName'
 
 export function PageHeader({
   title,
@@ -16,10 +8,14 @@ export function PageHeader({
   titleLeadingIcon,
   titleId,
   className,
+  withBottomSpacing = true,
 }: PageHeaderProps) {
   return (
     <div
-      className={['[margin-bottom:var(--fr-space-6)]', className]
+      className={[
+        withBottomSpacing && '[margin-bottom:var(--fr-space-6)]',
+        className,
+      ]
         .filter(Boolean)
         .join(' ')}
     >
@@ -30,10 +26,7 @@ export function PageHeader({
       )}
       <div className="flex items-center [gap:var(--fr-space-3)]">
         {titleLeadingIcon}
-        <h1
-          className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-xl)] [font-weight:var(--fr-weight-extrabold)] [line-height:var(--fr-leading-tight)] [letter-spacing:var(--fr-tracking-title)] [color:var(--fr-text-primary)]"
-          id={titleId}
-        >
+        <h1 className={pageTitleClassName} id={titleId}>
           {title}
         </h1>
       </div>

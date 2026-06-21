@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { getUserInitials } from '@/features/reports/lib/getUserInitials'
 import { translations } from '@/lib/translations'
-import type { CurrentUser } from '@/typing/auth'
+import { currentUserDisplayName, type CurrentUser } from '@/typing/auth'
 
 type UserProfileDropdownProps = {
   currentUser: CurrentUser
@@ -16,7 +16,7 @@ export function UserProfileDropdown({
 }: UserProfileDropdownProps) {
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
-  const userInitials = getUserInitials(currentUser.name)
+  const userInitials = getUserInitials(currentUserDisplayName(currentUser))
 
   useEffect(() => {
     function closeOnOutsideClick(event: MouseEvent): void {
@@ -77,7 +77,7 @@ export function UserProfileDropdown({
         <span className="inline-flex items-center justify-center [min-width:var(--fr-space-4)] [height:var(--fr-space-4)] [border-radius:var(--fr-radius-full)] [font-size:var(--fr-text-xs)] [font-weight:var(--fr-weight-semibold)] [width:var(--fr-space-8)] [height:var(--fr-space-8)] [color:var(--fr-text-on-accent)] [background:var(--fr-accent)]">
           {userInitials}
         </span>
-        <strong>{currentUser.name}</strong>
+        <strong>{currentUserDisplayName(currentUser)}</strong>
         <span
           className={[
             '[width:var(--fr-space-2)] [height:var(--fr-space-2)] flex-none [border-right:var(--fr-border-width-sm)_solid_currentColor] [border-bottom:var(--fr-border-width-sm)_solid_currentColor] [color:var(--fr-text-secondary)] [transform:rotate(45deg)] [transition:var(--fr-transition-fast)]',

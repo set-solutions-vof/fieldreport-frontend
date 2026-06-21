@@ -4,8 +4,29 @@ export const dashboardRoute = '/dashboard'
 export const allReportsRoute = '/reports'
 export const newReportRoute = '/reports/new'
 export const profileRoute = '/profile'
+export const adminHomeRoute = '/admin'
 export const templateRoute = '/admin/template'
 export const adminTeamRoute = '/admin/team'
+export const adminTeamInviteRoute = '/admin/team/invite'
+export const adminTeamUserRoutePrefix = '/admin/team/users/'
+
+export function adminTeamUserRoute(userId: string): string {
+  return `${adminTeamUserRoutePrefix}${userId}`
+}
+
+export function adminTeamUserIdFromPath(path: string): string | null {
+  if (!path.startsWith(adminTeamUserRoutePrefix)) {
+    return null
+  }
+
+  const userId = path.slice(adminTeamUserRoutePrefix.length)
+
+  if (userId === '') {
+    return null
+  }
+
+  return userId
+}
 export const onboardingRoute = '/onboarding'
 export const inviteRoutePrefix = '/invite/'
 export const dashboardReportRoutePrefix = '/dashboard/reports/'

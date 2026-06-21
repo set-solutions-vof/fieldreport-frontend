@@ -1,146 +1,77 @@
+import { useMemo, useState } from 'react'
 import { Button, Spinner } from '@set-solutions-vof/design-system'
-import { PageHeader } from '@/components/PageHeader'
-import { InviteRow } from '@/features/onboarding/components/InviteRow'
-import { useInvites } from '@/features/onboarding/hooks/useInvites'
+import { pageTitleClassName } from '@/components/pageTitleClassName'
 import { translations } from '@/lib/translations'
+import { teamUserDisplayName, type TeamUser } from '@/typing/team'
 import type { TeamPageProps } from '@/typing/teamView'
-import { TeamMemberRow } from '../components/TeamMemberRow'
-import { useTeamMembers } from '../hooks/useTeamMembers'
+import { TeamToolbar } from '../components/TeamToolbar'
+import { TeamUsersTable } from '../components/TeamUsersTable'
+import { useTeamUsers } from '../hooks/useTeamUsers'
 
-export function TeamPage({ onAuthenticationExpired }: TeamPageProps) {
-  const {
-    members,
-    isLoading: isMembersLoading,
-    errorMessage: membersErrorMessage,
-    retry: retryMembers,
-  } = useTeamMembers({ onAuthenticationExpired })
-  const {
-    invites,
-    isLoading: isInvitesLoading,
-    isSending,
-    errorMessage: invitesErrorMessage,
-    retry: retryInvites,
-    sendInvite,
-    removeInvite,
-  } = useInvites({ onAuthenticationExpired })
+function matchesSearch(query: string, user: TeamUser): boolean {
+  const normalizedQuery = query.trim().toLowerCase()
 
-  const pendingInvites = invites.filter((invite) => !invite.is_accepted)
+  if (normalizedQuery === '') {
+    return true
+  }
+
+  const values = [
+    user.first_name,
+    user.last_name,
+    teamUserDisplayName(user),
+    user.email,
+  ]
+
+  return values.some((value) => value.toLowerCase().includes(normalizedQuery))
+}
+
+export function TeamPage({
+  onAuthenticationExpired,
+  onOpenTeamInvite,
+  onOpenTeamUser,
+}: TeamPageProps) {
+  const [searchQuery, setSearchQuery] = useState('')
+  const { users, isLoading, errorMessage, retry } = useTeamUsers({
+    onAuthenticationExpired,
+  })
+
+  const filteredUsers = useMemo(
+    () => users.filter((user) => matchesSearch(searchQuery, user)),
+    [users, searchQuery],
+  )
 
   return (
-    <main className="flex flex-1 flex-col [padding:var(--fr-space-8)]">
-      <PageHeader
-        title={translations.team.title}
-        metadata={translations.team.description}
-      />
-
-      <div className="grid [grid-template-columns:280px_1fr] [gap:var(--fr-space-7)]">
-        <aside className="[padding-right:var(--fr-space-5)] [border-right:1px_solid_var(--fr-border)]">
-          <div className="flex flex-col [gap:var(--fr-space-4)] [&_h2]:[margin:var(--fr-space-0)] [&_h2]:[font-size:var(--fr-text-lg)] [&_h2]:[font-weight:var(--fr-weight-bold)] [&_h2]:[letter-spacing:var(--fr-tracking-section)] [&_h2]:[color:var(--fr-text-primary)] [&_p]:[margin:var(--fr-space-0)] [&_p]:[font-size:var(--fr-text-sm)] [&_p]:[line-height:var(--fr-leading-snug)] [&_p]:[color:var(--fr-text-secondary)]">
-            <h2>{translations.team.navigation_label}</h2>
-            <p>{translations.team.description}</p>
-            <nav
-              className="flex flex-col [gap:var(--fr-space-2)]"
-              aria-label={translations.team.navigation_label}
-            >
-              <a
-                className="[font-size:var(--fr-text-sm)] [font-weight:var(--fr-weight-medium)] [color:var(--fr-accent)] [text-decoration:none]"
-                href="#team-members"
-              >
-                {translations.team.members_title}
-              </a>
-              <a
-                className="[font-size:var(--fr-text-sm)] [font-weight:var(--fr-weight-medium)] [color:var(--fr-accent)] [text-decoration:none]"
-                href="#team-invites"
-              >
-                {translations.team.pending_title}
-              </a>
-            </nav>
-          </div>
-        </aside>
-
-        <div className="flex flex-col [gap:var(--fr-space-8)]">
-          <section
-            className="flex flex-col [gap:var(--fr-space-4)]"
-            id="team-members"
-          >
-            <div className="[&_h2]:[margin:var(--fr-space-0)] [&_h2]:[font-size:var(--fr-text-lg)] [&_h2]:[font-weight:var(--fr-weight-bold)] [&_h2]:[letter-spacing:var(--fr-tracking-section)] [&_h2]:[color:var(--fr-text-primary)]">
-              <h2>{translations.team.members_title}</h2>
-            </div>
-            {isMembersLoading ? (
-              <div className="flex items-center justify-center flex-col [gap:var(--fr-space-4)] [color:var(--fr-text-secondary)]">
-                <Spinner size="md" />
-              </div>
-            ) : membersErrorMessage !== null ? (
-              <div className="flex items-center [gap:var(--fr-space-3)] [color:var(--fr-destructive)] [&_p]:[margin:var(--fr-space-0)]">
-                <p>{membersErrorMessage}</p>
-                <Button type="button" variant="ghost" onClick={retryMembers}>
-                  {translations.onboarding.states.retry}
-                </Button>
-              </div>
-            ) : members.length === 0 ? (
-              <p className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-sm)] [color:var(--fr-text-secondary)]">
-                {translations.team.members_empty}
-              </p>
-            ) : (
-              <div className="flex [width:min(100%,_calc(var(--fr-space-16)_*_3))] flex-col [gap:var(--fr-space-2)]">
-                {members.map((member) => (
-                  <TeamMemberRow key={member.id} member={member} />
-                ))}
-              </div>
-            )}
-          </section>
-
-          <section
-            className="flex flex-col [gap:var(--fr-space-4)]"
-            id="team-invites"
-          >
-            <div className="[&_h2]:[margin:var(--fr-space-0)] [&_h2]:[font-size:var(--fr-text-lg)] [&_h2]:[font-weight:var(--fr-weight-bold)] [&_h2]:[letter-spacing:var(--fr-tracking-section)] [&_h2]:[color:var(--fr-text-primary)]">
-              <h2>{translations.team.pending_title}</h2>
-            </div>
-            <div className="flex [width:min(100%,_calc(var(--fr-space-16)_*_3))] flex-col [gap:var(--fr-space-2)]">
-              {isInvitesLoading ? (
-                <div className="flex items-center justify-center flex-col [gap:var(--fr-space-4)] [color:var(--fr-text-secondary)]">
-                  <Spinner size="md" />
-                </div>
-              ) : (
-                <>
-                  {pendingInvites.length === 0 && (
-                    <p className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-sm)] [color:var(--fr-text-secondary)]">
-                      {translations.team.empty}
-                    </p>
-                  )}
-                  {pendingInvites.map((invite) => (
-                    <InviteRow
-                      key={invite.id}
-                      mode="confirmed"
-                      invite={invite}
-                      onDelete={(inviteId) => void removeInvite(inviteId)}
-                    />
-                  ))}
-                  <InviteRow
-                    mode="active"
-                    isSending={isSending}
-                    onSend={(email, role) => sendInvite({ email, role })}
-                  />
-                </>
-              )}
-            </div>
-            {invitesErrorMessage !== null && (
-              <div className="flex items-center [gap:var(--fr-space-3)] [color:var(--fr-destructive)] [&_p]:[margin:var(--fr-space-0)]">
-                <p>{invitesErrorMessage}</p>
-                <Button type="button" variant="ghost" onClick={retryInvites}>
-                  {translations.onboarding.states.retry}
-                </Button>
-              </div>
-            )}
-            <p className="[margin:var(--fr-space-0)] [color:var(--fr-text-secondary)]">
-              {translations.onboarding.invites.counter.replace(
-                '{{count}}',
-                String(pendingInvites.length),
-              )}
-            </p>
-          </section>
+    <main className="flex [min-height:calc(100dvh_-_var(--fr-space-10))] flex-1 flex-col [background:var(--fr-background)]">
+      <div className="flex [width:100%] shrink-0 [padding:var(--fr-space-5)_var(--fr-space-5)_var(--fr-space-0)]">
+        <div className="flex [width:100%] items-center justify-between [gap:var(--fr-space-4)]">
+          <h1 className={pageTitleClassName}>{translations.team.title}</h1>
+          <Button type="button" variant="primary" onClick={onOpenTeamInvite}>
+            {translations.team.invite_button}
+          </Button>
         </div>
+      </div>
+
+      <div className="mx-[var(--fr-space-5)] mb-[var(--fr-space-5)] mt-[var(--fr-space-4)] flex [min-height:var(--fr-space-0)] flex-1 flex-col overflow-hidden [border:var(--fr-border-width-sm)_solid_var(--fr-border)] [border-radius:var(--fr-radius-lg)] [background:var(--fr-surface)] [box-shadow:var(--fr-shadow-md)]">
+        <TeamToolbar
+          resultCount={filteredUsers.length}
+          searchQuery={searchQuery}
+          onSearchQueryChange={setSearchQuery}
+        />
+
+        {isLoading ? (
+          <div className="flex flex-1 flex-col items-center justify-center [gap:var(--fr-space-4)] [padding:var(--fr-space-8)] [color:var(--fr-text-secondary)]">
+            <Spinner size="md" />
+          </div>
+        ) : errorMessage !== null ? (
+          <div className="flex items-center [gap:var(--fr-space-3)] [padding:var(--fr-space-5)] [color:var(--fr-destructive)] [&_p]:[margin:var(--fr-space-0)]">
+            <p>{errorMessage}</p>
+            <Button type="button" variant="ghost" onClick={retry}>
+              {translations.onboarding.states.retry}
+            </Button>
+          </div>
+        ) : (
+          <TeamUsersTable users={filteredUsers} onOpenUser={onOpenTeamUser} />
+        )}
       </div>
     </main>
   )

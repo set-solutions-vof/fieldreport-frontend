@@ -1,0 +1,53 @@
+{
+  "navigation_label": "Home",
+  "title": "Home",
+  "greeting": "Hello, {{name}}",
+  "summary": {
+    "team_members": "Team members",
+    "team_members_hint": "Active team members and pending invitations in your company.",
+    "total_reports": "Total reports",
+    "total_reports_hint": "All inspection reports created for your company."
+  },
+  "metrics": {
+    "reports_this_month": "Reports this month",
+    "awaiting_validation": "Awaiting validation",
+    "approved": "Approved reports",
+    "approval_rate": "Approval rate",
+    "on_context": "(ON {{date}})",
+    "average_context": "(AVERAGE)"
+  },
+  "date_range": {
+    "label": "Date range",
+    "custom_range": "Custom range",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "last_7_days": "Last 7 days",
+    "last_30_days": "Last 30 days",
+    "month_to_date": "This month to date",
+    "previous_month": "Previous month",
+    "next_month": "Next month",
+    "weekdays": ["S", "M", "T", "W", "T", "F", "S"]
+  },
+  "user_filter": {
+    "aria_label": "Filter by team member",
+    "all_option": "All team members"
+  },
+  "performance": {
+    "overview_title": "Performance overview",
+    "title": "Performance over time",
+    "metric_label": "Show",
+    "metrics": {
+      "reports": "All reports",
+      "approved": "Approved",
+      "draft": "Awaiting validation"
+    }
+  },
+  "tooltip": {
+    "count": "{{count}} reports",
+    "peak": "Peak: {{count}} on {{date}}"
+  },
+  "errors": {
+    "load_failed_title": "Failed to load home",
+    "load_failed": "Dashboard statistics could not be loaded."
+  }
+}

@@ -11,7 +11,7 @@ export function ReportDetailHeaderBlock({
   reportStatus,
 }: ReportDetailHeaderBlockProps) {
   return (
-    <header className="flex items-end justify-between [gap:var(--fr-space-6)] [padding:var(--fr-space-4)_var(--fr-space-7)_var(--fr-space-3)]">
+    <header className="flex items-end justify-between [gap:var(--fr-space-6)] [padding:var(--fr-space-4)_var(--fr-space-5)_var(--fr-space-3)]">
       <div className="grid [min-width:var(--fr-space-0)] [gap:var(--fr-space-1)]">
         <PageHeader
           eyebrowLabel={reportStatusLabel(reportStatus)}

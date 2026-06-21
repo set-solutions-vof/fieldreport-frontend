@@ -5,7 +5,7 @@ import type { ShellContentErrorProps } from '@/typing/shellContent'
 
 export function ShellContentLoader() {
   return (
-    <div className="flex flex-1 items-start [padding:var(--fr-space-7)]">
+    <div className="flex flex-1 items-start [padding:var(--fr-space-5)]">
       <Spinner size="lg" />
     </div>
   )
@@ -17,7 +17,7 @@ export function ShellContentError({
   onRetry,
 }: ShellContentErrorProps) {
   return (
-    <div className="flex flex-1 flex-col items-start [gap:var(--fr-space-4)] [padding:var(--fr-space-7)]">
+    <div className="flex flex-1 flex-col items-start [gap:var(--fr-space-4)] [padding:var(--fr-space-5)]">
       <PageHeader title={title} metadata={message} />
       <Button type="button" variant="primary" onClick={onRetry}>
         {translations.dashboard.states.retry_button}

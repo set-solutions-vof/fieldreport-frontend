@@ -25,6 +25,7 @@ export type AppChromeNavigationProps = {
   totalReportsCount?: number
   onOpenDashboard?: () => void
   onOpenReports?: () => void
+  onOpenHome?: () => void
   onOpenTemplate?: () => void
   onOpenTeam?: () => void
   onOpenProfile: () => void

@@ -12,6 +12,7 @@ export function TemplateSectionEditor({
   onFieldsChange,
   onGroupsChange,
   onReorder,
+  onAddSection,
 }: TemplateSectionEditorProps) {
   const dragIndexRef = useRef<number | null>(null)
   const dropIndexRef = useRef<number | null>(null)
@@ -65,12 +66,15 @@ export function TemplateSectionEditor({
     clearDragState()
   }
 
-  if (selectedSection === undefined) {
-    return null
+  function handleAddSection(): void {
+    const sectionId = onAddSection?.()
+    if (sectionId) {
+      setSelectedSectionId(sectionId)
+    }
   }
 
   return (
-    <div className="flex flex-1 [min-height:var(--fr-space-0)] overflow-hidden [background:var(--fr-background)]">
+    <div className="flex flex-1 [min-height:var(--fr-space-0)] overflow-hidden">
       <TemplateSectionSidebar
         sections={sections}
         selectedSectionId={activeSectionId}
@@ -78,21 +82,24 @@ export function TemplateSectionEditor({
         draggingIndex={draggingIndex}
         dropTarget={dropTarget}
         onSelectSection={setSelectedSectionId}
+        onAddSection={readonly ? undefined : handleAddSection}
         onDragStart={handleDragStart}
         onDragOver={handleDragOver}
         onDrop={handleDrop}
         onDragEnd={clearDragState}
       />
-      <TemplateSectionDetail
-        section={selectedSection}
-        index={selectedIndex >= 0 ? selectedIndex : 0}
-        readonly={readonly}
-        onLabelChange={onLabelChange}
-        onDelete={onDelete}
-        onRenderTypeChange={onRenderTypeChange}
-        onFieldsChange={onFieldsChange}
-        onGroupsChange={onGroupsChange}
-      />
+      {selectedSection ? (
+        <TemplateSectionDetail
+          section={selectedSection}
+          index={selectedIndex >= 0 ? selectedIndex : 0}
+          readonly={readonly}
+          onLabelChange={onLabelChange}
+          onDelete={onDelete}
+          onRenderTypeChange={onRenderTypeChange}
+          onFieldsChange={onFieldsChange}
+          onGroupsChange={onGroupsChange}
+        />
+      ) : null}
     </div>
   )
 }

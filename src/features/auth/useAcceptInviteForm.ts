@@ -23,6 +23,7 @@ export function useAcceptInviteForm({
     void getInvitePreview(token)
       .then((preview) => {
         setInvitePreview(preview)
+        setName(`${preview.first_name} ${preview.last_name}`.trim())
         setIsLoading(false)
       })
       .catch(() => {

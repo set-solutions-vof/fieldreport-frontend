@@ -41,6 +41,9 @@ export type TemplateStatusResponse =
       metadata_fields: MetadataField[]
       sections: TemplateSection[]
       source_reports_count: number
+      template_id: string
+      version: number
+      updated_at: string
     }
   | {
       status: 'failed'

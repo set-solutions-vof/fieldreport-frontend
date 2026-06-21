@@ -30,6 +30,7 @@ export function OnboardingWizardPage({
     rightDisabled,
     footerHelperText,
     footerErrorMessage,
+    footerAlign,
   } = useOnboardingWizardPage({
     initialCompany,
     onCompleted,
@@ -119,7 +120,9 @@ export function OnboardingWizardPage({
         rightLoading: templateConfiguration.isConfirming || wizard.isCompleting,
         helperText: footerHelperText,
         errorMessage: footerErrorMessage,
-        onLeftClick: handleSecondaryAction,
+        align: footerAlign,
+        onLeftClick:
+          wizard.currentStep === 1 ? handleSecondaryAction : undefined,
         onRightClick: () => void handlePrimaryAction(),
       }}
     >

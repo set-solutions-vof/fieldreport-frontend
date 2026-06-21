@@ -22,12 +22,16 @@ export type TemplatePageState =
       metadataFields: MetadataField[]
       sections: TemplateSection[]
       reportsCount: number
+      version: number
+      updatedAt: string
     }
   | {
       kind: 'editing'
       metadataFields: MetadataField[]
       sections: TemplateSection[]
       reportsCount: number
+      version: number
+      updatedAt: string
     }
   | { kind: 'failed'; errorMessage: string; reportsCount: number }
 
@@ -68,7 +72,7 @@ export type UseTemplateConfigurationResult = {
   addFiles: (files: File[]) => void
   removeFile: (fileName: string) => void
   cancelUpload: () => void
-  startAnalysis: () => Promise<boolean>
+  startAnalysis: () => Promise<'processing' | 'ready' | 'failed'>
   updateSectionLabel: (sectionId: string, label: string) => void
   updateSectionRenderType: (
     sectionId: string,
@@ -80,6 +84,7 @@ export type UseTemplateConfigurationResult = {
     groups: TemplateSectionGroup[],
   ) => void
   deleteSection: (sectionId: string) => void
+  addSection: () => string
   reorderSections: (fromIndex: number, toIndex: number) => void
   confirmCurrentTemplate: () => Promise<boolean>
   startEditingTemplate: () => void

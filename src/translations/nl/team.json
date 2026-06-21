@@ -2,10 +2,52 @@
   "navigation_label": "Je team",
   "title": "Je team",
   "description": "Nodig collega's uit als beheerder of inspecteur.",
-  "members_title": "Teamleden",
-  "members_empty": "Er zijn nog geen teamleden.",
-  "pending_title": "Openstaande uitnodigingen",
-  "empty": "Er zijn nog geen uitnodigingen verstuurd.",
+  "members_stat": "teamleden",
+  "pending_stat": "openstaande uitnodigingen",
+  "empty": "Er zijn nog geen gebruikers.",
+  "never_signed_in": "Nog niet ingelogd",
+  "invite_button": "Gebruiker uitnodigen",
+  "search_placeholder": "Zoek op naam of e-mail",
+  "results_count": "{{count}} resultaten",
+  "invite_page": {
+    "title": "Gebruiker uitnodigen",
+    "details_title": "Gebruikersgegevens",
+    "first_name_placeholder": "Voornaam",
+    "last_name_placeholder": "Achternaam",
+    "email_placeholder": "Voer e-mailadres in",
+    "role_title": "Rol",
+    "role_description": "Selecteer wat deze gebruiker mag doen in FieldReport.",
+    "roles": {
+      "inspector_description": "Kan toegewezen rapporten valideren en goedkeuren.",
+      "admin_description": "Kan template, team en bedrijfsinstellingen beheren."
+    },
+    "submit_button": "Uitnodiging versturen",
+    "cancel_button": "Annuleren"
+  },
+  "user_detail": {
+    "title": "Gebruiker",
+    "first_name_label": "Voornaam",
+    "last_name_label": "Achternaam",
+    "save_button": "Wijzigingen opslaan",
+    "delete_button": "Gebruiker verwijderen",
+    "success_toast": "Gebruiker bijgewerkt",
+    "load_failed": "Gebruiker kon niet worden geladen.",
+    "save_failed": "Wijzigingen konden niet worden opgeslagen.",
+    "delete_failed": "Gebruiker kon niet worden verwijderd.",
+    "cannot_delete_self": "Je kunt je eigen account niet verwijderen.",
+    "name_required": "Voornaam en achternaam zijn verplicht."
+  },
+  "table": {
+    "name": "Naam",
+    "email": "E-mail",
+    "role": "Rol",
+    "status": "Status",
+    "last_sign_in": "Laatste login"
+  },
+  "status": {
+    "active": "Actief",
+    "invited": "Inactief"
+  },
   "errors": {
     "load_failed_title": "Team laden is mislukt",
     "load_failed": "Teamleden konden niet worden geladen."
