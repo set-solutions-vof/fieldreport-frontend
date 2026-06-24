@@ -9,9 +9,12 @@ export function NewReportAudioUploadZone({
   handlers,
 }: NewReportAudioUploadZoneProps) {
   return (
-    <div>
+    <div className="flex flex-col flex-1 [gap:var(--fr-space-2)]">
+      <span className="[font-size:var(--fr-text-sm)] [font-weight:var(--fr-weight-medium)] [color:var(--fr-text-primary)]">
+        {translations.new_report.fields.audio_label}
+      </span>
       <div
-        className="[padding:var(--fr-space-5)] text-center cursor-pointer [border:calc(var(--fr-border-width-sm)_+_var(--fr-border-width-sm)_/_2)_dashed_var(--fr-border-strong)] [border-radius:var(--fr-radius-lg)] [transition:var(--fr-transition-base)] hover:[background:var(--fr-accent-subtle)] hover:[border-color:var(--fr-color-accent-300)] hover:outline-none focus-visible:[background:var(--fr-accent-subtle)] focus-visible:[border-color:var(--fr-color-accent-300)] focus-visible:outline-none [padding:var(--fr-space-7)_var(--fr-space-5)] [background:var(--fr-accent-soft)] [border-color:var(--fr-color-accent-200)] hover:[background:var(--fr-accent-soft)] hover:[border-color:var(--fr-color-accent-400)] focus-visible:[background:var(--fr-accent-soft)] focus-visible:[border-color:var(--fr-color-accent-400)]"
+        className="flex-1 flex flex-col items-center justify-center [gap:var(--fr-space-2)] [padding:var(--fr-space-6)_var(--fr-space-4)] cursor-pointer [background:var(--fr-surface-sunken)] [border:calc(var(--fr-border-width-sm)_+_var(--fr-border-width-sm)_/_2)_dashed_var(--fr-border-strong)] [border-radius:var(--fr-radius-lg)] [transition:var(--fr-transition-base)] hover:[border-color:var(--fr-accent)] hover:outline-none focus-visible:[border-color:var(--fr-accent)] focus-visible:outline-none"
         onDrop={handlers.onDrop}
         onDragOver={handlers.onDragOver}
         onClick={handlers.onOpenPicker}
@@ -21,31 +24,27 @@ export function NewReportAudioUploadZone({
         aria-label={translations.new_report.fields.audio_label}
       >
         <svg
-          className="block [width:var(--fr-control-height-sm)] [height:var(--fr-control-height-sm)] [margin:var(--fr-space-0)_auto_var(--fr-space-2)] [color:var(--fr-accent)]"
+          className="[width:var(--fr-space-6)] [height:var(--fr-space-6)] [color:var(--fr-text-tertiary)] [margin-bottom:var(--fr-space-1)]"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
           strokeWidth="1.5"
           aria-hidden="true"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z"
-          />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v3m6.366-.366-2.12 2.12M21 12h-3m.366 6.366-2.12-2.12M12 21v-3m-6.366.366 2.12-2.12M3 12h3m-.366-6.366 2.12 2.12" />
         </svg>
-        <p className="[color:var(--fr-accent)] [margin:var(--fr-space-0)_var(--fr-space-0)_var(--fr-space-1)] [color:var(--fr-text-primary)] [font-size:var(--fr-text-base)] [font-weight:var(--fr-weight-medium)]">
-          {translations.new_report.fields.audio_label}
+        <p className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-base)] [font-weight:var(--fr-weight-medium)] [color:var(--fr-text-primary)]">
+          {translations.new_report.fields.audio_help}{' '}
+          <span className="[color:var(--fr-accent)]">
+            {translations.new_report.fields.browse}
+          </span>
         </p>
-        <p className="[color:var(--fr-color-accent-600)] [margin:var(--fr-space-0)_var(--fr-space-0)_var(--fr-space-2)] [color:var(--fr-text-secondary)] [font-size:var(--fr-text-sm)]">
-          {translations.new_report.fields.audio_help}
-        </p>
-        <span className="inline-block [margin:var(--fr-space-0)] [padding:calc(var(--fr-space-1)_/_2)_var(--fr-space-3)] [color:var(--fr-text-tertiary)] [background:var(--fr-surface)] [border-radius:var(--fr-radius-full)] [font-size:var(--fr-text-xs)]">
+        <p className="[margin:var(--fr-space-0)] [font-size:var(--fr-text-sm)] [color:var(--fr-text-secondary)]">
           {translations.new_report.fields.audio_formats}
-        </span>
+        </p>
       </div>
       {files.length > 0 && (
-        <div className="flex flex-wrap [gap:var(--fr-space-1)] [margin-top:var(--fr-space-2)]">
+        <div className="flex flex-wrap [gap:var(--fr-space-1)]">
           {files.map((file) => (
             <FileChip key={file.name} file={file} onRemove={onRemoveFile} />
           ))}
@@ -53,7 +52,7 @@ export function NewReportAudioUploadZone({
       )}
       {error && (
         <div
-          className="[font-family:var(--fr-font-sans)] [font-size:var(--fr-text-xs)] [color:var(--fr-destructive)] [line-height:var(--fr-leading-snug)] flex items-start [gap:var(--fr-space-1)]"
+          className="[font-size:var(--fr-text-xs)] [color:var(--fr-destructive)] [line-height:var(--fr-leading-snug)]"
           role="alert"
         >
           {error}

@@ -1,18 +1,15 @@
 import { useRef } from 'react'
 import type { FormEvent } from 'react'
 import { Button } from '@set-solutions-vof/design-system'
+import { PageHeader } from '@/components/PageHeader'
 import { translations } from '@/lib/translations'
-import { NewReportCompletionProgress } from '../components/NewReportCompletionProgress'
-import { NewReportContextCard } from '../components/NewReportContextCard'
 import { NewReportFilesCard } from '../components/NewReportFilesCard'
 import { NewReportProjectDetailsCard } from '../components/NewReportProjectDetailsCard'
 import { useActiveTemplate } from '../hooks/useActiveTemplate'
 import { useNewReport } from '../hooks/useNewReport'
-import { currentUserDisplayName } from '@/typing/auth'
 import type { NewReportPageProps } from '@/typing/newReportView'
 
 export function NewReportPage({
-  currentUser,
   onAuthenticationExpired,
   onReportCreated,
   onCancel,
@@ -25,7 +22,6 @@ export function NewReportPage({
     isSubmitting,
     showMetadataErrors,
     updateMetadata,
-    updateField,
     addAudioFiles,
     removeAudioFile,
     addPhotoFiles,
@@ -50,44 +46,41 @@ export function NewReportPage({
 
   return (
     <form
-      className="flex [width:min(100%,_calc(var(--fr-space-16)_*_4))] flex-col [gap:var(--fr-space-5)]"
+      className="flex w-full flex-col [gap:var(--fr-space-5)]"
       noValidate
       onSubmit={handleSubmit}
     >
-      <NewReportCompletionProgress
-        metadataFields={template?.metadata_fields ?? []}
-        metadataValue={form.metadata}
+      <PageHeader
+        title={translations.new_report.page_title}
+        metadata={translations.new_report.page_subtitle}
+        withBottomSpacing={false}
       />
-      <NewReportProjectDetailsCard
-        fields={template?.metadata_fields ?? []}
-        inspectorName={currentUserDisplayName(currentUser)}
-        isSubmitting={isSubmitting}
-        isTemplateError={isTemplateError}
-        isTemplateLoading={isTemplateLoading}
-        metadataValue={form.metadata}
-        showMetadataErrors={showMetadataErrors}
-        templateErrorMessage={templateErrorMessage}
-        onMetadataChange={updateMetadata}
-        onRetryTemplate={retryTemplate}
-      />
-      <NewReportFilesCard
-        audioFiles={form.audioFiles}
-        audioInputRef={audioInputRef}
-        audioError={errors.audioFiles}
-        photoFiles={form.photoFiles}
-        photosInputRef={photosInputRef}
-        onAddAudioFiles={addAudioFiles}
-        onAddPhotoFiles={addPhotoFiles}
-        onRemoveAudioFile={removeAudioFile}
-        onRemovePhotoFile={removePhotoFile}
-      />
-      <NewReportContextCard
-        extraContext={form.extraContext}
-        isSubmitting={isSubmitting}
-        onExtraContextChange={(event) =>
-          updateField('extraContext', event.currentTarget.value)
-        }
-      />
+      <div className="grid [grid-template-columns:1fr_1fr] [gap:var(--fr-space-5)]">
+        <NewReportProjectDetailsCard
+          fields={template?.metadata_fields ?? []}
+          isSubmitting={isSubmitting}
+          isTemplateError={isTemplateError}
+          isTemplateLoading={isTemplateLoading}
+          metadataValue={form.metadata}
+          showMetadataErrors={showMetadataErrors}
+          templateErrorMessage={templateErrorMessage}
+          onMetadataChange={updateMetadata}
+          onRetryTemplate={retryTemplate}
+        />
+        <div className="flex flex-col">
+          <NewReportFilesCard
+            audioFiles={form.audioFiles}
+            audioInputRef={audioInputRef}
+            audioError={errors.audioFiles}
+            photoFiles={form.photoFiles}
+            photosInputRef={photosInputRef}
+            onAddAudioFiles={addAudioFiles}
+            onAddPhotoFiles={addPhotoFiles}
+            onRemoveAudioFile={removeAudioFile}
+            onRemovePhotoFile={removePhotoFile}
+          />
+        </div>
+      </div>
       {errors.submit && (
         <p
           className="[margin:var(--fr-space-0)] [color:var(--fr-destructive)] [font-size:var(--fr-text-sm)] [line-height:var(--fr-leading-snug)]"
@@ -96,7 +89,7 @@ export function NewReportPage({
           {errors.submit}
         </p>
       )}
-      <footer className="flex items-center justify-end [gap:var(--fr-space-3)]">
+      <footer className="flex items-center justify-end [gap:var(--fr-space-3)] [padding-top:var(--fr-space-4)] [border-top:var(--fr-border-width-sm)_solid_var(--fr-border)]">
         <Button
           type="button"
           variant="ghost"

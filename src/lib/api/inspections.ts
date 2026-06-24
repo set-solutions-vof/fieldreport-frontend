@@ -14,10 +14,6 @@ export async function createInspection(
 
   formData.append('metadata', JSON.stringify(form.metadata))
 
-  if (form.extraContext) {
-    formData.append('extra_context', form.extraContext)
-  }
-
   form.audioFiles.forEach((file) => formData.append('audio_files', file))
   form.photoFiles.forEach((file) => formData.append('photo_files', file))
 

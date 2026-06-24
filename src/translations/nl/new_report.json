@@ -1,5 +1,6 @@
 {
   "page_title": "Nieuw rapport",
+  "page_subtitle": "Upload een audio-opname en foto's van de inspectie om te starten.",
   "sections": {
     "project_details": "Projectgegevens",
     "files": "Bestanden",
@@ -8,12 +9,13 @@
   "fields": {
     "inspector_label": "Inspecteur",
     "select_placeholder": "Selecteer een optie",
-    "audio_label": "Audio-opname(s)",
-    "audio_help": "Sleep bestanden hierheen of klik om te uploaden. Minimaal één bestand vereist.",
-    "audio_formats": "MP3, M4A of WAV",
+    "audio_label": "Audio-opname",
+    "audio_help": "Sleep audio hierheen of",
+    "audio_formats": "MP3, WAV of M4A · max 2 uur",
+    "browse": "blader",
     "photos_label": "Foto's",
-    "photos_help": "Sleep bestanden hierheen of klik om te uploaden.",
-    "photos_formats": "JPG, PNG of HEIC",
+    "photos_help": "Sleep foto's hierheen of",
+    "photos_formats": "JPG of PNG · max 50 bestanden",
     "context_label": "Extra context voor de AI",
     "context_placeholder": "Beschrijf kort:\n• Wat was de opdracht?\n• Wat heb je gevonden?\n• Wat is de conclusie?\n• Zijn er bijzonderheden die de AI moet weten?",
     "context_help": "Optioneel — hoe meer context, hoe beter het rapport."

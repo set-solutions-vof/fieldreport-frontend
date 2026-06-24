@@ -1,4 +1,4 @@
-import type { ChangeEvent, DragEvent, KeyboardEvent, RefObject } from 'react'
+import type { DragEvent, KeyboardEvent, RefObject } from 'react'
 import type { MetadataField } from './template'
 import type { InspectorPageProps } from './routes'
 
@@ -12,14 +12,8 @@ export type FileChipProps = {
   onRemove: (name: string) => void
 }
 
-export type NewReportCompletionProgressProps = {
-  metadataFields: MetadataField[]
-  metadataValue: Record<string, string | null>
-}
-
 export type NewReportProjectDetailsCardProps = {
   fields: MetadataField[]
-  inspectorName: string
   isSubmitting: boolean
   isTemplateError: boolean
   isTemplateLoading: boolean
@@ -69,8 +63,3 @@ export type NewReportPhotosUploadZoneProps = {
   handlers: NewReportUploadZoneHandlers
 }
 
-export type NewReportContextCardProps = {
-  extraContext: string
-  isSubmitting: boolean
-  onExtraContextChange: (event: ChangeEvent<HTMLTextAreaElement>) => void
-}

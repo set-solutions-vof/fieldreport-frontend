@@ -61,7 +61,7 @@ export function NewReportFilesCard({
   }
 
   return (
-    <Card padding="lg" className="flex flex-col [gap:var(--fr-space-4)]">
+    <Card padding="lg" className="flex-1 flex flex-col [gap:var(--fr-space-4)]">
       <input
         ref={audioInputRef}
         className="absolute [width:var(--fr-space-0)] [height:var(--fr-space-0)] overflow-hidden [opacity:0] pointer-events-none"
@@ -87,7 +87,7 @@ export function NewReportFilesCard({
           {translations.new_report.sections.files}
         </CardTitle>
       </CardHeader>
-      <div className="flex flex-col [gap:var(--fr-space-4)]">
+      <div className="flex flex-col flex-1 [gap:var(--fr-space-4)]">
         <NewReportAudioUploadZone
           files={audioFiles}
           error={audioError}

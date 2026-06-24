@@ -4,15 +4,12 @@ export type NewReportFormState = {
   metadata: Record<string, string | null>
   audioFiles: File[]
   photoFiles: File[]
-  extraContext: string
 }
 
 export type NewReportFormErrors = {
   audioFiles?: string
   submit?: string
 }
-
-export type NewReportTextField = 'extraContext'
 
 export type UseNewReportParameters = {
   onAuthenticationExpired: () => void
@@ -25,7 +22,6 @@ export type UseNewReportResult = {
   isSubmitting: boolean
   showMetadataErrors: boolean
   updateMetadata: (metadata: Record<string, string | null>) => void
-  updateField: (field: NewReportTextField, value: string) => void
   addAudioFiles: (files: File[]) => void
   removeAudioFile: (name: string) => void
   addPhotoFiles: (files: File[]) => void

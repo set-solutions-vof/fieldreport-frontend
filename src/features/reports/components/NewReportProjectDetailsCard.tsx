@@ -3,7 +3,6 @@ import {
   Card,
   CardHeader,
   CardTitle,
-  Input,
 } from '@set-solutions-vof/design-system'
 import { translations } from '@/lib/translations'
 import type { NewReportProjectDetailsCardProps } from '@/typing/newReportView'
@@ -11,7 +10,6 @@ import { DynamicMetadataForm } from './DynamicMetadataForm'
 
 export function NewReportProjectDetailsCard({
   fields,
-  inspectorName,
   isSubmitting,
   isTemplateError,
   isTemplateLoading,
@@ -32,14 +30,6 @@ export function NewReportProjectDetailsCard({
           {translations.new_report.sections.project_details}
         </CardTitle>
       </CardHeader>
-      <div className="grid [grid-template-columns:repeat(2,_minmax(var(--fr-space-0),_1fr))] [gap:var(--fr-space-4)]">
-        <Input
-          label={translations.new_report.fields.inspector_label}
-          value={inspectorName}
-          disabled
-          readOnly
-        />
-      </div>
       {isTemplateLoading && (
         <div
           className="grid [grid-template-columns:repeat(2,_minmax(var(--fr-space-0),_1fr))] [gap:var(--fr-space-4)] [&_span]:[height:var(--fr-control-height-md)] [&_span]:[border-radius:var(--fr-radius-md)] [&_span]:[background:var(--fr-surface-sunken)]"

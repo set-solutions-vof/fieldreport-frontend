@@ -5,7 +5,6 @@ import { translations } from '@/lib/translations'
 import type {
   NewReportFormErrors,
   NewReportFormState,
-  NewReportTextField,
   UseNewReportParameters,
   UseNewReportResult,
 } from '@/typing/newReport'
@@ -15,7 +14,6 @@ const emptyForm: NewReportFormState = {
   metadata: {},
   audioFiles: [],
   photoFiles: [],
-  extraContext: '',
 }
 
 export function useNewReport({
@@ -26,18 +24,6 @@ export function useNewReport({
   const [errors, setErrors] = useState<NewReportFormErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showMetadataErrors, setShowMetadataErrors] = useState(false)
-
-  function clearSubmitError(): void {
-    setErrors((currentErrors) => ({
-      ...currentErrors,
-      submit: undefined,
-    }))
-  }
-
-  function updateField(field: NewReportTextField, value: string): void {
-    clearSubmitError()
-    setForm((currentForm) => ({ ...currentForm, [field]: value }))
-  }
 
   function updateMetadata(metadata: Record<string, string | null>): void {
     setErrors((currentErrors) => ({ ...currentErrors, submit: undefined }))
@@ -121,7 +107,6 @@ export function useNewReport({
     isSubmitting,
     showMetadataErrors,
     updateMetadata,
-    updateField,
     addAudioFiles,
     removeAudioFile,
     addPhotoFiles,
@@ -130,14 +115,8 @@ export function useNewReport({
   }
 }
 
-function validateForm(form: NewReportFormState): NewReportFormErrors {
-  const validationErrors: NewReportFormErrors = {}
-
-  if (form.audioFiles.length === 0) {
-    validationErrors.audioFiles = translations.new_report.errors.audio_required
-  }
-
-  return validationErrors
+function validateForm(_form: NewReportFormState): NewReportFormErrors {
+  return {}
 }
 
 function hasMissingRequiredMetadata(

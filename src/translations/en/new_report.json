@@ -1,5 +1,6 @@
 {
   "page_title": "New report",
+  "page_subtitle": "Upload an audio recording and photos of the inspection to get started.",
   "sections": {
     "project_details": "Project details",
     "files": "Files",
@@ -8,12 +9,13 @@
   "fields": {
     "inspector_label": "Inspector",
     "select_placeholder": "Select an option",
-    "audio_label": "Audio recording(s)",
-    "audio_help": "Drag files here or click to upload. At least one file required.",
-    "audio_formats": "MP3, M4A or WAV",
+    "audio_label": "Audio recording",
+    "audio_help": "Drag audio here or",
+    "audio_formats": "MP3, WAV or M4A · max 2 hours",
+    "browse": "browse",
     "photos_label": "Photos",
-    "photos_help": "Drag files here or click to upload.",
-    "photos_formats": "JPG, PNG or HEIC",
+    "photos_help": "Drag photos here or",
+    "photos_formats": "JPG or PNG · max 50 files",
     "context_label": "Additional context for the AI",
     "context_placeholder": "Briefly describe:\n• What was the assignment?\n• What did you find?\n• What is the conclusion?\n• Are there any details the AI should know?",
     "context_help": "Optional — the more context, the better the report."
