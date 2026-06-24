@@ -36,3 +36,11 @@ export async function updateSection(
   )
   return (await response.json()) as ReportSectionUpdateResponse
 }
+
+export async function exportReport(reportId: string): Promise<Blob> {
+  const response = await authenticatedFetch(
+    `${apiBaseUrl}/api/v1/reports/${reportId}/export`,
+    { method: 'POST' },
+  )
+  return response.blob()
+}

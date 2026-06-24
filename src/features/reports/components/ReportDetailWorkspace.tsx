@@ -155,7 +155,12 @@ export function ReportDetailWorkspace({ report }: ReportDetailWorkspaceProps) {
         onSectionUpdated={handleSectionUpdated}
         onEvidenceRailActivation={handleEvidenceRailActivation}
       />
-      <ReportActionBar dirtyCount={dirtyCount} saveStatus={saveStatus} />
+      <ReportActionBar
+        dirtyCount={dirtyCount}
+        saveStatus={saveStatus}
+        reportId={report.id}
+        allSectionsApproved={allSectionsApproved(sections)}
+      />
     </div>
   )
 }

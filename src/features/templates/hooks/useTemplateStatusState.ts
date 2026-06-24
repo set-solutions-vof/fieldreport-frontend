@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { getTemplateAnalysis, getTemplateStatus } from '@/lib/api/templates'
+import { getTemplateStatus } from '@/lib/api/templates'
 import { AuthenticationExpiredError } from '@/lib/api/authenticatedFetch'
 import { translations } from '@/lib/translations'
 import type { TemplateStatusResponse } from '@/typing/template'
@@ -72,29 +72,6 @@ export function useTemplateStatusState({
   useEffect(() => {
     fetchTemplateStatus()
   }, [fetchTemplateStatus])
-
-  useEffect(() => {
-    if (pageState.kind !== 'processing') {
-      return
-    }
-
-    const pollAnalysis = window.setInterval(() => {
-      void getTemplateAnalysis(pageState.job_id)
-        .then((templateStatus) => {
-          if (templateStatus.status !== 'processing') {
-            showTemplateStatus(templateStatus)
-          }
-        })
-        .catch((error: unknown) =>
-          showAuthenticationOrError(
-            error,
-            translations.template.errors.analysis_failed,
-          ),
-        )
-    }, 2500)
-
-    return () => window.clearInterval(pollAnalysis)
-  }, [pageState, showTemplateStatus, showAuthenticationOrError])
 
   return {
     pageState,

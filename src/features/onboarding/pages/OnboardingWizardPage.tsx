@@ -1,9 +1,8 @@
-import type { ChangeEvent, DragEvent } from 'react'
 import { OnboardingStateScreen } from '../components/OnboardingStateScreen'
 import { OnboardingWizardShell } from '../components/OnboardingWizardShell'
 import { useOnboardingWizardPage } from '../hooks/useOnboardingWizardPage'
 import { Step1CompanyProfile } from '../steps/Step1CompanyProfile'
-import { Step2UploadReports } from '../steps/Step2UploadReports'
+import { Step2TemplatePreview } from '../steps/Step2TemplatePreview'
 import { Step3ReviewTemplate } from '../steps/Step3ReviewTemplate'
 import { Step4InviteTeam } from '../steps/Step4InviteTeam'
 import type { OnboardingWizardPageProps } from '@/typing/onboarding'
@@ -19,8 +18,6 @@ export function OnboardingWizardPage({
     wizard,
     branding,
     templateConfiguration,
-    fileInputRef,
-    openFilePicker,
     handlePrimaryAction,
     handleSecondaryAction,
     leftLabel,
@@ -36,22 +33,6 @@ export function OnboardingWizardPage({
     onCompleted,
     onAuthenticationExpired,
   })
-
-  function handleFileInputChange(event: ChangeEvent<HTMLInputElement>): void {
-    templateConfiguration.addFiles(Array.from(event.target.files ?? []))
-    event.target.value = ''
-  }
-
-  function handleDrop(event: DragEvent<HTMLElement>): void {
-    event.preventDefault()
-    if (wizard.currentStep === 2) {
-      templateConfiguration.addFiles(Array.from(event.dataTransfer.files))
-    }
-  }
-
-  function handleDragOver(event: DragEvent<HTMLElement>): void {
-    event.preventDefault()
-  }
 
   function renderStep() {
     if (wizard.currentStep === 1) {
@@ -70,12 +51,7 @@ export function OnboardingWizardPage({
     }
 
     if (wizard.currentStep === 2) {
-      return (
-        <Step2UploadReports
-          templateConfiguration={templateConfiguration}
-          onOpenFilePicker={openFilePicker}
-        />
-      )
+      return <Step2TemplatePreview />
     }
 
     if (wizard.currentStep === 3) {
@@ -104,11 +80,7 @@ export function OnboardingWizardPage({
   return (
     <OnboardingWizardShell
       currentStep={wizard.currentStep}
-      fileInputRef={fileInputRef}
       showWelcomeOverlay={wizard.showWelcomeOverlay}
-      onDrop={handleDrop}
-      onDragOver={handleDragOver}
-      onFileInputChange={handleFileInputChange}
       onFinishWelcome={wizard.finishWelcome}
       onLogout={onLogout}
       footer={{

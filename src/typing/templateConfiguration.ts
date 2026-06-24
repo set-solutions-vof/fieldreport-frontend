@@ -69,10 +69,6 @@ export type UseTemplateConfigurationResult = {
   isConfirming: boolean
   hasUnsavedChanges: boolean
   retry: () => void
-  addFiles: (files: File[]) => void
-  removeFile: (fileName: string) => void
-  cancelUpload: () => void
-  startAnalysis: () => Promise<'processing' | 'ready' | 'failed'>
   updateSectionLabel: (sectionId: string, label: string) => void
   updateSectionRenderType: (
     sectionId: string,

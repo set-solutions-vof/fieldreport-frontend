@@ -9,7 +9,10 @@ import type { SaveAllStatus, EvidenceRailItem } from '@/typing/reportDetailView'
 import { formatDuration } from './formatDuration'
 
 export function allSectionsApproved(sections: ReportSectionModel[]): boolean {
-  return sections.length > 0 && sections.every((section) => section.approved)
+  if (sections.length === 0) return false
+  return sections.every(
+    (s) => s.approved || (s.generated_content === '' && s.reviewed_content === null),
+  )
 }
 
 export function sectionContent(

@@ -1,11 +1,10 @@
 import { useRef, useState } from 'react'
-import { confirmTemplate, startTemplateAnalysis } from '@/lib/api/templates'
+import { confirmTemplate } from '@/lib/api/templates'
 import { translations } from '@/lib/translations'
 import type {
   TemplateSectionGroup,
   TemplateSectionType,
 } from '@/typing/template'
-import { pageStateFromTemplateStatus } from '../lib/pageStateFromTemplateStatus'
 import {
   addPreviewSection,
   deletePreviewSection,
@@ -18,7 +17,6 @@ import {
 import type {
   TemplateEditablePageState,
   TemplatePageState,
-  TemplateUploadingPageState,
   UseTemplateConfigurationParameters,
   UseTemplateConfigurationResult,
 } from '@/typing/templateConfiguration'
@@ -44,65 +42,6 @@ export function useTemplateConfiguration({
   > | null>(null)
   const [hasEditedApprovedTemplate, setHasEditedApprovedTemplate] =
     useState(false)
-
-  function addFiles(files: File[]): void {
-    setActionErrorMessage(null)
-    setPageState((currentState) => ({
-      kind: 'uploading',
-      files:
-        currentState.kind === 'uploading'
-          ? [...currentState.files, ...files]
-          : files,
-    }))
-  }
-
-  function removeFile(fileName: string): void {
-    setPageState((currentState) => {
-      const uploadingState = currentState as TemplateUploadingPageState
-      const remainingFiles = uploadingState.files.filter(
-        (file) => file.name !== fileName,
-      )
-
-      return remainingFiles.length > 0
-        ? { kind: 'uploading', files: remainingFiles }
-        : { kind: 'empty' }
-    })
-  }
-
-  function cancelUpload(): void {
-    setActionErrorMessage(null)
-    setPageState({ kind: 'empty' })
-  }
-
-  async function startAnalysis(): Promise<'processing' | 'ready' | 'failed'> {
-    const uploadingState = pageState as TemplateUploadingPageState
-    setActionErrorMessage(null)
-
-    try {
-      const templateStatus = await startTemplateAnalysis(uploadingState.files)
-      const nextState = pageStateFromTemplateStatus(
-        templateStatus,
-        uploadingState.files,
-      )
-      setPageState(nextState)
-
-      if (nextState.kind === 'preview' || nextState.kind === 'approved') {
-        return 'ready'
-      }
-
-      if (nextState.kind === 'processing') {
-        return 'processing'
-      }
-
-      return 'failed'
-    } catch (error) {
-      showAuthenticationOrError(
-        error,
-        translations.template.errors.analysis_failed,
-      )
-      return 'failed'
-    }
-  }
 
   function updateSectionLabel(sectionId: string, label: string): void {
     markTemplateChanged()
@@ -246,10 +185,6 @@ export function useTemplateConfiguration({
       pageState.kind === 'preview' ||
       (pageState.kind === 'editing' && hasEditedApprovedTemplate),
     retry,
-    addFiles,
-    removeFile,
-    cancelUpload,
-    startAnalysis,
     updateSectionLabel,
     updateSectionRenderType,
     updateSectionFields,

@@ -96,6 +96,8 @@ export type DocumentStatusCellProps = {
 export type ReportActionBarProps = {
   dirtyCount: number
   saveStatus: SaveAllStatus
+  reportId: string
+  allSectionsApproved: boolean
 }
 
 export type ReportStubViewProps = {

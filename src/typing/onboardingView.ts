@@ -1,4 +1,4 @@
-import type { ChangeEvent, DragEvent, ReactNode, RefObject } from 'react'
+import type { ReactNode } from 'react'
 import type { CurrentUser } from '@/typing/auth'
 import type {
   InviteResponse,
@@ -78,11 +78,6 @@ export type Step1CompanyProfileProps = {
   onPrimaryColorChange: (color: string) => void
 }
 
-export type Step2UploadReportsProps = {
-  templateConfiguration: UseTemplateConfigurationResult
-  onOpenFilePicker: () => void
-}
-
 export type Step3ReviewTemplateProps = {
   templateConfiguration: UseTemplateConfigurationResult
 }
@@ -121,12 +116,8 @@ export type OnboardingStateScreenProps =
 
 export type OnboardingWizardShellProps = {
   currentStep: OnboardingStep
-  fileInputRef: RefObject<HTMLInputElement | null>
   footer: OnboardingFooterProps
   showWelcomeOverlay: boolean
-  onDrop: (event: DragEvent<HTMLElement>) => void
-  onDragOver: (event: DragEvent<HTMLElement>) => void
-  onFileInputChange: (event: ChangeEvent<HTMLInputElement>) => void
   onFinishWelcome: () => void
   onLogout: () => void
   children: ReactNode

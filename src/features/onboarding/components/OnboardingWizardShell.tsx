@@ -11,12 +11,8 @@ const welcomeContentWidthClass =
 
 export function OnboardingWizardShell({
   currentStep,
-  fileInputRef,
   footer,
   showWelcomeOverlay,
-  onDrop,
-  onDragOver,
-  onFileInputChange,
   onFinishWelcome,
   onLogout,
   children,
@@ -24,17 +20,7 @@ export function OnboardingWizardShell({
   return (
     <main
       className="h-[100dvh] overflow-hidden [background:var(--fr-background)] grid [grid-template-rows:auto_minmax(var(--fr-space-0),_1fr)_auto]"
-      onDrop={onDrop}
-      onDragOver={onDragOver}
     >
-      <input
-        ref={fileInputRef}
-        className="absolute [width:var(--fr-space-0)] [height:var(--fr-space-0)] overflow-hidden [opacity:0] pointer-events-none"
-        type="file"
-        multiple
-        accept="application/pdf"
-        onChange={onFileInputChange}
-      />
       <header className="grid [grid-template-columns:1fr_auto_1fr] items-center [gap:var(--fr-space-4)] [min-width:var(--fr-space-0)] [padding:var(--fr-space-4)_var(--fr-space-7)] [background:var(--fr-surface)] [border-bottom:var(--fr-border-width-sm)_solid_var(--fr-border)]">
         <Logo variant="accent" />
         <OnboardingStepper currentStep={currentStep} />

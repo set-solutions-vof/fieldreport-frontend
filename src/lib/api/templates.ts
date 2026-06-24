@@ -1,5 +1,6 @@
 import { authenticatedFetch } from '@/lib/api/authenticatedFetch'
 import { apiBaseUrl } from '@/lib/config'
+import { getAuthTokens } from '@/lib/auth/tokenStore'
 import type {
   ConfirmTemplatePayload,
   TemplateSection,
@@ -66,33 +67,13 @@ export async function getTemplateStatus(): Promise<TemplateStatusResponse> {
   )
 }
 
-export async function startTemplateAnalysis(
-  files: File[],
-): Promise<TemplateStatusResponse> {
-  const formData = new FormData()
-
-  files.forEach((file) => {
-    formData.append('files', file)
-  })
-
-  const response = await authenticatedFetch(`${templateEndpoint}/analysis`, {
-    method: 'POST',
-    body: formData,
-  })
-  return normalizeTemplateStatus(
-    (await response.json()) as TemplateStatusResponse,
-  )
+export async function getTemplatePdfPreview(): Promise<void> {
+  await authenticatedFetch(`${templateEndpoint}/preview-pdf`)
 }
 
-export async function getTemplateAnalysis(
-  jobId: string,
-): Promise<TemplateStatusResponse> {
-  const response = await authenticatedFetch(
-    `${templateEndpoint}/analysis/${jobId}`,
-  )
-  return normalizeTemplateStatus(
-    (await response.json()) as TemplateStatusResponse,
-  )
+export function getTemplatePdfPreviewUrl(): string {
+  const { access_token } = getAuthTokens()
+  return `${templateEndpoint}/preview-pdf?access_token=${access_token}`
 }
 
 export async function confirmTemplate(
