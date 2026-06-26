@@ -37,7 +37,8 @@ export function ReportSection({
     onContentChange(section.id, nextContent)
   }
 
-  function handleApprove(): void {
+  function handleApprove(e: React.MouseEvent): void {
+    e.stopPropagation()
     void approve()
   }
 
@@ -52,7 +53,11 @@ export function ReportSection({
         .filter(Boolean)
         .join(' ')}
       onClick={() => onActivate(section.id)}
-      onFocus={() => onActivate(section.id)}
+      onFocus={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+          onActivate(section.id)
+        }
+      }}
     >
       <div className="flex items-center justify-between [gap:var(--fr-space-4)] [margin-bottom:var(--fr-space-3)]">
         <div className="flex [min-width:var(--fr-space-0)] [align-items:baseline] [gap:var(--fr-space-3)] [&_h2]:[margin:var(--fr-space-0)] [&_h2]:[font-size:var(--fr-text-lg)] [&_h2]:[font-weight:var(--fr-weight-bold)] [&_h2]:[letter-spacing:var(--fr-tracking-section)] [&_h2]:[line-height:var(--fr-leading-snug)] [&_h2]:[color:var(--fr-text-primary)]">
@@ -86,6 +91,7 @@ export function ReportSection({
               .join(' ')}
             aria-pressed={section.approved}
             disabled={!section.approved && content.trim() === ''}
+            onFocus={(e) => e.stopPropagation()}
             onClick={handleApprove}
           >
             <span
