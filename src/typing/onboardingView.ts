@@ -6,7 +6,6 @@ import type {
   OnboardingCompany,
   OnboardingStep,
 } from '@/typing/onboarding'
-import type { UseTemplateConfigurationResult } from '@/typing/templateConfiguration'
 
 export type OnboardingFooterProps = {
   leftLabel?: string | null
@@ -76,10 +75,6 @@ export type Step1CompanyProfileProps = {
   isUploadingLogo: boolean
   onLogoUpload: (file: File) => Promise<void>
   onPrimaryColorChange: (color: string) => void
-}
-
-export type Step3ReviewTemplateProps = {
-  templateConfiguration: UseTemplateConfigurationResult
 }
 
 export type Step4InviteTeamProps = {

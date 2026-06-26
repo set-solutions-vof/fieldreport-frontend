@@ -4,8 +4,7 @@
     "optional_badge": "Optioneel",
     "steps": {
       "company_profile": "Bedrijfsprofiel",
-      "upload_reports": "Rapporten uploaden",
-      "review_template": "Template bekijken",
+      "template_preview": "Template controleren",
       "invite_team": "Team uitnodigen"
     }
   },
@@ -53,7 +52,7 @@
     "missing_reports": "Upload en analyseer eerst rapporten."
   },
   "invites": {
-    "step_label": "Stap 4",
+    "step_label": "Stap 3",
     "title": "Je bent klaar om te starten",
     "description": "Nodig collega's uit zodat zij direct rapporten kunnen valideren of beheren.",
     "email_label": "E-mailadres",

@@ -37,7 +37,7 @@ export function OnboardingWizardShell({
       <div
         className={[
           'flex [min-width:var(--fr-space-0)] [min-height:var(--fr-space-0)] flex-1',
-          currentStep === 3
+          currentStep === 2
             ? 'flex-col overflow-hidden'
             : 'flex-col items-center justify-center overflow-auto',
         ].join(' ')}

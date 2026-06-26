@@ -33,18 +33,8 @@ export function useOnboardingWizardPage({
     }
 
     if (wizard.currentStep === 2) {
-      wizard.goToNextStep()
-      return
-    }
-
-    if (wizard.currentStep === 3) {
       if (templateConfiguration.pageState.kind === 'approved') {
         wizard.goToNextStep()
-        return
-      }
-
-      if (templateConfiguration.pageState.kind === 'editing') {
-        await templateConfiguration.confirmCurrentTemplate()
         return
       }
 
@@ -66,27 +56,26 @@ export function useOnboardingWizardPage({
 
   const rightLabel = (() => {
     if (wizard.currentStep === 1) return translations.onboarding.footer.next
-    if (wizard.currentStep === 2) return translations.onboarding.footer.next
-    if (wizard.currentStep === 3)
+    if (wizard.currentStep === 2)
       return translations.onboarding.footer.confirm_template
     return translations.onboarding.footer.go_to_dashboard
   })()
 
   const rightTrailingIcon =
-    currentStep === 3 ? (
+    currentStep === 2 ? (
       <OnboardingIcon
         name="check"
         className="[width:var(--fr-space-4)] [height:var(--fr-space-4)] [color:var(--fr-text-on-accent)] block [width:var(--fr-space-4)] [height:var(--fr-space-4)] shrink-0 [width:var(--fr-space-5)] [height:var(--fr-space-5)]"
       />
-    ) : currentStep === 4 ? undefined : (
+    ) : currentStep === 1 ? (
       <OnboardingIcon
         name="chevronRight"
         className="[width:var(--fr-space-4)] [height:var(--fr-space-4)] [color:var(--fr-text-on-accent)] block [width:var(--fr-space-4)] [height:var(--fr-space-4)] shrink-0 [width:var(--fr-space-5)] [height:var(--fr-space-5)]"
       />
-    )
+    ) : undefined
 
   const rightDisabled = (() => {
-    if (wizard.currentStep === 3) {
+    if (wizard.currentStep === 2) {
       return !(
         templateConfiguration.pageState.kind === 'preview' ||
         templateConfiguration.pageState.kind === 'approved' ||
@@ -99,12 +88,12 @@ export function useOnboardingWizardPage({
   const footerHelperText = null
 
   const footerErrorMessage =
-    wizard.currentStep === 4
+    wizard.currentStep === 3
       ? wizard.completionErrorMessage
       : templateConfiguration.actionErrorMessage
 
   const footerAlign: 'center' | 'end' =
-    wizard.currentStep === 4 ? 'center' : 'end'
+    wizard.currentStep === 3 ? 'center' : 'end'
 
   return {
     wizard,

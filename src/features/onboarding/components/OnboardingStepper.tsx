@@ -12,9 +12,8 @@ const steps: OnboardingStepDefinition[] = [
     label: translations.onboarding.stepper.steps.company_profile,
     optional: true,
   },
-  { step: 2, label: translations.onboarding.stepper.steps.upload_reports },
-  { step: 3, label: translations.onboarding.stepper.steps.review_template },
-  { step: 4, label: translations.onboarding.stepper.steps.invite_team },
+  { step: 2, label: translations.onboarding.stepper.steps.template_preview },
+  { step: 3, label: translations.onboarding.stepper.steps.invite_team },
 ]
 
 export function OnboardingStepper({ currentStep }: OnboardingStepperProps) {

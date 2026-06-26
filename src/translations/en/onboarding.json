@@ -4,8 +4,7 @@
     "optional_badge": "Optional",
     "steps": {
       "company_profile": "Company profile",
-      "upload_reports": "Upload reports",
-      "review_template": "Review template",
+      "template_preview": "Review template",
       "invite_team": "Invite team"
     }
   },
@@ -53,7 +52,7 @@
     "missing_reports": "Upload and analyze reports first."
   },
   "invites": {
-    "step_label": "Step 4",
+    "step_label": "Step 3",
     "title": "You are ready to get started",
     "description": "Invite colleagues so they can validate or manage reports right away.",
     "email_label": "Email address",

@@ -3,7 +3,6 @@ import { OnboardingWizardShell } from '../components/OnboardingWizardShell'
 import { useOnboardingWizardPage } from '../hooks/useOnboardingWizardPage'
 import { Step1CompanyProfile } from '../steps/Step1CompanyProfile'
 import { Step2TemplatePreview } from '../steps/Step2TemplatePreview'
-import { Step3ReviewTemplate } from '../steps/Step3ReviewTemplate'
 import { Step4InviteTeam } from '../steps/Step4InviteTeam'
 import type { OnboardingWizardPageProps } from '@/typing/onboarding'
 
@@ -52,12 +51,6 @@ export function OnboardingWizardPage({
 
     if (wizard.currentStep === 2) {
       return <Step2TemplatePreview />
-    }
-
-    if (wizard.currentStep === 3) {
-      return (
-        <Step3ReviewTemplate templateConfiguration={templateConfiguration} />
-      )
     }
 
     return <Step4InviteTeam onAuthenticationExpired={onAuthenticationExpired} />

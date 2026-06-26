@@ -22,7 +22,7 @@ export function useOnboardingWizard({
   }
 
   const goToNextStep = useCallback((): void => {
-    setCurrentStep((step) => Math.min(4, step + 1) as OnboardingStep)
+    setCurrentStep((step) => Math.min(3, step + 1) as OnboardingStep)
   }, [])
 
   function skipToNextStep(): void {
